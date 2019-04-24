@@ -12,6 +12,7 @@ import {ExerciseCommand as PbExerciseCommand} from "../generated/com/digitalasse
 export const ExerciseCommandCodec: Codec<PbExerciseCommand, ExerciseCommand> = {
     deserialize(command: PbExerciseCommand): ExerciseCommand {
         return {
+            kind: "exercise",
             templateId: IdentifierCodec.deserialize(command.getTemplateId()!),
             contractId: command.getContractId(),
             choice: command.getChoice(),

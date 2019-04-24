@@ -12,6 +12,7 @@ import {CreateCommand as PbCreateCommand} from "../generated/com/digitalasset/le
 export const CreateCommandCodec: Codec<PbCreateCommand, CreateCommand> = {
     deserialize(command: PbCreateCommand): CreateCommand {
         return {
+            kind: "create",
             templateId: IdentifierCodec.deserialize(command.getTemplateId()!),
             arguments: RecordCodec.deserialize(command.getCreateArguments()!)
         }

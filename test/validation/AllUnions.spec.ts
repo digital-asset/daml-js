@@ -15,7 +15,7 @@ import {ArbitraryLedgerOffset} from "../arbitrary/ArbitraryLedgerOffset";
 import {ArbitraryValue} from "../arbitrary/ArbitraryRecordValueVariant";
 import {ArbitraryCommand} from "../arbitrary/ArbitraryCommand";
 
-function test<A extends { [_: string]: any }>(
+function test<A extends { kind: string } & { [_: string]: any }>(
     validation: UnionValidation<A>,
     arbitrary: jsc.Arbitrary<A>
 ): void {
@@ -59,30 +59,23 @@ function test<A extends { [_: string]: any }>(
             }
         );
         jsc.property(
-            'signal a non-unique union error on objects without at least one defined key',
+            'signal a missing type tag error on unions without a type tag',
             () => {
                 return containsError(validation.validate({}).errors, {
-                    kind: 'non-unique-union',
-                    keys: []
+                    kind: 'missing-type-tag',
+                    expectedTypeTags: Object.keys(validation.values())
                 });
             }
         );
         jsc.property(
-            'not validate objects with more than one defined key',
+            'signal an unexpected type tag error for invalid type tags',
             arbitrary,
             value => {
-                const values = validation.values();
-                const keys = Object.keys(values);
-                let set = keys.filter(key => value[key] !== undefined);
-                for (const key of keys) {
-                    if (set.some(set => set === key)) continue;
-                    value[key] = null;
-                    set.push(key);
-                    break;
-                }
+                value['kind'] = 'supercalifragilisticexpialidocious'; // reasonably this will never be a valid type tag
                 return containsError(validation.validate(value).errors, {
-                    kind: 'non-unique-union',
-                    keys: set
+                    kind: 'unexpected-type-tag',
+                    expectedTypeTags: Object.keys(validation.values()),
+                    actualTypeTag: 'supercalifragilisticexpialidocious'
                 });
             }
         );

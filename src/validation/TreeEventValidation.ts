@@ -7,11 +7,11 @@ import {TreeEvent} from "../model/TreeEvent";
 import {Validation} from "./Validation";
 import {union} from "./Union";
 
-function values(): Record<keyof TreeEvent, Validation> {
+function values(): { [_ in TreeEvent['kind']]: Validation } {
     return {
         created: CreatedEventValidation,
         exercised: ExercisedEventValidation
     };
 }
 
-export const TreeEventValidation = union<TreeEvent>("TreeEvent", values)
+export const TreeEventValidation = union<TreeEvent>('TreeEvent', values);

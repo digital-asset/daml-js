@@ -6,19 +6,11 @@ import {ArbitraryValue} from "./ArbitraryRecordValueVariant";
 import {ArbitraryIdentifier} from "./ArbitraryIdentifier";
 import {ExerciseCommand} from "../../src/model/ExerciseCommand";
 
-export const ArbitraryExerciseCommand: jsc.Arbitrary<ExerciseCommand> = jsc
-    .tuple([ArbitraryValue, jsc.string, jsc.string, ArbitraryIdentifier])
-    .smap<ExerciseCommand>(
-        ([args, choice, contractId, templateId]) => ({
-            argument: args,
-            choice: choice,
-            contractId: contractId,
-            templateId: templateId
-        }),
-        exerciseCommand => [
-            exerciseCommand.argument,
-            exerciseCommand.choice,
-            exerciseCommand.contractId,
-            exerciseCommand.templateId
-        ]
-    );
+export const ArbitraryExerciseCommand: jsc.Arbitrary<ExerciseCommand> =
+    jsc.record<ExerciseCommand>({
+        kind: jsc.constant("exercise"),
+        argument: ArbitraryValue,
+        choice: jsc.string,
+        contractId: jsc.string,
+        templateId: ArbitraryIdentifier
+    });

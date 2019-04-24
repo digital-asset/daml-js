@@ -424,23 +424,22 @@ describe('Reference Codec (SubmitRequestValidation)', () => {
             applicationId: 'command-applicationId',
             list: [
                 {
-                    create: {
-                        templateId: {
-                            packageId: 'templateId-packageId',
-                            moduleName: 'templateId-moduleName',
-                            entityName: 'templateId-entityName'
+                    kind: 'create',
+                    templateId: {
+                        packageId: 'templateId-packageId',
+                        moduleName: 'templateId-moduleName',
+                        entityName: 'templateId-entityName'
+                    },
+                    arguments: {
+                        recordId: {
+                            packageId: 'recordId-packageId',
+                            moduleName: 'recordId-moduleName',
+                            entityName: 'recordId-entityName'
                         },
-                        arguments: {
-                            recordId: {
-                                packageId: 'recordId-packageId',
-                                moduleName: 'recordId-moduleName',
-                                entityName: 'recordId-entityName'
-                            },
-                            fields: {
-                                sender: {party: 'sender-party'},
-                                receiver: {party: 'receiver-party'},
-                                count: {int64: '42'}
-                            }
+                        fields: {
+                            sender: {kind: 'party', party: 'sender-party'},
+                            receiver: {kind: 'party', party: 'receiver-party'},
+                            count: {kind: 'int64', int64: '42'}
                         }
                     }
                 }
@@ -668,9 +667,9 @@ describe('Non-verbose records', () => {
     it('should be mapped to numeric indexes', () => {
         const expected: Record = {
             fields: {
-                '0': {int64: '42'},
-                '1': {contractId: '0123456789abcdef'},
-                '2': {bool: true}
+                '0': {kind: 'int64', int64: '42'},
+                '1': {kind: 'contractId', contractId: '0123456789abcdef'},
+                '2': {kind: 'bool', bool: true}
             }
         };
         const record: PbRecord = new PbRecord();

@@ -4,7 +4,4 @@
 import {CreateCommand} from './CreateCommand';
 import {ExerciseCommand} from "./ExerciseCommand";
 
-export interface Command {
-    create?: CreateCommand
-    exercise?: ExerciseCommand
-}
+export type Command = CreateCommand | ExerciseCommand

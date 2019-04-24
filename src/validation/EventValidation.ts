@@ -6,10 +6,10 @@ import {Validation} from "./Validation";
 import {ArchivedEventValidation} from "./ArchivedEventValidation";
 import {CreatedEventValidation} from "./CreatedEventValidation";
 import {ExercisedEventValidation} from "./ExercisedEventValidation";
-import {union} from "./Union";
 import {Event} from "../model/Event";
+import {union} from "./Union";
 
-function values(): Record<keyof Event, Validation> {
+function values(): { [_ in Event['kind']]: Validation } {
     return {
         archived: ArchivedEventValidation,
         created: CreatedEventValidation,

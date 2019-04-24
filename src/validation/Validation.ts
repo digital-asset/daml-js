@@ -1,13 +1,7 @@
 // Copyright (c) 2019 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-IdentifierValidation: Apache-2.0
 
-export type ValidationError = MissingKey | TypeError | UnexpectedKey | NonUniqueUnion
-
-export interface MissingKey {
-    kind: 'missing-key'
-    expectedKey: string
-    expectedType: string
-}
+export type ValidationError = TypeError | MissingKey | UnexpectedKey | MissingTypeTag | UnexpectedTypeTag
 
 export interface TypeError {
     kind: 'type-error'
@@ -15,14 +9,26 @@ export interface TypeError {
     actualType: string
 }
 
+export interface MissingKey {
+    kind: 'missing-key'
+    expectedKey: string
+    expectedType: string
+}
+
 export interface UnexpectedKey {
     kind: 'unexpected-key'
     key: string
 }
 
-export interface NonUniqueUnion {
-    kind: 'non-unique-union',
-    keys: string[]
+export interface MissingTypeTag {
+    kind: 'missing-type-tag',
+    expectedTypeTags: string[]
+}
+
+export interface UnexpectedTypeTag {
+    kind: 'unexpected-type-tag',
+    expectedTypeTags: string[],
+    actualTypeTag: string
 }
 
 export interface ValidationTree {
@@ -42,8 +48,8 @@ export interface Validation {
     validate(value: any, key: string, validation: ValidationTree): ValidationTree
 }
 
-export interface UnionValidation<A extends object> extends Validation {
-    values(): Record<keyof A, Validation>
+export interface UnionValidation<A extends { kind: string }> extends Validation {
+    values(): { [_ in A['kind']]: Validation }
 }
 
 export interface ObjectValidation<A extends object> extends Validation {
@@ -72,7 +78,7 @@ export function typeOf(value: any): 'string' | 'number' | 'bigint' | 'boolean' |
 }
 
 /**
- * Extracts required keys as a literal type union
+ * Extracts required keys as a string type union
  */
 export type RequiredKeys<T> = { [K in keyof T]: {} extends Pick<T, K> ? never : K } extends { [_ in keyof T]: infer U }
     ? {} extends U
@@ -81,7 +87,7 @@ export type RequiredKeys<T> = { [K in keyof T]: {} extends Pick<T, K> ? never : 
     : never
 
 /**
- * Extracts optional keys as a literal type union
+ * Extracts optional keys as a string type union
  */
 export type OptionalKeys<T> = { [K in keyof T]: T extends Record<K, T[K]> ? never : K } extends {
         [_ in keyof T]: infer U

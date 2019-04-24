@@ -6,12 +6,9 @@ import {ArbitraryRecord} from './ArbitraryRecordValueVariant';
 import {ArbitraryIdentifier} from './ArbitraryIdentifier';
 import {CreateCommand} from "../../src/model/CreateCommand";
 
-export const ArbitraryCreateCommand: jsc.Arbitrary<CreateCommand> = jsc
-    .pair(ArbitraryRecord, ArbitraryIdentifier)
-    .smap<CreateCommand>(
-        ([args, templateId]) => ({
-            arguments: args,
-            templateId: templateId
-        }),
-        createCommand => [createCommand.arguments, createCommand.templateId]
-    );
+export const ArbitraryCreateCommand: jsc.Arbitrary<CreateCommand> =
+    jsc.record<CreateCommand>({
+        kind: jsc.constant('create'),
+        arguments: ArbitraryRecord,
+        templateId: ArbitraryIdentifier
+    });

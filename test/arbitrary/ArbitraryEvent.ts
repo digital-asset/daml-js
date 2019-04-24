@@ -8,13 +8,13 @@ import {ExercisedEvent} from "../../src/model/ExercisedEvent";
 import {ArbitraryIdentifier} from "./ArbitraryIdentifier";
 import {ArbitraryRecord, ArbitraryValue} from "./ArbitraryRecordValueVariant";
 import {maybe} from "./Maybe";
-import {Event} from "../../src/model/Event";
 
 export const ArbitraryArchivedEvent: jsc.Arbitrary<ArchivedEvent> = jsc
     .tuple([jsc.string, jsc.string, ArbitraryIdentifier, jsc.array(jsc.string)])
     .smap<ArchivedEvent>(
         ([contractId, eventId, templateId, witnessParties]) => {
             return {
+                kind: 'archived',
                 contractId: contractId,
                 eventId: eventId,
                 templateId: templateId,
@@ -36,6 +36,7 @@ export const ArbitraryCreatedEvent: jsc.Arbitrary<CreatedEvent> = jsc
     .smap<CreatedEvent>(
         ([contractId, eventId, templateId, args, witnessParties]) => {
             return {
+                kind: 'created',
                 contractId: contractId,
                 eventId: eventId,
                 templateId: templateId,
@@ -80,6 +81,7 @@ export const ArbitraryExercisedEvent: jsc.Arbitrary<ExercisedEvent> = jsc
              templateId,
              witnessParties
          ]) => ({
+            kind: 'exercised',
             actingParties: actingParties,
             childEventIds: childEventIds,
             choice: choice,
@@ -105,15 +107,5 @@ export const ArbitraryExercisedEvent: jsc.Arbitrary<ExercisedEvent> = jsc
         ]
     );
 
-const ArbitraryArchived: jsc.Arbitrary<Event> = ArbitraryArchivedEvent.smap<{
-    archived?: ArchivedEvent;
-}>(archived => ({archived: archived}), event => event.archived!);
-const ArbitraryCreated: jsc.Arbitrary<Event> = ArbitraryCreatedEvent.smap<{
-    created?: CreatedEvent;
-}>(created => ({created: created}), event => event.created!);
-const ArbitraryExercised: jsc.Arbitrary<Event> = ArbitraryExercisedEvent.smap<{
-    exercised?: ExercisedEvent;
-}>(exercised => ({exercised: exercised}), event => event.exercised!);
-
-export const ArbitraryEvent = jsc.oneof([ArbitraryArchived, ArbitraryCreated, ArbitraryExercised]);
-export const ArbitraryTreeEvent = jsc.oneof([ArbitraryCreated, ArbitraryExercised]);
+export const ArbitraryEvent = jsc.oneof([ArbitraryArchivedEvent, ArbitraryCreatedEvent, ArbitraryExercisedEvent]);
+export const ArbitraryTreeEvent = jsc.oneof([ArbitraryCreatedEvent, ArbitraryExercisedEvent]);

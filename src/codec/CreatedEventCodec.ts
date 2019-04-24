@@ -12,6 +12,7 @@ import {CreatedEvent as PbCreatedEvent} from "../generated/com/digitalasset/ledg
 export const CreatedEventCodec: Codec<PbCreatedEvent, CreatedEvent> = {
     deserialize(event: PbCreatedEvent): CreatedEvent {
         return {
+            kind: "created",
             eventId: event.getEventId(),
             contractId: event.getContractId(),
             templateId: IdentifierCodec.deserialize(event.getTemplateId()!),

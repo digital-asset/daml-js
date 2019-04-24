@@ -4,7 +4,4 @@
 import {ExercisedEvent} from "./ExercisedEvent";
 import {CreatedEvent} from "./CreatedEvent";
 
-export interface TreeEvent {
-    created?: CreatedEvent,
-    exercised?: ExercisedEvent
-}
+export type TreeEvent = CreatedEvent | ExercisedEvent

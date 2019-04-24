@@ -3,7 +3,7 @@
 
 import {expect} from 'chai';
 import {enumeration} from "../../src/validation/Enumeration";
-import {LedgerOffset} from "../../src/model/LedgerOffset";
+import {LedgerOffsetBoundaryValue} from "../../src/model/LedgerOffset";
 import {ValidationTree} from "../../src/validation/Validation";
 
 describe('Validation: Enumeration', () => {
@@ -12,30 +12,30 @@ describe('Validation: Enumeration', () => {
         const expected: ValidationTree = {
             errors: [],
             children: {}
-        }
-        const validation = enumeration(LedgerOffset.Boundary, 'LedgerOffsetValidation.Boundary')
-        expect(validation.validate(LedgerOffset.Boundary.BEGIN)).to.deep.equal(expected);
+        };
+        const validation = enumeration(LedgerOffsetBoundaryValue, 'LedgerOffsetBoundaryValue')
+        expect(validation.validate(LedgerOffsetBoundaryValue.BEGIN)).to.deep.equal(expected);
     });
 
     it('should validate a second value of the enumeration correctly', () => {
         const expected: ValidationTree = {
             errors: [],
             children: {}
-        }
-        const validation = enumeration(LedgerOffset.Boundary, 'LedgerOffsetValidation.Boundary')
-        expect(validation.validate(LedgerOffset.Boundary.END)).to.deep.equal(expected);
+        };
+        const validation = enumeration(LedgerOffsetBoundaryValue, 'LedgerOffsetBoundaryValue')
+        expect(validation.validate(LedgerOffsetBoundaryValue.END)).to.deep.equal(expected);
     });
 
     it('should not validate a value which is not part of the enumeration', () => {
         const expected: ValidationTree = {
             errors: [{
                 kind: 'type-error',
-                expectedType: 'LedgerOffsetValidation.Boundary',
+                expectedType: 'LedgerOffsetBoundaryValue',
                 actualType: 'number'
             }],
             children: {}
-        }
-        const validation = enumeration(LedgerOffset.Boundary, 'LedgerOffsetValidation.Boundary')
+        };
+        const validation = enumeration(LedgerOffsetBoundaryValue, 'LedgerOffsetBoundaryValue')
         expect(validation.validate(42)).to.deep.equal(expected);
     });
 

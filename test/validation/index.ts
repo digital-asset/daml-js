@@ -7,7 +7,7 @@ export function pickFrom<A>(as: A[]): A {
     return as[(Math.floor(Math.random()) * as.length) % as.length];
 }
 
-function looselyEqual(left: string[], right: string[]): boolean {
+function equalsDisregardingOrder(left: string[], right: string[]): boolean {
     const l = [...left].sort();
     const r = [...right].sort();
     return l.every((v, i) => v === r[i]);
@@ -27,10 +27,16 @@ export function containsError(
                 );
             case 'unexpected-key':
                 return check.kind === 'unexpected-key' && check.key === error.key;
-            case 'non-unique-union':
+            case 'missing-type-tag':
                 return (
-                    check.kind === 'non-unique-union' &&
-                    looselyEqual(check.keys, error.keys)
+                    check.kind === 'missing-type-tag' &&
+                    equalsDisregardingOrder(check.expectedTypeTags, error.expectedTypeTags)
+                );
+            case 'unexpected-type-tag':
+                return (
+                    check.kind === 'unexpected-type-tag' &&
+                    check.actualTypeTag === error.actualTypeTag &&
+                    equalsDisregardingOrder(check.expectedTypeTags, error.expectedTypeTags)
                 );
             case 'missing-key':
                 return (

@@ -9,9 +9,11 @@ import {OptionalFieldsValidators, RequiredFieldsValidators} from "./Validation";
 import {array} from "./Array";
 import {native} from "./Native";
 import {object} from "./Object";
+import {string} from "./String";
 
 function required(): RequiredFieldsValidators<ExercisedEvent> {
     return {
+        kind: string('exercised'),
         actingParties: array(native('string')),
         choice: native('string'),
         argument: ValueValidation,

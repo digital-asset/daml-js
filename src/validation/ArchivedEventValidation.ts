@@ -8,9 +8,11 @@ import {array} from "./Array";
 import {noFields, RequiredFieldsValidators} from "./Validation";
 import {ArchivedEvent} from "../model/ArchivedEvent";
 import {IdentifierValidation} from "./IdentifierValidation";
+import {string} from "./String";
 
 function required(): RequiredFieldsValidators<ArchivedEvent> {
     return {
+        kind: string('archived'),
         contractId: native('string'),
         eventId: native('string'),
         templateId: IdentifierValidation,

@@ -1,17 +1,33 @@
 // Copyright (c) 2019 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-IdentifierValidation: Apache-2.0
 
-
-import {LedgerOffset} from "../model/LedgerOffset";
-import {Validation} from "./Validation";
+import {
+    LedgerOffset,
+    LedgerOffsetAbsolute,
+    LedgerOffsetBoundary,
+    LedgerOffsetBoundaryValue
+} from "../model/LedgerOffset";
+import {noFields, Validation} from "./Validation";
 import {enumeration} from "./Enumeration";
 import {union} from "./Union";
 import {native} from "./Native";
+import {object} from "./Object";
+import {string} from "./String";
 
-function values(): Record<keyof LedgerOffset, Validation> {
+const LedgerOffsetAbsoluteValidation = object<LedgerOffsetAbsolute>('LedgerOffsetAbsolute', () => ({
+    kind: string('absolute'),
+    absolute: native('string')
+}), noFields);
+
+const LedgerOffsetBoundaryValidation = object<LedgerOffsetBoundary>('LedgerOffsetBoundary', () => ({
+    kind: string('boundary'),
+    boundary: enumeration(LedgerOffsetBoundaryValue, 'LedgerOffsetBoundaryValue')
+}), noFields);
+
+function values(): { [_ in LedgerOffset['kind']]: Validation } {
     return {
-        absolute: native('string'),
-        boundary: enumeration(LedgerOffset.Boundary, 'LedgerOffset.Boundary'),
+        absolute: LedgerOffsetAbsoluteValidation,
+        boundary: LedgerOffsetBoundaryValidation
     };
 }
 

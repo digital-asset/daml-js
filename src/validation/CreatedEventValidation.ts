@@ -9,9 +9,11 @@ import {IdentifierValidation} from "./IdentifierValidation";
 import {array} from "./Array";
 import {object} from "./Object";
 import {noFields, RequiredFieldsValidators} from "./Validation";
+import {string} from "./String";
 
 function required(): RequiredFieldsValidators<CreatedEvent> {
     return {
+        kind: string('created'),
         arguments: RecordValidation,
         contractId: native('string'),
         eventId: native('string'),

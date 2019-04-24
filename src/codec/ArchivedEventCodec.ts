@@ -9,6 +9,7 @@ import {ArchivedEvent as PbArchivedEvent} from '../generated/com/digitalasset/le
 export const ArchivedEventCodec: Codec<PbArchivedEvent, ArchivedEvent> = {
     deserialize(message: PbArchivedEvent): ArchivedEvent {
         return {
+            kind: 'archived',
             contractId: message.getContractId(),
             eventId: message.getEventId(),
             templateId: IdentifierCodec.deserialize(message.getTemplateId()!),

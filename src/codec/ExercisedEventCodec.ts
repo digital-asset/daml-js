@@ -12,6 +12,7 @@ import {ExercisedEvent as PbExercisedEvent} from "../generated/com/digitalasset/
 export const ExercisedEventCodec: Codec<PbExercisedEvent, ExercisedEvent> = {
     deserialize(message: PbExercisedEvent): ExercisedEvent {
         const event: ExercisedEvent = {
+            kind: "exercised",
             actingParties: message.getActingPartiesList(),
             choice: message.getChoice(),
             argument: ValueCodec.deserialize(message.getChoiceArgument()!),

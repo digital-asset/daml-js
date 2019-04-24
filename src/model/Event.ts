@@ -5,8 +5,4 @@ import {ExercisedEvent} from "./ExercisedEvent";
 import {CreatedEvent} from "./CreatedEvent";
 import {ArchivedEvent} from "./ArchivedEvent";
 
-export interface Event {
-    archived?: ArchivedEvent
-    created?: CreatedEvent
-    exercised?: ExercisedEvent
-}
+export type Event = ArchivedEvent | CreatedEvent | ExercisedEvent;
