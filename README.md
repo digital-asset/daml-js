@@ -1,3 +1,3 @@
-# Node bindings for DAML
+# Node.js bindings for DAML
 
 TODO: add documentation here.
