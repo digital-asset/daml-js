@@ -1,0 +1,34 @@
+# Azure Pipelines file, see https://aka.ms/yaml
+
+# Enable builds on all branches
+trigger:
+  # Build every commit as our release process relies on
+  # the release process being built alone.
+  batch: false
+  branches:
+    include:
+      - master
+
+
+# Enable PR triggers that target the master branch
+pr:
+  autoCancel: true # cancel previous builds on push
+  branches:
+    include:
+      - master
+
+pool:
+  name: 'linux-pool'
+strategy:
+  matrix:
+    node_8_x:
+      node_version: 8.x
+    node_10_x:
+      node_version: 10.x
+
+steps:
+- task: NodeTool@0 
+  inputs:
+    versionSpec: $(node_version)
+
+- script: npm run ci-pipeline

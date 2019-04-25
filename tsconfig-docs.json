@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig-base.json",
+  "include": ["./src/util/**/*.ts"],
+  "compilerOptions": {
+    "allowJs": true,
+    "noEmit": true
+  },
+  "typedocOptions": {
+    "ignoreCompilerErrors": true,
+    "excludeExternals": true,
+    "excludeNotExported": true,
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "mode": "file",
+    "out": "./docs"
+  }
+}
