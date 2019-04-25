@@ -15,16 +15,16 @@ import {object} from "./Object";
 import {string} from "./String";
 
 const LedgerOffsetAbsoluteValidation = object<LedgerOffsetAbsolute>('LedgerOffsetAbsolute', () => ({
-    kind: string('absolute'),
+    __type__: string('absolute'),
     absolute: native('string')
 }), noFields);
 
 const LedgerOffsetBoundaryValidation = object<LedgerOffsetBoundary>('LedgerOffsetBoundary', () => ({
-    kind: string('boundary'),
+    __type__: string('boundary'),
     boundary: enumeration(LedgerOffsetBoundaryValue, 'LedgerOffsetBoundaryValue')
 }), noFields);
 
-function values(): { [_ in LedgerOffset['kind']]: Validation } {
+function values(): { [_ in LedgerOffset['__type__']]: Validation } {
     return {
         absolute: LedgerOffsetAbsoluteValidation,
         boundary: LedgerOffsetBoundaryValidation

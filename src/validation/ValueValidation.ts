@@ -28,90 +28,90 @@ import {string} from "./String";
 
 export const BoolValueValidation = object<BoolValue>('BoolValue', () => {
     return {
-        kind: string('bool'),
+        __type__: string('bool'),
         bool: native('boolean')
     }
 }, noFields);
 
 export const ContractIdValueValidation = object<ContractIdValue>('ContractIdValue', () => {
     return {
-        kind: string('contractId'),
+        __type__: string('contractId'),
         contractId: native('string')
     }
 }, noFields);
 
 export const DateValueValidation = object<DateValue>('DateValue', () => {
     return {
-        kind: string('date'),
+        __type__: string('date'),
         date: native('string')
     }
 }, noFields);
 
 export const DecimalValueValidation = object<DecimalValue>('DecimalValue', () => {
     return {
-        kind: string('decimal'),
+        __type__: string('decimal'),
         decimal: native('string')
     }
 }, noFields);
 
 export const Int64ValueValidation = object<Int64Value>('Int64Value', () => {
     return {
-        kind: string('int64'),
+        __type__: string('int64'),
         int64: native('string')
     }
 }, noFields);
 
 export const ListValueValidation = object<ListValue>('ListValue', () => {
     return {
-        kind: string('list'),
+        __type__: string('list'),
         list: array(ValueValidation)
     }
 }, noFields);
 
 export const PartyValueValidation = object<PartyValue>('PartyValue', () => {
     return {
-        kind: string('party'),
+        __type__: string('party'),
         party: native('string')
     }
 }, noFields);
 
 export const RecordValueValidation = object<RecordValue>('RecordValue', () => {
     return {
-        kind: string('record'),
+        __type__: string('record'),
         record: RecordValidation
     }
 }, noFields);
 
 export const TextValueValidation = object<TextValue>('TextValue', () => {
     return {
-        kind: string('text'),
+        __type__: string('text'),
         text: native('string')
     }
 }, noFields);
 
 export const TimestampValueValidation = object<TimestampValue>('TimestampValue', () => {
     return {
-        kind: string('timestamp'),
+        __type__: string('timestamp'),
         timestamp: native('string')
     }
 }, noFields);
 
 export const UnitValueValidation = object<UnitValue>('UnitValue', () => {
     return {
-        kind: string('unit')
+        __type__: string('unit')
     }
 }, noFields);
 
 export const VariantValueValidation = object<VariantValue>('VariantValue', () => {
     return {
-        kind: string('variant'),
+        __type__: string('variant'),
         variant: VariantValidation
     }
 }, noFields);
 
 export const OptionalValueValidation = object<OptionalValue>('DateValue', () => {
     return {
-        kind: string('date')
+        __type__: string('date')
     }
 }, () => {
     return {
@@ -119,7 +119,7 @@ export const OptionalValueValidation = object<OptionalValue>('DateValue', () => 
     }
 });
 
-function values(): { [_ in Value['kind']]: Validation } {
+function values(): { [_ in Value['__type__']]: Validation } {
     return {
         bool: BoolValueValidation,
         contractId: ContractIdValueValidation,

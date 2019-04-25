@@ -55,7 +55,7 @@ describe('ValidationValidationTree: isValid', () => {
                     children: {
                         birthday: {
                             errors: [{
-                                kind: 'type-error',
+                                __type__: 'type-error',
                                 expectedType: 'Filters',
                                 actualType: 'string'
                             }],

@@ -5,7 +5,7 @@ import {Value} from "./Value";
 import {Identifier} from "./Identifier";
 
 export interface ExercisedEvent {
-    kind: 'exercised'
+    __type__: 'exercised'
     actingParties: string[]
     childEventIds?: string[]
     choice: string

@@ -5,7 +5,7 @@ import {Identifier} from "./Identifier";
 import {Value} from "./Value";
 
 export interface ExerciseCommand {
-    kind: 'exercise',
+    __type__: 'exercise',
     templateId: Identifier
     choice: string
     contractId: string

@@ -11,7 +11,7 @@ export function record(values: Validation): Validation {
             const actualType = typeOf(value);
             if (actualType !== 'object') {
                 node.errors.push({
-                    kind: 'type-error',
+                    __type__: 'type-error',
                     expectedType: this.type,
                     actualType: actualType
                 })

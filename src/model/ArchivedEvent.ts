@@ -4,7 +4,7 @@
 import {Identifier} from './Identifier';
 
 export interface ArchivedEvent {
-    kind: 'archived'
+    __type__: 'archived'
     contractId: string
     eventId: string
     templateId: Identifier

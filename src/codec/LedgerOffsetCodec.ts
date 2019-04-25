@@ -9,17 +9,17 @@ export const LedgerOffsetCodec: Codec<PbLedgerOffset, LedgerOffset> = {
     deserialize(message: PbLedgerOffset): LedgerOffset {
         if (message.hasAbsolute()) {
             return {
-                kind: 'absolute',
+                __type__: 'absolute',
                 absolute: message.getAbsolute()
             };
         } else if (message.hasBoundary()) {
             const boundary = message.getBoundary();
             switch (boundary) {
                 case PbLedgerOffset.LedgerBoundary.LEDGER_BEGIN: {
-                    return {kind: 'boundary', boundary: LedgerOffsetBoundaryValue.BEGIN}
+                    return {__type__: 'boundary', boundary: LedgerOffsetBoundaryValue.BEGIN}
                 }
                 case PbLedgerOffset.LedgerBoundary.LEDGER_END: {
-                    return {kind: 'boundary', boundary: LedgerOffsetBoundaryValue.END}
+                    return {__type__: 'boundary', boundary: LedgerOffsetBoundaryValue.END}
                 }
                 default:
                     throw new Error('Deserialization error, unable to discriminate value type - this is likely to be a bug');
@@ -30,7 +30,7 @@ export const LedgerOffsetCodec: Codec<PbLedgerOffset, LedgerOffset> = {
     },
     serialize(object: LedgerOffset): PbLedgerOffset {
         const result = new PbLedgerOffset();
-        switch (object.kind) {
+        switch (object.__type__) {
             case "absolute":
                 result.setAbsolute(object.absolute);
                 break;

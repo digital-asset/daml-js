@@ -4,29 +4,29 @@
 export type ValidationError = TypeError | MissingKey | UnexpectedKey | MissingTypeTag | UnexpectedTypeTag
 
 export interface TypeError {
-    kind: 'type-error'
+    __type__: 'type-error'
     expectedType: string
     actualType: string
 }
 
 export interface MissingKey {
-    kind: 'missing-key'
+    __type__: 'missing-key'
     expectedKey: string
     expectedType: string
 }
 
 export interface UnexpectedKey {
-    kind: 'unexpected-key'
+    __type__: 'unexpected-key'
     key: string
 }
 
 export interface MissingTypeTag {
-    kind: 'missing-type-tag',
+    __type__: 'missing-type-tag',
     expectedTypeTags: string[]
 }
 
 export interface UnexpectedTypeTag {
-    kind: 'unexpected-type-tag',
+    __type__: 'unexpected-type-tag',
     expectedTypeTags: string[],
     actualTypeTag: string
 }
@@ -48,8 +48,8 @@ export interface Validation {
     validate(value: any, key: string, validation: ValidationTree): ValidationTree
 }
 
-export interface UnionValidation<A extends { kind: string }> extends Validation {
-    values(): { [_ in A['kind']]: Validation }
+export interface UnionValidation<A extends { __type__: string }> extends Validation {
+    values(): { [_ in A['__type__']]: Validation }
 }
 
 export interface ObjectValidation<A extends object> extends Validation {

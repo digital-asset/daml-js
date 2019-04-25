@@ -45,7 +45,7 @@ describe('CommandCompletionClient', () => {
 
         const request: CompletionStreamRequest = {
             applicationId: 'foobar',
-            offset: {kind: 'absolute', absolute: '31'},
+            offset: {__type__: 'absolute', absolute: '31'},
             parties: ['alice', 'bob']
         };
         const call = client.completionStream(request);
@@ -83,7 +83,7 @@ describe('CommandCompletionClient', () => {
                 },
                 offset: {
                     errors: [{
-                        kind: 'missing-type-tag',
+                        __type__: 'missing-type-tag',
                         expectedTypeTags: ['absolute', 'boundary']
                     }],
                     children: {}
@@ -97,7 +97,7 @@ describe('CommandCompletionClient', () => {
                         },
                         '1': {
                             errors: [{
-                                kind: 'type-error',
+                                __type__: 'type-error',
                                 expectedType: 'string',
                                 actualType: 'number'
                             }],

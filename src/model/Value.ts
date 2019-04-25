@@ -5,22 +5,22 @@ import {Variant} from "./Variant";
 import {Record} from "./Record";
 
 export interface RecordValue {
-    kind: 'record'
+    __type__: 'record'
     record: Record
 }
 
 export interface VariantValue {
-    kind: 'variant'
+    __type__: 'variant'
     variant: Variant
 }
 
 export interface ContractIdValue {
-    kind: 'contractId'
+    __type__: 'contractId'
     contractId: string
 }
 
 export interface ListValue {
-    kind: 'list'
+    __type__: 'list'
     list: Value[]
 }
 
@@ -28,7 +28,7 @@ export interface ListValue {
  * Represented as a {string} to avoid losing precision
  */
 export interface Int64Value {
-    kind: 'int64'
+    __type__: 'int64'
     int64: string
 }
 
@@ -36,12 +36,12 @@ export interface Int64Value {
  * Represented as a {string} to avoid losing precision
  */
 export interface DecimalValue {
-    kind: 'decimal'
+    __type__: 'decimal'
     decimal: string
 }
 
 export interface TextValue {
-    kind: 'text',
+    __type__: 'text',
     text: string
 }
 
@@ -49,22 +49,22 @@ export interface TextValue {
  * Represented as a {string} to avoid losing precision
  */
 export interface TimestampValue {
-    kind: 'timestamp',
+    __type__: 'timestamp',
     timestamp: string
 }
 
 export interface PartyValue {
-    kind: 'party',
+    __type__: 'party',
     party: string
 }
 
 export interface BoolValue {
-    kind: 'bool',
+    __type__: 'bool',
     bool: boolean
 }
 
 export interface UnitValue {
-    kind: 'unit'
+    __type__: 'unit'
 }
 
 /**
@@ -75,12 +75,12 @@ export interface UnitValue {
  * type to a 64-bit encoding.
  */
 export interface DateValue {
-    kind: 'date',
+    __type__: 'date',
     date: string
 }
 
 export interface OptionalValue {
-    kind: 'optional'
+    __type__: 'optional'
     optional?: Value
 }
 

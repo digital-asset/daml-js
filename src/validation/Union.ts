@@ -4,7 +4,7 @@
 import {init, typeOf, UnionValidation, Validation, ValidationTree} from "./Validation";
 import {inspect} from "util";
 
-export function union<A extends { kind: string }>(type: string, values: () => { [_ in A['kind']]: Validation }): UnionValidation<A> {
+export function union<A extends { __type__: string }>(type: string, values: () => { [_ in A['__type__']]: Validation }): UnionValidation<A> {
     return {
         type: type,
         values: values,
@@ -13,14 +13,14 @@ export function union<A extends { kind: string }>(type: string, values: () => { 
             const actualType = typeOf(value);
             if (actualType !== 'object') {
                 node.errors.push({
-                    kind: 'type-error',
+                    __type__: 'type-error',
                     expectedType: type,
                     actualType: actualType
                 });
                 return node;
             }
             const typeTags: any = values();
-            const typeTag = value['kind'];
+            const typeTag = value['__type__'];
             if (typeTag in typeTags) {
                 const validation = typeTags[typeTag] as Validation;
                 if (key && tree) {
@@ -30,13 +30,13 @@ export function union<A extends { kind: string }>(type: string, values: () => { 
                 }
             } else if (typeTag === null || typeTag === undefined) {
                 node.errors.push({
-                    kind: 'missing-type-tag',
+                    __type__: 'missing-type-tag',
                     expectedTypeTags: Object.keys(typeTags)
                 });
                 return node;
             } else {
                 node.errors.push({
-                    kind: 'unexpected-type-tag',
+                    __type__: 'unexpected-type-tag',
                     expectedTypeTags: Object.keys(typeTags),
                     actualTypeTag: typeof typeTag === 'string' ? typeTag : inspect(typeTag)
                 });

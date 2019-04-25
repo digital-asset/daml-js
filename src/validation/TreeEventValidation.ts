@@ -7,7 +7,7 @@ import {TreeEvent} from "../model/TreeEvent";
 import {Validation} from "./Validation";
 import {union} from "./Union";
 
-function values(): { [_ in TreeEvent['kind']]: Validation } {
+function values(): { [_ in TreeEvent['__type__']]: Validation } {
     return {
         created: CreatedEventValidation,
         exercised: ExercisedEventValidation

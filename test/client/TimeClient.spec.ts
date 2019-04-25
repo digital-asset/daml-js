@@ -84,7 +84,7 @@ describe('TimeClient', () => {
                         },
                         nanoseconds: {
                             errors: [{
-                                kind: 'type-error',
+                                __type__: 'type-error',
                                 expectedType: 'number',
                                 actualType: 'string'
                             }],

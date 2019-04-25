@@ -43,11 +43,11 @@ describe('Validation: Object', () => {
         };
         const expected: ValidationTree = {
             errors: [{
-                kind: 'missing-key',
+                __type__: 'missing-key',
                 expectedKey: 'moduleName',
                 expectedType: 'string'
             }, {
-                kind: 'missing-key',
+                __type__: 'missing-key',
                 expectedKey: 'entityName',
                 expectedType: 'string'
             }],
@@ -73,7 +73,7 @@ describe('Validation: Object', () => {
                 moduleName: {
                     errors: [
                         {
-                            kind: 'type-error',
+                            __type__: 'type-error',
                             expectedType: 'string',
                             actualType: 'number'
                         }
@@ -105,7 +105,7 @@ describe('Validation: Object', () => {
                 moduleName: {
                     errors: [
                         {
-                            kind: 'type-error',
+                            __type__: 'type-error',
                             expectedType: 'string',
                             actualType: 'number'
                         }
@@ -115,7 +115,7 @@ describe('Validation: Object', () => {
                 packageId: {
                     errors: [
                         {
-                            kind: 'type-error',
+                            __type__: 'type-error',
                             expectedType: 'string',
                             actualType: 'boolean'
                         }
@@ -125,7 +125,7 @@ describe('Validation: Object', () => {
                 entityName: {
                     errors: [
                         {
-                            kind: 'type-error',
+                            __type__: 'type-error',
                             expectedType: 'string',
                             actualType: 'boolean'
                         }
@@ -142,7 +142,7 @@ describe('Validation: Object', () => {
         const expected: ValidationTree = {
             errors: [
                 {
-                    kind: 'type-error',
+                    __type__: 'type-error',
                     expectedType: 'Identifier',
                     actualType: 'number'
                 }
@@ -157,7 +157,7 @@ describe('Validation: Object', () => {
         const expected: ValidationTree = {
             errors: [
                 {
-                    kind: 'type-error',
+                    __type__: 'type-error',
                     expectedType: 'Identifier',
                     actualType: 'array'
                 }
@@ -248,7 +248,7 @@ describe('Validation: Object', () => {
         const invalidFilters = 'not a valid object :(';
         const expected: ValidationTree = {
             errors: [{
-                kind: 'type-error',
+                __type__: 'type-error',
                 expectedType: 'Filters',
                 actualType: 'string'
             }],
@@ -271,7 +271,7 @@ describe('Validation: Object', () => {
         };
         const expected: ValidationTree = {
             errors: [{
-                kind: 'unexpected-key',
+                __type__: 'unexpected-key',
                 key: 'templateIds'
             }],
             children: {}

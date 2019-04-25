@@ -8,7 +8,7 @@ import {ExerciseCommand} from "../../src/model/ExerciseCommand";
 
 export const ArbitraryExerciseCommand: jsc.Arbitrary<ExerciseCommand> =
     jsc.record<ExerciseCommand>({
-        kind: jsc.constant("exercise"),
+        __type__: jsc.constant("exercise"),
         argument: ArbitraryValue,
         choice: jsc.string,
         contractId: jsc.string,

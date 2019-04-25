@@ -29,7 +29,7 @@ describe('Validation: Enumeration', () => {
     it('should not validate a value which is not part of the enumeration', () => {
         const expected: ValidationTree = {
             errors: [{
-                kind: 'type-error',
+                __type__: 'type-error',
                 expectedType: 'LedgerOffsetBoundaryValue',
                 actualType: 'number'
             }],

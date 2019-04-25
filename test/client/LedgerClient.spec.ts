@@ -76,7 +76,7 @@ describe("DamlLedgerClient", () => {
             expect(error).to.be.null;
             const call = client!.commandCompletionClient.completionStream({
                 applicationId: '',
-                offset: {kind:'absolute',absolute: '0'},
+                offset: {__type__:'absolute',absolute: '0'},
                 parties: []
             });
             call.on('end', () => {
@@ -190,7 +190,7 @@ describe("DamlLedgerClient", () => {
             expect(error).to.be.null;
             const call = client!.transactionClient.getTransactions({
                 filter: {filtersByParty: {}},
-                begin: {kind:'absolute',absolute: '0'}
+                begin: {__type__:'absolute',absolute: '0'}
             })
             call.on('end', () => {
                 assert(spy.calledOnceWithExactly(ledgerId));
@@ -204,7 +204,7 @@ describe("DamlLedgerClient", () => {
             expect(error).to.be.null;
             const call = client!.transactionClient.getTransactionTrees({
                 filter: {filtersByParty: {}},
-                begin: {kind:'absolute',absolute: '0'}
+                begin: {__type__:'absolute',absolute: '0'}
             })
             call.on('end', () => {
                 assert(spy.calledOnceWithExactly(ledgerId));

@@ -13,7 +13,7 @@ import {string} from "./String";
 
 function required(): RequiredFieldsValidators<CreatedEvent> {
     return {
-        kind: string('created'),
+        __type__: string('created'),
         arguments: RecordValidation,
         contractId: native('string'),
         eventId: native('string'),

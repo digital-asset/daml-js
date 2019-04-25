@@ -5,7 +5,7 @@ import {ValidationReporter} from "./ValidationReporter";
 import {isValid, ValidationError, ValidationTree} from "../validation/Validation";
 
 function spellOutError(error: ValidationError): string {
-    switch (error.kind) {
+    switch (error.__type__) {
         case 'missing-key':
             return `Missing key ${error.expectedKey} of type ${error.expectedType}`;
         case 'unexpected-key':

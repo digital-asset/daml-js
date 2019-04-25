@@ -16,15 +16,15 @@ import {VariantCodec} from "./VariantCodec";
 export const ValueCodec: Codec<PbValue, Value> = {
     deserialize(value: PbValue): Value {
         if (value.hasBool()) {
-            return {kind: 'bool', bool: value.getBool()};
+            return {__type__: 'bool', bool: value.getBool()};
         } else if (value.hasContractId()) {
-            return {kind: 'contractId', contractId: value.getContractId()};
+            return {__type__: 'contractId', contractId: value.getContractId()};
         } else if (value.hasDate()) {
-            return {kind: 'date', date: '' + value.getDate()};
+            return {__type__: 'date', date: '' + value.getDate()};
         } else if (value.hasDecimal()) {
-            return {kind: 'decimal', decimal: value.getDecimal()};
+            return {__type__: 'decimal', decimal: value.getDecimal()};
         } else if (value.hasInt64()) {
-            return {kind: 'int64', int64: value.getInt64()};
+            return {__type__: 'int64', int64: value.getInt64()};
         } else if (value.hasList()) {
             const values: Value[] = [];
             if (value.hasList()) {
@@ -32,25 +32,25 @@ export const ValueCodec: Codec<PbValue, Value> = {
                     values.push(ValueCodec.deserialize(v));
                 });
             }
-            return {kind: 'list', list: values};
+            return {__type__: 'list', list: values};
         } else if (value.hasParty()) {
-            return {kind: 'party', party: value.getParty()};
+            return {__type__: 'party', party: value.getParty()};
         } else if (value.hasRecord()) {
-            return {kind: 'record', record: RecordCodec.deserialize(value.getRecord()!)};
+            return {__type__: 'record', record: RecordCodec.deserialize(value.getRecord()!)};
         } else if (value.hasText()) {
-            return {kind: 'text', text: value.getText()};
+            return {__type__: 'text', text: value.getText()};
         } else if (value.hasTimestamp()) {
-            return {kind: 'timestamp', timestamp: value.getTimestamp()};
+            return {__type__: 'timestamp', timestamp: value.getTimestamp()};
         } else if (value.hasUnit()) {
-            return {kind: 'unit'};
+            return {__type__: 'unit'};
         } else if (value.hasVariant()) {
-            return {kind: 'variant', variant: VariantCodec.deserialize(value.getVariant()!)};
+            return {__type__: 'variant', variant: VariantCodec.deserialize(value.getVariant()!)};
         } else if (value.hasOptional()) {
             const optional = value.getOptional();
             if (optional!.hasValue()) {
-                return {kind: 'optional', optional: ValueCodec.deserialize(optional!.getValue()!)};
+                return {__type__: 'optional', optional: ValueCodec.deserialize(optional!.getValue()!)};
             } else {
-                return {kind: 'optional'};
+                return {__type__: 'optional'};
             }
         } else {
             throw new Error('Deserialization error, unable to discriminate value type - this is likely to be a bug');
@@ -58,7 +58,7 @@ export const ValueCodec: Codec<PbValue, Value> = {
     },
     serialize(object: Value): PbValue {
         const message = new PbValue();
-        switch (object.kind) {
+        switch (object.__type__) {
             case "bool":
                 message.setBool(object.bool);
                 break;

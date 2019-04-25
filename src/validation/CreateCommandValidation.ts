@@ -11,7 +11,7 @@ import {string} from "./String";
 
 function required(): RequiredFieldsValidators<CreateCommand> {
     return {
-        kind: string('create'),
+        __type__: string('create'),
         arguments: RecordValidation,
         templateId: IdentifierValidation
     };

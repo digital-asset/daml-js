@@ -10,7 +10,7 @@ describe('Validation: Union', () => {
 
     it('should validate an absolute offset', () => {
         const offset: LedgerOffset = {
-            kind: 'absolute',
+            __type__: 'absolute',
             absolute: '20'
         };
         const expected: ValidationTree = {
@@ -20,7 +20,7 @@ describe('Validation: Union', () => {
                     errors: [],
                     children: {}
                 },
-                kind: {
+                __type__: {
                     errors: [],
                     children: {}
                 }
@@ -31,7 +31,7 @@ describe('Validation: Union', () => {
 
     it('should validate a valid boundary (begin)', () => {
         const offset: LedgerOffset = {
-            kind: 'boundary',
+            __type__: 'boundary',
             boundary: LedgerOffsetBoundaryValue.BEGIN
         };
         const expected: ValidationTree = {
@@ -41,7 +41,7 @@ describe('Validation: Union', () => {
                     errors: [],
                     children: {}
                 },
-                kind: {
+                __type__: {
                     errors: [],
                     children: {}
                 }
@@ -52,7 +52,7 @@ describe('Validation: Union', () => {
 
     it('should validate a valid boundary (end)', () => {
         const offset: LedgerOffset = {
-            kind: 'boundary',
+            __type__: 'boundary',
             boundary: LedgerOffsetBoundaryValue.END
         };
         const expected: ValidationTree = {
@@ -62,7 +62,7 @@ describe('Validation: Union', () => {
                     errors: [],
                     children: {}
                 },
-                kind: {
+                __type__: {
                     errors: [],
                     children: {}
                 }
@@ -78,7 +78,7 @@ describe('Validation: Union', () => {
         };
         const expected: ValidationTree = {
             errors: [{
-                kind: 'missing-type-tag',
+                __type__: 'missing-type-tag',
                 expectedTypeTags: ['absolute', 'boundary']
             }],
             children: {}
@@ -88,20 +88,20 @@ describe('Validation: Union', () => {
 
     it('should not validate a ledger offset with an unexpected key', () => {
         const offset = {
-            kind: 'absolute',
+            __type__: 'absolute',
             wrong: '20'
         };
         const expected: ValidationTree = {
             errors: [{
-                kind: 'missing-key',
+                __type__: 'missing-key',
                 expectedType: 'string',
                 expectedKey: 'absolute'
             }, {
-                kind: 'unexpected-key',
+                __type__: 'unexpected-key',
                 key: 'wrong'
             }],
             children: {
-                kind: {
+                __type__: {
                     children: {},
                     errors: []
                 }

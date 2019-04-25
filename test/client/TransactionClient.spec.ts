@@ -22,7 +22,7 @@ describe('TransactionClient', () => {
 
     const transactionsRequest: GetTransactionsRequest = {
         begin: {
-            kind: 'absolute',
+            __type__: 'absolute',
             absolute: '42'
         },
         filter: {
@@ -261,7 +261,7 @@ describe('TransactionClient', () => {
                 },
                 requestingParties: {
                     errors: [{
-                        kind: 'type-error',
+                        __type__: 'type-error',
                         expectedType: 'Array<string>',
                         actualType: 'number'
                     }],
@@ -295,7 +295,7 @@ describe('TransactionClient', () => {
             children: {
                 begin: {
                     errors: [{
-                        kind: 'missing-type-tag',
+                        __type__: 'missing-type-tag',
                         expectedTypeTags: ['absolute', 'boundary']
                     }],
                     children: {}
@@ -345,7 +345,7 @@ describe('TransactionClient', () => {
             children: {
                 begin: {
                     errors: [{
-                        kind: 'missing-type-tag',
+                        __type__: 'missing-type-tag',
                         expectedTypeTags: ['absolute', 'boundary']
                     }],
                     children: {}

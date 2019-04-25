@@ -14,7 +14,7 @@ export const ArbitraryArchivedEvent: jsc.Arbitrary<ArchivedEvent> = jsc
     .smap<ArchivedEvent>(
         ([contractId, eventId, templateId, witnessParties]) => {
             return {
-                kind: 'archived',
+                __type__: 'archived',
                 contractId: contractId,
                 eventId: eventId,
                 templateId: templateId,
@@ -36,7 +36,7 @@ export const ArbitraryCreatedEvent: jsc.Arbitrary<CreatedEvent> = jsc
     .smap<CreatedEvent>(
         ([contractId, eventId, templateId, args, witnessParties]) => {
             return {
-                kind: 'created',
+                __type__: 'created',
                 contractId: contractId,
                 eventId: eventId,
                 templateId: templateId,
@@ -81,7 +81,7 @@ export const ArbitraryExercisedEvent: jsc.Arbitrary<ExercisedEvent> = jsc
              templateId,
              witnessParties
          ]) => ({
-            kind: 'exercised',
+            __type__: 'exercised',
             actingParties: actingParties,
             childEventIds: childEventIds,
             choice: choice,

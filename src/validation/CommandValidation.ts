@@ -8,7 +8,7 @@ import {Command} from "../model/Command";
 import {CreateCommandValidation} from "./CreateCommandValidation";
 import {ExerciseCommandValidation} from "./ExerciseCommandValidation";
 
-function values(): { [_ in Command['kind']]: Validation } {
+function values(): { [_ in Command['__type__']]: Validation } {
     return {
         create: CreateCommandValidation,
         exercise: ExerciseCommandValidation

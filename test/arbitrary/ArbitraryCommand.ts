@@ -10,12 +10,12 @@ import {ArbitraryRecord, ArbitraryValue} from "./ArbitraryRecordValueVariant";
 
 export const ArbitraryCommand: jsc.Arbitrary<Command> = jsc.oneof([
     jsc.record<CreateCommand>({
-        kind: jsc.constant('create'),
+        __type__: jsc.constant('create'),
         templateId: ArbitraryIdentifier,
         arguments: ArbitraryRecord
     }),
     jsc.record<ExerciseCommand>({
-        kind: jsc.constant('exercise'),
+        __type__: jsc.constant('exercise'),
         templateId: ArbitraryIdentifier,
         contractId: jsc.string,
         choice: jsc.string,

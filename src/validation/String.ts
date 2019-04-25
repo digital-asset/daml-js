@@ -11,7 +11,7 @@ export function string(literal: string): Validation {
             if (value !== literal) {
                 const actualType = typeOf(value);
                 const error: ValidationError = {
-                    kind: 'type-error',
+                    __type__: 'type-error',
                     expectedType: this.type,
                     actualType: actualType
                 };

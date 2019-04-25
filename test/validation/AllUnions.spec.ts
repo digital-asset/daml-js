@@ -15,7 +15,7 @@ import {ArbitraryLedgerOffset} from "../arbitrary/ArbitraryLedgerOffset";
 import {ArbitraryValue} from "../arbitrary/ArbitraryRecordValueVariant";
 import {ArbitraryCommand} from "../arbitrary/ArbitraryCommand";
 
-function test<A extends { kind: string } & { [_: string]: any }>(
+function test<A extends { __type__: string } & { [_: string]: any }>(
     validation: UnionValidation<A>,
     arbitrary: jsc.Arbitrary<A>
 ): void {
@@ -26,7 +26,7 @@ function test<A extends { kind: string } & { [_: string]: any }>(
             });
             jsc.property('signal a type error on a null', () => {
                 return containsError(validation.validate(null).errors, {
-                    kind: 'type-error',
+                    __type__: 'type-error',
                     expectedType: validation.type,
                     actualType: 'null'
                 });
@@ -47,7 +47,7 @@ function test<A extends { kind: string } & { [_: string]: any }>(
                 const extraKey = 'supercalifragilisticexpialidocious'; // reasonably no one will ever use this as a key
                 value[extraKey] = null;
                 return containsError(validation.validate(value).errors, {
-                    kind: 'unexpected-key',
+                    __type__: 'unexpected-key',
                     key: extraKey
                 });
             }
@@ -62,7 +62,7 @@ function test<A extends { kind: string } & { [_: string]: any }>(
             'signal a missing type tag error on unions without a type tag',
             () => {
                 return containsError(validation.validate({}).errors, {
-                    kind: 'missing-type-tag',
+                    __type__: 'missing-type-tag',
                     expectedTypeTags: Object.keys(validation.values())
                 });
             }
@@ -71,9 +71,9 @@ function test<A extends { kind: string } & { [_: string]: any }>(
             'signal an unexpected type tag error for invalid type tags',
             arbitrary,
             value => {
-                value['kind'] = 'supercalifragilisticexpialidocious'; // reasonably this will never be a valid type tag
+                value['__type__'] = 'supercalifragilisticexpialidocious'; // reasonably this will never be a valid type tag
                 return containsError(validation.validate(value).errors, {
-                    kind: 'unexpected-type-tag',
+                    __type__: 'unexpected-type-tag',
                     expectedTypeTags: Object.keys(validation.values()),
                     actualTypeTag: 'supercalifragilisticexpialidocious'
                 });

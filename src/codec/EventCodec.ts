@@ -23,7 +23,7 @@ export const EventCodec: Codec<PbEvent, Event> = {
     },
     serialize(object: Event): PbEvent {
         const message = new PbEvent();
-        switch (object.kind) {
+        switch (object.__type__) {
             case "archived":
                 message.setArchived(ArchivedEventCodec.serialize(object));
                 break;
