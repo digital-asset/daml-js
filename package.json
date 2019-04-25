@@ -9,7 +9,7 @@
     "package.json"
   ],
   "scripts": {
-    "ci-pipeline": "npm i && ./check-licenses.sh && npm run pretest && npm run test-with-fixed-seed",
+    "ci-pipeline": "npm ci && ./check-licenses.sh && npm run pretest && npm run test-with-fixed-seed",
     "docs": "typedoc --tsconfig tsconfig-docs.json src",
     "pretest": "./grpc-codegen.sh && tsc --build tsconfig-dist.json && tsc --build tsconfig-test.json",
     "test": "TS_NODE_COMPILER_OPTIONS=$(node compiler-options) mocha -r ts-node/register --reporter dot --recursive './test/**/*.spec.ts'",
