@@ -17,7 +17,7 @@ function checkRequired(object: any, required: { [_: string]: Validation }, node:
             required[key].validate(object[key], key, node);
         } else {
             node.errors.push({
-                kind: 'missing-key',
+                errorType: 'missing-key',
                 expectedKey: key,
                 expectedType: required[key].type
             });
@@ -37,7 +37,7 @@ function checkUnexpected<A extends object>(object: any, keys: Record<keyof A, Va
     for (const key in object) {
         if (!keys || !keys.hasOwnProperty(key)) {
             node.errors.push({
-                kind: 'unexpected-key',
+                errorType: 'unexpected-key',
                 key: key
             })
         }
@@ -54,7 +54,7 @@ export function object<A extends object>(type: string, required: () => RequiredF
             const actualType = typeOf(value);
             if (actualType !== 'object') {
                 node.errors.push({
-                    kind: 'type-error',
+                    errorType: 'type-error',
                     expectedType: type,
                     actualType: actualType
                 })

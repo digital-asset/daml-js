@@ -3,31 +3,28 @@
 
 import {
     List as PbList,
-    Value as PbValue,
-    Variant as PbVariant
+    Optional as PbOptional,
+    Value as PbValue
 } from '../generated/com/digitalasset/ledger/api/v1/value_pb';
 import {Empty as PbEmpty} from 'google-protobuf/google/protobuf/empty_pb';
 
-import {inspect} from 'util';
 import {Codec} from "./Codec";
-import {Value} from "../model/Value";
+import {RecordValue, Value, VariantValue} from "../model/Value";
 import {RecordCodec} from "./RecordCodec";
-import {Variant} from "../model/Variant";
-import {IdentifierCodec} from "./IdentifierCodec";
-import {OptionalCodec} from "./OptionalCodec";
+import {VariantCodec} from "./VariantCodec";
 
 export const ValueCodec: Codec<PbValue, Value> = {
     deserialize(value: PbValue): Value {
         if (value.hasBool()) {
-            return {bool: value.getBool()}
+            return {valueType: 'bool', bool: value.getBool()};
         } else if (value.hasContractId()) {
-            return {contractId: value.getContractId()}
+            return {valueType: 'contractId', contractId: value.getContractId()};
         } else if (value.hasDate()) {
-            return {date: '' + value.getDate()}
+            return {valueType: 'date', date: '' + value.getDate()};
         } else if (value.hasDecimal()) {
-            return {decimal: value.getDecimal()}
+            return {valueType: 'decimal', decimal: value.getDecimal()};
         } else if (value.hasInt64()) {
-            return {int64: value.getInt64()}
+            return {valueType: 'int64', int64: value.getInt64()};
         } else if (value.hasList()) {
             const values: Value[] = [];
             if (value.hasList()) {
@@ -35,74 +32,100 @@ export const ValueCodec: Codec<PbValue, Value> = {
                     values.push(ValueCodec.deserialize(v));
                 });
             }
-            return {list: values}
+            return {valueType: 'list', list: values};
         } else if (value.hasParty()) {
-            return {party: value.getParty()}
+            return {valueType: 'party', party: value.getParty()};
         } else if (value.hasRecord()) {
-            return {record: RecordCodec.deserialize(value.getRecord()!)}
+            const record = RecordCodec.deserialize(value.getRecord()!);
+            const splatted: RecordValue = {
+                valueType: 'record',
+                fields: record.fields
+            };
+            if (record.recordId) {
+                splatted.recordId = record.recordId;
+            }
+            return splatted;
         } else if (value.hasText()) {
-            return {text: value.getText()}
+            return {valueType: 'text', text: value.getText()};
         } else if (value.hasTimestamp()) {
-            return {timestamp: value.getTimestamp()}
+            return {valueType: 'timestamp', timestamp: value.getTimestamp()};
         } else if (value.hasUnit()) {
-            return {unit: {}}
+            return {valueType: 'unit'};
         } else if (value.hasVariant()) {
-            const variant = value.getVariant()!;
-            const result: Variant = {
-                constructor: variant.getConstructor(),
-                value: ValueCodec.deserialize(variant.getValue()!),
+            const variant = VariantCodec.deserialize(value.getVariant()!);
+            const splatted: VariantValue = {
+                valueType: "variant",
+                constructor: variant.constructor,
+                value: variant.value
+            };
+            if (variant.variantId) {
+                splatted.variantId = variant.variantId;
             }
-            if (variant.hasVariantId()) {
-                result.variantId = IdentifierCodec.deserialize(variant.getVariantId()!);
-            }
-            return {variant: result}
+            return splatted;
         } else if (value.hasOptional()) {
-            return {optional: OptionalCodec.deserialize(value.getOptional()!)}
+            const optional = value.getOptional();
+            if (optional!.hasValue()) {
+                return {valueType: 'optional', optional: ValueCodec.deserialize(optional!.getValue()!)};
+            } else {
+                return {valueType: 'optional'};
+            }
         } else {
-            throw new Error(`Message Value of unknown type '${inspect(value)}'`);
+            throw new Error('Deserialization error, unable to discriminate value type - this is likely to be a bug');
         }
     },
-    serialize(value: Value): PbValue {
-        const result = new PbValue();
-        if (value.bool !== undefined) {
-            result.setBool(value.bool);
-        } else if (value.contractId !== undefined) {
-            result.setContractId(value.contractId);
-        } else if (value.date !== undefined) {
-            result.setDate(parseInt(value.date));
-        } else if (value.decimal !== undefined) {
-            result.setDecimal(value.decimal);
-        } else if (value.int64 !== undefined) {
-            result.setInt64(value.int64);
-        } else if (value.list !== undefined) {
-            const values: PbValue[] = []
-            value.list.forEach(v => values.push(ValueCodec.serialize(v)));
-            const list = new PbList();
-            list.setElementsList(values);
-            result.setList(list);
-        } else if (value.party !== undefined) {
-            result.setParty(value.party);
-        } else if (value.record !== undefined) {
-            result.setRecord(RecordCodec.serialize(value.record));
-        } else if (value.text !== undefined) {
-            result.setText(value.text);
-        } else if (value.timestamp !== undefined) {
-            result.setTimestamp(value.timestamp);
-        } else if (value.unit !== undefined) {
-            result.setUnit(new PbEmpty());
-        } else if (value.variant !== undefined) {
-            const variant = new PbVariant();
-            variant.setConstructor(value.variant.constructor);
-            variant.setValue(ValueCodec.serialize(value.variant.value));
-            if (value.variant.variantId) {
-                variant.setVariantId(IdentifierCodec.serialize(value.variant.variantId));
-            }
-            result.setVariant(variant);
-        } else if (value.optional) {
-            result.setOptional(OptionalCodec.serialize(value.optional));
-        } else {
-            throw new Error(`Object Value of unknown type '${inspect(value)}'`);
+    serialize(object: Value): PbValue {
+        const message = new PbValue();
+        switch (object.valueType) {
+            case "bool":
+                message.setBool(object.bool);
+                break;
+            case "contractId":
+                message.setContractId(object.contractId);
+                break;
+            case "date":
+                message.setDate(parseInt(object.date));
+                break;
+            case "decimal":
+                message.setDecimal(object.decimal)
+                break;
+            case "int64":
+                message.setInt64(object.int64);
+                break;
+            case "list":
+                const list = new PbList();
+                const values: PbValue[] = [];
+                for (const v of object.list) {
+                    values.push(ValueCodec.serialize(v));
+                }
+                list.setElementsList(values);
+                message.setList(list);
+                break;
+            case "optional":
+                const optional = new PbOptional();
+                if (object.optional) {
+                    optional.setValue(ValueCodec.serialize(object.optional));
+                }
+                message.setOptional(optional);
+                break;
+            case "party":
+                message.setParty(object.party);
+                break;
+            case "record":
+                message.setRecord(RecordCodec.serialize(object));
+                break;
+            case "text":
+                message.setText(object.text);
+                break;
+            case "timestamp":
+                message.setTimestamp(object.timestamp);
+                break;
+            case "unit":
+                message.setUnit(new PbEmpty());
+                break;
+            case "variant":
+                message.setVariant(VariantCodec.serialize(object));
+                break;
         }
-        return result;
+        return message;
     }
 };

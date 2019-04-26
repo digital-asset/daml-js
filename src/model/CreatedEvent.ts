@@ -5,6 +5,7 @@ import {Identifier} from "./Identifier";
 import {Record} from "./Record";
 
 export interface CreatedEvent {
+    eventType: 'created'
     eventId: string
     contractId: string
     templateId: Identifier

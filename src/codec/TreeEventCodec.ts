@@ -10,22 +10,24 @@ import {TreeEvent as PbTreeEvent} from "../generated/com/digitalasset/ledger/api
 
 export const TreeEventCodec: Codec<PbTreeEvent, TreeEvent> = {
     deserialize(message: PbTreeEvent): TreeEvent {
-        const object: TreeEvent = {};
         if (message.hasCreated()) {
-            object.created = CreatedEventCodec.deserialize(message.getCreated()!);
+            return CreatedEventCodec.deserialize(message.getCreated()!);
         }
         if (message.hasExercised()) {
-            object.exercised = ExercisedEventCodec.deserialize(message.getExercised()!);
+            return ExercisedEventCodec.deserialize(message.getExercised()!);
+        } else {
+            throw new Error('Deserialization error, unable to discriminate value type - this is likely to be a bug');
         }
-        return object;
     },
     serialize(object: TreeEvent): PbTreeEvent {
         const message = new PbTreeEvent();
-        if (object.created) {
-            message.setCreated(CreatedEventCodec.serialize(object.created));
-        }
-        if (object.exercised) {
-            message.setExercised(ExercisedEventCodec.serialize(object.exercised));
+        switch (object.eventType) {
+            case 'created':
+                message.setCreated(CreatedEventCodec.serialize(object));
+                break;
+            case 'exercised':
+                message.setExercised(ExercisedEventCodec.serialize(object));
+                break;
         }
         return message;
     }

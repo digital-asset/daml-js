@@ -15,7 +15,6 @@ import {Completion} from './model/Completion';
 import {CreateCommand} from './model/CreateCommand';
 import {CreatedEvent} from './model/CreatedEvent';
 import {Duration} from './model/Duration';
-import {Empty} from './model/Empty';
 import {Event} from './model/Event';
 import {ExerciseCommand} from './model/ExerciseCommand';
 import {ExercisedEvent} from './model/ExercisedEvent';
@@ -40,7 +39,6 @@ import {InclusiveFilters} from './model/InclusiveFilters';
 import {LedgerConfiguration} from './model/LedgerConfiguration';
 import {LedgerOffset} from './model/LedgerOffset';
 import {ListPackagesResponse} from './model/ListPackagesResponse';
-import {Optional} from './model/Optional';
 import {PackageStatus} from './model/PackageStatus';
 import {Record} from './model/Record';
 import {SetTimeRequest} from './model/SetTimeRequest';
@@ -55,4 +53,55 @@ import {TreeEvent} from './model/TreeEvent';
 import {Value} from './model/Value';
 import {Variant} from './model/Variant';
 
-export {DamlLedgerClient, Any, GetPackageStatusResponse, GetPackageResponse, ListPackagesResponse, Event, LedgerOffset, Value, Record, ExerciseCommand, CreateCommand, TreeEvent, TransactionTree, TransactionFilter, Transaction, SubmitRequest, SubmitAndWaitRequest, SetTimeRequest, PackageStatus, LedgerConfiguration, InclusiveFilters, GetTransactionTreesResponse, GetTransactionsRequest, GetTransactionResponse, GetTransactionByIdRequest, GetTimeResponse, GetLedgerIdentityResponse, GetLedgerEndResponse, GetLedgerConfigurationResponse, GetActiveContractsResponse, GetActiveContractsRequest, ExercisedEvent, CreatedEvent, Timestamp, Checkpoint, ArchivedEvent, Filters, GetTransactionsResponse, GetTransactionByEventIdRequest, CompletionStreamResponse, CompletionStreamRequest, CompletionEndResponse, Command, Commands, Completion, Duration, Empty, HashFunction, Identifier, Optional, Status, Variant};
+export {
+    DamlLedgerClient,
+    Any,
+    GetPackageStatusResponse,
+    GetPackageResponse,
+    ListPackagesResponse,
+    Event,
+    LedgerOffset,
+    Value,
+    Record,
+    ExerciseCommand,
+    CreateCommand,
+    TreeEvent,
+    TransactionTree,
+    TransactionFilter,
+    Transaction,
+    SubmitRequest,
+    SubmitAndWaitRequest,
+    SetTimeRequest,
+    PackageStatus,
+    LedgerConfiguration,
+    InclusiveFilters,
+    GetTransactionTreesResponse,
+    GetTransactionsRequest,
+    GetTransactionResponse,
+    GetTransactionByIdRequest,
+    GetTimeResponse,
+    GetLedgerIdentityResponse,
+    GetLedgerEndResponse,
+    GetLedgerConfigurationResponse,
+    GetActiveContractsResponse,
+    GetActiveContractsRequest,
+    ExercisedEvent,
+    CreatedEvent,
+    Timestamp,
+    Checkpoint,
+    ArchivedEvent,
+    Filters,
+    GetTransactionsResponse,
+    GetTransactionByEventIdRequest,
+    CompletionStreamResponse,
+    CompletionStreamRequest,
+    CompletionEndResponse,
+    Command,
+    Commands,
+    Completion,
+    Duration,
+    HashFunction,
+    Identifier,
+    Status,
+    Variant
+};

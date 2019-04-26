@@ -2,35 +2,29 @@
 // SPDX-License-IdentifierValidation: Apache-2.0
 
 import * as jsc from 'jsverify';
-import {LedgerOffset} from "../../src/model/LedgerOffset";
+import {
+    LedgerOffset,
+    LedgerOffsetAbsolute,
+    LedgerOffsetBoundary,
+    LedgerOffsetBoundaryValue
+} from "../../src/model/LedgerOffset";
 
-export const ArbitraryLedgerOffset: jsc.Arbitrary<LedgerOffset> = jsc
-    .oneof([
-        jsc.elements([
-            LedgerOffset.Boundary.BEGIN,
-            LedgerOffset.Boundary.END
-        ]),
-        jsc.string
-    ])
-    .smap<LedgerOffset>(
-        value => {
-            if (typeof value === 'string') {
-                return {
-                    absolute: value
-                };
-            } else {
-                return {
-                    boundary: value
-                };
-            }
-        },
-        ledgerOffset => {
-            if (ledgerOffset.absolute !== undefined) {
-                return ledgerOffset.absolute;
-            } else if (ledgerOffset.boundary !== undefined) {
-                return ledgerOffset.boundary;
-            } else {
-                throw new Error('one of the cases must be defined');
-            }
-        }
-    );
+export const ArbitraryLedgerOffsetBoundaryValue: jsc.Arbitrary<LedgerOffsetBoundaryValue> =
+    jsc.oneof([
+        jsc.constant(LedgerOffsetBoundaryValue.BEGIN),
+        jsc.constant(LedgerOffsetBoundaryValue.END)
+    ]);
+
+export const ArbitraryLedgerOffsetBoundary: jsc.Arbitrary<LedgerOffsetBoundary> =
+    jsc.record<LedgerOffsetBoundary>({
+        offsetType: jsc.constant("boundary"),
+        boundary: ArbitraryLedgerOffsetBoundaryValue
+    });
+
+export const ArbitraryLedgerOffsetAbsolute: jsc.Arbitrary<LedgerOffsetAbsolute> =
+    jsc.record<LedgerOffsetAbsolute>({
+        offsetType: jsc.constant("absolute"),
+        absolute: jsc.string
+    });
+
+export const ArbitraryLedgerOffset: jsc.Arbitrary<LedgerOffset> = jsc.oneof([ArbitraryLedgerOffsetBoundary, ArbitraryLedgerOffsetAbsolute]);

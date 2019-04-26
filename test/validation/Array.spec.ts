@@ -16,31 +16,31 @@ describe('Validation: Array', () => {
         const expected: ValidationTree = {
             errors: [],
             children: {}
-        }
+        };
         expect(array(native('number')).validate([])).to.deep.equal(expected);
     });
 
     it('should not validate a number', () => {
         const expected: ValidationTree = {
             errors: [{
-                kind: 'type-error',
+                errorType: 'type-error',
                 expectedType: 'Array<number>',
                 actualType: 'number'
             }],
             children: {}
-        }
+        };
         expect(array(native('number')).validate(42)).to.deep.equal(expected);
     });
 
     it('should not validate a string', () => {
         const expected: ValidationTree = {
             errors: [{
-                kind: 'type-error',
+                errorType: 'type-error',
                 expectedType: 'Array<number>',
                 actualType: 'string'
             }],
             children: {}
-        }
+        };
         expect(array(native('number')).validate('42')).to.deep.equal(expected);
     });
 
@@ -53,7 +53,7 @@ describe('Validation: Array', () => {
                     children: {}
                 }
             }
-        }
+        };
         expect(array(native('number')).validate([42])).to.deep.equal(expected);
     });
 
@@ -70,7 +70,7 @@ describe('Validation: Array', () => {
                     children: {}
                 }
             }
-        }
+        };
         expect(array(native('number')).validate([42, 47])).to.deep.equal(expected);
     });
 
@@ -84,14 +84,14 @@ describe('Validation: Array', () => {
                 },
                 '1': {
                     errors: [{
-                        kind: 'type-error',
+                        errorType: 'type-error',
                         expectedType: 'number',
                         actualType: 'string'
                     }],
                     children: {}
                 }
             }
-        }
+        };
         expect(array(native('number')).validate([42, '47'])).to.deep.equal(expected);
     });
 
@@ -107,7 +107,7 @@ describe('Validation: Array', () => {
                 moduleName: 'foo2',
                 entityName: 'baz2'
             }
-        ]
+        ];
         const expected: ValidationTree = {
             errors: [],
             children: {
@@ -146,7 +146,7 @@ describe('Validation: Array', () => {
                     }
                 }
             }
-        }
+        };
         expect(array(IdentifierValidation).validate(identifiers)).to.deep.equal(expected);
     });
 
@@ -157,13 +157,13 @@ describe('Validation: Array', () => {
                 moduleName: 'foo',
                 entityName: 'baz'
             }
-        ]
+        ];
         const expected: ValidationTree = {
             errors: [],
             children: {
                 '0': {
                     errors: [{
-                        kind: 'type-error',
+                        errorType: 'type-error',
                         expectedType: 'Identifier',
                         actualType: 'string'
                     }],
@@ -171,7 +171,7 @@ describe('Validation: Array', () => {
                 },
                 '1': {
                     errors: [{
-                        kind: 'missing-key',
+                        errorType: 'missing-key',
                         expectedKey: 'packageId',
                         expectedType: 'string'
                     }],
@@ -187,7 +187,7 @@ describe('Validation: Array', () => {
                     }
                 }
             }
-        }
+        };
         expect(array(IdentifierValidation).validate(invalidIdentifiers)).to.deep.equal(expected);
     });
 
@@ -308,7 +308,7 @@ describe('Validation: Array', () => {
         const invalidInclusiveFilters = 'not a valid object :(';
         const expected: ValidationTree = {
             errors: [{
-                kind: 'type-error',
+                errorType: 'type-error',
                 expectedType: 'InclusiveFilters',
                 actualType: 'string'
             }],
@@ -365,7 +365,7 @@ describe('Validation: Array', () => {
                                 },
                                 packageId: {
                                     errors: [{
-                                        kind: 'type-error',
+                                        errorType: 'type-error',
                                         expectedType: 'string',
                                         actualType: 'number'
                                     }],
@@ -396,18 +396,18 @@ describe('Validation: Array', () => {
                     children: {
                         '0': {
                             errors: [{
-                                kind: 'missing-key',
+                                errorType: 'missing-key',
                                 expectedKey: 'packageId',
                                 expectedType: 'string'
                             }, {
-                                kind: 'missing-key',
+                                errorType: 'missing-key',
                                 expectedKey: 'entityName',
                                 expectedType: 'string'
                             }],
                             children: {
                                 moduleName: {
                                     errors: [{
-                                        kind: 'type-error',
+                                        errorType: 'type-error',
                                         expectedType: 'string',
                                         actualType: 'boolean'
                                     }],
@@ -417,7 +417,7 @@ describe('Validation: Array', () => {
                         },
                         '1': {
                             errors: [{
-                                kind: 'type-error',
+                                errorType: 'type-error',
                                 expectedType: 'Identifier',
                                 actualType: 'number'
                             }],

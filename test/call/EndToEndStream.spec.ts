@@ -27,7 +27,7 @@ describe('End-to-end stream', () => {
             expect(error).to.be.null;
             const call = client!.transactionClient.getTransactions({
                 filter: {filtersByParty: {}},
-                begin: {absolute: '0'}
+                begin: {offsetType: 'absolute', absolute: '0'}
             });
             call.on('error', (error) => {
                 done(error);

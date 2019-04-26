@@ -43,7 +43,11 @@ describe('CommandCompletionClient', () => {
 
     it('should send the request with the correct ledger identifier, start offset, application identifier and requested parties', (done) => {
 
-        const request = {applicationId: 'foobar', offset: {absolute: '31'}, parties: ['alice', 'bob']};
+        const request: CompletionStreamRequest = {
+            applicationId: 'foobar',
+            offset: {offsetType: 'absolute', absolute: '31'},
+            parties: ['alice', 'bob']
+        };
         const call = client.completionStream(request);
         call.on('end', () => {
             assert(latestRequestSpy.calledOnce);
@@ -78,13 +82,11 @@ describe('CommandCompletionClient', () => {
                     children: {}
                 },
                 offset: {
-                    errors: [],
-                    children: {
-                        absolute: {
-                            errors: [],
-                            children: {}
-                        }
-                    }
+                    errors: [{
+                        errorType: 'missing-type-tag',
+                        expectedTypeTags: ['absolute', 'boundary']
+                    }],
+                    children: {}
                 },
                 parties: {
                     errors: [],
@@ -95,7 +97,7 @@ describe('CommandCompletionClient', () => {
                         },
                         '1': {
                             errors: [{
-                                kind: 'type-error',
+                                errorType: 'type-error',
                                 expectedType: 'string',
                                 actualType: 'number'
                             }],
@@ -104,7 +106,7 @@ describe('CommandCompletionClient', () => {
                     }
                 }
             }
-        }
+        };
 
         let passed = false;
         const call = client.completionStream(invalidRequest as any as CompletionStreamRequest);

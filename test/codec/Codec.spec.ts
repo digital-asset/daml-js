@@ -16,7 +16,6 @@ import {Identifier} from "../../src/model/Identifier";
 import {
     Identifier as PbIdentifier,
     List as PbList,
-    Optional as PbOptional,
     Record as PbRecord,
     RecordField as PbRecordField,
     Value as PbValue,
@@ -37,8 +36,6 @@ import {
 import {Filters} from "../../src/model/Filters";
 import {TransactionFilter} from "../../src/model/TransactionFilter";
 import {Codec} from "../../src/codec/Codec";
-import {OptionalCodec} from "../../src/codec/OptionalCodec";
-import {Optional} from "../../src/model/Optional";
 import {Record} from "../../src/model/Record";
 import {SetTimeRequest} from "../../src/model/SetTimeRequest";
 import {
@@ -77,7 +74,7 @@ import {IdentifierCodec} from "../../src/codec/IdentifierCodec";
 import {InclusiveFiltersCodec} from "../../src/codec/InclusiveFiltersCodec";
 import {FiltersCodec} from "../../src/codec/FiltersCodec";
 import {TransactionFilterCodec} from "../../src/codec/TransactionFilterCodec";
-import {LedgerOffset} from "../../src/model/LedgerOffset";
+import {LedgerOffset, LedgerOffsetBoundaryValue} from "../../src/model/LedgerOffset";
 import {LedgerOffset as PbLedgerOffset} from "../../src/generated/com/digitalasset/ledger/api/v1/ledger_offset_pb";
 import {LedgerOffsetCodec} from "../../src/codec/LedgerOffsetCodec";
 import {Timestamp} from "../../src/model/Timestamp";
@@ -127,6 +124,7 @@ import {CompletionStreamRequest} from "../../src/model/CompletionStreamRequest";
 import {Checkpoint} from "../../src/model/Checkpoint";
 import {CompletionStreamRequestCodec} from "../../src/codec/CompletionStreamRequestCodec";
 import {CheckpointCodec} from "../../src/codec/CheckpointCodec";
+import {Event} from "../../src/model/Event";
 import {Any} from "../../src/model/Any";
 import {Any as PbAny} from "google-protobuf/google/protobuf/any_pb";
 import {AnyCodec} from "../../src/codec/AnyCodec";
@@ -242,14 +240,13 @@ describe('Codec', () => {
     const recordObject: Record = {
         recordId: identifierObject,
         fields: {
-            textLabel: {text: 'text'},
-            dateLabel: {date: '40'},
+            textLabel: {valueType: 'text', text: 'text'},
+            dateLabel: {valueType: 'date', date: '40'},
             nestedLabel: {
-                record: {
-                    recordId: identifierObject,
-                    fields: {
-                        partyLabel: {party: 'Bob'}
-                    }
+                valueType: 'record',
+                recordId: identifierObject,
+                fields: {
+                    partyLabel: {valueType: 'party', party: 'Bob'}
                 }
             }
         }
@@ -259,6 +256,7 @@ describe('Codec', () => {
     createCommandMessage.setTemplateId(identifierMessage);
     createCommandMessage.setCreateArguments(recordMessage);
     const createCommandObject: CreateCommand = {
+        commandType: 'create',
         templateId: identifierObject,
         arguments: recordObject
     };
@@ -271,10 +269,11 @@ describe('Codec', () => {
     exerciseCommandMessage.setChoice('choice');
     exerciseCommandMessage.setChoiceArgument(choiceArgument);
     const exerciseCommandObject: ExerciseCommand = {
+        commandType: 'exercise',
         templateId: identifierObject,
         contractId: 'contractId2',
         choice: 'choice',
-        argument: {bool: true}
+        argument: {valueType: 'bool', bool: true}
     };
 
     const command1 = new PbCommand();
@@ -302,7 +301,7 @@ describe('Codec', () => {
         maximumRecordTime: {seconds: 62, nanoseconds: 63},
         party: 'Alice',
         workflowId: 'workflowId',
-        list: [{create: createCommandObject}, {exercise: exerciseCommandObject}]
+        list: [createCommandObject, exerciseCommandObject]
     };
 
     const createdEventMessage = new PbCreatedEvent();
@@ -312,6 +311,7 @@ describe('Codec', () => {
     createdEventMessage.setCreateArguments(recordMessage);
     createdEventMessage.setWitnessPartiesList(['Alice', 'Bob']);
     const createdEventObject: CreatedEvent = {
+        eventType: "created",
         eventId: 'eventId',
         contractId: 'contractId',
         templateId: identifierObject,
@@ -344,9 +344,9 @@ describe('Codec', () => {
     });
 
     itShouldConvert('LedgerOffsetValidation.Absolute', () => {
-        const absoluteObject = {absolute: '20'};
-        const beginObject = {boundary: LedgerOffset.Boundary.BEGIN};
-        const endObject = {boundary: LedgerOffset.Boundary.END};
+        const absoluteObject: LedgerOffset = {offsetType: 'absolute', absolute: '20'};
+        const beginObject: LedgerOffset = {offsetType: 'boundary', boundary: LedgerOffsetBoundaryValue.BEGIN};
+        const endObject: LedgerOffset = {offsetType: 'boundary', boundary: LedgerOffsetBoundaryValue.END};
         const absoluteMessage = new PbLedgerOffset();
         absoluteMessage.setAbsolute('20');
         const beginMessage = new PbLedgerOffset();
@@ -385,35 +385,35 @@ describe('Codec', () => {
     itShouldConvert('ValueValidation(Bool)', () => {
         const boolMessage = new PbValue();
         boolMessage.setBool(true);
-        const boolObject = {bool: true};
+        const boolObject: Value = {valueType: 'bool', bool: true};
         twoWayCheck(ValueCodec, boolMessage, boolObject);
     });
 
     itShouldConvert('ValueValidation(ContractId)', () => {
         const contractIdMessage = new PbValue();
         contractIdMessage.setContractId('contractId');
-        const contractIdObject: Value = {contractId: 'contractId'};
+        const contractIdObject: Value = {valueType: 'contractId', contractId: 'contractId'};
         twoWayCheck(ValueCodec, contractIdMessage, contractIdObject);
     });
 
     itShouldConvert('ValueValidation(Date)', () => {
         const dateMessage = new PbValue();
         dateMessage.setDate(1);
-        const dateObject: Value = {date: '1'};
+        const dateObject: Value = {valueType: 'date', date: '1'};
         twoWayCheck(ValueCodec, dateMessage, dateObject);
     });
 
     itShouldConvert('ValueValidation(Decimal)', () => {
         const decimalMessage = new PbValue();
         decimalMessage.setDecimal('30');
-        const decimalObject: Value = {decimal: '30'};
+        const decimalObject: Value = {valueType: 'decimal', decimal: '30'};
         twoWayCheck(ValueCodec, decimalMessage, decimalObject);
     });
 
     itShouldConvert('ValueValidation(Int64)', () => {
         const int64Message = new PbValue();
         int64Message.setInt64('40');
-        const int64Object: Value = {int64: '40'};
+        const int64Object: Value = {valueType: 'int64', int64: '40'};
         twoWayCheck(ValueCodec, int64Message, int64Object);
     });
 
@@ -422,7 +422,7 @@ describe('Codec', () => {
         emptyList.setElementsList([]);
         const emptyListMessage = new PbValue();
         emptyListMessage.setList(emptyList);
-        const emptyListObject = {list: []};
+        const emptyListObject: Value = {valueType: 'list', list: []};
         twoWayCheck(ValueCodec, emptyListMessage, emptyListObject);
 
         const dateMessage = new PbValue();
@@ -431,35 +431,35 @@ describe('Codec', () => {
         singletonList.setElementsList([dateMessage]);
         const singletonListMessage = new PbValue();
         singletonListMessage.setList(singletonList);
-        const singletonListObject: Value = {list: [{date: '2'}]};
+        const singletonListObject: Value = {valueType: 'list', list: [{valueType: 'date', date: '2'}]};
         twoWayCheck(ValueCodec, singletonListMessage, singletonListObject);
     });
 
     itShouldConvert('ValueValidation(Party)', () => {
         const partyMessage = new PbValue();
         partyMessage.setParty('Alice');
-        const partyObject = {party: 'Alice'};
+        const partyObject: Value = {valueType: 'party', party: 'Alice'};
         twoWayCheck(ValueCodec, partyMessage, partyObject);
     });
 
     itShouldConvert('ValueValidation(RecordValidation)', () => {
         const recordValueMessage = new PbValue();
         recordValueMessage.setRecord(recordMessage);
-        const recordValueObject: Value = {record: recordObject};
+        const recordValueObject: Value = Object.assign({valueType: 'record'}, recordObject);
         twoWayCheck(ValueCodec, recordValueMessage, recordValueObject);
     });
 
     itShouldConvert('ValueValidation(Text)', () => {
         const textMessage = new PbValue();
         textMessage.setText('text2');
-        const textObject: Value = {text: 'text2'};
+        const textObject: Value = {valueType: 'text', text: 'text2'};
         twoWayCheck(ValueCodec, textMessage, textObject);
     });
 
     itShouldConvert('ValueValidation(TimestampValidation)', () => {
         const timestampMessage = new PbValue();
         timestampMessage.setTimestamp('50');
-        const timestampObject: Value = {timestamp: '50'};
+        const timestampObject: Value = {valueType: 'timestamp', timestamp: '50'};
         twoWayCheck(ValueCodec, timestampMessage, timestampObject);
     });
 
@@ -467,7 +467,7 @@ describe('Codec', () => {
         const unitMessage = new PbValue();
         unitMessage.setUnit(new PbEmpty());
         expect(unitMessage.hasUnit()).to.be.true;
-        const unitObject: Value = {unit: {}};
+        const unitObject: Value = {valueType: 'unit'};
         twoWayCheck(ValueCodec, unitMessage, unitObject);
     });
 
@@ -481,11 +481,10 @@ describe('Codec', () => {
         const variantMessage = new PbValue();
         variantMessage.setVariant(variant);
         const variantObject: Value = {
-            variant: {
-                constructor: 'constructor',
-                variantId: identifierObject,
-                value: {record: recordObject}
-            }
+            valueType: 'variant',
+            constructor: 'constructor',
+            variantId: identifierObject,
+            value: Object.assign({valueType: 'record'}, recordObject)
         };
         twoWayCheck(ValueCodec, variantMessage, variantObject);
     });
@@ -513,15 +512,11 @@ describe('Codec', () => {
     itShouldConvert('ArbitraryCommand', () => {
         const commandMessage = new PbCommand();
         commandMessage.setCreate(createCommandMessage);
-        twoWayCheck(CommandCodec, commandMessage, {
-            create: createCommandObject
-        });
+        twoWayCheck(CommandCodec, commandMessage, createCommandObject);
 
         const commandMessage2 = new PbCommand();
         commandMessage2.setExercise(exerciseCommandMessage);
-        twoWayCheck(CommandCodec, commandMessage2, {
-            exercise: exerciseCommandObject
-        });
+        twoWayCheck(CommandCodec, commandMessage2, exerciseCommandObject);
     });
 
     itShouldConvert('Commands', () => {
@@ -547,7 +542,7 @@ describe('Codec', () => {
         requestMessage.setFilter(transactionFilterMessage);
         requestMessage.setVerbose(true);
         const requestObject: GetTransactionsRequest = {
-            begin: {absolute: '70'},
+            begin: {offsetType: 'absolute', absolute: '70'},
             filter: transactionFilterObject,
             verbose: true
         };
@@ -582,7 +577,7 @@ describe('Codec', () => {
         responseMessage.setWorkflowId('wid');
         responseMessage.setActiveContractsList([createdEventMessage]);
         const responseObject: GetActiveContractsResponse = {
-            offset: {absolute: '7'},
+            offset: '7',
             workflowId: 'wid',
             activeContracts: [createdEventObject]
         };
@@ -644,7 +639,7 @@ describe('Codec', () => {
         const offset = new PbLedgerOffset();
         offset.setAbsolute('20');
         message.setOffset(offset);
-        const object: CompletionEndResponse = {offset: {absolute: '20'}};
+        const object: CompletionEndResponse = {offset: {offsetType: 'absolute', absolute: '20'}};
         twoWayCheck(CompletionEndResponseCodec, message, object);
     });
 
@@ -657,7 +652,7 @@ describe('Codec', () => {
         message.setPartiesList(['pool', 'birthday']);
         const object: CompletionStreamRequest = {
             applicationId: 'space-invaders-on-the-blockchain',
-            offset: {absolute: '20'},
+            offset: {offsetType: 'absolute', absolute: '20'},
             parties: ['pool', 'birthday']
         };
         twoWayCheck(CompletionStreamRequestCodec, message, object);
@@ -673,7 +668,7 @@ describe('Codec', () => {
         recordTime.setNanos(999);
         message.setRecordTime(recordTime);
         const object: Checkpoint = {
-            offset: {absolute: '20'},
+            offset: {offsetType: 'absolute', absolute: '20'},
             recordTime: {seconds: 42, nanoseconds: 999}
         };
         twoWayCheck(CheckpointCodec, message, object);
@@ -806,7 +801,7 @@ describe('Codec', () => {
 
         const object: CompletionStreamResponse = {
             checkpoint: {
-                offset: {absolute: '20'},
+                offset: {offsetType: 'absolute', absolute: '20'},
                 recordTime: {seconds: 42, nanoseconds: 999}
             },
             completions: [
@@ -927,6 +922,7 @@ describe('Codec', () => {
         message.setOffset(offset);
         const object: GetLedgerEndResponse = {
             offset: {
+                offsetType: 'absolute',
                 absolute: '47'
             }
         };
@@ -966,6 +962,7 @@ describe('Codec', () => {
         message.setEventId('some-event-id');
         message.setWitnessPartiesList(['birthday', 'pool', 'house-warming']);
         const object: ArchivedEvent = {
+            eventType: 'archived',
             contractId: 'some-contract-id',
             eventId: 'some-event-id',
             templateId: {
@@ -1002,6 +999,7 @@ describe('Codec', () => {
         message.setChildEventIdsList(['event']);
 
         const object: ExercisedEvent = {
+            eventType: 'exercised',
             contractId: 'some-contract-id',
             eventId: 'some-event-id',
             templateId: {
@@ -1010,7 +1008,7 @@ describe('Codec', () => {
                 entityName: 'roberto'
             },
             actingParties: ['birthday'],
-            argument: {list: [{party: 'patricians'}]},
+            argument: {valueType: 'list', list: [{valueType: 'party', party: 'patricians'}]},
             childEventIds: ['event'],
             choice: 'freedom',
             consuming: true,
@@ -1038,17 +1036,16 @@ describe('Codec', () => {
         archived.setWitnessPartiesList(['pool']);
         event.setArchived(archived);
 
-        const object = {
-            archived: {
-                contractId: 'some-contract-id',
-                eventId: 'some-event-id',
-                templateId: {
-                    packageId: 'pkg',
-                    moduleName: 'alejandro',
-                    entityName: 'roberto'
-                },
-                witnessParties: ['pool']
-            }
+        const object: Event = {
+            eventType: 'archived',
+            contractId: 'some-contract-id',
+            eventId: 'some-event-id',
+            templateId: {
+                packageId: 'pkg',
+                moduleName: 'alejandro',
+                entityName: 'roberto'
+            },
+            witnessParties: ['pool']
         };
 
         twoWayCheck(EventCodec, event, object);
@@ -1097,19 +1094,18 @@ describe('Codec', () => {
             effectiveAt: {seconds: 10, nanoseconds: 20},
             eventsById: {
                 someId: {
-                    created: {
-                        templateId: {
-                            packageId: 'pkg',
-                            moduleName: 'alejandro',
-                            entityName: 'roberto'
-                        },
-                        contractId: 'some-contract-id',
-                        eventId: 'some-event-id',
-                        witnessParties: ['pool'],
-                        arguments: {
-                            fields: {
-                                foo: {contractId: 'boo'}
-                            }
+                    eventType: 'created',
+                    templateId: {
+                        packageId: 'pkg',
+                        moduleName: 'alejandro',
+                        entityName: 'roberto'
+                    },
+                    contractId: 'some-contract-id',
+                    eventId: 'some-event-id',
+                    witnessParties: ['pool'],
+                    arguments: {
+                        fields: {
+                            foo: {valueType: 'contractId', contractId: 'boo'}
                         }
                     }
                 }
@@ -1170,19 +1166,18 @@ describe('Codec', () => {
                 effectiveAt: {seconds: 10, nanoseconds: 20},
                 eventsById: {
                     someId: {
-                        created: {
-                            templateId: {
-                                packageId: 'pkg',
-                                moduleName: 'alejandro',
-                                entityName: 'roberto'
-                            },
-                            contractId: 'some-contract-id',
-                            eventId: 'some-event-id',
-                            witnessParties: ['pool'],
-                            arguments: {
-                                fields: {
-                                    foo: {contractId: 'boo'}
-                                }
+                        eventType: 'created',
+                        templateId: {
+                            packageId: 'pkg',
+                            moduleName: 'alejandro',
+                            entityName: 'roberto'
+                        },
+                        contractId: 'some-contract-id',
+                        eventId: 'some-event-id',
+                        witnessParties: ['pool'],
+                        arguments: {
+                            fields: {
+                                foo: {valueType: 'contractId', contractId: 'boo'}
                             }
                         }
                     }
@@ -1230,16 +1225,15 @@ describe('Codec', () => {
             effectiveAt: {seconds: 10, nanoseconds: 20},
             events: [
                 {
-                    archived: {
-                        contractId: 'some-contract-id',
-                        eventId: 'some-event-id',
-                        templateId: {
-                            packageId: 'pkg',
-                            moduleName: 'alejandro',
-                            entityName: 'roberto'
-                        },
-                        witnessParties: ['pool']
-                    }
+                    eventType: 'archived',
+                    contractId: 'some-contract-id',
+                    eventId: 'some-event-id',
+                    templateId: {
+                        packageId: 'pkg',
+                        moduleName: 'alejandro',
+                        entityName: 'roberto'
+                    },
+                    witnessParties: ['pool']
                 }
             ],
             offset: 'zero',
@@ -1288,16 +1282,15 @@ describe('Codec', () => {
                     effectiveAt: {seconds: 10, nanoseconds: 20},
                     events: [
                         {
-                            archived: {
-                                contractId: 'some-contract-id',
-                                eventId: 'some-event-id',
-                                templateId: {
-                                    packageId: 'pkg',
-                                    moduleName: 'alejandro',
-                                    entityName: 'roberto'
-                                },
-                                witnessParties: ['pool']
-                            }
+                            eventType: 'archived',
+                            contractId: 'some-contract-id',
+                            eventId: 'some-event-id',
+                            templateId: {
+                                packageId: 'pkg',
+                                moduleName: 'alejandro',
+                                entityName: 'roberto'
+                            },
+                            witnessParties: ['pool']
                         }
                     ],
                     offset: 'zero',
@@ -1358,19 +1351,18 @@ describe('Codec', () => {
                     effectiveAt: {seconds: 10, nanoseconds: 20},
                     eventsById: {
                         someId: {
-                            created: {
-                                templateId: {
-                                    packageId: 'pkg',
-                                    moduleName: 'alejandro',
-                                    entityName: 'roberto'
-                                },
-                                contractId: 'some-contract-id',
-                                eventId: 'some-event-id',
-                                witnessParties: ['pool'],
-                                arguments: {
-                                    fields: {
-                                        foo: {contractId: 'boo'}
-                                    }
+                            eventType: 'created',
+                            templateId: {
+                                packageId: 'pkg',
+                                moduleName: 'alejandro',
+                                entityName: 'roberto'
+                            },
+                            contractId: 'some-contract-id',
+                            eventId: 'some-event-id',
+                            witnessParties: ['pool'],
+                            arguments: {
+                                fields: {
+                                    foo: {valueType: 'contractId', contractId: 'boo'}
                                 }
                             }
                         }
@@ -1431,19 +1423,6 @@ describe('Codec', () => {
         twoWayCheck(SetTimeRequestCodec, message, object);
     });
 
-    itShouldConvert('Optional', () => {
-        const message = new PbOptional();
-        const value = new PbValue();
-        const none = new PbOptional();
-        value.setOptional(none);
-        message.setValue(value);
-
-        const object: Optional = {
-            value: {optional: {}}
-        };
-
-        twoWayCheck(OptionalCodec, message, object);
-    });
 });
 
 function itShouldConvert(typeName: String, fn?: Mocha.Func): Mocha.Test {

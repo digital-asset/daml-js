@@ -5,6 +5,7 @@ import {Identifier} from './Identifier';
 import {Record} from './Record';
 
 export interface CreateCommand {
+    commandType: 'create',
     templateId: Identifier
     arguments: Record
 }

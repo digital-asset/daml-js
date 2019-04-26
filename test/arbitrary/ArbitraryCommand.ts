@@ -5,17 +5,20 @@ import * as jsc from 'jsverify';
 import {Command} from "../../src/model/Command";
 import {CreateCommand} from "../../src/model/CreateCommand";
 import {ExerciseCommand} from "../../src/model/ExerciseCommand";
-import {ArbitraryCreateCommand} from "./ArbitraryCreateCommand";
-import {ArbitraryExerciseCommand} from "./ArbitraryExerciseCommand";
-
-const Create: jsc.Arbitrary<Command> = ArbitraryCreateCommand.smap<{
-    create?: CreateCommand;
-}>(create => ({create: create}), command => command.create!);
-const Exercise: jsc.Arbitrary<Command> = ArbitraryExerciseCommand.smap<{
-    exercise?: ExerciseCommand;
-}>(exercise => ({exercise: exercise}), command => command.exercise!);
+import {ArbitraryIdentifier} from "./ArbitraryIdentifier";
+import {ArbitraryRecord, ArbitraryValue} from "./ArbitraryRecordValueVariant";
 
 export const ArbitraryCommand: jsc.Arbitrary<Command> = jsc.oneof([
-    Create,
-    Exercise
+    jsc.record<CreateCommand>({
+        commandType: jsc.constant('create'),
+        templateId: ArbitraryIdentifier,
+        arguments: ArbitraryRecord
+    }),
+    jsc.record<ExerciseCommand>({
+        commandType: jsc.constant('exercise'),
+        templateId: ArbitraryIdentifier,
+        contractId: jsc.string,
+        choice: jsc.string,
+        argument: ArbitraryValue
+    })
 ]);

@@ -99,7 +99,7 @@ describe('Validation: Record', () => {
                     children: {
                         birthday: {
                             errors: [{
-                                kind: 'type-error',
+                                errorType: 'type-error',
                                 expectedType: 'Filters',
                                 actualType: 'number'
                             }],

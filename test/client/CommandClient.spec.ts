@@ -39,13 +39,12 @@ describe("CommandClient", () => {
             workflowId: 'some-workflow-id',
             list: [
                 {
-                    create: {
-                        templateId: {packageId: 'tmplt', moduleName: 'cpluspls', entityName: 'ent'},
-                        arguments: {
-                            recordId: {packageId: 'pkg', moduleName: 'fernando', entityName: 'ent'},
-                            fields: {
-                                someValue: {bool: true}
-                            }
+                    commandType: 'create',
+                    templateId: {packageId: 'tmplt', moduleName: 'cpluspls', entityName: 'ent'},
+                    arguments: {
+                        recordId: {packageId: 'pkg', moduleName: 'fernando', entityName: 'ent'},
+                        fields: {
+                            someValue: {valueType: 'bool', bool: true}
                         }
                     }
                 }
@@ -88,11 +87,10 @@ describe("CommandClient", () => {
                 maximumRecordTime: {seconds: 1, nanoseconds: 2},
                 list: [
                     {
-                        archive: {
-                            templateId: {
-                                name: 'foo',
-                                packageId: 'bar'
-                            }
+                        commandType: 'archive',
+                        templateId: {
+                            name: 'foo',
+                            packageId: 'bar'
                         }
                     }
                 ]
@@ -148,8 +146,9 @@ describe("CommandClient", () => {
                             children: {
                                 '0': {
                                     errors: [{
-                                        kind: 'unexpected-key',
-                                        key: 'archive'
+                                        errorType: 'unexpected-type-tag',
+                                        actualTypeTag: 'archive',
+                                        expectedTypeTags: ['create', 'exercise']
                                     }],
                                     children: {}
                                 }
@@ -158,7 +157,7 @@ describe("CommandClient", () => {
                     }
                 },
             }
-        }
+        };
 
         client.submitAndWait(invalidRequest as any as SubmitAndWaitRequest, error => {
             expect(error).to.not.be.null;

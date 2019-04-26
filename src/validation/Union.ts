@@ -2,56 +2,47 @@
 // SPDX-License-IdentifierValidation: Apache-2.0
 
 import {init, typeOf, UnionValidation, Validation, ValidationTree} from "./Validation";
+import {inspect} from "util";
 
-function checkUniqueness(object: any, node: ValidationTree): void {
-    const defined: string[] = Object.keys(object).filter(key => object[key] !== undefined);
-    if (defined.length !== 1) {
-        node.errors.push({
-            kind: 'non-unique-union',
-            keys: defined
-        })
-    }
-}
-
-function checkValue(object: any, values: { [_: string]: Validation }, node: ValidationTree): void {
-    for (const key in values) {
-        if (object.hasOwnProperty(key)) {
-            values[key].validate(object[key], key, node);
-        }
-    }
-}
-
-function checkUnexpected<A extends object>(object: any, keys: Record<keyof A, Validation>, node: ValidationTree): void {
-    for (const key in object) {
-        if (!keys || !keys.hasOwnProperty(key)) {
-            node.errors.push({
-                kind: 'unexpected-key',
-                key: key
-            })
-        }
-    }
-}
-
-export function union<A extends object>(type: string, values: () => Record<keyof A, Validation>): UnionValidation<A> {
+export function union<Tag extends string, A extends { [_ in Tag]: string }>(type: string, tag: Tag, values: () => { [_ in A[Tag]]: Validation }): UnionValidation<Tag, A> {
     return {
+        tag: tag,
         type: type,
         values: values,
-        validate(value: any, key?: string, validation?: ValidationTree): ValidationTree {
-            const node = init(key, validation);
+        validate(value: any, key?: string, tree?: ValidationTree): ValidationTree {
+            const node = init(key, tree);
             const actualType = typeOf(value);
             if (actualType !== 'object') {
                 node.errors.push({
-                    kind: 'type-error',
+                    errorType: 'type-error',
                     expectedType: type,
                     actualType: actualType
                 });
-            } else {
-                const values = this.values();
-                checkUniqueness(value, node);
-                checkValue(value, values, node);
-                checkUnexpected(value, values, node);
+                return node;
             }
-            return validation || node;
+            const typeTags: any = values();
+            const typeTag = value[this.tag];
+            if (typeTag in typeTags) {
+                const validation = typeTags[typeTag] as Validation;
+                if (key && tree) {
+                    return validation.validate(value, key, tree);
+                } else {
+                    return validation.validate(value);
+                }
+            } else if (typeTag === null || typeTag === undefined) {
+                node.errors.push({
+                    errorType: 'missing-type-tag',
+                    expectedTypeTags: Object.keys(typeTags)
+                });
+                return node;
+            } else {
+                node.errors.push({
+                    errorType: 'unexpected-type-tag',
+                    expectedTypeTags: Object.keys(typeTags),
+                    actualTypeTag: typeof typeTag === 'string' ? typeTag : inspect(typeTag)
+                });
+                return node;
+            }
         }
     };
 }

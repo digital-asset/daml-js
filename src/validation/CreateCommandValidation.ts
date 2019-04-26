@@ -7,9 +7,11 @@ import {RecordValidation} from "./RecordValidation";
 import {CreateCommand} from "../model/CreateCommand";
 import {noFields, RequiredFieldsValidators} from "./Validation";
 import {object} from "./Object";
+import {string} from "./String";
 
 function required(): RequiredFieldsValidators<CreateCommand> {
     return {
+        commandType: string('create'),
         arguments: RecordValidation,
         templateId: IdentifierValidation
     };

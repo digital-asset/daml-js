@@ -16,7 +16,7 @@ export const RecordCodec: Codec<PbRecord, Record> = {
         record.getFieldsList().forEach((field) => {
             fields[field.getLabel() || fieldIndex++] = ValueCodec.deserialize(field.getValue()!);
         });
-        const result: Record = {fields: fields}
+        const result: Record = {fields: fields};
         if (record.hasRecordId()) {
             result.recordId = IdentifierCodec.deserialize(record.getRecordId()!);
         }
@@ -27,7 +27,7 @@ export const RecordCodec: Codec<PbRecord, Record> = {
         if (record.recordId) {
             result.setRecordId(IdentifierCodec.serialize(record.recordId));
         }
-        const list: PbRecordField[] = []
+        const list: PbRecordField[] = [];
         Object.keys(record.fields).forEach((label: string) => {
             const value = ValueCodec.serialize(record.fields[label]);
             const field = new PbRecordField();

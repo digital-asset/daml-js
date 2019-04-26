@@ -28,25 +28,23 @@ describe('CommandSubmissionClient', () => {
             workflowId: 'dfg346',
             list: [
                 {
-                    create: {
-                        templateId: {packageId: 'fgdfg', moduleName: 'dwgwdfg', entityName: 'alkhksjhd'},
-                        arguments: {
-                            recordId: {packageId: 'g3g42', moduleName: '314tgg5', entityName: '235lkj23'},
-                            fields: {
-                                contract: {contractId: 'sdg4tr34'},
-                                someFlag: {bool: true}
-                            }
+                    commandType: 'create',
+                    templateId: {packageId: 'fgdfg', moduleName: 'dwgwdfg', entityName: 'alkhksjhd'},
+                    arguments: {
+                        recordId: {packageId: 'g3g42', moduleName: '314tgg5', entityName: '235lkj23'},
+                        fields: {
+                            contract: {valueType: 'contractId', contractId: 'sdg4tr34'},
+                            someFlag: {valueType: 'bool', bool: true}
                         }
                     }
                 }, {
-                    exercise: {
-                        choice: 'sdfgv34g',
-                        argument: {
-                            decimal: '999'
-                        },
-                        contractId: 'f4f34f34f',
-                        templateId: {packageId: 'f1234f34f', moduleName: '341f43f3', entityName: '239874hb'}
-                    }
+                    commandType: 'exercise',
+                    choice: 'sdfgv34g',
+                    argument: {
+                        valueType: 'decimal', decimal: '999'
+                    },
+                    contractId: 'f4f34f34f',
+                    templateId: {packageId: 'f1234f34f', moduleName: '341f43f3', entityName: '239874hb'}
                 }
             ]
         }
@@ -92,11 +90,10 @@ describe('CommandSubmissionClient', () => {
                 maximumRecordTime: {seconds: 1, nanoseconds: 2},
                 list: [
                     {
-                        archive: {
-                            templateId: {
-                                name: 'foo',
-                                packageId: 'bar'
-                            }
+                        commandType: 'archive',
+                        templateId: {
+                            name: 'foo',
+                            packageId: 'bar'
                         }
                     }
                 ]
@@ -152,8 +149,9 @@ describe('CommandSubmissionClient', () => {
                             children: {
                                 '0': {
                                     errors: [{
-                                        kind: 'unexpected-key',
-                                        key: 'archive'
+                                        errorType: 'unexpected-type-tag',
+                                        expectedTypeTags: ['create', 'exercise'],
+                                        actualTypeTag: 'archive'
                                     }],
                                     children: {}
                                 }

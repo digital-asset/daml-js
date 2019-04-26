@@ -2,7 +2,7 @@
 // SPDX-License-IdentifierValidation: Apache-2.0
 
 import {expect} from 'chai';
-import {LedgerOffset} from "../../src/model/LedgerOffset";
+import {LedgerOffset, LedgerOffsetBoundaryValue} from "../../src/model/LedgerOffset";
 import {ValidationTree} from "../../src/validation/Validation";
 import {LedgerOffsetValidation} from "../../src/validation/LedgerOffsetValidation";
 
@@ -10,12 +10,17 @@ describe('Validation: Union', () => {
 
     it('should validate an absolute offset', () => {
         const offset: LedgerOffset = {
+            offsetType: 'absolute',
             absolute: '20'
         };
         const expected: ValidationTree = {
             errors: [],
             children: {
                 absolute: {
+                    errors: [],
+                    children: {}
+                },
+                offsetType: {
                     errors: [],
                     children: {}
                 }
@@ -26,12 +31,17 @@ describe('Validation: Union', () => {
 
     it('should validate a valid boundary (begin)', () => {
         const offset: LedgerOffset = {
-            boundary: LedgerOffset.Boundary.BEGIN
+            offsetType: 'boundary',
+            boundary: LedgerOffsetBoundaryValue.BEGIN
         };
         const expected: ValidationTree = {
             errors: [],
             children: {
                 boundary: {
+                    errors: [],
+                    children: {}
+                },
+                offsetType: {
                     errors: [],
                     children: {}
                 }
@@ -42,7 +52,8 @@ describe('Validation: Union', () => {
 
     it('should validate a valid boundary (end)', () => {
         const offset: LedgerOffset = {
-            boundary: LedgerOffset.Boundary.END
+            offsetType: 'boundary',
+            boundary: LedgerOffsetBoundaryValue.END
         };
         const expected: ValidationTree = {
             errors: [],
@@ -50,28 +61,8 @@ describe('Validation: Union', () => {
                 boundary: {
                     errors: [],
                     children: {}
-                }
-            }
-        };
-        expect(LedgerOffsetValidation.validate(offset)).to.deep.equal(expected);
-    });
-
-    it('should not validate a ledger offset with both (valid) absolute and boundary values', () => {
-        const offset: LedgerOffset = {
-            absolute: '20',
-            boundary: LedgerOffset.Boundary.END
-        };
-        const expected: ValidationTree = {
-            errors: [{
-                kind: 'non-unique-union',
-                keys: ['absolute', 'boundary']
-            }],
-            children: {
-                absolute: {
-                    errors: [],
-                    children: {}
                 },
-                boundary: {
+                offsetType: {
                     errors: [],
                     children: {}
                 }
@@ -80,12 +71,15 @@ describe('Validation: Union', () => {
         expect(LedgerOffsetValidation.validate(offset)).to.deep.equal(expected);
     });
 
-    it('should not validate a ledger offset without values', () => {
-        const offset: LedgerOffset = {};
+    it('should not validate a ledger offset without a type tag', () => {
+        const offset = {
+            absolute: '20',
+            boundary: LedgerOffsetBoundaryValue.END
+        };
         const expected: ValidationTree = {
             errors: [{
-                kind: 'non-unique-union',
-                keys: []
+                errorType: 'missing-type-tag',
+                expectedTypeTags: ['absolute', 'boundary']
             }],
             children: {}
         };
@@ -94,14 +88,24 @@ describe('Validation: Union', () => {
 
     it('should not validate a ledger offset with an unexpected key', () => {
         const offset = {
+            offsetType: 'absolute',
             wrong: '20'
         };
         const expected: ValidationTree = {
             errors: [{
-                kind: 'unexpected-key',
+                errorType: 'missing-key',
+                expectedType: 'string',
+                expectedKey: 'absolute'
+            }, {
+                errorType: 'unexpected-key',
                 key: 'wrong'
             }],
-            children: {}
+            children: {
+                offsetType: {
+                    children: {},
+                    errors: []
+                }
+            }
         };
         expect(LedgerOffsetValidation.validate(offset)).to.deep.equal(expected);
     });

@@ -5,19 +5,17 @@ import {ValidationReporter} from "./ValidationReporter";
 import {isValid, ValidationError, ValidationTree} from "../validation/Validation";
 
 function spellOutError(error: ValidationError): string {
-    switch (error.kind) {
+    switch (error.errorType) {
         case 'missing-key':
             return `Missing key ${error.expectedKey} of type ${error.expectedType}`;
-        case 'non-unique-union':
-            if (error.keys.length === 0) {
-                return `Exactly one value must be defined in an union but none are`;
-            } else {
-                return `Exactly one value must be defined in an union but ${error.keys.length} are (${error.keys.join(', ')})`;
-            }
-        case 'type-error':
-            return `Type error, ${error.expectedType} expected but got ${error.actualType}`;
         case 'unexpected-key':
             return `Unexpected key ${error.key} found`;
+        case 'missing-type-tag':
+            return `Missing type tag (expected one of ${error.expectedTypeTags.join(', ')})`;
+        case 'unexpected-type-tag':
+            return `Unknown type tag ${error.actualTypeTag} (expected one of ${error.expectedTypeTags.join(', ')})`;
+        case 'type-error':
+            return `Type error, ${error.expectedType} expected but got ${error.actualType}`;
     }
 }
 

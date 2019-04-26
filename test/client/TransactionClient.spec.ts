@@ -8,7 +8,7 @@ import {GetTransactionByIdRequest} from "../../src/model/GetTransactionByIdReque
 import {GetTransactionByEventIdRequest} from "../../src/model/GetTransactionByEventIdRequest";
 import {TransactionClient} from "../../src/client/TransactionClient";
 import {ValidationTree} from "../../src/validation/Validation";
-import {LedgerOffset} from "../../src/model/LedgerOffset";
+import {LedgerOffsetBoundaryValue} from "../../src/model/LedgerOffset";
 import {JSONReporter} from "../../src/reporting/JSONReporter";
 import {
     GetLedgerEndRequest as PbGetLedgerEndRequest,
@@ -22,6 +22,7 @@ describe('TransactionClient', () => {
 
     const transactionsRequest: GetTransactionsRequest = {
         begin: {
+            offsetType: 'absolute',
             absolute: '42'
         },
         filter: {
@@ -260,7 +261,7 @@ describe('TransactionClient', () => {
                 },
                 requestingParties: {
                     errors: [{
-                        kind: 'type-error',
+                        errorType: 'type-error',
                         expectedType: 'Array<string>',
                         actualType: 'number'
                     }],
@@ -279,10 +280,10 @@ describe('TransactionClient', () => {
 
     it('should perform validation on the GetTransactions endpoint', (done) => {
 
-        const invalidTransactionsRequest: GetTransactionsRequest = {
+        const invalidTransactionsRequest = {
             begin: {
                 absolute: '42',
-                boundary: LedgerOffset.Boundary.BEGIN
+                boundary: LedgerOffsetBoundaryValue.BEGIN
             },
             filter: {
                 filtersByParty: {}
@@ -294,19 +295,10 @@ describe('TransactionClient', () => {
             children: {
                 begin: {
                     errors: [{
-                        kind: 'non-unique-union',
-                        keys: ['absolute', 'boundary']
+                        errorType: 'missing-type-tag',
+                        expectedTypeTags: ['absolute', 'boundary']
                     }],
-                    children: {
-                        absolute: {
-                            errors: [],
-                            children: {}
-                        },
-                        boundary: {
-                            errors: [],
-                            children: {}
-                        }
-                    }
+                    children: {}
                 },
                 filter: {
                     errors: [],
@@ -318,10 +310,10 @@ describe('TransactionClient', () => {
                     }
                 }
             }
-        }
+        };
 
         let passed = false;
-        const call = client.getTransactions(invalidTransactionsRequest);
+        const call = client.getTransactions(invalidTransactionsRequest as any as GetTransactionsRequest);
         call.on('data', (_data) => {
             done(new Error('unexpected data received'));
         });
@@ -338,10 +330,10 @@ describe('TransactionClient', () => {
 
     it('should perform validation on the GetTransactionTrees', (done) => {
 
-        const invalidTransactionsRequest: GetTransactionsRequest = {
+        const invalidTransactionsRequest = {
             begin: {
                 absolute: '42',
-                boundary: LedgerOffset.Boundary.BEGIN
+                boundary: LedgerOffsetBoundaryValue.BEGIN
             },
             filter: {
                 filtersByParty: {}
@@ -353,19 +345,10 @@ describe('TransactionClient', () => {
             children: {
                 begin: {
                     errors: [{
-                        kind: 'non-unique-union',
-                        keys: ['absolute', 'boundary']
+                        errorType: 'missing-type-tag',
+                        expectedTypeTags: ['absolute', 'boundary']
                     }],
-                    children: {
-                        absolute: {
-                            errors: [],
-                            children: {}
-                        },
-                        boundary: {
-                            errors: [],
-                            children: {}
-                        }
-                    }
+                    children: {}
                 },
                 filter: {
                     errors: [],
@@ -380,7 +363,7 @@ describe('TransactionClient', () => {
         };
 
         let passed = false;
-        const call = client.getTransactionTrees(invalidTransactionsRequest);
+        const call = client.getTransactionTrees(invalidTransactionsRequest as any as GetTransactionsRequest);
         call.on('data', (_data) => {
             done(new Error('unexpected data received'));
         });

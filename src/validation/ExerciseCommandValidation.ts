@@ -8,9 +8,11 @@ import {ExerciseCommand} from "../model/ExerciseCommand";
 import {noFields, RequiredFieldsValidators} from "./Validation";
 import {native} from "./Native";
 import {object} from "./Object";
+import {string} from "./String";
 
 function required(): RequiredFieldsValidators<ExerciseCommand> {
     return {
+        commandType: string('exercise'),
         argument: ValueValidation,
         choice: native('string'),
         contractId: native('string'),
