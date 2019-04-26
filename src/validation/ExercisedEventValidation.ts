@@ -13,7 +13,7 @@ import {string} from "./String";
 
 function required(): RequiredFieldsValidators<ExercisedEvent> {
     return {
-        __type__: string('exercised'),
+        eventType: string('exercised'),
         actingParties: array(native('string')),
         choice: native('string'),
         argument: ValueValidation,

@@ -4,8 +4,9 @@
 import {init, typeOf, UnionValidation, Validation, ValidationTree} from "./Validation";
 import {inspect} from "util";
 
-export function union<A extends { __type__: string }>(type: string, values: () => { [_ in A['__type__']]: Validation }): UnionValidation<A> {
+export function union<Tag extends string, A extends { [_ in Tag]: string }>(type: string, tag: Tag, values: () => { [_ in A[Tag]]: Validation }): UnionValidation<Tag, A> {
     return {
+        tag: tag,
         type: type,
         values: values,
         validate(value: any, key?: string, tree?: ValidationTree): ValidationTree {
@@ -13,14 +14,14 @@ export function union<A extends { __type__: string }>(type: string, values: () =
             const actualType = typeOf(value);
             if (actualType !== 'object') {
                 node.errors.push({
-                    __type__: 'type-error',
+                    errorType: 'type-error',
                     expectedType: type,
                     actualType: actualType
                 });
                 return node;
             }
             const typeTags: any = values();
-            const typeTag = value['__type__'];
+            const typeTag = value[this.tag];
             if (typeTag in typeTags) {
                 const validation = typeTags[typeTag] as Validation;
                 if (key && tree) {
@@ -30,13 +31,13 @@ export function union<A extends { __type__: string }>(type: string, values: () =
                 }
             } else if (typeTag === null || typeTag === undefined) {
                 node.errors.push({
-                    __type__: 'missing-type-tag',
+                    errorType: 'missing-type-tag',
                     expectedTypeTags: Object.keys(typeTags)
                 });
                 return node;
             } else {
                 node.errors.push({
-                    __type__: 'unexpected-type-tag',
+                    errorType: 'unexpected-type-tag',
                     expectedTypeTags: Object.keys(typeTags),
                     actualTypeTag: typeof typeTag === 'string' ? typeTag : inspect(typeTag)
                 });

@@ -28,20 +28,20 @@ describe('CommandSubmissionClient', () => {
             workflowId: 'dfg346',
             list: [
                 {
-                    __type__: 'create',
+                    commandType: 'create',
                     templateId: {packageId: 'fgdfg', moduleName: 'dwgwdfg', entityName: 'alkhksjhd'},
                     arguments: {
                         recordId: {packageId: 'g3g42', moduleName: '314tgg5', entityName: '235lkj23'},
                         fields: {
-                            contract: {__type__: 'contractId', contractId: 'sdg4tr34'},
-                            someFlag: {__type__: 'bool', bool: true}
+                            contract: {valueType: 'contractId', contractId: 'sdg4tr34'},
+                            someFlag: {valueType: 'bool', bool: true}
                         }
                     }
                 }, {
-                    __type__: 'exercise',
+                    commandType: 'exercise',
                     choice: 'sdfgv34g',
                     argument: {
-                        __type__: 'decimal', decimal: '999'
+                        valueType: 'decimal', decimal: '999'
                     },
                     contractId: 'f4f34f34f',
                     templateId: {packageId: 'f1234f34f', moduleName: '341f43f3', entityName: '239874hb'}
@@ -90,7 +90,7 @@ describe('CommandSubmissionClient', () => {
                 maximumRecordTime: {seconds: 1, nanoseconds: 2},
                 list: [
                     {
-                        __type__: 'archive',
+                        commandType: 'archive',
                         templateId: {
                             name: 'foo',
                             packageId: 'bar'
@@ -149,7 +149,7 @@ describe('CommandSubmissionClient', () => {
                             children: {
                                 '0': {
                                     errors: [{
-                                        __type__: 'unexpected-type-tag',
+                                        errorType: 'unexpected-type-tag',
                                         expectedTypeTags: ['create', 'exercise'],
                                         actualTypeTag: 'archive'
                                     }],

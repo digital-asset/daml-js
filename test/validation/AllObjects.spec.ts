@@ -104,7 +104,7 @@ function test<A extends { [_: string]: any }>(
             });
             jsc.property('signal a type error on a null', () => {
                 return containsError(validation.validate(null).errors, {
-                    __type__: 'type-error',
+                    errorType: 'type-error',
                     expectedType: validation.type,
                     actualType: 'null'
                 });
@@ -130,7 +130,7 @@ function test<A extends { [_: string]: any }>(
                     const removedKeyType = (<any>required)[removedKey].type;
                     delete value[removedKey];
                     return containsError(validation.validate(value).errors, {
-                        __type__: 'missing-key',
+                        errorType: 'missing-key',
                         expectedKey: removedKey,
                         expectedType: removedKeyType
                     });
@@ -166,7 +166,7 @@ function test<A extends { [_: string]: any }>(
                     const children = validation.validate(value).children;
                     return Object.keys(children).some(key =>
                         containsError(children[key].errors, {
-                            __type__: 'type-error',
+                            errorType: 'type-error',
                             expectedType: (<any>validations)[key].type,
                             actualType: 'null'
                         })
@@ -186,7 +186,7 @@ function test<A extends { [_: string]: any }>(
                 const extraKey = 'supercalifragilisticexpialidocious'; // reasonably no one will ever use this as a key
                 value[extraKey] = null;
                 return containsError(validation.validate(value).errors, {
-                    __type__: 'unexpected-key',
+                    errorType: 'unexpected-key',
                     key: extraKey
                 });
             }

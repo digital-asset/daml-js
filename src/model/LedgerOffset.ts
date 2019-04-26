@@ -9,11 +9,11 @@ export enum LedgerOffsetBoundaryValue {
 }
 
 export interface LedgerOffsetBoundary {
-    __type__: 'boundary'
+    offsetType: 'boundary'
     boundary: LedgerOffsetBoundaryValue
 }
 
 export interface LedgerOffsetAbsolute {
-    __type__: 'absolute',
+    offsetType: 'absolute',
     absolute: string
 }

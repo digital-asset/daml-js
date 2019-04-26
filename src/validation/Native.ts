@@ -11,7 +11,7 @@ export function native(type: 'number' | 'string' | 'boolean'): Validation {
             const actualType = typeOf(value);
             if (actualType !== type) {
                 const error: ValidationError = {
-                    __type__: 'type-error',
+                    errorType: 'type-error',
                     expectedType: type,
                     actualType: actualType
                 };

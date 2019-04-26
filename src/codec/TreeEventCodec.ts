@@ -21,7 +21,7 @@ export const TreeEventCodec: Codec<PbTreeEvent, TreeEvent> = {
     },
     serialize(object: TreeEvent): PbTreeEvent {
         const message = new PbTreeEvent();
-        switch (object.__type__) {
+        switch (object.eventType) {
             case 'created':
                 message.setCreated(CreatedEventCodec.serialize(object));
                 break;

@@ -18,29 +18,29 @@ export function containsError(
     check: ValidationError
 ): boolean {
     return errors.some(error => {
-        switch (error.__type__) {
+        switch (error.errorType) {
             case 'type-error':
                 return (
-                    check.__type__ === 'type-error' &&
+                    check.errorType === 'type-error' &&
                     check.actualType === error.actualType &&
                     check.expectedType === error.expectedType
                 );
             case 'unexpected-key':
-                return check.__type__ === 'unexpected-key' && check.key === error.key;
+                return check.errorType === 'unexpected-key' && check.key === error.key;
             case 'missing-type-tag':
                 return (
-                    check.__type__ === 'missing-type-tag' &&
+                    check.errorType === 'missing-type-tag' &&
                     equalsDisregardingOrder(check.expectedTypeTags, error.expectedTypeTags)
                 );
             case 'unexpected-type-tag':
                 return (
-                    check.__type__ === 'unexpected-type-tag' &&
+                    check.errorType === 'unexpected-type-tag' &&
                     check.actualTypeTag === error.actualTypeTag &&
                     equalsDisregardingOrder(check.expectedTypeTags, error.expectedTypeTags)
                 );
             case 'missing-key':
                 return (
-                    check.__type__ === 'missing-key' &&
+                    check.errorType === 'missing-key' &&
                     check.expectedType === error.expectedType &&
                     check.expectedKey === error.expectedKey
                 );

@@ -137,11 +137,11 @@ describe("ActiveContractsClient", () => {
             children: {
                 filter: {
                     errors: [{
-                        __type__: 'missing-key',
+                        errorType: 'missing-key',
                         expectedKey: 'filtersByParty',
                         expectedType: 'Record<string, Filters>'
                     }, {
-                        __type__: 'unexpected-key',
+                        errorType: 'unexpected-key',
                         key: 'filtersByarty'
                     }],
                     children: {}

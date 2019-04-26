@@ -14,7 +14,7 @@ export function array(items: Validation): Validation {
                 });
             } else {
                 const error: ValidationError = {
-                    __type__: 'type-error',
+                    errorType: 'type-error',
                     expectedType: this.type,
                     actualType: typeOf(value)
                 };

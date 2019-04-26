@@ -8,7 +8,7 @@ import {CreateCommand} from "../../src/model/CreateCommand";
 
 export const ArbitraryCreateCommand: jsc.Arbitrary<CreateCommand> =
     jsc.record<CreateCommand>({
-        __type__: jsc.constant('create'),
+        commandType: jsc.constant('create'),
         arguments: ArbitraryRecord,
         templateId: ArbitraryIdentifier
     });

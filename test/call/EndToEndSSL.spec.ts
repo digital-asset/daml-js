@@ -72,7 +72,7 @@ describe("End-to-end SSL support", () => {
             expect(error).to.be.null;
             const call = client!.transactionClient.getTransactions({
                 filter: {filtersByParty: {}},
-                begin: {__type__: 'absolute', absolute: '0'}
+                begin: {offsetType: 'absolute', absolute: '0'}
             });
             call.on('error', (error) => {
                 done(error);

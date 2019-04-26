@@ -424,7 +424,7 @@ describe('Reference Codec (SubmitRequestValidation)', () => {
             applicationId: 'command-applicationId',
             list: [
                 {
-                    __type__: 'create',
+                    commandType: 'create',
                     templateId: {
                         packageId: 'templateId-packageId',
                         moduleName: 'templateId-moduleName',
@@ -437,9 +437,9 @@ describe('Reference Codec (SubmitRequestValidation)', () => {
                             entityName: 'recordId-entityName'
                         },
                         fields: {
-                            sender: {__type__: 'party', party: 'sender-party'},
-                            receiver: {__type__: 'party', party: 'receiver-party'},
-                            count: {__type__: 'int64', int64: '42'}
+                            sender: {valueType: 'party', party: 'sender-party'},
+                            receiver: {valueType: 'party', party: 'receiver-party'},
+                            count: {valueType: 'int64', int64: '42'}
                         }
                     }
                 }
@@ -667,9 +667,9 @@ describe('Non-verbose records', () => {
     it('should be mapped to numeric indexes', () => {
         const expected: Record = {
             fields: {
-                '0': {__type__: 'int64', int64: '42'},
-                '1': {__type__: 'contractId', contractId: '0123456789abcdef'},
-                '2': {__type__: 'bool', bool: true}
+                '0': {valueType: 'int64', int64: '42'},
+                '1': {valueType: 'contractId', contractId: '0123456789abcdef'},
+                '2': {valueType: 'bool', bool: true}
             }
         };
         const record: PbRecord = new PbRecord();

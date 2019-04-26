@@ -12,7 +12,7 @@ import {string} from "./String";
 
 function required(): RequiredFieldsValidators<ArchivedEvent> {
     return {
-        __type__: string('archived'),
+        eventType: string('archived'),
         contractId: native('string'),
         eventId: native('string'),
         templateId: IdentifierValidation,

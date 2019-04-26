@@ -1,26 +1,24 @@
 // Copyright (c) 2019 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-IdentifierValidation: Apache-2.0
 
-import {Variant} from "./Variant";
 import {Record} from "./Record";
+import {Variant} from "./Variant";
 
-export interface RecordValue {
-    __type__: 'record'
-    record: Record
+export interface RecordValue extends Record {
+    valueType: 'record'
 }
 
-export interface VariantValue {
-    __type__: 'variant'
-    variant: Variant
+export interface VariantValue extends Variant {
+    valueType: 'variant'
 }
 
 export interface ContractIdValue {
-    __type__: 'contractId'
+    valueType: 'contractId'
     contractId: string
 }
 
 export interface ListValue {
-    __type__: 'list'
+    valueType: 'list'
     list: Value[]
 }
 
@@ -28,7 +26,7 @@ export interface ListValue {
  * Represented as a {string} to avoid losing precision
  */
 export interface Int64Value {
-    __type__: 'int64'
+    valueType: 'int64'
     int64: string
 }
 
@@ -36,12 +34,12 @@ export interface Int64Value {
  * Represented as a {string} to avoid losing precision
  */
 export interface DecimalValue {
-    __type__: 'decimal'
+    valueType: 'decimal'
     decimal: string
 }
 
 export interface TextValue {
-    __type__: 'text',
+    valueType: 'text',
     text: string
 }
 
@@ -49,22 +47,22 @@ export interface TextValue {
  * Represented as a {string} to avoid losing precision
  */
 export interface TimestampValue {
-    __type__: 'timestamp',
+    valueType: 'timestamp',
     timestamp: string
 }
 
 export interface PartyValue {
-    __type__: 'party',
+    valueType: 'party',
     party: string
 }
 
 export interface BoolValue {
-    __type__: 'bool',
+    valueType: 'bool',
     bool: boolean
 }
 
 export interface UnitValue {
-    __type__: 'unit'
+    valueType: 'unit'
 }
 
 /**
@@ -75,12 +73,12 @@ export interface UnitValue {
  * type to a 64-bit encoding.
  */
 export interface DateValue {
-    __type__: 'date',
+    valueType: 'date',
     date: string
 }
 
 export interface OptionalValue {
-    __type__: 'optional'
+    valueType: 'optional'
     optional?: Value
 }
 

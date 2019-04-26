@@ -18,7 +18,7 @@ describe('Validation: Native', () => {
     it('should fail to isValid a number when a string is expected', () => {
         const expected: ValidationTree = {
             errors: [{
-                __type__: 'type-error',
+                errorType: 'type-error',
                 expectedType: 'string',
                 actualType: 'number'
             }],
@@ -30,7 +30,7 @@ describe('Validation: Native', () => {
     it('should fail to isValid a string when a boolean is expected', () => {
         const expected: ValidationTree = {
             errors: [{
-                __type__: 'type-error',
+                errorType: 'type-error',
                 expectedType: 'boolean',
                 actualType: 'string'
             }],

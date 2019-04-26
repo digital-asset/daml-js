@@ -3,15 +3,13 @@
 
 import {CreatedEventValidation} from "./CreatedEventValidation";
 import {ExercisedEventValidation} from "./ExercisedEventValidation";
-import {TreeEvent} from "../model/TreeEvent";
-import {Validation} from "./Validation";
 import {union} from "./Union";
 
-function values(): { [_ in TreeEvent['__type__']]: Validation } {
+function values() {
     return {
         created: CreatedEventValidation,
         exercised: ExercisedEventValidation
     };
 }
 
-export const TreeEventValidation = union<TreeEvent>('TreeEvent', values);
+export const TreeEventValidation = union('TreeEvent', 'eventType', values);

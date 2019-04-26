@@ -39,12 +39,12 @@ describe("CommandClient", () => {
             workflowId: 'some-workflow-id',
             list: [
                 {
-                    __type__: 'create',
+                    commandType: 'create',
                     templateId: {packageId: 'tmplt', moduleName: 'cpluspls', entityName: 'ent'},
                     arguments: {
                         recordId: {packageId: 'pkg', moduleName: 'fernando', entityName: 'ent'},
                         fields: {
-                            someValue: {__type__: 'bool', bool: true}
+                            someValue: {valueType: 'bool', bool: true}
                         }
                     }
                 }
@@ -87,7 +87,7 @@ describe("CommandClient", () => {
                 maximumRecordTime: {seconds: 1, nanoseconds: 2},
                 list: [
                     {
-                        __type__: 'archive',
+                        commandType: 'archive',
                         templateId: {
                             name: 'foo',
                             packageId: 'bar'
@@ -146,7 +146,7 @@ describe("CommandClient", () => {
                             children: {
                                 '0': {
                                     errors: [{
-                                        __type__: 'unexpected-type-tag',
+                                        errorType: 'unexpected-type-tag',
                                         actualTypeTag: 'archive',
                                         expectedTypeTags: ['create', 'exercise']
                                     }],

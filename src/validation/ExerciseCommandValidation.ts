@@ -12,7 +12,7 @@ import {string} from "./String";
 
 function required(): RequiredFieldsValidators<ExerciseCommand> {
     return {
-        __type__: string('exercise'),
+        commandType: string('exercise'),
         argument: ValueValidation,
         choice: native('string'),
         contractId: native('string'),

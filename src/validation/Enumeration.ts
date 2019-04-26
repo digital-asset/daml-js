@@ -16,7 +16,7 @@ export function enumeration(enumeration: { [_: number]: string }, type: string):
             const values = valuesOf(enumeration);
             if (!values.some(v => v === value)) {
                 const error: ValidationError = {
-                    __type__: 'type-error',
+                    errorType: 'type-error',
                     expectedType: this.type,
                     actualType: typeOf(value)
                 };

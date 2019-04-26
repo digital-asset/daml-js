@@ -15,69 +15,65 @@ declare module 'jsverify' {
 }
 
 const ArbitraryBoolValue = jsc.record({
-    __type__: jsc.constant("bool"),
+    valueType: jsc.constant("bool"),
     bool: jsc.bool
 }) as jsc.Arbitrary<Value>;
 
 const ArbitraryContractIdValue = jsc.record({
-    __type__: jsc.constant("contractId"),
+    valueType: jsc.constant("contractId"),
     contractId: jsc.string
 }) as jsc.Arbitrary<Value>;
 
 const ArbitraryDateValue = jsc.record({
-    __type__: jsc.constant("date"),
+    valueType: jsc.constant("date"),
     date: jsc.string
 }) as jsc.Arbitrary<Value>;
 
 const ArbitraryDecimalValue = jsc.record({
-    __type__: jsc.constant("decimal"),
+    valueType: jsc.constant("decimal"),
     decimal: jsc.string
 }) as jsc.Arbitrary<Value>;
 
 const ArbitraryInt64Value = jsc.record({
-    __type__: jsc.constant("int64"),
+    valueType: jsc.constant("int64"),
     int64: jsc.string
 }) as jsc.Arbitrary<Value>;
 
 const ArbitraryPartyValue = jsc.record({
-    __type__: jsc.constant("party"),
+    valueType: jsc.constant("party"),
     party: jsc.string
 }) as jsc.Arbitrary<Value>;
 
 const ArbitraryTextValue = jsc.record({
-    __type__: jsc.constant("text"),
+    valueType: jsc.constant("text"),
     text: jsc.string
 }) as jsc.Arbitrary<Value>;
 
 const ArbitraryTimestampValue = jsc.record({
-    __type__: jsc.constant("timestamp"),
+    valueType: jsc.constant("timestamp"),
     timestamp: jsc.string
 }) as jsc.Arbitrary<Value>;
 
 const ArbitraryUnitValue = jsc.constant({
-    __type__: "unit"
+    valueType: "unit"
 }) as jsc.Arbitrary<Value>;
 
 const { ArbitraryListValue, ArbitraryRecordValue, ArbitraryVariantValue, ArbitraryValue } =
     jsc.letrec<string, Value>(tie => ({
         ArbitraryListValue: jsc.record({
-            __type__: jsc.constant('list'),
+            valueType: jsc.constant('list'),
             list: jsc.array(tie('ArbitraryValue'))
         }) as jsc.Arbitrary<Value>,
         ArbitraryRecordValue: jsc.record({
-            __type__: jsc.constant('record'),
-            record: jsc.record<LedgerRecord>({
-                recordId: maybe(ArbitraryIdentifier),
-                fields: jsc.dict(tie('ArbitraryValue'))
-            })
+            valueType: jsc.constant('record'),
+            recordId: maybe(ArbitraryIdentifier),
+            fields: jsc.dict(tie('ArbitraryValue'))
         }) as jsc.Arbitrary<Value>,
         ArbitraryVariantValue: jsc.record({
-            __type__: jsc.constant("variant"),
-            variant: jsc.record<Variant>({
-                constructor: jsc.string,
-                variantId: maybe(ArbitraryIdentifier),
-                value: tie('ArbitraryValue')
-            })
+            valueType: jsc.constant("variant"),
+            constructor: jsc.string,
+            variantId: maybe(ArbitraryIdentifier),
+            value: tie('ArbitraryValue')
         }) as jsc.Arbitrary<Value>,
         ArbitraryValue: jsc.oneof([
             ArbitraryBoolValue,
@@ -97,6 +93,6 @@ const { ArbitraryListValue, ArbitraryRecordValue, ArbitraryVariantValue, Arbitra
 
 export { ArbitraryValue };
 
-export const ArbitraryList: jsc.Arbitrary<Value[]> = (ArbitraryListValue as jsc.Arbitrary<ListValue>).smap(v => v.list, v => { return { __type__: 'list', list: v } });
-export const ArbitraryRecord: jsc.Arbitrary<LedgerRecord> = (ArbitraryRecordValue as jsc.Arbitrary<RecordValue>).smap(v => v.record, v => { return { __type__: 'record', record: v} });
-export const ArbitraryVariant: jsc.Arbitrary<Variant> = (ArbitraryVariantValue as jsc.Arbitrary<VariantValue>).smap(v => v.variant, v => { return { __type__: 'variant', variant: v} });
+export const ArbitraryList: jsc.Arbitrary<Value[]> = (ArbitraryListValue as jsc.Arbitrary<ListValue>).smap(v => v.list, v => { return { valueType: 'list', list: v } });
+export const ArbitraryRecord: jsc.Arbitrary<LedgerRecord> = (ArbitraryRecordValue as jsc.Arbitrary<RecordValue>).smap<LedgerRecord>(v => { return { recordId: v.recordId, fields: v.fields } }, v => { return Object.assign({ valueType: 'record'}, v); });
+export const ArbitraryVariant: jsc.Arbitrary<Variant> = (ArbitraryVariantValue as jsc.Arbitrary<VariantValue>).smap<Variant>(v => { return { variantId: v.variantId, constructor: v.constructor, value: v.value } }, v => { return Object.assign({ valueType: 'variant'}, v); });

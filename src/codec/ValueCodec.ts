@@ -9,22 +9,22 @@ import {
 import {Empty as PbEmpty} from 'google-protobuf/google/protobuf/empty_pb';
 
 import {Codec} from "./Codec";
-import {Value} from "../model/Value";
+import {RecordValue, Value, VariantValue} from "../model/Value";
 import {RecordCodec} from "./RecordCodec";
 import {VariantCodec} from "./VariantCodec";
 
 export const ValueCodec: Codec<PbValue, Value> = {
     deserialize(value: PbValue): Value {
         if (value.hasBool()) {
-            return {__type__: 'bool', bool: value.getBool()};
+            return {valueType: 'bool', bool: value.getBool()};
         } else if (value.hasContractId()) {
-            return {__type__: 'contractId', contractId: value.getContractId()};
+            return {valueType: 'contractId', contractId: value.getContractId()};
         } else if (value.hasDate()) {
-            return {__type__: 'date', date: '' + value.getDate()};
+            return {valueType: 'date', date: '' + value.getDate()};
         } else if (value.hasDecimal()) {
-            return {__type__: 'decimal', decimal: value.getDecimal()};
+            return {valueType: 'decimal', decimal: value.getDecimal()};
         } else if (value.hasInt64()) {
-            return {__type__: 'int64', int64: value.getInt64()};
+            return {valueType: 'int64', int64: value.getInt64()};
         } else if (value.hasList()) {
             const values: Value[] = [];
             if (value.hasList()) {
@@ -32,25 +32,42 @@ export const ValueCodec: Codec<PbValue, Value> = {
                     values.push(ValueCodec.deserialize(v));
                 });
             }
-            return {__type__: 'list', list: values};
+            return {valueType: 'list', list: values};
         } else if (value.hasParty()) {
-            return {__type__: 'party', party: value.getParty()};
+            return {valueType: 'party', party: value.getParty()};
         } else if (value.hasRecord()) {
-            return {__type__: 'record', record: RecordCodec.deserialize(value.getRecord()!)};
+            const record = RecordCodec.deserialize(value.getRecord()!);
+            const splatted: RecordValue = {
+                valueType: 'record',
+                fields: record.fields
+            };
+            if (record.recordId) {
+                splatted.recordId = record.recordId;
+            }
+            return splatted;
         } else if (value.hasText()) {
-            return {__type__: 'text', text: value.getText()};
+            return {valueType: 'text', text: value.getText()};
         } else if (value.hasTimestamp()) {
-            return {__type__: 'timestamp', timestamp: value.getTimestamp()};
+            return {valueType: 'timestamp', timestamp: value.getTimestamp()};
         } else if (value.hasUnit()) {
-            return {__type__: 'unit'};
+            return {valueType: 'unit'};
         } else if (value.hasVariant()) {
-            return {__type__: 'variant', variant: VariantCodec.deserialize(value.getVariant()!)};
+            const variant = VariantCodec.deserialize(value.getVariant()!);
+            const splatted: VariantValue = {
+                valueType: "variant",
+                constructor: variant.constructor,
+                value: variant.value
+            };
+            if (variant.variantId) {
+                splatted.variantId = variant.variantId;
+            }
+            return splatted;
         } else if (value.hasOptional()) {
             const optional = value.getOptional();
             if (optional!.hasValue()) {
-                return {__type__: 'optional', optional: ValueCodec.deserialize(optional!.getValue()!)};
+                return {valueType: 'optional', optional: ValueCodec.deserialize(optional!.getValue()!)};
             } else {
-                return {__type__: 'optional'};
+                return {valueType: 'optional'};
             }
         } else {
             throw new Error('Deserialization error, unable to discriminate value type - this is likely to be a bug');
@@ -58,7 +75,7 @@ export const ValueCodec: Codec<PbValue, Value> = {
     },
     serialize(object: Value): PbValue {
         const message = new PbValue();
-        switch (object.__type__) {
+        switch (object.valueType) {
             case "bool":
                 message.setBool(object.bool);
                 break;
@@ -94,7 +111,7 @@ export const ValueCodec: Codec<PbValue, Value> = {
                 message.setParty(object.party);
                 break;
             case "record":
-                message.setRecord(RecordCodec.serialize(object.record));
+                message.setRecord(RecordCodec.serialize(object));
                 break;
             case "text":
                 message.setText(object.text);
@@ -106,7 +123,7 @@ export const ValueCodec: Codec<PbValue, Value> = {
                 message.setUnit(new PbEmpty());
                 break;
             case "variant":
-                message.setVariant(VariantCodec.serialize(object.variant));
+                message.setVariant(VariantCodec.serialize(object));
                 break;
         }
         return message;

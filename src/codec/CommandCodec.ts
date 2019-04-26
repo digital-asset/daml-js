@@ -19,7 +19,7 @@ export const CommandCodec: Codec<PbCommand, Command> = {
     },
     serialize(object: Command): PbCommand {
         const message = new PbCommand();
-        switch (object.__type__) {
+        switch (object.commandType) {
             case "exercise":
                 message.setExercise(ExerciseCommandCodec.serialize(object));
                 break;

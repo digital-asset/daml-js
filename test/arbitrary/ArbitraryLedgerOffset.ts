@@ -17,13 +17,13 @@ export const ArbitraryLedgerOffsetBoundaryValue: jsc.Arbitrary<LedgerOffsetBound
 
 export const ArbitraryLedgerOffsetBoundary: jsc.Arbitrary<LedgerOffsetBoundary> =
     jsc.record<LedgerOffsetBoundary>({
-        __type__: jsc.constant("boundary"),
+        offsetType: jsc.constant("boundary"),
         boundary: ArbitraryLedgerOffsetBoundaryValue
     });
 
 export const ArbitraryLedgerOffsetAbsolute: jsc.Arbitrary<LedgerOffsetAbsolute> =
     jsc.record<LedgerOffsetAbsolute>({
-        __type__: jsc.constant("absolute"),
+        offsetType: jsc.constant("absolute"),
         absolute: jsc.string
     });
 

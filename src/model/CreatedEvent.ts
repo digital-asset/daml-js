@@ -5,7 +5,7 @@ import {Identifier} from "./Identifier";
 import {Record} from "./Record";
 
 export interface CreatedEvent {
-    __type__: 'created'
+    eventType: 'created'
     eventId: string
     contractId: string
     templateId: Identifier

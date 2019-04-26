@@ -1,8 +1,6 @@
 // Copyright (c) 2019 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-IdentifierValidation: Apache-2.0
 
-import {RecordValidation} from "./RecordValidation";
-import {VariantValidation} from "./VariantValidation";
 import {
     BoolValue,
     ContractIdValue,
@@ -25,93 +23,104 @@ import {array} from "./Array";
 import {union} from "./Union";
 import {object} from "./Object";
 import {string} from "./String";
+import {record} from "./Record";
+import {IdentifierValidation} from "./IdentifierValidation";
 
 export const BoolValueValidation = object<BoolValue>('BoolValue', () => {
     return {
-        __type__: string('bool'),
+        valueType: string('bool'),
         bool: native('boolean')
     }
 }, noFields);
 
 export const ContractIdValueValidation = object<ContractIdValue>('ContractIdValue', () => {
     return {
-        __type__: string('contractId'),
+        valueType: string('contractId'),
         contractId: native('string')
     }
 }, noFields);
 
 export const DateValueValidation = object<DateValue>('DateValue', () => {
     return {
-        __type__: string('date'),
+        valueType: string('date'),
         date: native('string')
     }
 }, noFields);
 
 export const DecimalValueValidation = object<DecimalValue>('DecimalValue', () => {
     return {
-        __type__: string('decimal'),
+        valueType: string('decimal'),
         decimal: native('string')
     }
 }, noFields);
 
 export const Int64ValueValidation = object<Int64Value>('Int64Value', () => {
     return {
-        __type__: string('int64'),
+        valueType: string('int64'),
         int64: native('string')
     }
 }, noFields);
 
 export const ListValueValidation = object<ListValue>('ListValue', () => {
     return {
-        __type__: string('list'),
+        valueType: string('list'),
         list: array(ValueValidation)
     }
 }, noFields);
 
 export const PartyValueValidation = object<PartyValue>('PartyValue', () => {
     return {
-        __type__: string('party'),
+        valueType: string('party'),
         party: native('string')
     }
 }, noFields);
 
 export const RecordValueValidation = object<RecordValue>('RecordValue', () => {
     return {
-        __type__: string('record'),
-        record: RecordValidation
+        valueType: string('record'),
+        fields: record(ValueValidation)
     }
-}, noFields);
+}, () => {
+    return {
+        recordId: IdentifierValidation
+    }
+});
 
 export const TextValueValidation = object<TextValue>('TextValue', () => {
     return {
-        __type__: string('text'),
+        valueType: string('text'),
         text: native('string')
     }
 }, noFields);
 
 export const TimestampValueValidation = object<TimestampValue>('TimestampValue', () => {
     return {
-        __type__: string('timestamp'),
+        valueType: string('timestamp'),
         timestamp: native('string')
     }
 }, noFields);
 
 export const UnitValueValidation = object<UnitValue>('UnitValue', () => {
     return {
-        __type__: string('unit')
+        valueType: string('unit')
     }
 }, noFields);
 
 export const VariantValueValidation = object<VariantValue>('VariantValue', () => {
     return {
-        __type__: string('variant'),
-        variant: VariantValidation
+        valueType: string('variant'),
+        constructor: native('string'),
+        value: ValueValidation,
     }
-}, noFields);
+}, () => {
+    return {
+        variantId: IdentifierValidation,
+    };
+});
 
 export const OptionalValueValidation = object<OptionalValue>('DateValue', () => {
     return {
-        __type__: string('date')
+        valueType: string('date')
     }
 }, () => {
     return {
@@ -119,7 +128,7 @@ export const OptionalValueValidation = object<OptionalValue>('DateValue', () => 
     }
 });
 
-function values(): { [_ in Value['__type__']]: Validation } {
+function values(): { [_ in Value['valueType']]: Validation } {
     return {
         bool: BoolValueValidation,
         contractId: ContractIdValueValidation,
@@ -137,4 +146,4 @@ function values(): { [_ in Value['__type__']]: Validation } {
     };
 }
 
-export const ValueValidation = union<Value>('Value', values);
+export const ValueValidation = union('Value', 'valueType', values);
