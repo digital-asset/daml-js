@@ -6,12 +6,13 @@
     "noEmit": true
   },
   "typedocOptions": {
+    "name": "Node.js bindings for DAML",
+    "readme": "README.DOCS.md",
     "ignoreCompilerErrors": true,
     "excludeExternals": true,
     "excludeNotExported": true,
     "excludePrivate": true,
     "excludeProtected": true,
-    "mode": "file",
-    "out": "./docs"
+    "mode": "file"
   }
 }

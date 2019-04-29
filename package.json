@@ -1,6 +1,6 @@
 {
-  "name": "daml-ledger",
-  "version": "1.0.0",
+  "name": "@digitalasset/daml-ledger",
+  "version": "0.4.0",
   "description": "DAML Ledger API Node.js bindings",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "ci-pipeline": "npm ci && ./check-licenses.sh && npm run pretest && npm run test-with-fixed-seed",
-    "docs": "typedoc --tsconfig tsconfig-docs.json src",
+    "release-docs": "rm -rf docs && typedoc --tsconfig tsconfig-docs.json --out ./docs/$(git describe --tags) src",
     "pretest": "./grpc-codegen.sh && tsc --build tsconfig-dist.json && tsc --build tsconfig-test.json",
     "test": "TS_NODE_COMPILER_OPTIONS=$(node compiler-options) mocha -r ts-node/register --reporter dot --recursive './test/**/*.spec.ts'",
     "test-with-fixed-seed": "TS_NODE_COMPILER_OPTIONS=$(node compiler-options) mocha -r ts-node/register --jsverifyRngState 86f24ba518063e9c7d --recursive './test/**/*.spec.ts'"
@@ -29,7 +29,7 @@
     "blockchain"
   ],
   "author": {
-    "name": "Digital Asset",
+    "name": "Digital Asset (Switzerland) GmbH and/or its affiliates",
     "email": "support@digitalasset.com",
     "url": "https://www.digitalasset.com"
   },
@@ -44,6 +44,9 @@
   "homepage": "https://github.com/digital-asset/daml-js#readme",
   "dependencies": {
     "grpc": "1.18.0"
+  },
+  "engines": {
+    "node": ">=8.0.0 <11.0.0"
   },
   "devDependencies": {
     "@types/chai": "4.1.7",
