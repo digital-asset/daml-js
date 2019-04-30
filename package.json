@@ -11,6 +11,7 @@
   "scripts": {
     "ci-pipeline": "npm ci && ./check-licenses.sh && npm run pretest && npm run test-with-fixed-seed",
     "release-docs": "rm -rf docs && typedoc --tsconfig tsconfig-docs.json --out ./docs/$(git describe --tags) src",
+    "prepack": "./grpc-codegen.sh && tsc --build tsconfig-dist.json && cp -r src/generated lib",
     "pretest": "./grpc-codegen.sh && tsc --build tsconfig-dist.json && tsc --build tsconfig-test.json",
     "test": "TS_NODE_COMPILER_OPTIONS=$(node compiler-options) mocha -r ts-node/register --reporter dot --recursive './test/**/*.spec.ts'",
     "test-with-fixed-seed": "TS_NODE_COMPILER_OPTIONS=$(node compiler-options) mocha -r ts-node/register --jsverifyRngState 86f24ba518063e9c7d --recursive './test/**/*.spec.ts'"
@@ -43,6 +44,7 @@
   },
   "homepage": "https://github.com/digital-asset/daml-js#readme",
   "dependencies": {
+    "google-protobuf": "3.7.1",
     "grpc": "1.18.0"
   },
   "engines": {
