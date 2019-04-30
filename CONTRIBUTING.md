@@ -44,9 +44,11 @@ The following steps are to be followed in order to release a new version of the 
 9.  Push the tag created in the previous step
 10. Publish with `npm publish`
 
-To publish the documentation, start from the where you left off and then:
+To publish the documentation, start from where you left off and then:
 
 11. Create the documentation for the release with `npm run release-docs`
 12. Checkout the `gh-pages` branch
-13. Add the generated documentation to this branch, give a meaningful commit name and push it
+13. Add the generated documentation to this branch
+14. Update the `latest` symbolic link to point to the new docs
+15. Give a meaningful commit name and push it
 

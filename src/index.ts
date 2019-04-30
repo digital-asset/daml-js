@@ -1,7 +1,35 @@
 // Copyright (c) 2019 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-IdentifierValidation: Apache-2.0
 
+import {ActiveContractsClient} from "./client/ActiveContractsClient";
+import {CommandClient} from "./client/CommandClient";
+import {CommandCompletionClient} from "./client/CommandCompletionClient";
+import {CommandSubmissionClient} from "./client/CommandSubmissionClient";
 import {DamlLedgerClient} from "./client/DamlLedgerClient";
+import {LedgerClient} from "./client/LedgerClient";
+import {LedgerConfigurationClient} from "./client/LedgerConfigurationClient";
+import {LedgerIdentityClient} from "./client/LedgerIdentityClient";
+import {PackageClient} from "./client/PackageClient";
+import {ResetClient} from "./client/ResetClient";
+import {TimeClient} from "./client/TimeClient";
+import {TransactionClient} from "./client/TransactionClient";
+export {
+    ActiveContractsClient,
+    CommandClient,
+    CommandCompletionClient,
+    CommandSubmissionClient,
+    DamlLedgerClient,
+    LedgerClient,
+    LedgerConfigurationClient,
+    LedgerIdentityClient,
+    PackageClient,
+    ResetClient,
+    TimeClient,
+    TransactionClient
+};
+
+import * as lf from './generated/da/daml_lf_pb';
+export {lf};
 
 import {Any} from './model/Any';
 import {ArchivedEvent} from './model/ArchivedEvent';
@@ -37,7 +65,7 @@ import {HashFunction} from './model/HashFunction';
 import {Identifier} from './model/Identifier';
 import {InclusiveFilters} from './model/InclusiveFilters';
 import {LedgerConfiguration} from './model/LedgerConfiguration';
-import {LedgerOffset} from './model/LedgerOffset';
+import {LedgerOffset, LedgerOffsetBoundaryValue} from './model/LedgerOffset';
 import {ListPackagesResponse} from './model/ListPackagesResponse';
 import {PackageStatus} from './model/PackageStatus';
 import {Record} from './model/Record';
@@ -54,13 +82,13 @@ import {Value} from './model/Value';
 import {Variant} from './model/Variant';
 
 export {
-    DamlLedgerClient,
     Any,
     GetPackageStatusResponse,
     GetPackageResponse,
     ListPackagesResponse,
     Event,
     LedgerOffset,
+    LedgerOffsetBoundaryValue,
     Value,
     Record,
     ExerciseCommand,
