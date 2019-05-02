@@ -11,6 +11,7 @@ SDK_VERSION=100.12.16
 
 PROTO_PATH="./proto"
 OUT_PATH="./src/generated"
+TEST_OUT_PATH="./test/generated"
 
 function clean() {
     (cd "$(dirname "${0}")" && rm -rf "$PROTO_PATH" "$OUT_PATH")
@@ -25,6 +26,8 @@ if [ ! -d "$PROTO_PATH" ]; then
       curl -s https://digitalassetsdk.bintray.com/DigitalAssetSDK/com/digitalasset/daml-lf-archive-protos/"$SDK_VERSION"/daml-lf-archive-protos-"$SDK_VERSION".tar.gz | tar xz --strip-components 3
       mkdir -p google/rpc
       curl -s https://raw.githubusercontent.com/grpc/grpc/v"$GRPC_VERSION"/src/proto/grpc/status/status.proto > google/rpc/status.proto
+      mkdir -p grpc/reflection/v1alpha
+      curl -s https://raw.githubusercontent.com/grpc/grpc/v"$GRPC_VERSION"/src/proto/grpc/reflection/v1alpha/reflection.proto > grpc/reflection/v1alpha/reflection.proto
     )
 fi
 
@@ -58,4 +61,19 @@ if [ ! -d "$OUT_PATH" ]; then
       --proto_path="${PROTO_PATH}" \
       --ts_out="${OUT_PATH}" \
       "${PROTO_PATH}"/da/*.proto
+fi
+
+if [ ! -d "$TEST_OUT_PATH" ]; then
+    mkdir -p "$TEST_OUT_PATH"
+    grpc_tools_node_protoc \
+      --plugin="protoc-gen-grpc=`which grpc_tools_node_protoc_plugin`" \
+      --js_out="import_style=commonjs,binary:${TEST_OUT_PATH}" \
+      --proto_path="${PROTO_PATH}" \
+      --grpc_out="${TEST_OUT_PATH}" \
+      "${PROTO_PATH}"/grpc/reflection/v1alpha/reflection.proto
+    grpc_tools_node_protoc \
+      --plugin=protoc-gen-ts=`which protoc-gen-ts` \
+      --proto_path="${PROTO_PATH}" \
+      --ts_out="${TEST_OUT_PATH}" \
+      "${PROTO_PATH}"/grpc/reflection/v1alpha/reflection.proto
 fi

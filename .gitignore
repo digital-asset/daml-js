@@ -2,6 +2,15 @@
 *.iml
 node_modules
 src/generated
+test/generated
 proto
 docs
 lib
+sandbox.port
+test/integration/src/sandbox.err
+test/integration/src/sandbox.out
+test/integration/src/sandbox.log
+test/integration/src/.package-database
+test/integration/src/daml/*.hi
+test/integration/src/daml/*.hie
+test/integration/src/dist

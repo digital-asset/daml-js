@@ -18,17 +18,22 @@ pr:
       - master
 
 pool:
-  name: 'linux-pool'
+  vmImage: 'ubuntu-16.04'
 strategy:
   matrix:
-    node_8_x:
-      node_version: 8.x
-    node_10_x:
-      node_version: 10.x
+    node_8_daml_0.12.16:
+      nodejs_version: 8.x
+      daml_sdk_version: 0.12.16
+    node_10_daml_0.12.16:
+      nodejs_version: 10.x
+      daml_sdk_version: 0.12.16
 
 steps:
-- task: NodeTool@0 
+- script: curl -sSL https://get.daml.com/ | sh && "$HOME"/.daml/bin/daml install $(daml_sdk_version)
+  displayName: Install DAML SDK $(daml_sdk_version)
+- task: NodeTool@0
+  displayName: Install Node.js $(nodejs_version)
   inputs:
-    versionSpec: $(node_version)
-
+    versionSpec: $(nodejs_version)
 - script: npm run ci-pipeline
+  displayName: Build and test
