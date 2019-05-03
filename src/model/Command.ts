@@ -3,5 +3,6 @@
 
 import {CreateCommand} from './CreateCommand';
 import {ExerciseCommand} from "./ExerciseCommand";
+import {CreateAndExerciseCommand} from "./CreateAndExerciseCommand";
 
-export type Command = CreateCommand | ExerciseCommand
+export type Command = CreateCommand | ExerciseCommand | CreateAndExerciseCommand

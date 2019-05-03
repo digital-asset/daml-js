@@ -86,6 +86,8 @@ import {GetLedgerIdentityResponseValidation} from "../../src/validation/GetLedge
 import {GetPackageResponseValidation} from "../../src/validation/GetPackageResponseValidation";
 import {GetPackageStatusResponseValidation} from "../../src/validation/GetPackageStatusResponseValidation";
 import {GetTimeResponseValidation} from "../../src/validation/GetTimeResponseValidation";
+import {ArbitraryCreateAndExerciseCommand} from "../arbitrary/ArbitraryCreateAndExerciseCommand";
+import {CreateAndExerciseCommandValidation} from "../../src/validation/CreateAndExerciseCommandValidation";
 
 function test<A extends { [_: string]: any }>(
     validation: ObjectValidation<A>,
@@ -204,6 +206,7 @@ test(CompletionStreamRequestValidation, ArbitraryCompletionStreamRequest);
 test(CompletionStreamResponseValidation, ArbitraryCompletionStreamResponse);
 test(CreateCommandValidation, ArbitraryCreateCommand);
 test(CreatedEventValidation, ArbitraryCreatedEvent);
+test(CreateAndExerciseCommandValidation, ArbitraryCreateAndExerciseCommand);
 test(DurationValidation, ArbitraryDuration);
 test(ExercisedEventValidation, ArbitraryExercisedEvent);
 test(ExerciseCommandValidation, ArbitraryExerciseCommand);
