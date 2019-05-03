@@ -150,7 +150,7 @@ describe('CommandSubmissionClient', () => {
                                 '0': {
                                     errors: [{
                                         errorType: 'unexpected-type-tag',
-                                        expectedTypeTags: ['create', 'exercise'],
+                                        expectedTypeTags: ['create', 'exercise', 'createAndExercise'],
                                         actualTypeTag: 'archive'
                                     }],
                                     children: {}

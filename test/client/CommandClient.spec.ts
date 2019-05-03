@@ -148,7 +148,7 @@ describe("CommandClient", () => {
                                     errors: [{
                                         errorType: 'unexpected-type-tag',
                                         actualTypeTag: 'archive',
-                                        expectedTypeTags: ['create', 'exercise']
+                                        expectedTypeTags: ['create', 'exercise', 'createAndExercise']
                                     }],
                                     children: {}
                                 }

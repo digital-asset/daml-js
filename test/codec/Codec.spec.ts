@@ -65,7 +65,8 @@ import {
     Command as PbCommand,
     Commands as PbCommands,
     CreateCommand as PbCreateCommand,
-    ExerciseCommand as PbExerciseCommand
+    ExerciseCommand as PbExerciseCommand,
+    CreateAndExerciseCommand as  PbCreateAndExerciseCommand
 } from "../../src/generated/com/digitalasset/ledger/api/v1/commands_pb";
 import {ExerciseCommand} from "../../src/model/ExerciseCommand";
 import {Commands} from "../../src/model/Commands";
@@ -166,6 +167,8 @@ import {SubmitRequest} from "../../src/model/SubmitRequest";
 import {SubmitRequest as PbSubmitRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/command_submission_service_pb";
 import {SubmitAndWaitRequest} from "../../src/model/SubmitAndWaitRequest";
 import {SubmitAndWaitRequest as PbSubmitAndWaitRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/command_service_pb";
+import {CreateAndExerciseCommandCodec} from "../../src/codec/CreateAndExerciseCommandCodec";
+import {CreateAndExerciseCommand} from "../../src/model/CreateAndExerciseCommand";
 
 describe('Codec', () => {
     const packageId = 'packageId';
@@ -274,6 +277,19 @@ describe('Codec', () => {
         contractId: 'contractId2',
         choice: 'choice',
         argument: {valueType: 'bool', bool: true}
+    };
+
+    const createAndExerciseCommandMessage = new PbCreateAndExerciseCommand();
+    createAndExerciseCommandMessage.setTemplateId(identifierMessage);
+    createAndExerciseCommandMessage.setCreateArguments(recordMessage);
+    createAndExerciseCommandMessage.setChoice('choice');
+    createAndExerciseCommandMessage.setChoiceArgument(choiceArgument);
+    const createAndExerciseCommandObject: CreateAndExerciseCommand = {
+        commandType: 'createAndExercise',
+        templateId: identifierObject,
+        createArguments: recordObject,
+        choice: 'choice',
+        choiceArgument: {valueType: 'bool', bool: true}
     };
 
     const command1 = new PbCommand();
@@ -506,6 +522,14 @@ describe('Codec', () => {
             ExerciseCommandCodec,
             exerciseCommandMessage,
             exerciseCommandObject
+        );
+    });
+
+    itShouldConvert('CreateAndExerciseCommand', () => {
+        twoWayCheck(
+            CreateAndExerciseCommandCodec,
+            createAndExerciseCommandMessage,
+            createAndExerciseCommandObject
         );
     });
 
