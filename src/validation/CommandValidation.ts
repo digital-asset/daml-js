@@ -4,11 +4,13 @@
 import {union} from "./Union";
 import {CreateCommandValidation} from "./CreateCommandValidation";
 import {ExerciseCommandValidation} from "./ExerciseCommandValidation";
+import {CreateAndExerciseCommandValidation} from "./CreateAndExerciseCommandValidation";
 
 function values() {
     return {
         create: CreateCommandValidation,
-        exercise: ExerciseCommandValidation
+        exercise: ExerciseCommandValidation,
+        createAndExercise: CreateAndExerciseCommandValidation
     };
 }
 

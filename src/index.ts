@@ -42,6 +42,7 @@ import {CompletionStreamResponse} from './model/CompletionStreamResponse';
 import {Completion} from './model/Completion';
 import {CreateCommand} from './model/CreateCommand';
 import {CreatedEvent} from './model/CreatedEvent';
+import {CreateAndExerciseCommand} from './model/CreateAndExerciseCommand';
 import {Duration} from './model/Duration';
 import {Event} from './model/Event';
 import {ExerciseCommand} from './model/ExerciseCommand';
@@ -93,6 +94,7 @@ export {
     Record,
     ExerciseCommand,
     CreateCommand,
+    CreateAndExerciseCommand,
     TreeEvent,
     TransactionTree,
     TransactionFilter,

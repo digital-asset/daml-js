@@ -6,6 +6,7 @@ import {Command} from "../model/Command";
 import {Command as PbCommand} from '../generated/com/digitalasset/ledger/api/v1/commands_pb';
 import {CreateCommandCodec} from "./CreateCommandCodec";
 import {ExerciseCommandCodec} from "./ExerciseCommandCodec";
+import {CreateAndExerciseCommandCodec} from "./CreateAndExerciseCommandCodec";
 
 export const CommandCodec: Codec<PbCommand, Command> = {
     deserialize(message: PbCommand): Command {
@@ -13,6 +14,8 @@ export const CommandCodec: Codec<PbCommand, Command> = {
             return CreateCommandCodec.deserialize(message.getCreate()!);
         } else if (message.hasExercise()) {
             return ExerciseCommandCodec.deserialize(message.getExercise()!);
+        } else if (message.hasCreateandexercise()) {
+            return CreateAndExerciseCommandCodec.deserialize(message.getCreateandexercise()!);
         } else {
             throw new Error('Deserialization error, unable to discriminate value type - this is likely to be a bug');
         }
@@ -26,6 +29,8 @@ export const CommandCodec: Codec<PbCommand, Command> = {
             case "create":
                 message.setCreate(CreateCommandCodec.serialize(object));
                 break;
+            case "createAndExercise":
+                message.setCreateandexercise(CreateAndExerciseCommandCodec.serialize(object));
         }
         return message;
     }
