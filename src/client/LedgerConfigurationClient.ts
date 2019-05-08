@@ -1,5 +1,5 @@
 // Copyright (c) 2019 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
-// SPDX-License-IdentifierValidation: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 
 import {GetLedgerConfigurationRequest} from "../generated/com/digitalasset/ledger/api/v1/ledger_configuration_service_pb";
