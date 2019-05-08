@@ -8,6 +8,7 @@ import {
     DecimalValue,
     Int64Value,
     ListValue,
+    MapValue,
     OptionalValue,
     PartyValue,
     RecordValue,
@@ -65,6 +66,13 @@ export const ListValueValidation = object<ListValue>('ListValue', () => {
     return {
         valueType: string('list'),
         list: array(ValueValidation)
+    }
+}, noFields);
+
+export const MapValueValidation = object<MapValue>('MapValue', () => {
+    return {
+        valueType: string('map'),
+        map: record(ValueValidation)
     }
 }, noFields);
 
@@ -142,7 +150,8 @@ function values(): { [_ in Value['valueType']]: Validation } {
         timestamp: TimestampValueValidation,
         unit: UnitValueValidation,
         variant: VariantValueValidation,
-        optional: OptionalValueValidation
+        optional: OptionalValueValidation,
+        map: MapValueValidation
     };
 }
 
