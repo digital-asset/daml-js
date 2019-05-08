@@ -88,6 +88,8 @@ import {GetPackageStatusResponseValidation} from "../../src/validation/GetPackag
 import {GetTimeResponseValidation} from "../../src/validation/GetTimeResponseValidation";
 import {ArbitraryCreateAndExerciseCommand} from "../arbitrary/ArbitraryCreateAndExerciseCommand";
 import {CreateAndExerciseCommandValidation} from "../../src/validation/CreateAndExerciseCommandValidation";
+import {GetFlatTransactionResponseValidation} from "../../src/validation/GetFlatTransactionResponseValidation";
+import {ArbitraryGetFlatTransactionResponse} from "../arbitrary/ArbitraryGetFlatTransactionResponse";
 
 function test<A extends { [_: string]: any }>(
     validation: ObjectValidation<A>,
@@ -230,6 +232,7 @@ test(
     ArbitraryGetTransactionByEventIdRequest
 );
 test(GetTransactionByIdRequestValidation, ArbitraryGetTransactionByIdRequest);
+test(GetFlatTransactionResponseValidation, ArbitraryGetFlatTransactionResponse);
 test(GetTransactionResponseValidation, ArbitraryGetTransactionResponse);
 test(GetTransactionsRequestValidation, ArbitraryGetTransactionsRequest);
 test(GetTransactionsResponseValidation, ArbitraryGetTransactionsResponse);

@@ -24,6 +24,9 @@ import {GetTransactionsRequestCodec} from "../codec/GetTransactionsRequestCodec"
 import {GetTransactionsResponseCodec} from "../codec/GetTransactionsResponseCodec";
 import {GetTransactionTreesResponse} from "../model/GetTransactionTreesResponse";
 import {GetTransactionTreesResponseCodec} from "../codec/GetTransactionTreesResponseCodec";
+import {GetFlatTransactionResponse} from "../model/GetFlatTransactionResponse";
+import {GetFlatTransactionResponseCodec} from "../codec/GetFlatTransactionResponseCodec";
+import {GetTransactionByIdRequestValidation} from "../validation/GetTransactionByIdRequestValidation";
 
 /**
  * Allows clients to read transactions from the ledger.
@@ -57,8 +60,6 @@ export class TransactionClient {
     /**
      * Lookup a transaction by the ID of an event that appears within it.
      *
-     * This call is a future extension point and is currently not supported.
-     *
      * Returns NOT_FOUND if no such transaction exists.
      */
     getTransactionByEventId(requestObject: GetTransactionByEventIdRequest, callback: Callback<GetTransactionResponse>): ClientCancellableCall {
@@ -76,18 +77,60 @@ export class TransactionClient {
     }
 
     /**
-     * Lookup a transaction by its ID.
+     * Lookup a transaction by the ID of an event that appears within it.
      *
-     * This call is a future extension point and is currently not supported.
+     * Returns ``NOT_FOUND`` if no such transaction exists.
+     */
+    getFlatTransactionByEventId(requestObject: GetTransactionByEventIdRequest, callback: Callback<GetFlatTransactionResponse>): ClientCancellableCall {
+        const tree = GetTransactionByEventIdRequestValidation.validate(requestObject);
+        if (isValid(tree)) {
+            const request = GetTransactionByEventIdRequestCodec.serialize(requestObject);
+            request.setLedgerId(this.ledgerId);
+            return ClientCancellableCall.accept(this.client.getFlatTransactionByEventId(request, (error, response) => {
+                forward(callback, error, response, GetFlatTransactionResponseCodec.deserialize);
+            }));
+        } else {
+            setImmediate(() => callback(new Error(this.reporter.render(tree))));
+            return ClientCancellableCall.rejected;
+        }
+    }
+
+    /**
+     * Lookup a transaction by its ID.
      *
      * Returns NOT_FOUND if no such transaction exists.
      */
     getTransactionById(requestObject: GetTransactionByIdRequest, callback: Callback<GetTransactionResponse>): ClientCancellableCall {
-        const request = GetTransactionByIdRequestCodec.serialize(requestObject);
-        request.setLedgerId(this.ledgerId);
-        return ClientCancellableCall.accept(this.client.getTransactionById(request, (error, response) => {
-            forward(callback, error, response, GetTransactionResponseCodec.deserialize);
-        }));
+        const tree = GetTransactionByIdRequestValidation.validate(requestObject);
+        if (isValid(tree)) {
+            const request = GetTransactionByIdRequestCodec.serialize(requestObject);
+            request.setLedgerId(this.ledgerId);
+            return ClientCancellableCall.accept(this.client.getTransactionById(request, (error, response) => {
+                forward(callback, error, response, GetTransactionResponseCodec.deserialize);
+            }));
+        } else {
+            setImmediate(() => callback(new Error(this.reporter.render(tree))));
+            return ClientCancellableCall.rejected;
+        }
+    }
+
+    /**
+     * Lookup a transaction by the ID of an event that appears within it.
+     *
+     * Returns ``NOT_FOUND`` if no such transaction exists.
+     */
+    getFlatTransactionById(requestObject: GetTransactionByIdRequest, callback: Callback<GetFlatTransactionResponse>): ClientCancellableCall {
+        const tree = GetTransactionByIdRequestValidation.validate(requestObject);
+        if (isValid(tree)) {
+            const request = GetTransactionByIdRequestCodec.serialize(requestObject);
+            request.setLedgerId(this.ledgerId);
+            return ClientCancellableCall.accept(this.client.getFlatTransactionById(request, (error, response) => {
+                forward(callback, error, response, GetFlatTransactionResponseCodec.deserialize);
+            }));
+        } else {
+            setImmediate(() => callback(new Error(this.reporter.render(tree))));
+            return ClientCancellableCall.rejected;
+        }
     }
 
     /**

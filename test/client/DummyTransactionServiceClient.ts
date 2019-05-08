@@ -7,6 +7,7 @@ import {CallOptions, ClientReadableStream, ClientUnaryCall, Metadata} from 'grpc
 import {Timestamp} from 'google-protobuf/google/protobuf/timestamp_pb';
 import {ITransactionServiceClient} from "../../src/generated/com/digitalasset/ledger/api/v1/transaction_service_grpc_pb";
 import {
+    GetFlatTransactionResponse,
     GetLedgerEndRequest,
     GetLedgerEndResponse, GetTransactionByEventIdRequest, GetTransactionByIdRequest,
     GetTransactionResponse, GetTransactionsRequest, GetTransactionsResponse, GetTransactionTreesResponse
@@ -14,18 +15,20 @@ import {
 import {DummyClientReadableStream} from "../call/DummyClientReadableStream";
 import {DummyClientUnaryCall} from "../call/DummyClientUnaryCall";
 import {LedgerOffset} from "../../src/generated/com/digitalasset/ledger/api/v1/ledger_offset_pb";
-import {TransactionTree} from "../../src/generated/com/digitalasset/ledger/api/v1/transaction_pb";
+import {Transaction, TransactionTree} from "../../src/generated/com/digitalasset/ledger/api/v1/transaction_pb";
 
 export class DummyTransactionServiceClient implements ITransactionServiceClient {
     private readonly latestRequestSpy: sinon.SinonSpy;
 
     private readonly ledgerEndResponse = new GetLedgerEndResponse();
     private readonly transactionResponse = new GetTransactionResponse();
+    private readonly flatTransactionResponse = new GetFlatTransactionResponse();
 
     constructor(latestRequestSpy: sinon.SinonSpy) {
         this.latestRequestSpy = latestRequestSpy;
         this.initEmptyLedgerEndResponse();
         this.initEmptyTransactionResponse();
+        this.initEmptyFlatTransactionResponse();
     }
 
     getTransactions(
@@ -109,6 +112,94 @@ export class DummyTransactionServiceClient implements ITransactionServiceClient 
                 : options
                 : callback;
         setImmediate(() => cb(null, this.transactionResponse));
+        return DummyClientUnaryCall.Instance;
+    }
+
+    getFlatTransactionByEventId(
+        request: GetTransactionByEventIdRequest,
+        callback: (
+            error: Error | null,
+            response: GetFlatTransactionResponse
+        ) => void
+    ): ClientUnaryCall;
+
+    getFlatTransactionByEventId(
+        request: GetTransactionByEventIdRequest,
+        metadata: Metadata,
+        callback: (
+            error: Error | null,
+            response: GetFlatTransactionResponse
+        ) => void
+    ): ClientUnaryCall;
+
+    getFlatTransactionByEventId(
+        request: GetTransactionByEventIdRequest,
+        metadata: Metadata,
+        options: Partial<CallOptions>,
+        callback: (
+            error: Error | null,
+            response: GetFlatTransactionResponse
+        ) => void
+    ): ClientUnaryCall;
+
+    getFlatTransactionByEventId(
+        request: GetTransactionByEventIdRequest,
+        metadata: any,
+        options?: any,
+        callback?: any
+    ) {
+        this.latestRequestSpy(request);
+        const cb =
+            callback === undefined
+                ? options === undefined
+                ? metadata
+                : options
+                : callback;
+        setImmediate(() => cb(null, this.flatTransactionResponse));
+        return DummyClientUnaryCall.Instance;
+    }
+
+    getFlatTransactionById(
+        request: GetTransactionByIdRequest,
+        callback: (
+            error: Error | null,
+            response: GetFlatTransactionResponse
+        ) => void
+    ): ClientUnaryCall;
+
+    getFlatTransactionById(
+        request: GetTransactionByIdRequest,
+        metadata: Metadata,
+        callback: (
+            error: Error | null,
+            response: GetFlatTransactionResponse
+        ) => void
+    ): ClientUnaryCall;
+
+    getFlatTransactionById(
+        request: GetTransactionByIdRequest,
+        metadata: Metadata,
+        options: Partial<CallOptions>,
+        callback: (
+            error: Error | null,
+            response: GetFlatTransactionResponse
+        ) => void
+    ): ClientUnaryCall;
+
+    getFlatTransactionById(
+        request: GetTransactionByIdRequest,
+        metadata: any,
+        options?: any,
+        callback?: any
+    ) {
+        this.latestRequestSpy(request);
+        const cb =
+            callback === undefined
+                ? options === undefined
+                ? metadata
+                : options
+                : callback;
+        setImmediate(() => cb(null, this.flatTransactionResponse));
         return DummyClientUnaryCall.Instance;
     }
 
@@ -207,4 +298,16 @@ export class DummyTransactionServiceClient implements ITransactionServiceClient 
         tree.setTransactionId('mock');
         this.transactionResponse.setTransaction(tree);
     }
+
+    private initEmptyFlatTransactionResponse() {
+        const effectiveAt = new Timestamp();
+        effectiveAt.setSeconds(0);
+        effectiveAt.setNanos(0);
+        const transaction = new Transaction();
+        transaction.setEffectiveAt(effectiveAt);
+        transaction.setOffset('mock');
+        transaction.setTransactionId('mock');
+        this.flatTransactionResponse.setTransaction(transaction);
+    }
+
 }

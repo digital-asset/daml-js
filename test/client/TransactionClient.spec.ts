@@ -188,9 +188,39 @@ describe('TransactionClient', () => {
 
     });
 
+    it('should pass the requesting parties to the flat transaction lookup by event identifier endpoint', (done) => {
+
+        client.getFlatTransactionByEventId(transactionByEventIdRequest, (error, _response) => {
+            expect(error).to.be.null;
+            assert(latestRequestSpy.calledOnce);
+            expect(latestRequestSpy.lastCall.args).to.have.length(1);
+            expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbGetTransactionByEventIdRequest);
+            const spiedRequest = latestRequestSpy.lastCall.lastArg as PbGetTransactionByEventIdRequest;
+            expect(spiedRequest.getRequestingPartiesList()).to.have.lengthOf(2);
+            expect(spiedRequest.getRequestingPartiesList()![0]).to.equal('barbara');
+            expect(spiedRequest.getRequestingPartiesList()![1]).to.equal('samuel');
+            done();
+        });
+
+    });
+
     it('should pass the correct ledger identifier to the transaction lookup by event identifier endpoint', (done) => {
 
         client.getTransactionByEventId(transactionByEventIdRequest, (error, _response) => {
+            expect(error).to.be.null;
+            assert(latestRequestSpy.calledOnce);
+            expect(latestRequestSpy.lastCall.args).to.have.length(1);
+            expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbGetTransactionByEventIdRequest);
+            const spiedRequest = latestRequestSpy.lastCall.lastArg as PbGetTransactionByEventIdRequest;
+            expect(spiedRequest.getLedgerId()).to.equal(ledgerId);
+            done();
+        });
+
+    });
+
+    it('should pass the correct ledger identifier to the flat transaction lookup by event identifier endpoint', (done) => {
+
+        client.getFlatTransactionByEventId(transactionByEventIdRequest, (error, _response) => {
             expect(error).to.be.null;
             assert(latestRequestSpy.calledOnce);
             expect(latestRequestSpy.lastCall.args).to.have.length(1);
@@ -217,9 +247,38 @@ describe('TransactionClient', () => {
         });
     });
 
+    it('should pass the requesting parties to the flat transaction lookup by transaction identifier endpoint', (done) => {
+
+        client.getFlatTransactionById(transactionByIdRequest, (error, _response) => {
+            expect(error).to.be.null;
+            assert(latestRequestSpy.calledOnce);
+            expect(latestRequestSpy.lastCall.args).to.have.length(1);
+            expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbGetTransactionByIdRequest);
+            const spiedRequest = latestRequestSpy.lastCall.lastArg as PbGetTransactionByIdRequest;
+            expect(spiedRequest.getRequestingPartiesList()).to.have.lengthOf(2);
+            expect(spiedRequest.getRequestingPartiesList()![0]).to.equal('joel');
+            expect(spiedRequest.getRequestingPartiesList()![1]).to.equal('ethan');
+            done();
+        });
+    });
+
     it('should pass the correct ledger identifier to the transaction lookup by transaction identifier', (done) => {
 
         client.getTransactionById(transactionByIdRequest, (error, _response) => {
+            expect(error).to.be.null;
+            assert(latestRequestSpy.calledOnce);
+            expect(latestRequestSpy.lastCall.args).to.have.length(1);
+            expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbGetTransactionByIdRequest);
+            const spiedRequest = latestRequestSpy.lastCall.lastArg as PbGetTransactionByIdRequest;
+            expect(spiedRequest.getLedgerId()).to.equal(ledgerId);
+            done();
+        });
+
+    });
+
+    it('should pass the correct ledger identifier to the flat transaction lookup by transaction identifier', (done) => {
+
+        client.getFlatTransactionById(transactionByIdRequest, (error, _response) => {
             expect(error).to.be.null;
             assert(latestRequestSpy.calledOnce);
             expect(latestRequestSpy.lastCall.args).to.have.length(1);
@@ -240,6 +299,72 @@ describe('TransactionClient', () => {
             expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbGetLedgerEndRequest);
             const spiedRequest = latestRequestSpy.lastCall.lastArg as PbGetLedgerEndRequest;
             expect(spiedRequest.getLedgerId()).to.equal(ledgerId);
+            done();
+        });
+
+    });
+
+    it('should perform validation on the GetTransactionById endpoint', (done) => {
+
+        const invalidRequest = {
+            transactionId: 'some-tx-id',
+            requestingParties: 42
+        };
+
+        const expectedValidationTree: ValidationTree = {
+            errors: [],
+            children: {
+                transactionId: {
+                    errors: [],
+                    children: {}
+                },
+                requestingParties: {
+                    errors: [{
+                        errorType: 'type-error',
+                        expectedType: 'Array<string>',
+                        actualType: 'number'
+                    }],
+                    children: {}
+                }
+            }
+        };
+
+        client.getTransactionById(invalidRequest as any as GetTransactionByIdRequest, error => {
+            expect(error).to.not.be.null;
+            expect(JSON.parse(error!.message)).to.deep.equal(expectedValidationTree);
+            done();
+        });
+
+    });
+
+    it('should perform validation on the GetFlatTransactionById endpoint', (done) => {
+
+        const invalidRequest = {
+            transactionId: 'some-tx-id',
+            requestingParties: 42
+        };
+
+        const expectedValidationTree: ValidationTree = {
+            errors: [],
+            children: {
+                transactionId: {
+                    errors: [],
+                    children: {}
+                },
+                requestingParties: {
+                    errors: [{
+                        errorType: 'type-error',
+                        expectedType: 'Array<string>',
+                        actualType: 'number'
+                    }],
+                    children: {}
+                }
+            }
+        };
+
+        client.getFlatTransactionById(invalidRequest as any as GetTransactionByIdRequest, error => {
+            expect(error).to.not.be.null;
+            expect(JSON.parse(error!.message)).to.deep.equal(expectedValidationTree);
             done();
         });
 
@@ -268,9 +393,42 @@ describe('TransactionClient', () => {
                     children: {}
                 }
             }
-        }
+        };
 
         client.getTransactionByEventId(invalidRequest as any as GetTransactionByEventIdRequest, error => {
+            expect(error).to.not.be.null;
+            expect(JSON.parse(error!.message)).to.deep.equal(expectedValidationTree);
+            done();
+        });
+
+    });
+
+    it('should perform validation on the GetFlatTransactionByEventId endpoint', (done) => {
+
+        const invalidRequest = {
+            eventId: 'some-event-id',
+            requestingParties: 42
+        };
+
+        const expectedValidationTree: ValidationTree = {
+            errors: [],
+            children: {
+                eventId: {
+                    errors: [],
+                    children: {}
+                },
+                requestingParties: {
+                    errors: [{
+                        errorType: 'type-error',
+                        expectedType: 'Array<string>',
+                        actualType: 'number'
+                    }],
+                    children: {}
+                }
+            }
+        };
+
+        client.getFlatTransactionByEventId(invalidRequest as any as GetTransactionByEventIdRequest, error => {
             expect(error).to.not.be.null;
             expect(JSON.parse(error!.message)).to.deep.equal(expectedValidationTree);
             done();
