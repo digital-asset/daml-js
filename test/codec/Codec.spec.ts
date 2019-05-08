@@ -16,6 +16,7 @@ import {Identifier} from "../../src/model/Identifier";
 import {
     Identifier as PbIdentifier,
     List as PbList,
+    Map as PbMap,
     Record as PbRecord,
     RecordField as PbRecordField,
     Value as PbValue,
@@ -228,9 +229,23 @@ describe('Codec', () => {
     const partyField = new PbRecordField();
     partyField.setLabel('partyLabel');
     partyField.setValue(partyValue);
+    const mapField = new PbRecordField();
+    mapField.setLabel('mapLabel');
+    const mapValue = new PbValue();
+    const map = new PbMap();
+    const mapEntries: PbMap.Entry[] = [];
+    const mapEntry = new PbMap.Entry();
+    mapEntry.setKey('partyLabel');
+    const mapEntryPartyValue = new PbValue();
+    mapEntryPartyValue.setParty('Charlie');
+    mapEntry.setValue(mapEntryPartyValue);
+    mapEntries.push(mapEntry);
+    map.setEntriesList(mapEntries);
+    mapValue.setMap(map);
+    mapField.setValue(mapValue);
     const nestedRecord = new PbRecord();
     nestedRecord.setRecordId(identifierMessage);
-    nestedRecord.setFieldsList([partyField]);
+    nestedRecord.setFieldsList([partyField, mapField]);
     const nestedValue = new PbValue();
     nestedValue.setRecord(nestedRecord);
     const nestedField = new PbRecordField();
@@ -249,7 +264,8 @@ describe('Codec', () => {
                 valueType: 'record',
                 recordId: identifierObject,
                 fields: {
-                    partyLabel: {valueType: 'party', party: 'Bob'}
+                    partyLabel: {valueType: 'party', party: 'Bob'},
+                    mapLabel: {valueType: 'map', map: { partyLabel: {valueType: 'party', party: 'Charlie'} } }
                 }
             }
         }
@@ -907,37 +923,38 @@ describe('Codec', () => {
         };
 
         twoWayCheck(LedgerConfigurationCodec, message, object);
-    }),
-        itShouldConvert('GetLedgerConfigurationResponse', () => {
-            const maxTtl = new PbDuration();
-            maxTtl.setSeconds(20);
-            maxTtl.setNanos(21);
+    });
 
-            const minTtl = new PbDuration();
-            minTtl.setSeconds(22);
-            minTtl.setNanos(23);
+    itShouldConvert('GetLedgerConfigurationResponse', () => {
+        const maxTtl = new PbDuration();
+        maxTtl.setSeconds(20);
+        maxTtl.setNanos(21);
 
-            const ledgerConfiguration = new PbLedgerConfiguration();
-            ledgerConfiguration.setMaxTtl(maxTtl);
-            ledgerConfiguration.setMinTtl(minTtl);
+        const minTtl = new PbDuration();
+        minTtl.setSeconds(22);
+        minTtl.setNanos(23);
 
-            const message = new PbGetLedgerConfigurationResponse();
-            message.setLedgerConfiguration(ledgerConfiguration);
+        const ledgerConfiguration = new PbLedgerConfiguration();
+        ledgerConfiguration.setMaxTtl(maxTtl);
+        ledgerConfiguration.setMinTtl(minTtl);
 
-            const object: GetLedgerConfigurationResponse = {
-                config: {
-                    maxTtl: {
-                        seconds: 20,
-                        nanoseconds: 21
-                    },
-                    minTtl: {
-                        seconds: 22,
-                        nanoseconds: 23
-                    }
+        const message = new PbGetLedgerConfigurationResponse();
+        message.setLedgerConfiguration(ledgerConfiguration);
+
+        const object: GetLedgerConfigurationResponse = {
+            config: {
+                maxTtl: {
+                    seconds: 20,
+                    nanoseconds: 21
+                },
+                minTtl: {
+                    seconds: 22,
+                    nanoseconds: 23
                 }
-            };
-            twoWayCheck(GetLedgerConfigurationResponseCodec, message, object);
-        });
+            }
+        };
+        twoWayCheck(GetLedgerConfigurationResponseCodec, message, object);
+    });
 
     itShouldConvert('GetLedgerEndResponse', () => {
         const message = new PbGetLedgerEndResponse();

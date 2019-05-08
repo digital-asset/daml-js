@@ -4,12 +4,13 @@
 import {
     List as PbList,
     Optional as PbOptional,
+    Map as PbMap,
     Value as PbValue
 } from '../generated/com/digitalasset/ledger/api/v1/value_pb';
 import {Empty as PbEmpty} from 'google-protobuf/google/protobuf/empty_pb';
 
 import {Codec} from "./Codec";
-import {RecordValue, Value, VariantValue} from "../model/Value";
+import {MapValue, RecordValue, Value, VariantValue} from "../model/Value";
 import {RecordCodec} from "./RecordCodec";
 import {VariantCodec} from "./VariantCodec";
 
@@ -69,6 +70,16 @@ export const ValueCodec: Codec<PbValue, Value> = {
             } else {
                 return {valueType: 'optional'};
             }
+        } else if (value.hasMap()) {
+            const map = value.getMap()!;
+            const object: MapValue = {
+                valueType: 'map',
+                map: {}
+            };
+            for (const key of map.getEntriesList()) {
+                object.map[key.getKey()] = ValueCodec.deserialize(key.getValue()!);
+            }
+            return object;
         } else {
             throw new Error('Deserialization error, unable to discriminate value type - this is likely to be a bug');
         }
@@ -86,7 +97,7 @@ export const ValueCodec: Codec<PbValue, Value> = {
                 message.setDate(parseInt(object.date));
                 break;
             case "decimal":
-                message.setDecimal(object.decimal)
+                message.setDecimal(object.decimal);
                 break;
             case "int64":
                 message.setInt64(object.int64);
@@ -99,6 +110,18 @@ export const ValueCodec: Codec<PbValue, Value> = {
                 }
                 list.setElementsList(values);
                 message.setList(list);
+                break;
+            case "map":
+                const map = new PbMap();
+                const entries: PbMap.Entry[] = [];
+                for (const key in object.map) {
+                    const entry = new PbMap.Entry();
+                    entry.setKey(key);
+                    entry.setValue(ValueCodec.serialize(object.map[key]));
+                    entries.push(entry);
+                }
+                map.setEntriesList(entries);
+                message.setMap(map);
                 break;
             case "optional":
                 const optional = new PbOptional();

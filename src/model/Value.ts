@@ -82,6 +82,11 @@ export interface OptionalValue {
     optional?: Value
 }
 
+export interface MapValue {
+    valueType: 'map',
+    map: { [k: string]: Value }
+}
+
 export type Value =
     RecordValue
     | VariantValue
@@ -96,3 +101,4 @@ export type Value =
     | UnitValue
     | DateValue
     | OptionalValue
+    | MapValue
