@@ -1,5 +1,5 @@
 // Copyright (c) 2019 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
-// SPDX-License-IdentifierValidation: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 import {Timestamp as PbTimestamp} from 'google-protobuf/google/protobuf/timestamp_pb';
 import {Timestamp} from "../model/Timestamp";
