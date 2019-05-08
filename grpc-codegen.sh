@@ -23,7 +23,6 @@ if [ ! -d "$PROTO_PATH" ]; then
       cd "$PROTO_PATH"
       curl -s https://digitalassetsdk.bintray.com/DigitalAssetSDK/com/digitalasset/ledger-api-protos/"$SDK_VERSION"/ledger-api-protos-"$SDK_VERSION".tar.gz | tar xz --strip-components 2
       curl -s https://digitalassetsdk.bintray.com/DigitalAssetSDK/com/digitalasset/daml-lf-archive-protos/"$SDK_VERSION"/daml-lf-archive-protos-"$SDK_VERSION".tar.gz | tar xz --strip-components 3
-      mkdir -p da && mv com/digitalasset/daml_lf/* da && rm -rf com/digitalasset/daml_lf
       mkdir -p google/rpc
       curl -s https://raw.githubusercontent.com/grpc/grpc/v"$GRPC_VERSION"/src/proto/grpc/status/status.proto > google/rpc/status.proto
     )
