@@ -35,7 +35,12 @@ import {
     GetTransactionsRequest
 } from "../../src/generated/com/digitalasset/ledger/api/v1/transaction_service_pb";
 import {GetActiveContractsRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/active_contracts_service_pb";
-import {SubmitAndWaitRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/command_service_pb";
+import {
+    SubmitAndWaitForTransactionIdResponse,
+    SubmitAndWaitForTransactionResponse,
+    SubmitAndWaitForTransactionTreeResponse,
+    SubmitAndWaitRequest
+} from "../../src/generated/com/digitalasset/ledger/api/v1/command_service_pb";
 import {ActiveContractsServiceService} from "../../src/generated/com/digitalasset/ledger/api/v1/active_contracts_service_grpc_pb";
 import {CommandServiceService} from "../../src/generated/com/digitalasset/ledger/api/v1/command_service_grpc_pb";
 import {CommandCompletionServiceService} from "../../src/generated/com/digitalasset/ledger/api/v1/command_completion_service_grpc_pb";
@@ -85,6 +90,10 @@ export class DummyServer extends Server {
 
         const getFlatTransactionResponse = new GetFlatTransactionResponse();
 
+        const submitAndWaitForTransactionResponse = new SubmitAndWaitForTransactionResponse();
+        const submitAndWaitForTransactionIdResponse = new SubmitAndWaitForTransactionIdResponse();
+        const submitAndWaitForTransactionTreeResponse = new SubmitAndWaitForTransactionTreeResponse();
+
         this.addService(ActiveContractsServiceService, {
             getActiveContracts(
                 call: ServerWriteableStream<GetActiveContractsRequest>
@@ -106,7 +115,43 @@ export class DummyServer extends Server {
             ): void {
                 spy(call.request.getCommands()!.getLedgerId());
                 callback(null, empty);
-            }
+            },
+            submitAndWaitForTransaction(
+                call: ServerUnaryCall<SubmitAndWaitRequest>,
+                callback: (
+                    error: ServiceError | null,
+                    value: SubmitAndWaitForTransactionResponse | null,
+                    trailer?: Metadata,
+                    flags?: number
+                ) => void
+            ): void {
+                spy(call.request.getCommands()!.getLedgerId());
+                callback(null, submitAndWaitForTransactionResponse)
+            },
+            submitAndWaitForTransactionId(
+                call: ServerUnaryCall<SubmitAndWaitRequest>,
+                callback: (
+                    error: ServiceError | null,
+                    value: SubmitAndWaitForTransactionIdResponse | null,
+                    trailer?: Metadata,
+                    flags?: number
+                ) => void
+            ): void {
+                spy(call.request.getCommands()!.getLedgerId());
+                callback(null, submitAndWaitForTransactionIdResponse)
+            },
+            submitAndWaitForTransactionTree(
+                call: ServerUnaryCall<SubmitAndWaitRequest>,
+                callback: (
+                    error: ServiceError | null,
+                    value: SubmitAndWaitForTransactionTreeResponse | null,
+                    trailer?: Metadata,
+                    flags?: number
+                ) => void
+            ): void {
+                spy(call.request.getCommands()!.getLedgerId());
+                callback(null, submitAndWaitForTransactionTreeResponse)
+            },
         });
 
         this.addService(CommandCompletionServiceService, {

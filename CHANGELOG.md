@@ -5,9 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 ### Added
-- support for text map values (added in SDK 0.11.32)
-- support for CreateAndExercise command (added in SDK 0.12.9)
-- support for GetFlatTransactionById and GetFlatTransactionByEventId (added in SDK 0.12.14)
+- support for SubmitAndWait with results from SDK 0.12.15 [#19](https://github.com/digital-asset/daml-js/issues/19)
+- support for text map values from SDK 0.11.32 [#17](https://github.com/digital-asset/daml-js/issues/17)
+- support for CreateAndExercise command from SDK 0.12.9 [#12](https://github.com/digital-asset/daml-js/issues/12)
+- support for GetFlatTransactionById and GetFlatTransactionByEventId from SDK 0.12.14 [#18](https://github.com/digital-asset/daml-js/issues/18)
 
 ### Fixed
 - add validation to GetTransactionById endpoint

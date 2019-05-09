@@ -1,10 +1,8 @@
 // Copyright (c) 2019 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {Status} from "./Status";
+import {Transaction} from "./Transaction";
 
-export interface Completion {
-    commandId: string
-    status?: Status
-    transactionId?: string
+export interface SubmitAndWaitForTransactionResponse {
+    transaction: Transaction
 }

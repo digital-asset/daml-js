@@ -74,6 +74,9 @@ import {Record} from './model/Record';
 import {SetTimeRequest} from './model/SetTimeRequest';
 import {Status} from './model/Status';
 import {SubmitAndWaitRequest} from './model/SubmitAndWaitRequest';
+import {SubmitAndWaitForTransactionResponse} from './model/SubmitAndWaitForTransactionResponse';
+import {SubmitAndWaitForTransactionIdResponse} from './model/SubmitAndWaitForTransactionIdResponse';
+import {SubmitAndWaitForTransactionTreeResponse} from './model/SubmitAndWaitForTransactionTreeResponse';
 import {SubmitRequest} from './model/SubmitRequest';
 import {Timestamp} from './model/Timestamp';
 import {TransactionFilter} from './model/TransactionFilter';
@@ -102,6 +105,9 @@ export {
     Transaction,
     SubmitRequest,
     SubmitAndWaitRequest,
+    SubmitAndWaitForTransactionResponse,
+    SubmitAndWaitForTransactionIdResponse,
+    SubmitAndWaitForTransactionTreeResponse,
     SetTimeRequest,
     PackageStatus,
     LedgerConfiguration,

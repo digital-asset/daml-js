@@ -3,9 +3,9 @@
 
 import * as jsc from 'jsverify';
 import {ArbitraryTransaction} from './ArbitraryTransaction';
-import {GetFlatTransactionResponse} from "../../src/model/GetFlatTransactionResponse";
+import {SubmitAndWaitForTransactionResponse} from "../../src/model/SubmitAndWaitForTransactionResponse";
 
-export const ArbitraryGetFlatTransactionResponse: jsc.Arbitrary<GetFlatTransactionResponse> =
+export const ArbitrarySubmitAndWaitForTransactionResponse: jsc.Arbitrary<SubmitAndWaitForTransactionResponse> =
     jsc.record({
         transaction: ArbitraryTransaction
     });
