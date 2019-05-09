@@ -28,7 +28,8 @@ function required(): RequiredFieldsValidators<ExercisedEvent> {
 
 function optional(): OptionalFieldsValidators<ExercisedEvent> {
     return {
-        childEventIds: array(native('string'))
+        childEventIds: array(native('string')),
+        exerciseResult: ValueValidation
     };
 }
 

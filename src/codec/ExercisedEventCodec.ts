@@ -27,6 +27,10 @@ export const ExercisedEventCodec: Codec<PbExercisedEvent, ExercisedEvent> = {
         if (childEventIds) {
             event.childEventIds = [...childEventIds];
         }
+        const exerciseResult = message.getExerciseResult();
+        if (exerciseResult) {
+            event.exerciseResult = ValueCodec.deserialize(exerciseResult);
+        }
         return event;
     },
     serialize(object: ExercisedEvent): PbExercisedEvent {
@@ -42,6 +46,9 @@ export const ExercisedEventCodec: Codec<PbExercisedEvent, ExercisedEvent> = {
         message.setWitnessPartiesList(object.witnessParties)
         if (object.childEventIds) {
             message.setChildEventIdsList([...object.childEventIds]);
+        }
+        if (object.exerciseResult) {
+            message.setExerciseResult(ValueCodec.serialize(object.exerciseResult));
         }
         return message;
     }

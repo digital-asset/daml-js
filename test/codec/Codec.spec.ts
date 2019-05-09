@@ -1260,6 +1260,13 @@ describe('Codec', () => {
         };
 
         twoWayCheck(ExercisedEventCodec, message, object);
+
+        const result = new PbValue();
+        result.setBool(true);
+        message.setExerciseResult(result);
+
+        twoWayCheck(ExercisedEventCodec, message, Object.assign(object, { exerciseResult: { valueType: 'bool', bool: true } }));
+
     });
 
     itShouldConvert('Event', () => {
