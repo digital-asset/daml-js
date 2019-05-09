@@ -26,6 +26,7 @@ import {
 } from "../../src/generated/com/digitalasset/ledger/api/v1/package_service_pb";
 import {TransactionTree} from "../../src/generated/com/digitalasset/ledger/api/v1/transaction_pb";
 import {
+    GetFlatTransactionResponse,
     GetLedgerEndRequest,
     GetLedgerEndResponse,
     GetTransactionByEventIdRequest,
@@ -81,6 +82,8 @@ export class DummyServer extends Server {
 
         const getLedgerEndResponse = new GetLedgerEndResponse();
         getLedgerEndResponse.setOffset(offset);
+
+        const getFlatTransactionResponse = new GetFlatTransactionResponse();
 
         this.addService(ActiveContractsServiceService, {
             getActiveContracts(
@@ -271,6 +274,30 @@ export class DummyServer extends Server {
             ): void {
                 spy(call.request.getLedgerId());
                 callback(null, getLedgerEndResponse);
+            },
+            getFlatTransactionByEventId(
+                call: ServerUnaryCall<GetTransactionByEventIdRequest>,
+                callback: (
+                    error: ServiceError | null,
+                    value: GetFlatTransactionResponse | null,
+                    trailer?: Metadata,
+                    flags?: number
+                ) => void
+            ): void {
+                spy(call.request.getLedgerId());
+                callback(null, getFlatTransactionResponse);
+            },
+            getFlatTransactionById(
+                call: ServerUnaryCall<GetTransactionByIdRequest>,
+                callback: (
+                    error: ServiceError | null,
+                    value: GetFlatTransactionResponse | null,
+                    trailer?: Metadata,
+                    flags?: number
+                ) => void
+            ): void {
+                spy(call.request.getLedgerId());
+                callback(null, getFlatTransactionResponse);
             }
         });
 

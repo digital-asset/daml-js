@@ -59,6 +59,7 @@ import {GetTimeResponse} from './model/GetTimeResponse';
 import {GetTransactionByEventIdRequest} from './model/GetTransactionByEventIdRequest';
 import {GetTransactionByIdRequest} from './model/GetTransactionByIdRequest';
 import {GetTransactionResponse} from './model/GetTransactionResponse';
+import {GetFlatTransactionResponse} from './model/GetFlatTransactionResponse';
 import {GetTransactionsRequest} from './model/GetTransactionsRequest';
 import {GetTransactionsResponse} from './model/GetTransactionsResponse';
 import {GetTransactionTreesResponse} from './model/GetTransactionTreesResponse';
@@ -108,6 +109,7 @@ export {
     GetTransactionTreesResponse,
     GetTransactionsRequest,
     GetTransactionResponse,
+    GetFlatTransactionResponse,
     GetTransactionByIdRequest,
     GetTimeResponse,
     GetLedgerIdentityResponse,
