@@ -15,6 +15,10 @@ export const CompletionCodec: Codec<PbCompletion, Completion> = {
         if (status !== undefined) {
             completion.status = StatusCodec.deserialize(status);
         }
+        const transactionId = message.getTransactionId();
+        if (transactionId !== '') { // https://developers.google.com/protocol-buffers/docs/proto3#default
+            completion.transactionId = transactionId;
+        }
         return completion;
     },
     serialize(object: Completion): PbCompletion {
@@ -22,6 +26,9 @@ export const CompletionCodec: Codec<PbCompletion, Completion> = {
         message.setCommandId(object.commandId);
         if (object.status) {
             message.setStatus(StatusCodec.serialize(object.status));
+        }
+        if (object.transactionId && object.transactionId !== '') {
+            message.setTransactionId(object.transactionId);
         }
         return message;
     }

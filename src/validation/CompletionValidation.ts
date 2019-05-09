@@ -16,7 +16,8 @@ function required(): RequiredFieldsValidators<Completion> {
 
 function optional(): OptionalFieldsValidators<Completion> {
     return {
-        status: StatusValidation
+        status: StatusValidation,
+        transactionId: native('string')
     };
 }
 

@@ -6,12 +6,9 @@ import {Completion} from "../../src/model/Completion";
 import {maybe} from "./Maybe";
 import {ArbitraryStatus} from "./ArbitraryStatus";
 
-export const ArbitraryCompletion: jsc.Arbitrary<Completion> = jsc
-    .pair(jsc.string, maybe(ArbitraryStatus))
-    .smap<Completion>(
-        ([commandId, status]) => ({
-            commandId: commandId,
-            status: status
-        }),
-        completion => [completion.commandId, completion.status]
-    );
+export const ArbitraryCompletion: jsc.Arbitrary<Completion> =
+    jsc.record<Completion>({
+        commandId: jsc.string,
+        status: maybe(ArbitraryStatus),
+        transactionId: maybe(jsc.string)
+    });

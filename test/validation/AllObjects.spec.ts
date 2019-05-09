@@ -90,6 +90,12 @@ import {ArbitraryCreateAndExerciseCommand} from "../arbitrary/ArbitraryCreateAnd
 import {CreateAndExerciseCommandValidation} from "../../src/validation/CreateAndExerciseCommandValidation";
 import {GetFlatTransactionResponseValidation} from "../../src/validation/GetFlatTransactionResponseValidation";
 import {ArbitraryGetFlatTransactionResponse} from "../arbitrary/ArbitraryGetFlatTransactionResponse";
+import {ArbitrarySubmitAndWaitForTransactionIdResponse} from "../arbitrary/ArbitrarySubmitAndWaitForTransactionIdResponse";
+import {SubmitAndWaitForTransactionResponseValidation} from "../../src/validation/SubmitAndWaitForTransactionResponseValidation";
+import {SubmitAndWaitForTransactionIdResponseValidation} from "../../src/validation/SubmitAndWaitForTransactionIdResponseValidation";
+import {SubmitAndWaitForTransactionTreeResponseValidation} from "../../src/validation/SubmitAndWaitForTransactionTreeResponseValidation";
+import {ArbitrarySubmitAndWaitForTransactionResponse} from "../arbitrary/ArbitrarySubmitAndWaitForTransactionResponse";
+import {ArbitrarySubmitAndWaitForTransactionTreeResponse} from "../arbitrary/ArbitrarySubmitAndWaitForTransactionTreeResponse";
 
 function test<A extends { [_: string]: any }>(
     validation: ObjectValidation<A>,
@@ -249,6 +255,9 @@ test(SetTimeRequestValidation, ArbitrarySetTimeRequest);
 test(StatusValidation, ArbitraryStatus);
 test(SubmitRequestValidation, ArbitrarySubmitRequest);
 test(SubmitAndWaitRequestValidation, ArbitrarySubmitAndWaitRequest);
+test(SubmitAndWaitForTransactionResponseValidation, ArbitrarySubmitAndWaitForTransactionResponse);
+test(SubmitAndWaitForTransactionIdResponseValidation, ArbitrarySubmitAndWaitForTransactionIdResponse);
+test(SubmitAndWaitForTransactionTreeResponseValidation, ArbitrarySubmitAndWaitForTransactionTreeResponse);
 test(TimestampValidation, ArbitraryTimestamp);
 test(TransactionFilterValidation, ArbitraryTransactionFilter);
 test(TransactionValidation, ArbitraryTransaction);

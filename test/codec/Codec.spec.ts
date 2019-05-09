@@ -168,8 +168,17 @@ import {SubmitRequest} from "../../src/model/SubmitRequest";
 import {SubmitRequest as PbSubmitRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/command_submission_service_pb";
 import {SubmitAndWaitRequest} from "../../src/model/SubmitAndWaitRequest";
 import {SubmitAndWaitRequest as PbSubmitAndWaitRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/command_service_pb";
+import {SubmitAndWaitForTransactionResponse} from "../../src/model/SubmitAndWaitForTransactionResponse";
+import {SubmitAndWaitForTransactionResponse as PbSubmitAndWaitForTransactionResponse} from "../../src/generated/com/digitalasset/ledger/api/v1/command_service_pb";
+import {SubmitAndWaitForTransactionIdResponse} from "../../src/model/SubmitAndWaitForTransactionIdResponse";
+import {SubmitAndWaitForTransactionIdResponse as PbSubmitAndWaitForTransactionIdResponse} from "../../src/generated/com/digitalasset/ledger/api/v1/command_service_pb";
+import {SubmitAndWaitForTransactionTreeResponse} from "../../src/model/SubmitAndWaitForTransactionTreeResponse";
+import {SubmitAndWaitForTransactionTreeResponse as PbSubmitAndWaitForTransactionTreeResponse} from "../../src/generated/com/digitalasset/ledger/api/v1/command_service_pb";
 import {CreateAndExerciseCommandCodec} from "../../src/codec/CreateAndExerciseCommandCodec";
 import {CreateAndExerciseCommand} from "../../src/model/CreateAndExerciseCommand";
+import {SubmitAndWaitForTransactionResponseCodec} from "../../src/codec/SubmitAndWaitForTransactionResponseCodec";
+import {SubmitAndWaitForTransactionIdResponseCodec} from "../../src/codec/SubmitAndWaitForTransactionIdResponseCodec";
+import {SubmitAndWaitForTransactionTreeResponseCodec} from "../../src/codec/SubmitAndWaitForTransactionTreeResponseCodec";
 
 describe('Codec', () => {
     const packageId = 'packageId';
@@ -349,6 +358,118 @@ describe('Codec', () => {
         templateId: identifierObject,
         arguments: recordObject,
         witnessParties: ['Alice', 'Bob']
+    };
+
+    const transactionTemplateId = new PbIdentifier();
+    transactionTemplateId.setPackageId('pkg');
+    transactionTemplateId.setModuleName('alejandro');
+    transactionTemplateId.setEntityName('roberto');
+    const event = new PbEvent();
+    const archived = new PbArchivedEvent();
+    const archivedTemplateId = new PbIdentifier();
+    archivedTemplateId.setPackageId('pkg');
+    archivedTemplateId.setModuleName('alejandro');
+    archivedTemplateId.setEntityName('roberto');
+    archived.setTemplateId(transactionTemplateId);
+    archived.setContractId('some-contract-id');
+    archived.setEventId('some-event-id');
+    archived.setWitnessPartiesList(['pool']);
+    event.setArchived(archived);
+
+    const effectiveAt = new PbTimestamp();
+    effectiveAt.setSeconds(10);
+    effectiveAt.setNanos(20);
+    const transactionMessage = new PbTransaction();
+    transactionMessage.setEventsList([event]);
+    transactionMessage.setCommandId('befehl');
+    transactionMessage.setEffectiveAt(effectiveAt);
+    transactionMessage.setOffset('zero');
+    transactionMessage.setTransactionId('tx');
+    transactionMessage.setWorkflowId('workflow');
+
+    const transactionObject: Transaction = {
+        commandId: 'befehl',
+        effectiveAt: {seconds: 10, nanoseconds: 20},
+        events: [
+            {
+                eventType: 'archived',
+                contractId: 'some-contract-id',
+                eventId: 'some-event-id',
+                templateId: {
+                    packageId: 'pkg',
+                    moduleName: 'alejandro',
+                    entityName: 'roberto'
+                },
+                witnessParties: ['pool']
+            }
+        ],
+        offset: 'zero',
+        transactionId: 'tx',
+        workflowId: 'workflow'
+    };
+
+    const transactionTreeTemplateId = new PbIdentifier();
+    transactionTreeTemplateId.setPackageId('pkg');
+    transactionTreeTemplateId.setModuleName('alejandro');
+    transactionTreeTemplateId.setEntityName('roberto');
+    const transactionTreeEvent = new PbTreeEvent();
+    const transactionTreeCreated = new PbCreatedEvent();
+    const createdTemplateId = new PbIdentifier();
+    const createdArgs = new PbRecord();
+    const createdArgsField = new PbRecordField();
+    const createdArgsFieldValue = new PbValue();
+    createdArgsFieldValue.setContractId('boo');
+    createdArgsField.setLabel('foo');
+    createdArgsField.setValue(createdArgsFieldValue);
+    createdArgs.setFieldsList([createdArgsField]);
+    createdTemplateId.setPackageId('pkg');
+    createdTemplateId.setModuleName('alejandro');
+    createdTemplateId.setEntityName('roberto');
+    transactionTreeCreated.setTemplateId(transactionTreeTemplateId);
+    transactionTreeCreated.setContractId('some-contract-id');
+    transactionTreeCreated.setEventId('some-event-id');
+    transactionTreeCreated.setWitnessPartiesList(['pool']);
+    transactionTreeCreated.setCreateArguments(createdArgs);
+    transactionTreeEvent.setCreated(transactionTreeCreated);
+
+    const transactionTreeEffectiveAt = new PbTimestamp();
+    transactionTreeEffectiveAt.setSeconds(10);
+    transactionTreeEffectiveAt.setNanos(20);
+    const transactionTreeMessage = new PbTransactionTree();
+    transactionTreeMessage.getEventsByIdMap().set('someId', transactionTreeEvent);
+    transactionTreeMessage.addRootEventIds('root');
+    transactionTreeMessage.setCommandId('befehl');
+    transactionTreeMessage.setEffectiveAt(transactionTreeEffectiveAt);
+    transactionTreeMessage.setOffset('zero');
+    transactionTreeMessage.setTransactionId('tx');
+    transactionTreeMessage.setWorkflowId('workflow');
+    transactionTreeMessage.getEventsByIdMap().set('someId', transactionTreeEvent);
+
+    const transactionTreeObject: TransactionTree = {
+        commandId: 'befehl',
+        effectiveAt: {seconds: 10, nanoseconds: 20},
+        eventsById: {
+            someId: {
+                eventType: 'created',
+                templateId: {
+                    packageId: 'pkg',
+                    moduleName: 'alejandro',
+                    entityName: 'roberto'
+                },
+                contractId: 'some-contract-id',
+                eventId: 'some-event-id',
+                witnessParties: ['pool'],
+                arguments: {
+                    fields: {
+                        foo: {valueType: 'contractId', contractId: 'boo'}
+                    }
+                }
+            }
+        },
+        rootEventIds: ['root'],
+        offset: 'zero',
+        transactionId: 'tx',
+        workflowId: 'workflow'
     };
 
     itShouldConvert('Identifier', () => {
@@ -671,6 +792,87 @@ describe('Codec', () => {
             SubmitAndWaitRequestCodec,
             submitRequestMessage,
             submitRequestObject
+        );
+    });
+
+    itShouldConvert('SubmitAndWaitForTransactionResponse', () => {
+        const submitAndWaitForTransactionResponseMessage = new PbSubmitAndWaitForTransactionResponse();
+        submitAndWaitForTransactionResponseMessage.setTransaction(transactionMessage);
+        const submitAndWaitForTransactionResponseObject: SubmitAndWaitForTransactionResponse = {
+            transaction: transactionObject
+        };
+        twoWayCheck(
+            SubmitAndWaitForTransactionResponseCodec,
+            submitAndWaitForTransactionResponseMessage,
+            submitAndWaitForTransactionResponseObject
+        );
+    });
+
+    itShouldConvert('SubmitAndWaitForTransactionIdResponse', () => {
+        const submitAndWaitForTransactionIdResponseMessage = new PbSubmitAndWaitForTransactionIdResponse();
+        submitAndWaitForTransactionIdResponseMessage.setTransactionId('foobar');
+        const submitAndWaitForTransactionIdResponseObject: SubmitAndWaitForTransactionIdResponse = {
+            transactionId: 'foobar'
+        };
+        twoWayCheck(
+            SubmitAndWaitForTransactionIdResponseCodec,
+            submitAndWaitForTransactionIdResponseMessage,
+            submitAndWaitForTransactionIdResponseObject
+        );
+    });
+
+    itShouldConvert('SubmitAndWaitForTransactionTreeResponse', () => {
+
+        // TODO: we re-create the transactionTreeMessage here as in due to an apparent misbehavior, the call to
+        // TODO: setTransaction later on seem to have destructive consequences on transactionTreeMessage
+        // TODO: looks like a bug on google-protobuf, probably worth investigating
+        // TODO: this is not a priority as in the bindings we _NEVER_ re-use objects from ProtoBuffer
+        const transactionTreeTemplateId = new PbIdentifier();
+        transactionTreeTemplateId.setPackageId('pkg');
+        transactionTreeTemplateId.setModuleName('alejandro');
+        transactionTreeTemplateId.setEntityName('roberto');
+        const transactionTreeEvent = new PbTreeEvent();
+        const transactionTreeCreated = new PbCreatedEvent();
+        const createdTemplateId = new PbIdentifier();
+        const createdArgs = new PbRecord();
+        const createdArgsField = new PbRecordField();
+        const createdArgsFieldValue = new PbValue();
+        createdArgsFieldValue.setContractId('boo');
+        createdArgsField.setLabel('foo');
+        createdArgsField.setValue(createdArgsFieldValue);
+        createdArgs.setFieldsList([createdArgsField]);
+        createdTemplateId.setPackageId('pkg');
+        createdTemplateId.setModuleName('alejandro');
+        createdTemplateId.setEntityName('roberto');
+        transactionTreeCreated.setTemplateId(transactionTreeTemplateId);
+        transactionTreeCreated.setContractId('some-contract-id');
+        transactionTreeCreated.setEventId('some-event-id');
+        transactionTreeCreated.setWitnessPartiesList(['pool']);
+        transactionTreeCreated.setCreateArguments(createdArgs);
+        transactionTreeEvent.setCreated(transactionTreeCreated);
+
+        const transactionTreeEffectiveAt = new PbTimestamp();
+        transactionTreeEffectiveAt.setSeconds(10);
+        transactionTreeEffectiveAt.setNanos(20);
+        const transactionTreeMessage1 = new PbTransactionTree();
+        transactionTreeMessage1.getEventsByIdMap().set('someId', transactionTreeEvent);
+        transactionTreeMessage1.addRootEventIds('root');
+        transactionTreeMessage1.setCommandId('befehl');
+        transactionTreeMessage1.setEffectiveAt(transactionTreeEffectiveAt);
+        transactionTreeMessage1.setOffset('zero');
+        transactionTreeMessage1.setTransactionId('tx');
+        transactionTreeMessage1.setWorkflowId('workflow');
+        transactionTreeMessage1.getEventsByIdMap().set('someId', transactionTreeEvent);
+
+        const submitAndWaitForTransactionTreeResponseMessage = new PbSubmitAndWaitForTransactionTreeResponse();
+        submitAndWaitForTransactionTreeResponseMessage.setTransaction(transactionTreeMessage1);
+        const submitAndWaitForTransactionTreeResponseObject: SubmitAndWaitForTransactionTreeResponse = {
+            transaction: transactionTreeObject
+        };
+        twoWayCheck(
+            SubmitAndWaitForTransactionTreeResponseCodec,
+            submitAndWaitForTransactionTreeResponseMessage,
+            submitAndWaitForTransactionTreeResponseObject
         );
     });
 
@@ -1093,196 +1295,22 @@ describe('Codec', () => {
     });
 
     itShouldConvert('TransactionTree', () => {
-        const templateId = new PbIdentifier();
-        templateId.setPackageId('pkg');
-        templateId.setModuleName('alejandro');
-        templateId.setEntityName('roberto');
-        const event = new PbTreeEvent();
-        const created = new PbCreatedEvent();
-        const createdTemplateId = new PbIdentifier();
-        const createdArgs = new PbRecord();
-        const createdArgsField = new PbRecordField();
-        const createdArgsFieldValue = new PbValue();
-        createdArgsFieldValue.setContractId('boo');
-        createdArgsField.setLabel('foo');
-        createdArgsField.setValue(createdArgsFieldValue);
-        createdArgs.setFieldsList([createdArgsField]);
-        createdTemplateId.setPackageId('pkg');
-        createdTemplateId.setModuleName('alejandro');
-        createdTemplateId.setEntityName('roberto');
-        created.setTemplateId(templateId);
-        created.setContractId('some-contract-id');
-        created.setEventId('some-event-id');
-        created.setWitnessPartiesList(['pool']);
-        created.setCreateArguments(createdArgs);
-        event.setCreated(created);
-
-        const effectiveAt = new PbTimestamp();
-        effectiveAt.setSeconds(10);
-        effectiveAt.setNanos(20);
-        const message = new PbTransactionTree();
-        message.getEventsByIdMap().set('someId', event);
-        message.addRootEventIds('root');
-        message.setCommandId('befehl');
-        message.setEffectiveAt(effectiveAt);
-        message.setOffset('zero');
-        message.setTransactionId('tx');
-        message.setWorkflowId('workflow');
-        message.getEventsByIdMap().set('someId', event);
-
-        const object: TransactionTree = {
-            commandId: 'befehl',
-            effectiveAt: {seconds: 10, nanoseconds: 20},
-            eventsById: {
-                someId: {
-                    eventType: 'created',
-                    templateId: {
-                        packageId: 'pkg',
-                        moduleName: 'alejandro',
-                        entityName: 'roberto'
-                    },
-                    contractId: 'some-contract-id',
-                    eventId: 'some-event-id',
-                    witnessParties: ['pool'],
-                    arguments: {
-                        fields: {
-                            foo: {valueType: 'contractId', contractId: 'boo'}
-                        }
-                    }
-                }
-            },
-            rootEventIds: ['root'],
-            offset: 'zero',
-            transactionId: 'tx',
-            workflowId: 'workflow'
-        };
-
-        twoWayCheck(TransactionTreeCodec, message, object);
+        twoWayCheck(TransactionTreeCodec, transactionTreeMessage, transactionTreeObject);
     });
 
     itShouldConvert('GetTransactionResponse', () => {
-        const templateId = new PbIdentifier();
-        templateId.setPackageId('pkg');
-        templateId.setModuleName('alejandro');
-        templateId.setEntityName('roberto');
-        const event = new PbTreeEvent();
-        const created = new PbCreatedEvent();
-        const createdTemplateId = new PbIdentifier();
-        const createdArgs = new PbRecord();
-        const createdArgsField = new PbRecordField();
-        const createdArgsFieldValue = new PbValue();
-        createdArgsFieldValue.setContractId('boo');
-        createdArgsField.setLabel('foo');
-        createdArgsField.setValue(createdArgsFieldValue);
-        createdArgs.setFieldsList([createdArgsField]);
-        createdTemplateId.setPackageId('pkg');
-        createdTemplateId.setModuleName('alejandro');
-        createdTemplateId.setEntityName('roberto');
-        created.setTemplateId(templateId);
-        created.setContractId('some-contract-id');
-        created.setEventId('some-event-id');
-        created.setWitnessPartiesList(['pool']);
-        created.setCreateArguments(createdArgs);
-        event.setCreated(created);
-
-        const effectiveAt = new PbTimestamp();
-        effectiveAt.setSeconds(10);
-        effectiveAt.setNanos(20);
-        const transaction = new PbTransactionTree();
-        transaction.getEventsByIdMap().set('someId', event);
-        transaction.addRootEventIds('root');
-        transaction.setCommandId('befehl');
-        transaction.setEffectiveAt(effectiveAt);
-        transaction.setOffset('zero');
-        transaction.setTransactionId('tx');
-        transaction.setWorkflowId('workflow');
-        transaction.getEventsByIdMap().set('someId', event);
-
         const message = new PbGetTransactionResponse();
-        message.setTransaction(transaction);
+        message.setTransaction(transactionTreeMessage);
 
         const object: GetTransactionResponse = {
-            transaction: {
-                commandId: 'befehl',
-                effectiveAt: {seconds: 10, nanoseconds: 20},
-                eventsById: {
-                    someId: {
-                        eventType: 'created',
-                        templateId: {
-                            packageId: 'pkg',
-                            moduleName: 'alejandro',
-                            entityName: 'roberto'
-                        },
-                        contractId: 'some-contract-id',
-                        eventId: 'some-event-id',
-                        witnessParties: ['pool'],
-                        arguments: {
-                            fields: {
-                                foo: {valueType: 'contractId', contractId: 'boo'}
-                            }
-                        }
-                    }
-                },
-                rootEventIds: ['root'],
-                offset: 'zero',
-                transactionId: 'tx',
-                workflowId: 'workflow'
-            }
+            transaction: transactionTreeObject
         };
 
         twoWayCheck(GetTransactionResponseCodec, message, object);
     });
 
     itShouldConvert('Transaction', () => {
-        const templateId = new PbIdentifier();
-        templateId.setPackageId('pkg');
-        templateId.setModuleName('alejandro');
-        templateId.setEntityName('roberto');
-        const event = new PbEvent();
-        const archived = new PbArchivedEvent();
-        const archivedTemplateId = new PbIdentifier();
-        archivedTemplateId.setPackageId('pkg');
-        archivedTemplateId.setModuleName('alejandro');
-        archivedTemplateId.setEntityName('roberto');
-        archived.setTemplateId(templateId);
-        archived.setContractId('some-contract-id');
-        archived.setEventId('some-event-id');
-        archived.setWitnessPartiesList(['pool']);
-        event.setArchived(archived);
-
-        const effectiveAt = new PbTimestamp();
-        effectiveAt.setSeconds(10);
-        effectiveAt.setNanos(20);
-        const message = new PbTransaction();
-        message.setEventsList([event]);
-        message.setCommandId('befehl');
-        message.setEffectiveAt(effectiveAt);
-        message.setOffset('zero');
-        message.setTransactionId('tx');
-        message.setWorkflowId('workflow');
-
-        const object: Transaction = {
-            commandId: 'befehl',
-            effectiveAt: {seconds: 10, nanoseconds: 20},
-            events: [
-                {
-                    eventType: 'archived',
-                    contractId: 'some-contract-id',
-                    eventId: 'some-event-id',
-                    templateId: {
-                        packageId: 'pkg',
-                        moduleName: 'alejandro',
-                        entityName: 'roberto'
-                    },
-                    witnessParties: ['pool']
-                }
-            ],
-            offset: 'zero',
-            transactionId: 'tx',
-            workflowId: 'workflow'
-        };
-
-        twoWayCheck(TransactionCodec, message, object);
+        twoWayCheck(TransactionCodec, transactionMessage, transactionObject);
     });
 
     itShouldConvert('GetTransactionsResponse', () => {
@@ -1470,7 +1498,7 @@ function itShouldConvert(typeName: String, fn?: Mocha.Func): Mocha.Test {
     return it(`should convert model.${typeName} to/from Pb${typeName}`, fn);
 }
 
-function twoWayCheck<M, O>(mapping: Codec<M, O>, m: M, o: O): void {
-    expect(mapping.deserialize(m)).to.deep.equal(o);
-    expect(mapping.serialize(o)).to.deep.equal(m);
+function twoWayCheck<M, O>(codec: Codec<M, O>, m: M, o: O): void {
+    expect(codec.deserialize(m)).to.deep.equal(o);
+    expect(codec.serialize(o)).to.deep.equal(m);
 }
