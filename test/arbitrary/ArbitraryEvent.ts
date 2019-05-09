@@ -41,7 +41,8 @@ export const ArbitraryExercisedEvent: jsc.Arbitrary<ExercisedEvent> =
         contractId: jsc.string,
         eventId: jsc.string,
         templateId: ArbitraryIdentifier,
-        witnessParties: jsc.array(jsc.string)
+        witnessParties: jsc.array(jsc.string),
+        exerciseResult: maybe(ArbitraryValue)
     });
 
 export const ArbitraryEvent = jsc.oneof([ArbitraryArchivedEvent, ArbitraryCreatedEvent, ArbitraryExercisedEvent]);

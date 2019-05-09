@@ -16,4 +16,8 @@ export interface ExercisedEvent {
     eventId: string
     templateId: Identifier
     witnessParties: string[]
+    /**
+     * Optional to ensure backward compatibility with ledgers before 0.12.16
+     */
+    exerciseResult?: Value
 }
