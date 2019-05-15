@@ -12,11 +12,10 @@ export const TreeEventCodec: Codec<PbTreeEvent, TreeEvent> = {
     deserialize(message: PbTreeEvent): TreeEvent {
         if (message.hasCreated()) {
             return CreatedEventCodec.deserialize(message.getCreated()!);
-        }
-        if (message.hasExercised()) {
+        } else if (message.hasExercised()) {
             return ExercisedEventCodec.deserialize(message.getExercised()!);
         } else {
-            throw new Error('Deserialization error, unable to discriminate value type - this is likely to be a bug');
+            throw new Error('Tree event deserialization error, unable to discriminate value type - this is likely to be a bug');
         }
     },
     serialize(object: TreeEvent): PbTreeEvent {

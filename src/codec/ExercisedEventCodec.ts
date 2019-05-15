@@ -24,7 +24,7 @@ export const ExercisedEventCodec: Codec<PbExercisedEvent, ExercisedEvent> = {
             witnessParties: message.getWitnessPartiesList()
         };
         const childEventIds = message.getChildEventIdsList();
-        if (childEventIds) {
+        if (childEventIds.length > 0) {
             event.childEventIds = [...childEventIds];
         }
         const exerciseResult = message.getExerciseResult();

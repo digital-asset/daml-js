@@ -22,10 +22,10 @@ export const LedgerOffsetCodec: Codec<PbLedgerOffset, LedgerOffset> = {
                     return {offsetType: 'boundary', boundary: LedgerOffsetBoundaryValue.END}
                 }
                 default:
-                    throw new Error('Deserialization error, unable to discriminate value type - this is likely to be a bug');
+                    throw new Error('Ledger boundary deserialization error, unable to discriminate value type - this is likely to be a bug');
             }
         } else {
-            throw new Error('Deserialization error, unable to discriminate value type - this is likely to be a bug');
+            throw new Error('Ledger offset deserialization error, unable to discriminate value type - this is likely to be a bug');
         }
     },
     serialize(object: LedgerOffset): PbLedgerOffset {
