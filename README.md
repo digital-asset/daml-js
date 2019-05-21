@@ -18,13 +18,14 @@ Refer to the [changelog](./CHANGELOG.md) to understand the latest changes.
 
 ## Documentation
 
-Documentation for the Node.js bindings is at [digital-asset.github.io/daml-js](http://digital-asset.github.io/daml-js/).
+The main source of documentation are:
 
-There's also a tutorial at [github.com/digital-asset/ex-tutorial-nodejs](https://github.com/digital-asset/ex-tutorial-nodejs).
+- [the reference documentation](https://digital-asset.github.io/daml-js/)
+- [the beginners tutorial]((https://github.com/digital-asset/ex-tutorial-nodejs))
 
 ## Contribute
 
-We warmly welcome contributions; please have a look at [CONTRIBUTING.md](./CONTRIBUTING.md) to understand the contribution guidelines and how to setup a working development environment. You are welcome to use the [issue tracker](https://github.com/digital-asset/daml-js/issues) to find or propose contribution opportuties.
+We warmly welcome contributions; please have a look at [CONTRIBUTING.md](./CONTRIBUTING.md) to understand the contribution guidelines and how to setup a working development environment. You are welcome to use the [issue tracker](https://github.com/digital-asset/daml-js/issues) to find or propose contribution opportunities.
 
 ## Join the conversation
 

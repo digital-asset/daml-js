@@ -4,7 +4,7 @@
 import {expect} from 'chai';
 import {isValid, ValidationTree} from "../../src/validation/Validation";
 
-describe('ValidationValidationTree: isValid', () => {
+describe('ValidationTree: isValid', () => {
 
     it('should tell the empty tree is valid', () => {
         const tree: ValidationTree = {
