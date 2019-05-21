@@ -4,6 +4,7 @@
 import {LedgerOffset, LedgerOffsetBoundaryValue} from "../model/LedgerOffset";
 import {LedgerOffset as PbLedgerOffset} from "../generated/com/digitalasset/ledger/api/v1/ledger_offset_pb";
 import {Codec} from "./Codec";
+import {ErrorMessages} from "../util/ErrorMessages";
 
 export const LedgerOffsetCodec: Codec<PbLedgerOffset, LedgerOffset> = {
     deserialize(message: PbLedgerOffset): LedgerOffset {
@@ -22,10 +23,10 @@ export const LedgerOffsetCodec: Codec<PbLedgerOffset, LedgerOffset> = {
                     return {offsetType: 'boundary', boundary: LedgerOffsetBoundaryValue.END}
                 }
                 default:
-                    throw new Error('Ledger boundary deserialization error, unable to discriminate value type - this is likely to be a bug');
+                    throw new Error(ErrorMessages.unknownDeserialization('Ledger Boundary'));
             }
         } else {
-            throw new Error('Ledger offset deserialization error, unable to discriminate value type - this is likely to be a bug');
+            throw new Error(ErrorMessages.unknownDeserialization('Ledger Offset'));
         }
     },
     serialize(object: LedgerOffset): PbLedgerOffset {

@@ -13,6 +13,7 @@ import {Codec} from "./Codec";
 import {MapValue, RecordValue, Value, VariantValue} from "../model/Value";
 import {RecordCodec} from "./RecordCodec";
 import {VariantCodec} from "./VariantCodec";
+import {ErrorMessages} from "../util/ErrorMessages";
 
 export const ValueCodec: Codec<PbValue, Value> = {
     deserialize(value: PbValue): Value {
@@ -81,7 +82,7 @@ export const ValueCodec: Codec<PbValue, Value> = {
             }
             return object;
         } else {
-            throw new Error('Value deserialization error, unable to discriminate value type - this is likely to be a bug');
+            throw new Error(ErrorMessages.unknownDeserialization('Value'));
         }
     },
     serialize(object: Value): PbValue {

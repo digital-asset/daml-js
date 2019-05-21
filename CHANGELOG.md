@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 ### Added
+- improved error messages for missing cases for unknown union type cases [#49](https://github.com/digital-asset/daml-js/issues/49)
 - support for exercise result in ExercisedEvent from SDK 0.12.16 [#20](https://github.com/digital-asset/daml-js/issues/20)
 - support for SubmitAndWait with results from SDK 0.12.15 [#19](https://github.com/digital-asset/daml-js/issues/19)
 - support for text map values from SDK 0.11.32 [#17](https://github.com/digital-asset/daml-js/issues/17)
