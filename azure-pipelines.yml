@@ -41,5 +41,5 @@ steps:
 - bash: bash <(curl -s https://raw.githubusercontent.com/DACH-NY/security-blackduck/master/synopsys-detect) ci-build digitalasset_ex-daml-js master --logging.level.com.synopsys.integration=DEBUG
   displayName: Blackduck security scan
   env:
-    BLACKDUCK_HUBDETECT_TOKEN: $(BLACKDUCK_HUB_CREDENTIALS)
+    BLACKDUCK_HUBDETECT_TOKEN: $(BLACKDUCK_HUBDETECT_TOKEN)
 
