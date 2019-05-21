@@ -81,7 +81,7 @@ export const ValueCodec: Codec<PbValue, Value> = {
             }
             return object;
         } else {
-            throw new Error('Deserialization error, unable to discriminate value type - this is likely to be a bug');
+            throw new Error('Value deserialization error, unable to discriminate value type - this is likely to be a bug');
         }
     },
     serialize(object: Value): PbValue {

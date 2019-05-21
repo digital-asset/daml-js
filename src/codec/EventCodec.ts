@@ -18,7 +18,7 @@ export const EventCodec: Codec<PbEvent, Event> = {
         } else if (message.hasExercised()) {
             return ExercisedEventCodec.deserialize(message.getExercised()!);
         } else {
-            throw new Error('Deserialization error, unable to discriminate value type - this is likely to be a bug');
+            throw new Error('Event deserialization error, unable to discriminate value type - this is likely to be a bug');
         }
     },
     serialize(object: Event): PbEvent {

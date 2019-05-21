@@ -13,7 +13,7 @@
     "release-docs": "rm -rf docs && typedoc --tsconfig tsconfig-docs.json --out ./docs/$(git describe --tags) src",
     "prepack": "./grpc-codegen.sh && tsc --build tsconfig-dist.json && cp -r src/generated lib",
     "pretest": " ./sandbox-start.sh && ./grpc-codegen.sh && tsc --build tsconfig-dist.json && tsc --build tsconfig-test.json",
-    "test": "DAML_SANDBOX_PORT=$(cat sandbox.port) TS_NODE_COMPILER_OPTIONS=$(node compiler-options) mocha -r ts-node/register --reporter dot --recursive './test/**/*.spec.ts'",
+    "test": "DAML_SANDBOX_PORT=$(cat sandbox.port) TS_NODE_COMPILER_OPTIONS=$(node compiler-options) mocha -r ts-node/register --recursive './test/**/*.spec.ts'",
     "test-with-fixed-seed": "DAML_SANDBOX_PORT=$(cat sandbox.port) TS_NODE_COMPILER_OPTIONS=$(node compiler-options) mocha -r ts-node/register --jsverifyRngState 86f24ba518063e9c7d --recursive './test/**/*.spec.ts'"
   },
   "repository": {
@@ -56,6 +56,7 @@
     "@types/mocha": "5.2.6",
     "@types/node": "10.14.4",
     "@types/sinon": "7.0.11",
+    "@types/uuid": "3.4.4",
     "chai": "4.2.0",
     "grpc-tools": "1.7.3",
     "grpc_tools_node_protoc_ts": "2.5.0",
@@ -64,8 +65,8 @@
     "protobufjs": "6.8.8",
     "sinon": "7.3.1",
     "ts-node": "8.0.3",
-    "tslint-config-standard": "8.0.1",
     "typedoc": "0.14.2",
-    "typescript": "3.4.3"
+    "typescript": "3.4.3",
+    "uuid": "3.3.2"
   }
 }

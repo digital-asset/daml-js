@@ -17,7 +17,7 @@ export const CommandCodec: Codec<PbCommand, Command> = {
         } else if (message.hasCreateandexercise()) {
             return CreateAndExerciseCommandCodec.deserialize(message.getCreateandexercise()!);
         } else {
-            throw new Error('Deserialization error, unable to discriminate value type - this is likely to be a bug');
+            throw new Error('Command deserialization error, unable to discriminate value type - this is likely to be a bug');
         }
     },
     serialize(object: Command): PbCommand {
