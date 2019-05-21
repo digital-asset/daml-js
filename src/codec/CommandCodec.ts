@@ -7,6 +7,7 @@ import {Command as PbCommand} from '../generated/com/digitalasset/ledger/api/v1/
 import {CreateCommandCodec} from "./CreateCommandCodec";
 import {ExerciseCommandCodec} from "./ExerciseCommandCodec";
 import {CreateAndExerciseCommandCodec} from "./CreateAndExerciseCommandCodec";
+import {ErrorMessages} from "../util/ErrorMessages";
 
 export const CommandCodec: Codec<PbCommand, Command> = {
     deserialize(message: PbCommand): Command {
@@ -17,7 +18,7 @@ export const CommandCodec: Codec<PbCommand, Command> = {
         } else if (message.hasCreateandexercise()) {
             return CreateAndExerciseCommandCodec.deserialize(message.getCreateandexercise()!);
         } else {
-            throw new Error('Command deserialization error, unable to discriminate value type - this is likely to be a bug');
+            throw new Error(ErrorMessages.unknownDeserialization('Command'));
         }
     },
     serialize(object: Command): PbCommand {

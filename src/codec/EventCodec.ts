@@ -8,6 +8,7 @@ import {CreatedEventCodec} from "./CreatedEventCodec";
 import {ExercisedEventCodec} from "./ExercisedEventCodec";
 
 import {Event as PbEvent} from "../generated/com/digitalasset/ledger/api/v1/event_pb";
+import {ErrorMessages} from "../util/ErrorMessages";
 
 export const EventCodec: Codec<PbEvent, Event> = {
     deserialize(message: PbEvent): Event {
@@ -18,7 +19,7 @@ export const EventCodec: Codec<PbEvent, Event> = {
         } else if (message.hasExercised()) {
             return ExercisedEventCodec.deserialize(message.getExercised()!);
         } else {
-            throw new Error('Event deserialization error, unable to discriminate value type - this is likely to be a bug');
+            throw new Error(ErrorMessages.unknownDeserialization('Event'));
         }
     },
     serialize(object: Event): PbEvent {
