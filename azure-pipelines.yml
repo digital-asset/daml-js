@@ -39,7 +39,7 @@ steps:
 - script: npm run ci-pipeline
   displayName: Build and test
 - bash: bash <(curl -s https://raw.githubusercontent.com/DACH-NY/security-blackduck/master/synopsys-detect) ci-build digitalasset_ex-daml-js master --logging.level.com.synopsys.integration=DEBUG
-    displayName: 'Blackduck Scan'
-    env:
-      BLACKDUCK_HUB_CREDENTIALS: $(BLACKDUCK_HUB_CREDENTIALS)
+  displayName: Blackduck security scan
+  env:
+    BLACKDUCK_HUB_CREDENTIALS: $(BLACKDUCK_HUB_CREDENTIALS)
 
