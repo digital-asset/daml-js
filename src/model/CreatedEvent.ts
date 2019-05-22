@@ -11,4 +11,5 @@ export interface CreatedEvent {
     templateId: Identifier
     arguments: Record
     witnessParties: string[]
+    agreementText?: string
 }

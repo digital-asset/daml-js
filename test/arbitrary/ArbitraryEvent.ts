@@ -26,7 +26,8 @@ export const ArbitraryCreatedEvent: jsc.Arbitrary<CreatedEvent> =
         eventId: jsc.string,
         templateId: ArbitraryIdentifier,
         arguments: ArbitraryRecord,
-        witnessParties: jsc.array(jsc.string)
+        witnessParties: jsc.array(jsc.string),
+        agreementText: maybe(jsc.string)
     });
 
 export const ArbitraryExercisedEvent: jsc.Arbitrary<ExercisedEvent> =
