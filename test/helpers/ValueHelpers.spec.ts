@@ -13,12 +13,6 @@ describe('Value helpers', () => {
     test('none is frozen', () => {
         expect(() => { daml.none.valueType = 'optional'; }).to.throw;
     });
-    test('decimal should not loose precision when using bigint', () => {
-        expect(daml.decimal(BigInt('1981920982985903454234234'))).to.deep.equal({
-            valueType: 'decimal',
-            decimal: '1981920982985903454234234'
-        });
-    });
     test('decimal could loose precision when using JS numbers', () => {
         expect(daml.decimal(1981920982985903454234234)).
         to.have.property('decimal').
@@ -28,12 +22,6 @@ describe('Value helpers', () => {
         expect(daml.decimal('1981920982985903454234234')).to.deep.equal({
             valueType: 'decimal',
             decimal: '1981920982985903454234234'
-        });
-    });
-    test('int64 should not loose precision when using bigint', () => {
-        expect(daml.int64(BigInt('1981920982985903454234234'))).to.deep.equal({
-            valueType: 'int64',
-            int64: '1981920982985903454234234'
         });
     });
     test('int64 could loose precision when using JS numbers', () => {
