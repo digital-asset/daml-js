@@ -238,7 +238,7 @@ export const ValueHelpers = {
     /**
      * Wraps either a string, number or bigint in the underlying signed 64-bit integer representation
      *
-     * _ATTENTION_: plain JavaScript numbers do not suffer from a loss in precision only within the -2^53 to 2^53 range
+     * _ATTENTION_: plain JavaScript numbers lose precision outside the [-2^53, 2^53] range.
      *
      * Example:
      *
@@ -264,7 +264,7 @@ export const ValueHelpers = {
     /**
      * Wraps either a string, number or bigint in the underlying arbitrary precision decimal representation
      *
-     * _ATTENTION_: plain JavaScript numbers do not suffer from a loss in precision only within the -2^53 to 2^53 range
+     * _ATTENTION_: plain JavaScript numbers lose precision outside the [-2^53, 2^53] range.
      *
      * Example:
      *
@@ -366,7 +366,7 @@ export const ValueHelpers = {
      *
      * If given a string, passes through unchanged. Pay extra caution when using this approach.
      *
-     * _ATTENTION_: plain JavaScript numbers do not suffer from a loss in precision only within the -2^53 to 2^53 range
+     * _ATTENTION_: plain JavaScript numbers lose precision outside the [-2^53, 2^53] range.
      *
      * Examples:
      *
