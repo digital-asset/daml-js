@@ -5,8 +5,6 @@ import {Codec} from "./Codec";
 import {Event} from "../model/Event"
 import {ArchivedEventCodec} from "./ArchivedEventCodec";
 import {CreatedEventCodec} from "./CreatedEventCodec";
-import {ExercisedEventCodec} from "./ExercisedEventCodec";
-
 import {Event as PbEvent} from "../generated/com/digitalasset/ledger/api/v1/event_pb";
 import {ErrorMessages} from "../util/ErrorMessages";
 
@@ -16,8 +14,6 @@ export const EventCodec: Codec<PbEvent, Event> = {
             return ArchivedEventCodec.deserialize(message.getArchived()!);
         } else if (message.hasCreated()) {
             return CreatedEventCodec.deserialize(message.getCreated()!);
-        } else if (message.hasExercised()) {
-            return ExercisedEventCodec.deserialize(message.getExercised()!);
         } else {
             throw new Error(ErrorMessages.unknownDeserialization('Event'));
         }
@@ -30,9 +26,6 @@ export const EventCodec: Codec<PbEvent, Event> = {
                 break;
             case "created":
                 message.setCreated(CreatedEventCodec.serialize(object));
-                break;
-            case "exercised":
-                message.setExercised(ExercisedEventCodec.serialize(object));
                 break;
         }
         return message;
