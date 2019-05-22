@@ -449,7 +449,7 @@ export const ValueHelpers = {
      *
      * If given a string, passes through unchanged. Pay extra caution when using this approach.
      *
-     * _ATTENTION_: plain JavaScript numbers do not suffer from a loss in precision only within the -2^53 to 2^53 range
+     * _ATTENTION_: plain JavaScript numbers lose precision outside the [-2^53, 2^53] range.
      *
      * Examples:
      *
