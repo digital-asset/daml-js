@@ -3,14 +3,12 @@
 
 import {ArchivedEventValidation} from "./ArchivedEventValidation";
 import {CreatedEventValidation} from "./CreatedEventValidation";
-import {ExercisedEventValidation} from "./ExercisedEventValidation";
 import {union} from "./Union";
 
 function values() {
     return {
         archived: ArchivedEventValidation,
-        created: CreatedEventValidation,
-        exercised: ExercisedEventValidation
+        created: CreatedEventValidation
     };
 }
 

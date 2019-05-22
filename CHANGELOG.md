@@ -13,6 +13,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - support for CreateAndExercise command from SDK 0.12.9 [#12](https://github.com/digital-asset/daml-js/issues/12)
 - support for GetFlatTransactionById and GetFlatTransactionByEventId from SDK 0.12.14 [#18](https://github.com/digital-asset/daml-js/issues/18)
 
+### Removed
+- **BREAKING**: `ExercisedEvent` has been removed from `Event` union [#52](https://github.com/digital-asset/daml-js/issues/52)
+
 ### Fixed
 - add validation to GetTransactionById endpoint
 

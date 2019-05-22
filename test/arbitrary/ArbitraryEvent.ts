@@ -45,5 +45,5 @@ export const ArbitraryExercisedEvent: jsc.Arbitrary<ExercisedEvent> =
         exerciseResult: maybe(ArbitraryValue)
     });
 
-export const ArbitraryEvent = jsc.oneof([ArbitraryArchivedEvent, ArbitraryCreatedEvent, ArbitraryExercisedEvent]);
+export const ArbitraryEvent = jsc.oneof([ArbitraryArchivedEvent, ArbitraryCreatedEvent]);
 export const ArbitraryTreeEvent = jsc.oneof([ArbitraryCreatedEvent, ArbitraryExercisedEvent]);
