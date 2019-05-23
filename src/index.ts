@@ -143,3 +143,6 @@ export {
     Status,
     Variant
 };
+
+import {ValueHelpers as daml} from './helpers/ValueHelpers';
+export {daml};

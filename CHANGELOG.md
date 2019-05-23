@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 ### Added
+- add value helpers [#34](https://github.com/digital-asset/daml-js/issues/34)
 - added agreement text to created events [#54](https://github.com/digital-asset/daml-js/issues/54)
 - improved error messages for missing cases for unknown union type cases [#49](https://github.com/digital-asset/daml-js/issues/49)
 - support for exercise result in ExercisedEvent from SDK 0.12.16 [#20](https://github.com/digital-asset/daml-js/issues/20)
