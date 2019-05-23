@@ -23,6 +23,14 @@ describe('Validation: IntegerString', () => {
         expect(integerString.validate('-0')).to.deep.equal(expected);
     });
 
+    it('should validate +0 correctly', () => {
+        const expected: ValidationTree = {
+            errors: [],
+            children: {}
+        };
+        expect(integerString.validate('+0')).to.deep.equal(expected);
+    });
+
     it('should accept leading zeroes correctly', () => {
         const expected: ValidationTree = {
             errors: [],
@@ -37,6 +45,14 @@ describe('Validation: IntegerString', () => {
             children: {}
         };
         expect(integerString.validate('42')).to.deep.equal(expected);
+    });
+
+    it('should validate a positive integer with sign correctly', () => {
+        const expected: ValidationTree = {
+            errors: [],
+            children: {}
+        };
+        expect(integerString.validate('+42')).to.deep.equal(expected);
     });
 
     it('should validate a negative integer correctly', () => {
@@ -79,6 +95,14 @@ describe('Validation: IntegerString', () => {
         expect(integerString.validate('-042')).to.deep.equal(expected);
     });
 
+    it('should accept leading zeroes in a positive number with sign', () => {
+        const expected: ValidationTree = {
+            errors: [],
+            children: {}
+        };
+        expect(integerString.validate('+042')).to.deep.equal(expected);
+    });
+
     it('should reject a minus sign in a non-leading place', () => {
         const expected: ValidationTree = {
             errors: [{
@@ -90,6 +114,17 @@ describe('Validation: IntegerString', () => {
         expect(integerString.validate('0-42')).to.deep.equal(expected);
     });
 
+    it('should reject a minus sign in a non-leading place', () => {
+        const expected: ValidationTree = {
+            errors: [{
+                errorType: 'invalid-integer-string',
+                actualValue: '0+42'
+            }],
+            children: {}
+        };
+        expect(integerString.validate('0+42')).to.deep.equal(expected);
+    });
+
     it('should reject a minus sign in a trailing place', () => {
         const expected: ValidationTree = {
             errors: [{
@@ -99,6 +134,17 @@ describe('Validation: IntegerString', () => {
             children: {}
         };
         expect(integerString.validate('42-')).to.deep.equal(expected);
+    });
+
+    it('should reject a plus sign in a trailing place', () => {
+        const expected: ValidationTree = {
+            errors: [{
+                errorType: 'invalid-integer-string',
+                actualValue: '42+'
+            }],
+            children: {}
+        };
+        expect(integerString.validate('42+')).to.deep.equal(expected);
     });
 
     it('should reject an hexadecimal number', () => {
@@ -116,11 +162,11 @@ describe('Validation: IntegerString', () => {
         const expected: ValidationTree = {
             errors: [{
                 errorType: 'invalid-integer-string',
-                actualValue: '2019-04-04T13:01.00Z'
+                actualValue: '2019-04-04T13:01:40Z'
             }],
             children: {}
         };
-        expect(integerString.validate('2019-04-04T13:01.00Z')).to.deep.equal(expected);
+        expect(integerString.validate('2019-04-04T13:01:40Z')).to.deep.equal(expected);
     });
 
     it('should reject a number when a string is expected', () => {

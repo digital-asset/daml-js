@@ -9,7 +9,7 @@ export const integerString: Validation = {
     validate(value: any, key?: string, validation?: ValidationTree): ValidationTree {
         const node = key !== undefined && validation !== undefined ? native('string').validate(value, key, validation) : native('string').validate(value);
         if (typeof value === "string") {
-            if (value.search(/^-?[0-9]+$/) === -1) {
+            if (value.search(/^[-+]?[0-9]+$/) === -1) {
                 node.errors.push({
                     errorType: "invalid-integer-string",
                     actualValue: value
