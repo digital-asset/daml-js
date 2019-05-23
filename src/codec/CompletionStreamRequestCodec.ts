@@ -10,17 +10,22 @@ import {CompletionStreamRequest as PbCompletionStreamRequest} from "../generated
 
 export const CompletionStreamRequestCodec: Codec<PbCompletionStreamRequest, CompletionStreamRequest> = {
     deserialize(message: PbCompletionStreamRequest): CompletionStreamRequest {
-        return {
+        const object: CompletionStreamRequest = {
             applicationId: message.getApplicationId(),
-            offset: LedgerOffsetCodec.deserialize(message.getOffset()!),
             parties: message.getPartiesList()
         };
+        if (message.hasOffset()) {
+            object.offset = LedgerOffsetCodec.deserialize(message.getOffset()!);
+        }
+        return object;
     },
     serialize(object: CompletionStreamRequest): PbCompletionStreamRequest {
-        const result = new PbCompletionStreamRequest();
-        result.setApplicationId(object.applicationId);
-        result.setOffset(LedgerOffsetCodec.serialize(object.offset));
-        result.setPartiesList(object.parties);
-        return result;
+        const message = new PbCompletionStreamRequest();
+        message.setApplicationId(object.applicationId);
+        message.setPartiesList(object.parties);
+        if (object.offset) {
+            message.setOffset(LedgerOffsetCodec.serialize(object.offset));
+        }
+        return message;
     }
 };
