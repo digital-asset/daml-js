@@ -44,6 +44,8 @@ export function containsError(
                     check.expectedType === error.expectedType &&
                     check.expectedKey === error.expectedKey
                 );
+            case "invalid-integer-string":
+                return check.errorType === 'invalid-integer-string' && check.actualValue === error.actualValue;
         }
     });
 }

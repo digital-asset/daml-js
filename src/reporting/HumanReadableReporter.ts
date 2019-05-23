@@ -16,6 +16,8 @@ function spellOutError(error: ValidationError): string {
             return `Unknown type tag ${error.actualTypeTag} (expected one of ${error.expectedTypeTags.join(', ')})`;
         case 'type-error':
             return `Type error, ${error.expectedType} expected but got ${error.actualType}`;
+        case 'invalid-integer-string':
+            return `Invalid string representation: "${error.actualValue}" cannot be parsed into an integer`;
     }
 }
 
@@ -36,4 +38,4 @@ export const HumanReadableReporter: ValidationReporter = {
     render(tree: ValidationTree): string {
         return `! Validation error${buildErrorMessage(tree)}`;
     }
-}
+};

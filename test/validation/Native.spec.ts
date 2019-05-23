@@ -11,7 +11,7 @@ describe('Validation: Native', () => {
         const expected: ValidationTree = {
             errors: [],
             children: {}
-        }
+        };
         expect(native('string').validate('hello, world')).to.deep.equal(expected);
     });
 
@@ -23,7 +23,7 @@ describe('Validation: Native', () => {
                 actualType: 'number'
             }],
             children: {}
-        }
+        };
         expect(native('string').validate(42)).to.deep.equal(expected);
     });
 
@@ -35,7 +35,7 @@ describe('Validation: Native', () => {
                 actualType: 'string'
             }],
             children: {}
-        }
+        };
         expect(native('boolean').validate('true')).to.deep.equal(expected);
     });
 

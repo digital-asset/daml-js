@@ -26,6 +26,7 @@ import {object} from "./Object";
 import {string} from "./String";
 import {record} from "./Record";
 import {IdentifierValidation} from "./IdentifierValidation";
+import {integerString} from "./IntegerString";
 
 export const BoolValueValidation = object<BoolValue>('BoolValue', () => {
     return {
@@ -44,7 +45,7 @@ export const ContractIdValueValidation = object<ContractIdValue>('ContractIdValu
 export const DateValueValidation = object<DateValue>('DateValue', () => {
     return {
         valueType: string('date'),
-        date: native('string')
+        date: integerString
     }
 }, noFields);
 
@@ -58,7 +59,7 @@ export const DecimalValueValidation = object<DecimalValue>('DecimalValue', () =>
 export const Int64ValueValidation = object<Int64Value>('Int64Value', () => {
     return {
         valueType: string('int64'),
-        int64: native('string')
+        int64: integerString
     }
 }, noFields);
 
@@ -104,7 +105,7 @@ export const TextValueValidation = object<TextValue>('TextValue', () => {
 export const TimestampValueValidation = object<TimestampValue>('TimestampValue', () => {
     return {
         valueType: string('timestamp'),
-        timestamp: native('string')
+        timestamp: integerString
     }
 }, noFields);
 
