@@ -46,5 +46,10 @@ import {TransactionTree} from "./TransactionTree";
  * To express values in a more concise way, you can have a look at the {@link ValueHelpers}.
  */
 export interface GetTransactionTreesResponse {
+
+    /**
+     * The list of transaction trees that matches the filter in {@link GetTransactionsRequest} for the {@link TransactionClient.getTransactionTrees} method.
+     */
     transactions: TransactionTree[]
+
 }

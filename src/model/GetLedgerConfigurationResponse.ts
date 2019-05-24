@@ -29,5 +29,9 @@ import {LedgerConfiguration} from "./LedgerConfiguration";
  * @see Timestamp
  */
 export interface GetLedgerConfigurationResponse {
+
+    /**
+     * The latest ledger configuration.
+     */
     config: LedgerConfiguration
 }

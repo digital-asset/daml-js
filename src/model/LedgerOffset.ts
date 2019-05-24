@@ -1,6 +1,9 @@
 // Copyright (c) 2019 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+/**
+ * Uses the `offsetType` string type tag to differentiate between types in the union.
+ */
 export type LedgerOffset = LedgerOffsetBoundary | LedgerOffsetAbsolute;
 
 export enum LedgerOffsetBoundaryValue {

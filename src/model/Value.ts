@@ -316,6 +316,8 @@ export interface MapValue {
 /**
  * Encodes values that the ledger accepts as command arguments and emits as contract arguments.
  *
+ * Uses the `valueType` string type tag to differentiate between types in the union.
+ *
  * To express values in a more concise way, you can have a look at the {@link ValueHelpers}.
  */
 export type Value =
