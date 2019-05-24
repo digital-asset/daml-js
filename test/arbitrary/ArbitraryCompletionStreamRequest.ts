@@ -4,14 +4,11 @@
 import * as jsc from 'jsverify';
 import {ArbitraryLedgerOffset} from './ArbitraryLedgerOffset';
 import {CompletionStreamRequest} from "../../src/model/CompletionStreamRequest";
+import {maybe} from "./Maybe";
 
-export const ArbitraryCompletionStreamRequest: jsc.Arbitrary<CompletionStreamRequest> = jsc
-    .tuple([jsc.string, ArbitraryLedgerOffset, jsc.array(jsc.string)])
-    .smap<CompletionStreamRequest>(
-        ([applicationId, offset, parties]) => ({
-            applicationId: applicationId,
-            offset: offset,
-            parties: parties
-        }),
-        request => [request.applicationId, request.offset, request.parties]
-    );
+export const ArbitraryCompletionStreamRequest: jsc.Arbitrary<CompletionStreamRequest> =
+    jsc.record<CompletionStreamRequest>({
+        applicationId: jsc.string,
+        parties: jsc.array(jsc.string),
+        offset: maybe(ArbitraryLedgerOffset)
+    });

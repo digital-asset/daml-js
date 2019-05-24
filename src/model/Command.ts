@@ -5,4 +5,7 @@ import {CreateCommand} from './CreateCommand';
 import {ExerciseCommand} from "./ExerciseCommand";
 import {CreateAndExerciseCommand} from "./CreateAndExerciseCommand";
 
+/**
+ * A command can either create a new contract or exercise a choice on an existing contract.
+ */
 export type Command = CreateCommand | ExerciseCommand | CreateAndExerciseCommand
