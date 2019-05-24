@@ -50,5 +50,9 @@ import {Transaction} from "./Transaction";
  * @see Value
  */
 export interface GetTransactionsResponse {
+
+    /**
+     * The list of transactions that matches the filter in {@link GetTransactionsRequest} for the {@link TransactionClient.getTransactions} method.
+     */
     transactions: Transaction[]
 }

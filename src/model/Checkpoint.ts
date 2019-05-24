@@ -34,6 +34,15 @@ import {Timestamp} from './Timestamp';
  * @see LedgerOffset
  */
 export interface Checkpoint {
+
+    /**
+     * All commands with a maximum record time below this value MUST be considered lost if their completion has not arrived before this checkpoint.
+     */
     recordTime: Timestamp
+
+    /**
+     * May be used in a subsequent {@link CompletionStreamRequest} to resume the consumption of this stream at a later time.
+     */
     offset: LedgerOffset
+
 }

@@ -14,5 +14,7 @@ import {ArchivedEvent} from "./ArchivedEvent";
  * indicates the subset of the requested parties that can see the event
  * in question. In the flat transaction stream you'll only receive
  * events that have witnesses.
+ *
+ * Uses the `eventType` string type tag to differentiate between types in the union.
  */
 export type Event = ArchivedEvent | CreatedEvent;
