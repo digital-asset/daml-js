@@ -7,6 +7,7 @@ import {maybe} from './Maybe';
 import {Record as LedgerRecord} from "../../src/model/Record";
 import {ListValue, MapValue, RecordValue, Value, VariantValue} from "../../src/model/Value";
 import {Variant} from "../../src/model/Variant";
+import {ArbitraryIntegerString} from "./ArbitraryIntegerString";
 
 declare module 'jsverify' {
     function letrec<K extends string, V>(
@@ -26,7 +27,7 @@ const ArbitraryContractIdValue = jsc.record({
 
 const ArbitraryDateValue = jsc.record({
     valueType: jsc.constant("date"),
-    date: jsc.string
+    date: ArbitraryIntegerString
 }) as jsc.Arbitrary<Value>;
 
 const ArbitraryDecimalValue = jsc.record({
@@ -36,7 +37,7 @@ const ArbitraryDecimalValue = jsc.record({
 
 const ArbitraryInt64Value = jsc.record({
     valueType: jsc.constant("int64"),
-    int64: jsc.string
+    int64: ArbitraryIntegerString
 }) as jsc.Arbitrary<Value>;
 
 const ArbitraryPartyValue = jsc.record({
@@ -51,7 +52,7 @@ const ArbitraryTextValue = jsc.record({
 
 const ArbitraryTimestampValue = jsc.record({
     valueType: jsc.constant("timestamp"),
-    timestamp: jsc.string
+    timestamp: ArbitraryIntegerString
 }) as jsc.Arbitrary<Value>;
 
 const ArbitraryUnitValue = jsc.constant({

@@ -1,7 +1,7 @@
 // Copyright (c) 2019 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-export type ValidationError = TypeError | MissingKey | UnexpectedKey | MissingTypeTag | UnexpectedTypeTag
+export type ValidationError = TypeError | MissingKey | UnexpectedKey | MissingTypeTag | UnexpectedTypeTag | InvalidIntegerString
 
 export interface TypeError {
     errorType: 'type-error'
@@ -21,14 +21,19 @@ export interface UnexpectedKey {
 }
 
 export interface MissingTypeTag {
-    errorType: 'missing-type-tag',
+    errorType: 'missing-type-tag'
     expectedTypeTags: string[]
 }
 
 export interface UnexpectedTypeTag {
-    errorType: 'unexpected-type-tag',
+    errorType: 'unexpected-type-tag'
     expectedTypeTags: string[],
     actualTypeTag: string
+}
+
+export interface InvalidIntegerString {
+    errorType: 'invalid-integer-string'
+    actualValue: string
 }
 
 export interface ValidationTree {
