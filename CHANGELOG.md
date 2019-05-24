@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 - the bindings representation of ledger and DAML values is not thoroughly documented [#58](https://github.com/digital-asset/daml-js/issues/58)
+- catch invalid string representation of integer values [#57](https://github.com/digital-asset/daml-js/issues/57)
 - add value helpers [#34](https://github.com/digital-asset/daml-js/issues/34)
 - added agreement text to created events [#54](https://github.com/digital-asset/daml-js/issues/54)
 - improved error messages for missing cases for unknown union type cases [#49](https://github.com/digital-asset/daml-js/issues/49)
