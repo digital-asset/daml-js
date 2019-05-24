@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased]
+## [0.6.0]
 ### Changed
 - make offset in completion stream requests optional to reflect the Ledger API [#60](https://github.com/digital-asset/daml-js/issues/60)
 
