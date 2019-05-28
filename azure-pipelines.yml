@@ -28,13 +28,17 @@ strategy:
       daml_sdk_version: 0.12.16
 
 steps:
-- script: curl -sSL https://get.daml.com/ | sh
-  displayName: Get DAML SDK installer
-- script: ~/.daml/bin/daml install $(daml_sdk_version)
-  displayName: Install DAML SDK $(daml_sdk_version)
-- task: NodeTool@0
-  displayName: Install Node.js $(nodejs_version)
-  inputs:
-    versionSpec: $(nodejs_version)
-- script: npm run ci-pipeline
-  displayName: Build and test
+  - script: curl -sSL https://get.daml.com/ | sh
+    displayName: Get DAML SDK installer
+  - script: ~/.daml/bin/daml install $(daml_sdk_version)
+    displayName: Install DAML SDK $(daml_sdk_version)
+  - task: NodeTool@0
+    displayName: Install Node.js $(nodejs_version)
+    inputs:
+      versionSpec: $(nodejs_version)
+  - script: npm run ci-pipeline
+    displayName: Build and test
+  - bash: <(curl -s https://raw.githubusercontent.com/DACH-NY/security-blackduck/master/synopsys-detect) ci-build digitalasset_daml-js master --logging.level.com.synopsys.integration=DEBUG --detect.python.python3=true
+    displayName: 'Blackduck Scan'
+    env:
+      BLACKDUCK_HUB_CREDENTIALS: $(BLACKDUCK_HUB_CREDENTIALS)
