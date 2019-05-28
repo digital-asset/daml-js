@@ -38,7 +38,7 @@ steps:
       versionSpec: $(nodejs_version)
   - script: npm run ci-pipeline
     displayName: Build and test
-  - bash: bash <(curl -s https://raw.githubusercontent.com/DACH-NY/security-blackduck/master/synopsys-detect) ci-build digitalasset_daml-js master --logging.level.com.synopsys.integration=DEBUG --detect.tools.excluded=POLARIS --detect.python.python3=true
+  - bash: bash <(curl -s https://raw.githubusercontent.com/DACH-NY/security-blackduck/master/synopsys-detect) ci-build digitalasset_daml-js master --logging.level.com.synopsys.integration=DEBUG
     displayName: 'Blackduck Scan'
     env:
       BLACKDUCK_HUBDETECT_TOKEN: $(BLACKDUCK_HUBDETECT_TOKEN)
