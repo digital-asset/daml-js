@@ -36,7 +36,7 @@ The following steps are to be followed in order to release a new version of the 
 1.  Choose a new version number `<version>` (the `0.x` release series does not uphold semantic versioning)
 2.  Create the branch `release-<version>`
 3.  Change the title of the [unreleased section in the changelog](./CHANGELOG.md#Unreleased) to the chosen `<version>`
-4.  Commit the outstanding change (e.g. `git add CHANGELOG.md && git commit -m "Update changelog")
+4.  Commit the outstanding change (e.g. `git add CHANGELOG.md && git commit -m "Update changelog"`)
 5.  Run the command `npm version --no-git-tag-version <version>`
 6.  Open a pull request with the title "Release <version>", have it reviewed, squashed and merged
 7.  After the pull request has been squashed and merged, pull the master locally
