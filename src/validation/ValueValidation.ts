@@ -127,9 +127,9 @@ export const VariantValueValidation = object<VariantValue>('VariantValue', () =>
     };
 });
 
-export const OptionalValueValidation = object<OptionalValue>('DateValue', () => {
+export const OptionalValueValidation = object<OptionalValue>('OptionalValue', () => {
     return {
-        valueType: string('date')
+        valueType: string('optional')
     }
 }, () => {
     return {
