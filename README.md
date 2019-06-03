@@ -21,7 +21,7 @@ Refer to the [changelog](./CHANGELOG.md) to understand the latest changes.
 The main source of documentation are:
 
 - [the reference documentation](https://digital-asset.github.io/daml-js/)
-- [the beginners tutorial]((https://github.com/digital-asset/ex-tutorial-nodejs))
+- [the beginners tutorial](https://github.com/digital-asset/ex-tutorial-nodejs)
 
 ## Contribute
 
