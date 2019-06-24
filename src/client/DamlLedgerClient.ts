@@ -29,6 +29,7 @@ import {LedgerConfigurationServiceClient} from "../generated/com/digitalasset/le
 import {TimeServiceClient} from "../generated/com/digitalasset/ledger/api/v1/testing/time_service_grpc_pb";
 import {TransactionServiceClient} from "../generated/com/digitalasset/ledger/api/v1/transaction_service_grpc_pb";
 import {ResetServiceClient} from "../generated/com/digitalasset/ledger/api/v1/testing/reset_service_grpc_pb";
+import {NodeJsCommandClient} from "./NodeJsCommandClient";
 
 /**
  * A {@link LedgerClient} implementation that connects to an existing Ledger and provides clients to query it. To use the {@link DamlLedgerClient}
@@ -60,7 +61,7 @@ export class DamlLedgerClient implements LedgerClient {
             new ActiveContractsServiceClient(address, credentials),
             reporter
         );
-        this._commandClient = new CommandClient(
+        this._commandClient = new NodeJsCommandClient(
             ledgerId,
             new CommandServiceClient(address, credentials),
             reporter

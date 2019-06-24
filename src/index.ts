@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import {ActiveContractsClient} from "./client/ActiveContractsClient";
-import {CommandClient} from "./client/CommandClient";
+import {NodeJsCommandClient} from "./client/NodeJsCommandClient";
 import {CommandCompletionClient} from "./client/CommandCompletionClient";
 import {CommandSubmissionClient} from "./client/CommandSubmissionClient";
 import {DamlLedgerClient} from "./client/DamlLedgerClient";
@@ -15,7 +15,7 @@ import {TimeClient} from "./client/TimeClient";
 import {TransactionClient} from "./client/TransactionClient";
 export {
     ActiveContractsClient,
-    CommandClient,
+    NodeJsCommandClient,
     CommandCompletionClient,
     CommandSubmissionClient,
     DamlLedgerClient,

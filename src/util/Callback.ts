@@ -5,7 +5,18 @@
  * A callback that will either receive an Error or a valid response,
  * depending on the result of the operation.
  */
+import {ClientCancellableCall} from "../call/ClientCancellableCall";
+import {promisify as _promisify} from "util";
+
 export type Callback<A> = (error: Error | null, response?: A) => void
+
+type Call<Request, Response> = (request: Request, callback: Callback<Response>) => ClientCancellableCall
+
+type PromisifiedCall<Request, Response> = (request: Request) => Promise<Response>
+
+export function promisify<Request, Response>(call: Call<Request, Response>): PromisifiedCall<Request, Response> {
+    return _promisify(call) as PromisifiedCall<Request, Response>;
+}
 
 export function justForward<A>(callback: Callback<A>, error: Error | null, response: A): void {
     forward(callback, error, response, (a: A) => a);
