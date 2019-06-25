@@ -3,7 +3,6 @@
 
 import {assert, expect} from 'chai';
 import * as sinon from 'sinon';
-import {CommandCompletionClient} from "../../src/client/CommandCompletionClient";
 import {JSONReporter} from "../../src/reporting/JSONReporter";
 import {
     CompletionEndRequest as PbCompletionEndRequest,
@@ -13,21 +12,22 @@ import {CompletionStreamRequestCodec} from "../../src/codec/CompletionStreamRequ
 import {ValidationTree} from "../../src/validation/Validation";
 import {CompletionStreamRequest} from "../../src/model/CompletionStreamRequest";
 import {DummyCommandCompletionServiceClient} from "./DummyCommandCompletionServiceClient";
+import {NodeJsCommandCompletionClient} from "../../src/client/NodeJsCommandCompletionClient";
 
-describe('CommandCompletionClient', () => {
+describe('NodeJsCommandCompletionClient', () => {
 
     const ledgerId = 'cafebabe';
 
     const latestRequestSpy = sinon.spy();
     const dummy = new DummyCommandCompletionServiceClient(latestRequestSpy);
-    const client = new CommandCompletionClient(ledgerId, dummy, JSONReporter);
+    const client = new NodeJsCommandCompletionClient(ledgerId, dummy, JSONReporter);
 
     afterEach(() => {
         sinon.restore();
         latestRequestSpy.resetHistory();
     });
 
-    it('should send the correct ledger identifier', (done) => {
+    it('should send the correct request', (done) => {
 
         client.completionEnd((error, _response) => {
             expect(error).to.be.null;
@@ -38,6 +38,18 @@ describe('CommandCompletionClient', () => {
             expect(request.getLedgerId()).to.equal(ledgerId);
             done();
         });
+
+    });
+
+    it('should send the correct request (promisified)', async () => {
+
+        await client.completionEnd();
+
+        assert(latestRequestSpy.calledOnce);
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbCompletionEndRequest);
+        const request = latestRequestSpy.lastCall.lastArg as PbCompletionEndRequest;
+        expect(request.getLedgerId()).to.equal(ledgerId);
 
     });
 

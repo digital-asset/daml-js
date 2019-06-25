@@ -12,7 +12,7 @@ export type Callback<A> = (error: Error | null, response?: A) => void
 
 type Call<Request, Response> = (request: Request, callback: Callback<Response>) => ClientCancellableCall
 
-type PromisifiedCall<Request, Response> = (request: Request) => Promise<Response>
+type PromisifiedCall<Request, Response> = (request?: Request) => Promise<Response>
 
 export function promisify<Request, Response>(call: Call<Request, Response>): PromisifiedCall<Request, Response> {
     return _promisify(call) as PromisifiedCall<Request, Response>;
