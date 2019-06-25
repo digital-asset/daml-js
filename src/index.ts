@@ -3,8 +3,8 @@
 
 import {NodeJsActiveContractsClient} from "./client/NodeJsActiveContractsClient";
 import {NodeJsCommandClient} from "./client/NodeJsCommandClient";
-import {CommandCompletionClient} from "./client/CommandCompletionClient";
-import {CommandSubmissionClient} from "./client/CommandSubmissionClient";
+import {NodeJsCommandCompletionClient} from "./client/NodeJsCommandCompletionClient";
+import {NodeJsCommandSubmissionClient} from "./client/NodeJsCommandSubmissionClient";
 import {DamlLedgerClient} from "./client/DamlLedgerClient";
 import {LedgerClient} from "./client/LedgerClient";
 import {LedgerConfigurationClient} from "./client/LedgerConfigurationClient";
@@ -16,8 +16,8 @@ import {TransactionClient} from "./client/TransactionClient";
 export {
     NodeJsActiveContractsClient,
     NodeJsCommandClient,
-    CommandCompletionClient,
-    CommandSubmissionClient,
+    NodeJsCommandCompletionClient,
+    NodeJsCommandSubmissionClient,
     DamlLedgerClient,
     LedgerClient,
     LedgerConfigurationClient,
