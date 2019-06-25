@@ -15,7 +15,7 @@ import {TransactionClient} from "./TransactionClient";
 import {TimeClient} from "./TimeClient";
 import {LedgerConfigurationClient} from "./LedgerConfigurationClient";
 import {PackageClient} from "./PackageClient";
-import {LedgerIdentityClient} from "./LedgerIdentityClient";
+import {NodeJsLedgerIdentityClient} from "./NodeJsLedgerIdentityClient";
 import {NodeJsCommandSubmissionClient} from "./NodeJsCommandSubmissionClient";
 
 import {LedgerIdentityServiceClient} from "../generated/com/digitalasset/ledger/api/v1/ledger_identity_service_grpc_pb";
@@ -34,6 +34,7 @@ import {NodeJsActiveContractsClient} from "./NodeJsActiveContractsClient";
 import {NodeJsCommandCompletionClient} from "./NodeJsCommandCompletionClient";
 import {CommandSubmissionClient} from "./CommandSubmissionClient";
 import {NodeJsLedgerConfigurationClient} from "./NodeJsLedgerConfigurationClient";
+import {LedgerIdentityClient} from "./LedgerIdentityClient";
 
 /**
  * A {@link LedgerClient} implementation that connects to an existing Ledger and provides clients to query it. To use the {@link DamlLedgerClient}
@@ -80,7 +81,7 @@ export class DamlLedgerClient implements LedgerClient {
             new CommandSubmissionServiceClient(address, credentials),
             reporter
         );
-        this._ledgerIdentityClient = new LedgerIdentityClient(
+        this._ledgerIdentityClient = new NodeJsLedgerIdentityClient(
             new LedgerIdentityServiceClient(address, credentials)
         );
         this._packageClient = new PackageClient(

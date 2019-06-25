@@ -2,16 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import {assert, expect} from 'chai';
-import {LedgerIdentityClient} from "../../src/client/LedgerIdentityClient";
+import {NodeJsLedgerIdentityClient} from "../../src/client/NodeJsLedgerIdentityClient";
 import {DummyLedgerIdentityServiceClient} from "./DummyLedgerIdentityServiceClient";
 import * as sinon from "sinon";
 import {GetLedgerIdentityRequest as PbGetLedgerIdentityRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/ledger_identity_service_pb";
 
-describe("LedgerIdentityClient", () => {
+describe("NodeJsLedgerIdentityClient", () => {
 
     const latestRequestSpy = sinon.spy();
     const dummy = new DummyLedgerIdentityServiceClient(latestRequestSpy);
-    const client = new LedgerIdentityClient(dummy);
+    const client = new NodeJsLedgerIdentityClient(dummy);
 
     afterEach(() => {
         sinon.restore();
@@ -26,6 +26,13 @@ describe("LedgerIdentityClient", () => {
             expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbGetLedgerIdentityRequest);
             done();
         });
+    });
+
+    it("should correctly send the request to the server (promisified)", async () => {
+        await client.getLedgerIdentity();
+        assert(latestRequestSpy.calledOnce, 'The latestRequestSpy has not been called exactly once');
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbGetLedgerIdentityRequest);
     });
 
 });
