@@ -10,7 +10,7 @@ import {ActiveContractsClient} from "./ActiveContractsClient";
 import {CommandClient} from "./CommandClient";
 import {ValidationReporter} from "../reporting/ValidationReporter";
 import {CommandCompletionClient} from "./CommandCompletionClient";
-import {ResetClient} from "./ResetClient";
+import {NodeJsResetClient} from "./NodeJsResetClient";
 import {TransactionClient} from "./TransactionClient";
 import {TimeClient} from "./TimeClient";
 import {LedgerConfigurationClient} from "./LedgerConfigurationClient";
@@ -37,6 +37,7 @@ import {NodeJsLedgerConfigurationClient} from "./NodeJsLedgerConfigurationClient
 import {LedgerIdentityClient} from "./LedgerIdentityClient";
 import {PackageClient} from "./PackageClient";
 import {promisify} from "util";
+import {ResetClient} from "./ResetClient";
 
 /**
  * A {@link LedgerClient} implementation that connects to an existing Ledger and provides clients to query it. To use the {@link DamlLedgerClient}
@@ -104,7 +105,7 @@ export class DamlLedgerClient implements LedgerClient {
             new TransactionServiceClient(address, credentials),
             reporter
         );
-        this._resetClient = new ResetClient(
+        this._resetClient = new NodeJsResetClient(
             ledgerId,
             new ResetServiceClient(address, credentials)
         );

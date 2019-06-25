@@ -304,7 +304,7 @@ describe("DamlLedgerClient", () => {
         });
     });
 
-    it('should correctly set the ledgerId of the ResetClient', (done) => {
+    it('should correctly set the ledgerId of the NodeJsResetClient', (done) => {
         DamlLedgerClient.connect({host: '0.0.0.0', port: port}, (error, client) => {
             expect(error).to.be.null;
             client!.resetClient.reset((error, _) => {
@@ -313,6 +313,12 @@ describe("DamlLedgerClient", () => {
                 done();
             });
         });
+    });
+
+    it('should correctly set the ledgerId of the NodeJsResetClient (promisified)', async () => {
+        const client = await DamlLedgerClient.connect({host: '0.0.0.0', port: port});
+        await client.resetClient.reset();
+        assert(spy.calledOnceWithExactly(ledgerId));
     });
 
 });

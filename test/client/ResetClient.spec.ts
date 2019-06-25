@@ -3,17 +3,17 @@
 
 import {assert, expect} from 'chai';
 import * as sinon from 'sinon';
-import {ResetClient} from "../../src/client/ResetClient";
+import {NodeJsResetClient} from "../../src/client/NodeJsResetClient";
 import {ResetRequest as PbResetRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/testing/reset_service_pb";
 import {DummyResetServiceClient} from "./DummyResetServiceClient";
 
-describe("ResetClient", () => {
+describe("NodeJsResetClient", () => {
 
     const ledgerId = 'cafebabe';
 
     const latestRequestSpy = sinon.spy();
     const dummy = new DummyResetServiceClient(latestRequestSpy);
-    const client = new ResetClient(ledgerId, dummy);
+    const client = new NodeJsResetClient(ledgerId, dummy);
 
     it("should pass the correct ledger identifier", (done) => {
         client.reset((error, _response) => {

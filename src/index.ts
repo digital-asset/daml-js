@@ -10,7 +10,7 @@ import {LedgerClient} from "./client/LedgerClient";
 import {NodeJsLedgerConfigurationClient} from "./client/NodeJsLedgerConfigurationClient";
 import {NodeJsLedgerIdentityClient} from "./client/NodeJsLedgerIdentityClient";
 import {NodeJsPackageClient} from "./client/NodeJsPackageClient";
-import {ResetClient} from "./client/ResetClient";
+import {NodeJsResetClient} from "./client/NodeJsResetClient";
 import {TimeClient} from "./client/TimeClient";
 import {TransactionClient} from "./client/TransactionClient";
 export {
@@ -23,7 +23,7 @@ export {
     NodeJsLedgerConfigurationClient as LedgerConfigurationClient,
     NodeJsLedgerIdentityClient as LedgerIdentityClient,
     NodeJsPackageClient as PackageClient,
-    ResetClient,
+    NodeJsResetClient,
     TimeClient,
     TransactionClient
 };
