@@ -11,7 +11,7 @@ import {NodeJsLedgerConfigurationClient} from "./client/NodeJsLedgerConfiguratio
 import {NodeJsLedgerIdentityClient} from "./client/NodeJsLedgerIdentityClient";
 import {NodeJsPackageClient} from "./client/NodeJsPackageClient";
 import {NodeJsResetClient} from "./client/NodeJsResetClient";
-import {TimeClient} from "./client/TimeClient";
+import {NodeJsTimeClient} from "./client/NodeJsTimeClient";
 import {TransactionClient} from "./client/TransactionClient";
 export {
     NodeJsActiveContractsClient as ActiveContractsClient,
@@ -23,8 +23,8 @@ export {
     NodeJsLedgerConfigurationClient as LedgerConfigurationClient,
     NodeJsLedgerIdentityClient as LedgerIdentityClient,
     NodeJsPackageClient as PackageClient,
-    NodeJsResetClient,
-    TimeClient,
+    NodeJsResetClient as ResetClient,
+    NodeJsTimeClient as TimeClient,
     TransactionClient
 };
 

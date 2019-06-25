@@ -15,7 +15,12 @@ describe("NodeJsResetClient", () => {
     const dummy = new DummyResetServiceClient(latestRequestSpy);
     const client = new NodeJsResetClient(ledgerId, dummy);
 
-    it("should pass the correct ledger identifier", (done) => {
+    afterEach(() => {
+        sinon.restore();
+        latestRequestSpy.resetHistory();
+    });
+
+    it("should pass the correct request and ledger identifier", (done) => {
         client.reset((error, _response) => {
             expect(error).to.be.null;
             assert(latestRequestSpy.calledOnce, 'The latestRequestSpy has not been called exactly once');
@@ -25,6 +30,15 @@ describe("NodeJsResetClient", () => {
             expect(request.getLedgerId()).to.equal(ledgerId);
             done();
         });
+    });
+
+    it("should pass the correct request and ledger identifier (promisified)", async () => {
+        await client.reset();
+        assert(latestRequestSpy.calledOnce, 'The latestRequestSpy has not been called exactly once');
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbResetRequest);
+        const request = latestRequestSpy.lastCall.lastArg as PbResetRequest;
+        expect(request.getLedgerId()).to.equal(ledgerId);
     });
 
 });

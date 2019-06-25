@@ -38,6 +38,7 @@ import {LedgerIdentityClient} from "./LedgerIdentityClient";
 import {PackageClient} from "./PackageClient";
 import {promisify} from "util";
 import {ResetClient} from "./ResetClient";
+import {NodeJsTimeClient} from "./NodeJsTimeClient";
 
 /**
  * A {@link LedgerClient} implementation that connects to an existing Ledger and provides clients to query it. To use the {@link DamlLedgerClient}
@@ -95,7 +96,7 @@ export class DamlLedgerClient implements LedgerClient {
             ledgerId,
             new LedgerConfigurationServiceClient(address, credentials)
         );
-        this._timeClient = new TimeClient(
+        this._timeClient = new NodeJsTimeClient(
             ledgerId,
             new TimeServiceClient(address, credentials),
             reporter
@@ -194,7 +195,7 @@ export class DamlLedgerClient implements LedgerClient {
         );
     }
 
-    private static connectPromise: (_: LedgerClientOptions) => Promise<LedgerClient> = promisify(DamlLedgerClient.connectCallback) as (_: LedgerClientOptions) => Promise<LedgerClient>
+    private static connectPromise: (_: LedgerClientOptions) => Promise<LedgerClient> = promisify(DamlLedgerClient.connectCallback) as (_: LedgerClientOptions) => Promise<LedgerClient>;
 
     static connect(options: LedgerClientOptions): Promise<LedgerClient>
     static connect(options: LedgerClientOptions, callback: Callback<LedgerClient>): void
