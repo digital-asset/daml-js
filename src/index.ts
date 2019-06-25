@@ -7,7 +7,7 @@ import {NodeJsCommandCompletionClient} from "./client/NodeJsCommandCompletionCli
 import {NodeJsCommandSubmissionClient} from "./client/NodeJsCommandSubmissionClient";
 import {DamlLedgerClient} from "./client/DamlLedgerClient";
 import {LedgerClient} from "./client/LedgerClient";
-import {LedgerConfigurationClient} from "./client/LedgerConfigurationClient";
+import {NodeJsLedgerConfigurationClient} from "./client/NodeJsLedgerConfigurationClient";
 import {LedgerIdentityClient} from "./client/LedgerIdentityClient";
 import {PackageClient} from "./client/PackageClient";
 import {ResetClient} from "./client/ResetClient";
@@ -20,7 +20,7 @@ export {
     NodeJsCommandSubmissionClient,
     DamlLedgerClient,
     LedgerClient,
-    LedgerConfigurationClient,
+    NodeJsLedgerConfigurationClient,
     LedgerIdentityClient,
     PackageClient,
     ResetClient,

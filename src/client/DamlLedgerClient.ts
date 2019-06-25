@@ -33,6 +33,7 @@ import {NodeJsCommandClient} from "./NodeJsCommandClient";
 import {NodeJsActiveContractsClient} from "./NodeJsActiveContractsClient";
 import {NodeJsCommandCompletionClient} from "./NodeJsCommandCompletionClient";
 import {CommandSubmissionClient} from "./CommandSubmissionClient";
+import {NodeJsLedgerConfigurationClient} from "./NodeJsLedgerConfigurationClient";
 
 /**
  * A {@link LedgerClient} implementation that connects to an existing Ledger and provides clients to query it. To use the {@link DamlLedgerClient}
@@ -86,7 +87,7 @@ export class DamlLedgerClient implements LedgerClient {
             ledgerId,
             new PackageServiceClient(address, credentials)
         );
-        this._ledgerConfigurationClient = new LedgerConfigurationClient(
+        this._ledgerConfigurationClient = new NodeJsLedgerConfigurationClient(
             ledgerId,
             new LedgerConfigurationServiceClient(address, credentials)
         );
