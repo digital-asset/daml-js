@@ -46,6 +46,11 @@ describe("DamlLedgerClient", () => {
         });
     });
 
+    it('should properly initialize the ledgerId (promisified)', async () => {
+        const client = await DamlLedgerClient.connect({host: '0.0.0.0', port: port});
+        expect(client.ledgerId).to.equal(ledgerId);
+    });
+
     it('should correctly set the ledgerId of the ActiveContractService', (done) => {
         DamlLedgerClient.connect({host: '0.0.0.0', port: port}, (error, client) => {
             expect(error).to.be.null;
@@ -60,6 +65,13 @@ describe("DamlLedgerClient", () => {
         });
     });
 
+    it('should correctly set the ledgerId of the ActiveContractService (promisified)', async () => {
+        const client = await DamlLedgerClient.connect({host: '0.0.0.0', port: port});
+        const activeContracts = client.activeContractsClient.getActiveContracts({filter: {filtersByParty: {}}});
+        for await (const _ of activeContracts) {} // fully consume the active contracts
+        expect(spy.calledOnceWithExactly(ledgerId)).to.be.true
+    });
+
     it('should correctly set the ledgerId of the CommandService', (done) => {
         DamlLedgerClient.connect({host: '0.0.0.0', port: port}, (error, client) => {
             expect(error).to.be.null;
@@ -69,6 +81,12 @@ describe("DamlLedgerClient", () => {
                 done();
             });
         });
+    });
+
+    it('should correctly set the ledgerId of the CommandService (promisified)', async () => {
+        const client = await DamlLedgerClient.connect({host: '0.0.0.0', port: port});
+        await client.commandClient.submitAndWait(emptyCommands);
+        assert(spy.calledOnceWithExactly(ledgerId));
     });
 
     it('should correctly set the ledgerId of the CommandCompletionService (completionStream)', (done) => {
@@ -86,6 +104,17 @@ describe("DamlLedgerClient", () => {
         });
     });
 
+    it('should correctly set the ledgerId of the CommandCompletionService (completionStream -- promisified)', async () => {
+        const client = await DamlLedgerClient.connect({host: '0.0.0.0', port: port});
+        const completions = client.commandCompletionClient.completionStream({
+            applicationId: '',
+            offset: {offsetType:'absolute',absolute: '0'},
+            parties: []
+        });
+        for await (const _ of completions) {} // consume the completions to the very end
+        expect(spy.calledOnceWithExactly(ledgerId)).to.be.true
+    });
+
     it('should correctly set the ledgerId of the CommandCompletionService (completionEnd)', (done) => {
         DamlLedgerClient.connect({host: '0.0.0.0', port: port}, (error, client) => {
             expect(error).to.be.null;
@@ -97,6 +126,12 @@ describe("DamlLedgerClient", () => {
         })
     });
 
+    it('should correctly set the ledgerId of the CommandCompletionService (completionEnd -- promisified)', async () => {
+        const client = await DamlLedgerClient.connect({host: '0.0.0.0', port: port});
+        await client.commandCompletionClient.completionEnd();
+        assert(spy.calledOnceWithExactly(ledgerId));
+    });
+
     it('should correctly set the ledgerId of the CommandSubmissionService', (done) => {
         DamlLedgerClient.connect({host: '0.0.0.0', port: port}, (error, client) => {
             expect(error).to.be.null;
@@ -106,6 +141,12 @@ describe("DamlLedgerClient", () => {
                 done();
             });
         });
+    });
+
+    it('should correctly set the ledgerId of the CommandSubmissionService (promisified)', async () => {
+        const client = await DamlLedgerClient.connect({host: '0.0.0.0', port: port});
+        await client.commandSubmissionClient.submit(emptyCommands);
+        assert(spy.calledOnceWithExactly(ledgerId));
     });
 
     it('should correctly set the ledgerId of the PackageService (listPackages)', (done) => {

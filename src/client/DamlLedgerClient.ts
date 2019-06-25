@@ -35,6 +35,7 @@ import {NodeJsCommandCompletionClient} from "./NodeJsCommandCompletionClient";
 import {CommandSubmissionClient} from "./CommandSubmissionClient";
 import {NodeJsLedgerConfigurationClient} from "./NodeJsLedgerConfigurationClient";
 import {LedgerIdentityClient} from "./LedgerIdentityClient";
+import {promisify} from "util";
 
 /**
  * A {@link LedgerClient} implementation that connects to an existing Ledger and provides clients to query it. To use the {@link DamlLedgerClient}
@@ -148,13 +149,7 @@ export class DamlLedgerClient implements LedgerClient {
         return this._resetClient;
     }
 
-    /**
-     * Connects a new instance of the {@link DamlLedgerClient} to the
-     *
-     * @param options The host, port and certificates needed to reach the ledger
-     * @param callback A callback that will be either passed an error or the LedgerClient instance in case of successful connection
-     */
-    static connect(
+    private static connectCallback(
         options: LedgerClientOptions,
         callback: Callback<LedgerClient>
     ): void {
@@ -195,5 +190,13 @@ export class DamlLedgerClient implements LedgerClient {
                 });
             }
         );
+    }
+
+    private static connectPromise: (_: LedgerClientOptions) => Promise<LedgerClient> = promisify(DamlLedgerClient.connectCallback) as (_: LedgerClientOptions) => Promise<LedgerClient>
+
+    static connect(options: LedgerClientOptions): Promise<LedgerClient>
+    static connect(options: LedgerClientOptions, callback: Callback<LedgerClient>): void
+    static connect(options: LedgerClientOptions, callback?: Callback<LedgerClient>): void | Promise<LedgerClient> {
+        return callback ? DamlLedgerClient.connectCallback(options, callback) : DamlLedgerClient.connectPromise(options);
     }
 }
