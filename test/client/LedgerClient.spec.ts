@@ -160,6 +160,12 @@ describe("DamlLedgerClient", () => {
         });
     });
 
+    it('should correctly set the ledgerId of the PackageService (listPackages -- promisified)', async () => {
+        const client = await DamlLedgerClient.connect({host: '0.0.0.0', port: port});
+        await client.packageClient.listPackages();
+        assert(spy.calledOnceWithExactly(ledgerId));
+    });
+
     it('should correctly set the ledgerId of the PackageService (getPackage)', (done) => {
         DamlLedgerClient.connect({host: '0.0.0.0', port: port}, (error, client) => {
             expect(error).to.be.null;
@@ -169,6 +175,12 @@ describe("DamlLedgerClient", () => {
                 done();
             });
         });
+    });
+
+    it('should correctly set the ledgerId of the PackageService (getPackage -- promisified)', async () => {
+        const client = await DamlLedgerClient.connect({host: '0.0.0.0', port: port});
+        await client.packageClient.getPackage('');
+        assert(spy.calledOnceWithExactly(ledgerId));
     });
 
     it('should correctly set the ledgerId of the PackageService (getPackageStatus)', (done) => {
@@ -182,15 +194,28 @@ describe("DamlLedgerClient", () => {
         });
     });
 
+    it('should correctly set the ledgerId of the PackageService (getPackageStatus -- promisified)', async () => {
+        const client = await DamlLedgerClient.connect({host: '0.0.0.0', port: port});
+        await client.packageClient.getPackageStatus('');
+        assert(spy.calledOnceWithExactly(ledgerId));
+    });
+
     it('should correctly set the ledgerId of the LedgerConfigurationService', (done) => {
         DamlLedgerClient.connect({host: '0.0.0.0', port: port}, (error, client) => {
             expect(error).to.be.null;
-            const call = client!.ledgerConfigurationClient.getLedgerConfiguration()
+            const call = client!.ledgerConfigurationClient.getLedgerConfiguration();
             call.on('end', () => {
                 assert(spy.calledOnceWithExactly(ledgerId));
                 done();
             });
         });
+    });
+
+    it('should correctly set the ledgerId of the LedgerConfigurationService (promisified)', async () => {
+        const client = await DamlLedgerClient.connect({host: '0.0.0.0', port: port});
+        const changes = client.ledgerConfigurationClient.getLedgerConfiguration();
+        for await (const _ of changes) {} // consume mocked stream completely
+        assert(spy.calledOnceWithExactly(ledgerId));
     });
 
     it('should correctly set the ledgerId of the TransactionsClient (getLedgerEnd)', (done) => {

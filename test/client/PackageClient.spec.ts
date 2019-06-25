@@ -3,7 +3,7 @@
 
 import {assert, expect} from 'chai';
 import * as sinon from 'sinon';
-import {PackageClient} from "../../src/client/PackageClient";
+import {NodeJsPackageClient} from "../../src/client/NodeJsPackageClient";
 import {
     GetPackageRequest as PbGetPackageRequest,
     GetPackageStatusRequest as PbGetPackageStatusRequest,
@@ -11,13 +11,13 @@ import {
 } from "../../src/generated/com/digitalasset/ledger/api/v1/package_service_pb";
 import {DummyPackageServiceClient} from "./DummyPackageServiceClient";
 
-describe("PackageClient", () => {
+describe("NodeJsPackageClient", () => {
 
     const ledgerId = 'some-cool-id';
     const latestRequestSpy = sinon.spy();
 
     const dummy = new DummyPackageServiceClient(latestRequestSpy);
-    const client = new PackageClient(ledgerId, dummy);
+    const client = new NodeJsPackageClient(ledgerId, dummy);
 
     afterEach(() => {
         sinon.restore();

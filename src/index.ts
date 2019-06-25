@@ -9,20 +9,20 @@ import {DamlLedgerClient} from "./client/DamlLedgerClient";
 import {LedgerClient} from "./client/LedgerClient";
 import {NodeJsLedgerConfigurationClient} from "./client/NodeJsLedgerConfigurationClient";
 import {NodeJsLedgerIdentityClient} from "./client/NodeJsLedgerIdentityClient";
-import {PackageClient} from "./client/PackageClient";
+import {NodeJsPackageClient} from "./client/NodeJsPackageClient";
 import {ResetClient} from "./client/ResetClient";
 import {TimeClient} from "./client/TimeClient";
 import {TransactionClient} from "./client/TransactionClient";
 export {
-    NodeJsActiveContractsClient,
-    NodeJsCommandClient,
-    NodeJsCommandCompletionClient,
-    NodeJsCommandSubmissionClient,
+    NodeJsActiveContractsClient as ActiveContractsClient,
+    NodeJsCommandClient as CommandClient,
+    NodeJsCommandCompletionClient as CommandCompletionClient,
+    NodeJsCommandSubmissionClient as CommandSubmissionClient,
     DamlLedgerClient,
     LedgerClient,
-    NodeJsLedgerConfigurationClient,
-    NodeJsLedgerIdentityClient,
-    PackageClient,
+    NodeJsLedgerConfigurationClient as LedgerConfigurationClient,
+    NodeJsLedgerIdentityClient as LedgerIdentityClient,
+    NodeJsPackageClient as PackageClient,
     ResetClient,
     TimeClient,
     TransactionClient

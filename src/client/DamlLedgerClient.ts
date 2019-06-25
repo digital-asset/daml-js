@@ -14,7 +14,7 @@ import {ResetClient} from "./ResetClient";
 import {TransactionClient} from "./TransactionClient";
 import {TimeClient} from "./TimeClient";
 import {LedgerConfigurationClient} from "./LedgerConfigurationClient";
-import {PackageClient} from "./PackageClient";
+import {NodeJsPackageClient} from "./NodeJsPackageClient";
 import {NodeJsLedgerIdentityClient} from "./NodeJsLedgerIdentityClient";
 import {NodeJsCommandSubmissionClient} from "./NodeJsCommandSubmissionClient";
 
@@ -35,6 +35,7 @@ import {NodeJsCommandCompletionClient} from "./NodeJsCommandCompletionClient";
 import {CommandSubmissionClient} from "./CommandSubmissionClient";
 import {NodeJsLedgerConfigurationClient} from "./NodeJsLedgerConfigurationClient";
 import {LedgerIdentityClient} from "./LedgerIdentityClient";
+import {PackageClient} from "./PackageClient";
 import {promisify} from "util";
 
 /**
@@ -85,7 +86,7 @@ export class DamlLedgerClient implements LedgerClient {
         this._ledgerIdentityClient = new NodeJsLedgerIdentityClient(
             new LedgerIdentityServiceClient(address, credentials)
         );
-        this._packageClient = new PackageClient(
+        this._packageClient = new NodeJsPackageClient(
             ledgerId,
             new PackageServiceClient(address, credentials)
         );
