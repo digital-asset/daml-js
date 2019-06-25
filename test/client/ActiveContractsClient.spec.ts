@@ -6,19 +6,19 @@ import * as sinon from 'sinon';
 import {
     GetActiveContractsRequest as PbGetActiveContractsRequest
 } from "../../src/generated/com/digitalasset/ledger/api/v1/active_contracts_service_pb";
-import {ActiveContractsClient} from "../../src/client/ActiveContractsClient";
+import {NodeJsActiveContractsClient} from "../../src/client/NodeJsActiveContractsClient";
 import {JSONReporter} from "../../src/reporting/JSONReporter";
 import {GetActiveContractsRequestCodec} from "../../src/codec/GetActiveContractsRequestCodec";
 import {ValidationTree} from "../../src/validation/Validation";
 import {GetActiveContractsRequest} from "../../src/model/GetActiveContractsRequest";
 import {DummyActiveContractsServiceClient} from "./DummyActiveContractsServiceClient";
 
-describe("ActiveContractsClient", () => {
+describe("NodeJsActiveContractsClient", () => {
 
     const ledgerId = 'some-ledger-id';
     const latestRequestSpy = sinon.spy();
     const dummy = new DummyActiveContractsServiceClient(latestRequestSpy);
-    const client = new ActiveContractsClient(ledgerId, dummy, JSONReporter);
+    const client = new NodeJsActiveContractsClient(ledgerId, dummy, JSONReporter);
 
     afterEach(() => {
         sinon.restore();

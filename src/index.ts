@@ -1,7 +1,7 @@
 // Copyright (c) 2019 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {ActiveContractsClient} from "./client/ActiveContractsClient";
+import {NodeJsActiveContractsClient} from "./client/NodeJsActiveContractsClient";
 import {NodeJsCommandClient} from "./client/NodeJsCommandClient";
 import {CommandCompletionClient} from "./client/CommandCompletionClient";
 import {CommandSubmissionClient} from "./client/CommandSubmissionClient";
@@ -14,7 +14,7 @@ import {ResetClient} from "./client/ResetClient";
 import {TimeClient} from "./client/TimeClient";
 import {TransactionClient} from "./client/TransactionClient";
 export {
-    ActiveContractsClient,
+    NodeJsActiveContractsClient,
     NodeJsCommandClient,
     CommandCompletionClient,
     CommandSubmissionClient,
