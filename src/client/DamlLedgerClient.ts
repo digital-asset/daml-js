@@ -198,9 +198,16 @@ export class DamlLedgerClient implements LedgerClient {
 
     private static connectPromise: (_: LedgerClientOptions) => Promise<LedgerClient> = promisify(DamlLedgerClient.connectCallback) as (_: LedgerClientOptions) => Promise<LedgerClient>;
 
+    /**
+     * Connects a new instance of the {@link DamlLedgerClient} to the
+     *
+     * @param options The host, port and certificates needed to reach the ledger
+     * @param callback A callback that will be either passed an error or the LedgerClient instance in case of successful connection
+     */
     static connect(options: LedgerClientOptions): Promise<LedgerClient>
     static connect(options: LedgerClientOptions, callback: Callback<LedgerClient>): void
     static connect(options: LedgerClientOptions, callback?: Callback<LedgerClient>): void | Promise<LedgerClient> {
         return callback ? DamlLedgerClient.connectCallback(options, callback) : DamlLedgerClient.connectPromise(options);
     }
+
 }
