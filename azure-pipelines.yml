@@ -28,9 +28,7 @@ strategy:
       daml_sdk_version: 0.12.16
 
 steps:
-- script: curl -sSL https://get.daml.com/ | sh
-  displayName: Get DAML SDK installer
-- script: ~/.daml/bin/daml install $(daml_sdk_version)
+- script: curl -sSL https://get.daml.com/ | sh -s $(daml_sdk_version)
   displayName: Install DAML SDK $(daml_sdk_version)
 - task: NodeTool@0
   displayName: Install Node.js $(nodejs_version)
