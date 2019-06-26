@@ -12,7 +12,7 @@ import {NodeJsLedgerIdentityClient} from "./client/NodeJsLedgerIdentityClient";
 import {NodeJsPackageClient} from "./client/NodeJsPackageClient";
 import {NodeJsResetClient} from "./client/NodeJsResetClient";
 import {NodeJsTimeClient} from "./client/NodeJsTimeClient";
-import {TransactionClient} from "./client/TransactionClient";
+import {NodeJsTransactionClient} from "./client/NodeJsTransactionClient";
 export {
     NodeJsActiveContractsClient as ActiveContractsClient,
     NodeJsCommandClient as CommandClient,
@@ -25,7 +25,7 @@ export {
     NodeJsPackageClient as PackageClient,
     NodeJsResetClient as ResetClient,
     NodeJsTimeClient as TimeClient,
-    TransactionClient
+    NodeJsTransactionClient as TransactionClient
 };
 
 import * as lf from './generated/da/daml_lf_pb';

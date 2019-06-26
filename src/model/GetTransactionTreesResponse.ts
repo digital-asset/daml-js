@@ -48,7 +48,7 @@ import {TransactionTree} from "./TransactionTree";
 export interface GetTransactionTreesResponse {
 
     /**
-     * The list of transaction trees that matches the filter in {@link GetTransactionsRequest} for the {@link TransactionClient.getTransactionTrees} method.
+     * A list of transaction trees.
      */
     transactions: TransactionTree[]
 

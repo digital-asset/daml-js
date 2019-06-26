@@ -39,6 +39,7 @@ import {PackageClient} from "./PackageClient";
 import {promisify} from "util";
 import {ResetClient} from "./ResetClient";
 import {NodeJsTimeClient} from "./NodeJsTimeClient";
+import {NodeJsTransactionClient} from "./NodeJsTransactionClient";
 
 /**
  * A {@link LedgerClient} implementation that connects to an existing Ledger and provides clients to query it. To use the {@link DamlLedgerClient}
@@ -101,7 +102,7 @@ export class DamlLedgerClient implements LedgerClient {
             new TimeServiceClient(address, credentials),
             reporter
         );
-        this._transactionClient = new TransactionClient(
+        this._transactionClient = new NodeJsTransactionClient(
             ledgerId,
             new TransactionServiceClient(address, credentials),
             reporter

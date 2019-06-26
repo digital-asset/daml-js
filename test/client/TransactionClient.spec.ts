@@ -6,7 +6,7 @@ import * as sinon from 'sinon';
 import {GetTransactionsRequest} from "../../src/model/GetTransactionsRequest";
 import {GetTransactionByIdRequest} from "../../src/model/GetTransactionByIdRequest";
 import {GetTransactionByEventIdRequest} from "../../src/model/GetTransactionByEventIdRequest";
-import {TransactionClient} from "../../src/client/TransactionClient";
+import {NodeJsTransactionClient} from "../../src/client/NodeJsTransactionClient";
 import {ValidationTree} from "../../src/validation/Validation";
 import {LedgerOffsetBoundaryValue} from "../../src/model/LedgerOffset";
 import {JSONReporter} from "../../src/reporting/JSONReporter";
@@ -18,7 +18,7 @@ import {
 } from "../../src/generated/com/digitalasset/ledger/api/v1/transaction_service_pb";
 import {DummyTransactionServiceClient} from "./DummyTransactionServiceClient";
 
-describe('TransactionClient', () => {
+describe('NodeJsTransactionClient', () => {
 
     const transactionsRequest: GetTransactionsRequest = {
         begin: {
@@ -54,7 +54,7 @@ describe('TransactionClient', () => {
     const latestRequestSpy = sinon.spy();
     const ledgerId = 'deadbeef';
     const dummy = new DummyTransactionServiceClient(latestRequestSpy);
-    const client = new TransactionClient(ledgerId, dummy, JSONReporter);
+    const client = new NodeJsTransactionClient(ledgerId, dummy, JSONReporter);
 
     afterEach(() => {
         latestRequestSpy.resetHistory();
@@ -188,6 +188,19 @@ describe('TransactionClient', () => {
 
     });
 
+    it('should pass the requesting parties to the transaction lookup by event identifier endpoint (promisified)', async () => {
+
+        await client.getTransactionByEventId(transactionByEventIdRequest);
+        assert(latestRequestSpy.calledOnce);
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbGetTransactionByEventIdRequest);
+        const spiedRequest = latestRequestSpy.lastCall.lastArg as PbGetTransactionByEventIdRequest;
+        expect(spiedRequest.getRequestingPartiesList()).to.have.lengthOf(2);
+        expect(spiedRequest.getRequestingPartiesList()![0]).to.equal('barbara');
+        expect(spiedRequest.getRequestingPartiesList()![1]).to.equal('samuel');
+
+    });
+
     it('should pass the requesting parties to the flat transaction lookup by event identifier endpoint', (done) => {
 
         client.getFlatTransactionByEventId(transactionByEventIdRequest, (error, _response) => {
@@ -201,6 +214,19 @@ describe('TransactionClient', () => {
             expect(spiedRequest.getRequestingPartiesList()![1]).to.equal('samuel');
             done();
         });
+
+    });
+
+    it('should pass the requesting parties to the flat transaction lookup by event identifier endpoint (promisified)', async () => {
+
+        await client.getFlatTransactionByEventId(transactionByEventIdRequest);
+        assert(latestRequestSpy.calledOnce);
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbGetTransactionByEventIdRequest);
+        const spiedRequest = latestRequestSpy.lastCall.lastArg as PbGetTransactionByEventIdRequest;
+        expect(spiedRequest.getRequestingPartiesList()).to.have.lengthOf(2);
+        expect(spiedRequest.getRequestingPartiesList()![0]).to.equal('barbara');
+        expect(spiedRequest.getRequestingPartiesList()![1]).to.equal('samuel');
 
     });
 
@@ -218,6 +244,17 @@ describe('TransactionClient', () => {
 
     });
 
+    it('should pass the correct ledger identifier to the transaction lookup by event identifier endpoint (promisified)', async () => {
+
+        await client.getTransactionByEventId(transactionByEventIdRequest);
+        assert(latestRequestSpy.calledOnce);
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbGetTransactionByEventIdRequest);
+        const spiedRequest = latestRequestSpy.lastCall.lastArg as PbGetTransactionByEventIdRequest;
+        expect(spiedRequest.getLedgerId()).to.equal(ledgerId);
+
+    });
+
     it('should pass the correct ledger identifier to the flat transaction lookup by event identifier endpoint', (done) => {
 
         client.getFlatTransactionByEventId(transactionByEventIdRequest, (error, _response) => {
@@ -229,6 +266,17 @@ describe('TransactionClient', () => {
             expect(spiedRequest.getLedgerId()).to.equal(ledgerId);
             done();
         });
+
+    });
+
+    it('should pass the correct ledger identifier to the flat transaction lookup by event identifier endpoint (promisified)', async () => {
+
+        await client.getFlatTransactionByEventId(transactionByEventIdRequest);
+        assert(latestRequestSpy.calledOnce);
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbGetTransactionByEventIdRequest);
+        const spiedRequest = latestRequestSpy.lastCall.lastArg as PbGetTransactionByEventIdRequest;
+        expect(spiedRequest.getLedgerId()).to.equal(ledgerId);
 
     });
 
@@ -245,6 +293,20 @@ describe('TransactionClient', () => {
             expect(spiedRequest.getRequestingPartiesList()![1]).to.equal('ethan');
             done();
         });
+
+    });
+
+    it('should pass the requesting parties to the transaction lookup by transaction identifier endpoint (promisified)', async () => {
+
+        await client.getTransactionById(transactionByIdRequest);
+        assert(latestRequestSpy.calledOnce);
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbGetTransactionByIdRequest);
+        const spiedRequest = latestRequestSpy.lastCall.lastArg as PbGetTransactionByIdRequest;
+        expect(spiedRequest.getRequestingPartiesList()).to.have.lengthOf(2);
+        expect(spiedRequest.getRequestingPartiesList()![0]).to.equal('joel');
+        expect(spiedRequest.getRequestingPartiesList()![1]).to.equal('ethan');
+
     });
 
     it('should pass the requesting parties to the flat transaction lookup by transaction identifier endpoint', (done) => {
@@ -260,6 +322,20 @@ describe('TransactionClient', () => {
             expect(spiedRequest.getRequestingPartiesList()![1]).to.equal('ethan');
             done();
         });
+
+    });
+
+    it('should pass the requesting parties to the flat transaction lookup by transaction identifier endpoint (promisified)', async () => {
+
+        await client.getFlatTransactionById(transactionByIdRequest);
+        assert(latestRequestSpy.calledOnce);
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbGetTransactionByIdRequest);
+        const spiedRequest = latestRequestSpy.lastCall.lastArg as PbGetTransactionByIdRequest;
+        expect(spiedRequest.getRequestingPartiesList()).to.have.lengthOf(2);
+        expect(spiedRequest.getRequestingPartiesList()![0]).to.equal('joel');
+        expect(spiedRequest.getRequestingPartiesList()![1]).to.equal('ethan');
+
     });
 
     it('should pass the correct ledger identifier to the transaction lookup by transaction identifier', (done) => {
@@ -273,6 +349,17 @@ describe('TransactionClient', () => {
             expect(spiedRequest.getLedgerId()).to.equal(ledgerId);
             done();
         });
+
+    });
+
+    it('should pass the correct ledger identifier to the transaction lookup by transaction identifier (promisified)', async () => {
+
+        await client.getTransactionById(transactionByIdRequest);
+        assert(latestRequestSpy.calledOnce);
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbGetTransactionByIdRequest);
+        const spiedRequest = latestRequestSpy.lastCall.lastArg as PbGetTransactionByIdRequest;
+        expect(spiedRequest.getLedgerId()).to.equal(ledgerId);
 
     });
 
@@ -290,6 +377,17 @@ describe('TransactionClient', () => {
 
     });
 
+    it('should pass the correct ledger identifier to the flat transaction lookup by transaction identifier (promisified)', async () => {
+
+        await client.getFlatTransactionById(transactionByIdRequest)
+        assert(latestRequestSpy.calledOnce);
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbGetTransactionByIdRequest);
+        const spiedRequest = latestRequestSpy.lastCall.lastArg as PbGetTransactionByIdRequest;
+        expect(spiedRequest.getLedgerId()).to.equal(ledgerId);
+
+    });
+
     it('should pass the correct ledger identifier to the ledger end endpoint', (done) => {
 
         client.getLedgerEnd((error, _response) => {
@@ -304,135 +402,198 @@ describe('TransactionClient', () => {
 
     });
 
+    it('should pass the correct ledger identifier to the ledger end endpoint (promisified)', async () => {
+
+        await client.getLedgerEnd();
+        assert(latestRequestSpy.calledOnce);
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbGetLedgerEndRequest);
+        const spiedRequest = latestRequestSpy.lastCall.lastArg as PbGetLedgerEndRequest;
+        expect(spiedRequest.getLedgerId()).to.equal(ledgerId);
+
+    });
+
+    const invalidRequestGetTxById = {
+        transactionId: 'some-tx-id',
+        requestingParties: 42
+    };
+
+    const expectedValidationTreeGetTxById: ValidationTree = {
+        errors: [],
+        children: {
+            transactionId: {
+                errors: [],
+                children: {}
+            },
+            requestingParties: {
+                errors: [{
+                    errorType: 'type-error',
+                    expectedType: 'Array<string>',
+                    actualType: 'number'
+                }],
+                children: {}
+            }
+        }
+    };
+
     it('should perform validation on the GetTransactionById endpoint', (done) => {
 
-        const invalidRequest = {
-            transactionId: 'some-tx-id',
-            requestingParties: 42
-        };
-
-        const expectedValidationTree: ValidationTree = {
-            errors: [],
-            children: {
-                transactionId: {
-                    errors: [],
-                    children: {}
-                },
-                requestingParties: {
-                    errors: [{
-                        errorType: 'type-error',
-                        expectedType: 'Array<string>',
-                        actualType: 'number'
-                    }],
-                    children: {}
-                }
-            }
-        };
-
-        client.getTransactionById(invalidRequest as any as GetTransactionByIdRequest, error => {
+        client.getTransactionById(invalidRequestGetTxById as unknown as GetTransactionByIdRequest, error => {
             expect(error).to.not.be.null;
-            expect(JSON.parse(error!.message)).to.deep.equal(expectedValidationTree);
+            expect(JSON.parse(error!.message)).to.deep.equal(expectedValidationTreeGetTxById);
             done();
         });
 
     });
+
+    it('should perform validation on the GetTransactionById endpoint (promisified)', async () => {
+
+        let errorThrown = false;
+        try {
+            await client.getTransactionById(invalidRequestGetTxById as unknown as GetTransactionByIdRequest);
+        } catch (error) {
+            expect(JSON.parse(error.message)).to.deep.equal(expectedValidationTreeGetTxById);
+            errorThrown = true;
+        }
+        assert(errorThrown, 'an error was expected but none has been thrown');
+
+    });
+
+    const invalidRequestGetFlatTxById = {
+        transactionId: 'some-tx-id',
+        requestingParties: 42
+    };
+
+    const expectedValidationTreeGetFlatTxById: ValidationTree = {
+        errors: [],
+        children: {
+            transactionId: {
+                errors: [],
+                children: {}
+            },
+            requestingParties: {
+                errors: [{
+                    errorType: 'type-error',
+                    expectedType: 'Array<string>',
+                    actualType: 'number'
+                }],
+                children: {}
+            }
+        }
+    };
 
     it('should perform validation on the GetFlatTransactionById endpoint', (done) => {
 
-        const invalidRequest = {
-            transactionId: 'some-tx-id',
-            requestingParties: 42
-        };
-
-        const expectedValidationTree: ValidationTree = {
-            errors: [],
-            children: {
-                transactionId: {
-                    errors: [],
-                    children: {}
-                },
-                requestingParties: {
-                    errors: [{
-                        errorType: 'type-error',
-                        expectedType: 'Array<string>',
-                        actualType: 'number'
-                    }],
-                    children: {}
-                }
-            }
-        };
-
-        client.getFlatTransactionById(invalidRequest as any as GetTransactionByIdRequest, error => {
+        client.getFlatTransactionById(invalidRequestGetFlatTxById as unknown as GetTransactionByIdRequest, error => {
             expect(error).to.not.be.null;
-            expect(JSON.parse(error!.message)).to.deep.equal(expectedValidationTree);
+            expect(JSON.parse(error!.message)).to.deep.equal(expectedValidationTreeGetFlatTxById);
             done();
         });
 
     });
+
+    it('should perform validation on the GetFlatTransactionById endpoint (promisified)', async () => {
+
+        let errorThrown = false;
+        try {
+            await client.getFlatTransactionById(invalidRequestGetFlatTxById as unknown as GetTransactionByIdRequest);
+        } catch (error) {
+            expect(JSON.parse(error.message)).to.deep.equal(expectedValidationTreeGetFlatTxById);
+            errorThrown = true;
+        }
+        assert(errorThrown, 'an error was expected but none has been thrown');
+
+    });
+
+    const invalidRequestGetTxByEvent = {
+        eventId: 'some-event-id',
+        requestingParties: 42
+    };
+
+    const expectedValidationTreeGetTxByEvent: ValidationTree = {
+        errors: [],
+        children: {
+            eventId: {
+                errors: [],
+                children: {}
+            },
+            requestingParties: {
+                errors: [{
+                    errorType: 'type-error',
+                    expectedType: 'Array<string>',
+                    actualType: 'number'
+                }],
+                children: {}
+            }
+        }
+    };
 
     it('should perform validation on the GetTransactionByEventId endpoint', (done) => {
 
-        const invalidRequest = {
-            eventId: 'some-event-id',
-            requestingParties: 42
-        };
-
-        const expectedValidationTree: ValidationTree = {
-            errors: [],
-            children: {
-                eventId: {
-                    errors: [],
-                    children: {}
-                },
-                requestingParties: {
-                    errors: [{
-                        errorType: 'type-error',
-                        expectedType: 'Array<string>',
-                        actualType: 'number'
-                    }],
-                    children: {}
-                }
-            }
-        };
-
-        client.getTransactionByEventId(invalidRequest as any as GetTransactionByEventIdRequest, error => {
+        client.getTransactionByEventId(invalidRequestGetTxByEvent as unknown as GetTransactionByEventIdRequest, error => {
             expect(error).to.not.be.null;
-            expect(JSON.parse(error!.message)).to.deep.equal(expectedValidationTree);
+            expect(JSON.parse(error!.message)).to.deep.equal(expectedValidationTreeGetTxByEvent);
             done();
         });
 
     });
 
+    it('should perform validation on the GetTransactionByEventId endpoint (promisified)', async () => {
+
+        let errorThrown = false;
+        try {
+            await client.getTransactionByEventId(invalidRequestGetTxByEvent as unknown as GetTransactionByEventIdRequest);
+        } catch (error) {
+            expect(JSON.parse(error.message)).to.deep.equal(expectedValidationTreeGetTxByEvent);
+            errorThrown = true;
+        }
+        assert(errorThrown, 'an error was expected but none has been thrown');
+
+    });
+
+    const invalidRequestGetFlatTxByEvent = {
+        eventId: 'some-event-id',
+        requestingParties: 42
+    };
+
+    const expectedValidationTreeGetFlatTxByEvent: ValidationTree = {
+        errors: [],
+        children: {
+            eventId: {
+                errors: [],
+                children: {}
+            },
+            requestingParties: {
+                errors: [{
+                    errorType: 'type-error',
+                    expectedType: 'Array<string>',
+                    actualType: 'number'
+                }],
+                children: {}
+            }
+        }
+    };
+
     it('should perform validation on the GetFlatTransactionByEventId endpoint', (done) => {
 
-        const invalidRequest = {
-            eventId: 'some-event-id',
-            requestingParties: 42
-        };
-
-        const expectedValidationTree: ValidationTree = {
-            errors: [],
-            children: {
-                eventId: {
-                    errors: [],
-                    children: {}
-                },
-                requestingParties: {
-                    errors: [{
-                        errorType: 'type-error',
-                        expectedType: 'Array<string>',
-                        actualType: 'number'
-                    }],
-                    children: {}
-                }
-            }
-        };
-
-        client.getFlatTransactionByEventId(invalidRequest as any as GetTransactionByEventIdRequest, error => {
+        client.getFlatTransactionByEventId(invalidRequestGetFlatTxByEvent as unknown as GetTransactionByEventIdRequest, error => {
             expect(error).to.not.be.null;
-            expect(JSON.parse(error!.message)).to.deep.equal(expectedValidationTree);
+            expect(JSON.parse(error!.message)).to.deep.equal(expectedValidationTreeGetFlatTxByEvent);
             done();
         });
+
+    });
+
+    it('should perform validation on the GetFlatTransactionByEventId endpoint (promisified)', async () => {
+
+        let errorThrown = false;
+        try {
+            await client.getFlatTransactionByEventId(invalidRequestGetFlatTxByEvent as unknown as GetTransactionByEventIdRequest);
+        } catch (error) {
+            expect(JSON.parse(error.message)).to.deep.equal(expectedValidationTreeGetFlatTxByEvent);
+            errorThrown = true;
+        }
+        assert(errorThrown, 'an error was expected but none has been thrown');
 
     });
 

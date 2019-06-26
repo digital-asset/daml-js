@@ -229,6 +229,12 @@ describe("DamlLedgerClient", () => {
         });
     });
 
+    it('should correctly set the ledgerId of the TransactionsClient (getLedgerEnd -- promisified)', async () => {
+        const client = await DamlLedgerClient.connect({host: '0.0.0.0', port: port});
+        await client.transactionClient.getLedgerEnd();
+        assert(spy.calledOnceWithExactly(ledgerId));
+    });
+
     it('should correctly set the ledgerId of the TransactionsClient (getTransactionByEventId)', (done) => {
         DamlLedgerClient.connect({host: '0.0.0.0', port: port}, (error, client) => {
             expect(error).to.be.null;
@@ -240,6 +246,12 @@ describe("DamlLedgerClient", () => {
         });
     });
 
+    it('should correctly set the ledgerId of the TransactionsClient (getTransactionByEventId -- promisified)', async () => {
+        const client = await DamlLedgerClient.connect({host: '0.0.0.0', port: port});
+        await client.transactionClient.getTransactionByEventId({eventId: '', requestingParties: []});
+        assert(spy.calledOnceWithExactly(ledgerId));
+    });
+
     it('should correctly set the ledgerId of the TransactionsClient (getTransactionById)', (done) => {
         DamlLedgerClient.connect({host: '0.0.0.0', port: port}, (error, client) => {
             expect(error).to.be.null;
@@ -249,6 +261,12 @@ describe("DamlLedgerClient", () => {
                 done();
             });
         });
+    });
+
+    it('should correctly set the ledgerId of the TransactionsClient (getTransactionById -- promisified)', async () => {
+        const client = await DamlLedgerClient.connect({host: '0.0.0.0', port: port});
+        await client.transactionClient.getTransactionById({transactionId: '', requestingParties: []});
+        assert(spy.calledOnceWithExactly(ledgerId));
     });
 
     it('should correctly set the ledgerId of the TransactionsClient (getTransactions)', (done) => {
@@ -265,6 +283,16 @@ describe("DamlLedgerClient", () => {
         });
     });
 
+    it('should correctly set the ledgerId of the TransactionsClient (getTransactions -- promisified)', async () => {
+        const client = await DamlLedgerClient.connect({host: '0.0.0.0', port: port});
+        const transactions = client.transactionClient.getTransactions({
+            filter: {filtersByParty: {}},
+            begin: {offsetType:'absolute',absolute: '0'}
+        });
+        for await (const _ of transactions) {} // consume the mocked stream completely
+        assert(spy.calledOnceWithExactly(ledgerId));
+    });
+
     it('should correctly set the ledgerId of the TransactionsClient (getTransactionTrees)', (done) => {
         DamlLedgerClient.connect({host: '0.0.0.0', port: port}, (error, client) => {
             expect(error).to.be.null;
@@ -277,6 +305,16 @@ describe("DamlLedgerClient", () => {
                 done();
             });
         });
+    });
+
+    it('should correctly set the ledgerId of the TransactionsClient (getTransactionTrees -- promisified)', async () => {
+        const client = await DamlLedgerClient.connect({host: '0.0.0.0', port: port});
+        const transactions = client.transactionClient.getTransactionTrees({
+            filter: {filtersByParty: {}},
+            begin: {offsetType:'absolute',absolute: '0'}
+        });
+        for await (const _ of transactions) {} // consume the mocked stream completely
+        assert(spy.calledOnceWithExactly(ledgerId));
     });
 
     it('should correctly set the ledgerId of the NodeJsTimeClient (getTime)', (done) => {
