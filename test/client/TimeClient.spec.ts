@@ -4,7 +4,7 @@
 import {assert, expect} from 'chai';
 import * as sinon from 'sinon';
 import {SetTimeRequest} from "../../src/model/SetTimeRequest";
-import {TimeClient} from "../../src/client/TimeClient";
+import {NodeJsTimeClient} from "../../src/client/NodeJsTimeClient";
 import {ValidationTree} from "../../src/validation/Validation";
 import {JSONReporter} from "../../src/reporting/JSONReporter";
 import {
@@ -13,16 +13,57 @@ import {
 } from "../../src/generated/com/digitalasset/ledger/api/v1/testing/time_service_pb";
 import {DummyTimeServiceClient} from "./DummyTimeServiceClient";
 
-describe('TimeClient', () => {
+describe('NodeJsTimeClient', () => {
 
     const ledgerId = 'cafebabe';
     const latestRequestSpy = sinon.spy();
     const dummy = new DummyTimeServiceClient(latestRequestSpy);
-    const client = new TimeClient(ledgerId, dummy, JSONReporter);
+    const client = new NodeJsTimeClient(ledgerId, dummy, JSONReporter);
 
     const setTimeRequest: SetTimeRequest = {
         currentTime: {seconds: 4, nanoseconds: 1},
         newTime: {seconds: 5, nanoseconds: 2}
+    };
+
+    const invalidRequest = {
+        currentTime: {seconds: 3, nanoseconds: '0'},
+        newTime: {seconds: 4, nanoseconds: 0}
+    };
+
+    const expectedValidationTree: ValidationTree = {
+        errors: [],
+        children: {
+            currentTime: {
+                errors: [],
+                children: {
+                    seconds: {
+                        errors: [],
+                        children: {}
+                    },
+                    nanoseconds: {
+                        errors: [{
+                            errorType: 'type-error',
+                            expectedType: 'number',
+                            actualType: 'string'
+                        }],
+                        children: {}
+                    }
+                }
+            },
+            newTime: {
+                errors: [],
+                children: {
+                    seconds: {
+                        errors: [],
+                        children: {}
+                    },
+                    nanoseconds: {
+                        errors: [],
+                        children: {}
+                    }
+                }
+            }
+        }
     };
 
     afterEach(() => {
@@ -48,6 +89,21 @@ describe('TimeClient', () => {
 
     });
 
+    it('should send the request with correct ledger identifier, current and new time (promisified)', async () => {
+
+        await client.setTime(setTimeRequest);
+        assert(latestRequestSpy.calledOnce);
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbSetTimeRequest);
+        const spiedRequest = latestRequestSpy.lastCall.lastArg as PbSetTimeRequest;
+        expect(spiedRequest.getLedgerId()).to.equal(ledgerId);
+        expect(spiedRequest.getCurrentTime()!.getSeconds()).to.equal(4);
+        expect(spiedRequest.getCurrentTime()!.getNanos()).to.equal(1);
+        expect(spiedRequest.getNewTime()!.getSeconds()).to.equal(5);
+        expect(spiedRequest.getNewTime()!.getNanos()).to.equal(2);
+
+    });
+
     it('should forward the request for the time stream with the correct ledger identifier', (done) => {
 
         const call = client.getTime();
@@ -67,53 +123,24 @@ describe('TimeClient', () => {
 
     it('should perform validation on the SetTime endpoint', (done) => {
 
-        const invalidRequest = {
-            currentTime: {seconds: 3, nanoseconds: '0'},
-            newTime: {seconds: 4, nanoseconds: 0}
-        };
-
-        const expectedValidationTree: ValidationTree = {
-            errors: [],
-            children: {
-                currentTime: {
-                    errors: [],
-                    children: {
-                        seconds: {
-                            errors: [],
-                            children: {}
-                        },
-                        nanoseconds: {
-                            errors: [{
-                                errorType: 'type-error',
-                                expectedType: 'number',
-                                actualType: 'string'
-                            }],
-                            children: {}
-                        }
-                    }
-                },
-                newTime: {
-                    errors: [],
-                    children: {
-                        seconds: {
-                            errors: [],
-                            children: {}
-                        },
-                        nanoseconds: {
-                            errors: [],
-                            children: {}
-                        }
-                    }
-                }
-            }
-        }
-
         client.setTime(invalidRequest as any as SetTimeRequest, error => {
             expect(error).to.not.be.null;
             expect(JSON.parse(error!.message)).to.deep.equal(expectedValidationTree);
             done();
         });
 
+    });
+
+    it('should perform validation on the SetTime endpoint (promisified)', async () => {
+        let errorThrown = false;
+        try {
+            await client.setTime(invalidRequest as unknown as SetTimeRequest);
+        } catch (error) {
+            expect(error).to.not.be.null;
+            expect(JSON.parse(error.message)).to.deep.equal(expectedValidationTree);
+            errorThrown = true;
+        }
+        assert(errorThrown, 'an error was expected but none has been thrown');
     });
 
 });

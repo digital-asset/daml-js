@@ -3,16 +3,16 @@
 
 import {assert, expect} from 'chai';
 import * as sinon from 'sinon';
-import {LedgerConfigurationClient} from "../../src/client/LedgerConfigurationClient";
+import {NodeJsLedgerConfigurationClient} from "../../src/client/NodeJsLedgerConfigurationClient";
 import {GetLedgerConfigurationRequest as PbGetLedgerConfigurationRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/ledger_configuration_service_pb";
 import {DummyLedgerConfigurationServiceClient} from "./DummyLedgerConfigurationServiceClient";
 
-describe('LedgerConfigurationClient', () => {
+describe('NodeJsLedgerConfigurationClient', () => {
 
     const ledgerId = 'cafebabe';
     const latestRequestSpy = sinon.spy();
     const dummy = new DummyLedgerConfigurationServiceClient(latestRequestSpy);
-    const client = new LedgerConfigurationClient(ledgerId, dummy);
+    const client = new NodeJsLedgerConfigurationClient(ledgerId, dummy);
 
     afterEach(() => {
         sinon.restore();

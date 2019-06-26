@@ -5,13 +5,13 @@ import {assert, expect} from 'chai';
 import * as sinon from 'sinon';
 import {SubmitAndWaitRequest} from "../../src/model/SubmitAndWaitRequest";
 import {SubmitAndWaitRequest as PbSubmitAndWaitRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/command_service_pb";
-import {CommandClient} from "../../src/client/CommandClient";
+import {NodeJsCommandClient} from "../../src/client/NodeJsCommandClient";
 import {JSONReporter} from "../../src/reporting/JSONReporter";
 import {SubmitAndWaitRequestCodec} from "../../src/codec/SubmitAndWaitRequestCodec";
 import {ValidationTree} from "../../src/validation/Validation";
 import {DummyCommandServiceClient} from "./DummyCommandServiceClient";
 
-describe("CommandClient", () => {
+describe("NodeJsCommandClient", () => {
 
     afterEach(() => {
         sinon.restore();
@@ -125,7 +125,7 @@ describe("CommandClient", () => {
     const ledgerId = 'some-ledger-id';
     const latestRequestSpy = sinon.spy();
     const dummy = new DummyCommandServiceClient(latestRequestSpy);
-    const client = new CommandClient(ledgerId, dummy, JSONReporter);
+    const client = new NodeJsCommandClient(ledgerId, dummy, JSONReporter);
 
     it('should correctly forward a command on the SubmitAndWait endpoint', (done) => {
         client.submitAndWait(request, (error, _) => {
@@ -135,6 +135,13 @@ describe("CommandClient", () => {
             expect(SubmitAndWaitRequestCodec.deserialize(latestRequestSpy.lastCall.lastArg)).to.deep.equal(request);
             done();
         });
+    });
+
+    it('should correctly forward a command on the SubmitAndWait endpoint (promisified)', async () => {
+        await client.submitAndWait(request);
+        assert(latestRequestSpy.calledOnce);
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        expect(SubmitAndWaitRequestCodec.deserialize(latestRequestSpy.lastCall.lastArg)).to.deep.equal(request);
     });
 
     it('should set the ledger identifier properly on the SubmitAndWait endpoint', (done) => {
@@ -148,6 +155,14 @@ describe("CommandClient", () => {
         });
     });
 
+    it('should set the ledger identifier properly on the SubmitAndWait endpoint (promisified)', async () => {
+        await client.submitAndWait(request);
+        assert(latestRequestSpy.calledOnce);
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        const spiedRequest = latestRequestSpy.lastCall.lastArg as PbSubmitAndWaitRequest;
+        expect(spiedRequest.getCommands()!.getLedgerId()).to.deep.equal(ledgerId);
+    });
+
     it('should perform validation on the SubmitAndWait endpoint', (done) => {
         client.submitAndWait(invalidRequest, error => {
             expect(error).to.not.be.null;
@@ -155,9 +170,21 @@ describe("CommandClient", () => {
             client.submitAndWaitForTransactionId(invalidRequest as any as SubmitAndWaitRequest, error => {
                 expect(error).to.not.be.null;
                 expect(JSON.parse(error!.message)).to.deep.equal(expectedValidationTree);
-                done()
+                done();
             });
         });
+    });
+
+    it('should perform validation on the SubmitAndWait endpoint (promisified)', async () => {
+        let errorThrown = false;
+        try {
+            await client.submitAndWait(invalidRequest);
+        } catch (error) {
+            expect(error).to.not.be.null;
+            expect(JSON.parse(error.message)).to.deep.equal(expectedValidationTree);
+            errorThrown = true;
+        }
+        assert(errorThrown, 'an error was expected but none has been thrown');
     });
 
     it('should correctly forward a command on the SubmitAndWaitForTransaction endpoint', (done) => {
@@ -170,6 +197,13 @@ describe("CommandClient", () => {
         });
     });
 
+    it('should correctly forward a command on the SubmitAndWaitForTransaction endpoint (promisified)', async () => {
+        await client.submitAndWaitForTransaction(request);
+        assert(latestRequestSpy.calledOnce);
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        expect(SubmitAndWaitRequestCodec.deserialize(latestRequestSpy.lastCall.lastArg)).to.deep.equal(request);
+    });
+
     it('should set the ledger identifier properly on the SubmitAndWaitForTransaction endpoint', (done) => {
         client.submitAndWaitForTransaction(request, (error, _) => {
             expect(error).to.be.null;
@@ -179,6 +213,14 @@ describe("CommandClient", () => {
             expect(request.getCommands()!.getLedgerId()).to.deep.equal(ledgerId);
             done();
         });
+    });
+
+    it('should set the ledger identifier properly on the SubmitAndWaitForTransaction endpoint (promisified)', async () => {
+        await client.submitAndWaitForTransaction(request);
+        assert(latestRequestSpy.calledOnce);
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        const spiedRequest = latestRequestSpy.lastCall.lastArg as PbSubmitAndWaitRequest;
+        expect(spiedRequest.getCommands()!.getLedgerId()).to.deep.equal(ledgerId);
     });
 
     it('should perform validation on the SubmitAndWaitForTransaction endpoint', (done) => {
@@ -193,6 +235,18 @@ describe("CommandClient", () => {
         });
     });
 
+    it('should perform validation on the SubmitAndWaitForTransaction endpoint (promisified)', async () => {
+        let errorThrown = false;
+        try {
+            await client.submitAndWaitForTransaction(invalidRequest);
+        } catch (error) {
+            expect(error).to.not.be.null;
+            expect(JSON.parse(error.message)).to.deep.equal(expectedValidationTree);
+            errorThrown = true;
+        }
+        assert(errorThrown, 'an error was expected but none has been thrown');
+    });
+
     it('should correctly forward a command on the SubmitAndWaitForTransactionId endpoint', (done) => {
         client.submitAndWaitForTransactionId(request, (error, _) => {
             expect(error).to.be.null;
@@ -201,6 +255,13 @@ describe("CommandClient", () => {
             expect(SubmitAndWaitRequestCodec.deserialize(latestRequestSpy.lastCall.lastArg)).to.deep.equal(request);
             done();
         });
+    });
+
+    it('should correctly forward a command on the SubmitAndWaitForTransactionId endpoint (promisified)', async () => {
+        await client.submitAndWaitForTransactionId(request);
+        assert(latestRequestSpy.calledOnce);
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        expect(SubmitAndWaitRequestCodec.deserialize(latestRequestSpy.lastCall.lastArg)).to.deep.equal(request);
     });
 
     it('should set the ledger identifier properly on the SubmitAndWaitForTransactionId endpoint', (done) => {
@@ -212,6 +273,14 @@ describe("CommandClient", () => {
             expect(request.getCommands()!.getLedgerId()).to.deep.equal(ledgerId);
             done();
         });
+    });
+
+    it('should set the ledger identifier properly on the SubmitAndWaitForTransactionId endpoint (promisified)', async () => {
+        await client.submitAndWaitForTransactionId(request);
+        assert(latestRequestSpy.calledOnce);
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        const spiedRequest = latestRequestSpy.lastCall.lastArg as PbSubmitAndWaitRequest;
+        expect(spiedRequest.getCommands()!.getLedgerId()).to.deep.equal(ledgerId);
     });
 
     it('should perform validation on the SubmitAndWaitForTransactionId endpoint', (done) => {
@@ -226,6 +295,18 @@ describe("CommandClient", () => {
         });
     });
 
+    it('should perform validation on the SubmitAndWaitForTransactionId endpoint (promisified)', async () => {
+        let errorThrown = false;
+        try {
+            await client.submitAndWaitForTransactionId(invalidRequest);
+        } catch (error) {
+            expect(error).to.not.be.null;
+            expect(JSON.parse(error.message)).to.deep.equal(expectedValidationTree);
+            errorThrown = true;
+        }
+        assert(errorThrown, 'an error was expected but none has been thrown');
+    });
+
     it('should correctly forward a command on the SubmitAndWaitForTransactionTree endpoint', (done) => {
         client.submitAndWaitForTransactionTree(request, (error, _) => {
             expect(error).to.be.null;
@@ -234,6 +315,13 @@ describe("CommandClient", () => {
             expect(SubmitAndWaitRequestCodec.deserialize(latestRequestSpy.lastCall.lastArg)).to.deep.equal(request);
             done();
         });
+    });
+
+    it('should correctly forward a command on the SubmitAndWaitForTransactionTree endpoint (promisified)', async () => {
+        await client.submitAndWaitForTransactionTree(request);
+        assert(latestRequestSpy.calledOnce);
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        expect(SubmitAndWaitRequestCodec.deserialize(latestRequestSpy.lastCall.lastArg)).to.deep.equal(request);
     });
 
     it('should set the ledger identifier properly on the SubmitAndWaitForTransactionTree endpoint', (done) => {
@@ -247,6 +335,14 @@ describe("CommandClient", () => {
         });
     });
 
+    it('should set the ledger identifier properly on the SubmitAndWaitForTransactionTree endpoint (promisified)', async () => {
+        await client.submitAndWaitForTransactionTree(request);
+        assert(latestRequestSpy.calledOnce);
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        const spiedRequest = latestRequestSpy.lastCall.lastArg as PbSubmitAndWaitRequest;
+        expect(spiedRequest.getCommands()!.getLedgerId()).to.deep.equal(ledgerId);
+    });
+
     it('should perform validation on the SubmitAndWaitForTransactionTree endpoint', (done) => {
         client.submitAndWaitForTransactionTree(invalidRequest, error => {
             expect(error).to.not.be.null;
@@ -257,6 +353,18 @@ describe("CommandClient", () => {
                 done()
             });
         });
+    });
+
+    it('should perform validation on the SubmitAndWaitForTransactionTree endpoint (promisified)', async () => {
+        let errorThrown = false;
+        try {
+            await client.submitAndWaitForTransactionTree(invalidRequest);
+        } catch (error) {
+            expect(error).to.not.be.null;
+            expect(JSON.parse(error.message)).to.deep.equal(expectedValidationTree);
+            errorThrown = true;
+        }
+        assert(errorThrown, 'an error was expected but none has been thrown');
     });
 
 });

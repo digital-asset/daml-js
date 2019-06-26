@@ -1,31 +1,31 @@
 // Copyright (c) 2019 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {ActiveContractsClient} from "./client/ActiveContractsClient";
-import {CommandClient} from "./client/CommandClient";
-import {CommandCompletionClient} from "./client/CommandCompletionClient";
-import {CommandSubmissionClient} from "./client/CommandSubmissionClient";
+import {NodeJsActiveContractsClient} from "./client/NodeJsActiveContractsClient";
+import {NodeJsCommandClient} from "./client/NodeJsCommandClient";
+import {NodeJsCommandCompletionClient} from "./client/NodeJsCommandCompletionClient";
+import {NodeJsCommandSubmissionClient} from "./client/NodeJsCommandSubmissionClient";
 import {DamlLedgerClient} from "./client/DamlLedgerClient";
 import {LedgerClient} from "./client/LedgerClient";
-import {LedgerConfigurationClient} from "./client/LedgerConfigurationClient";
-import {LedgerIdentityClient} from "./client/LedgerIdentityClient";
-import {PackageClient} from "./client/PackageClient";
-import {ResetClient} from "./client/ResetClient";
-import {TimeClient} from "./client/TimeClient";
-import {TransactionClient} from "./client/TransactionClient";
+import {NodeJsLedgerConfigurationClient} from "./client/NodeJsLedgerConfigurationClient";
+import {NodeJsLedgerIdentityClient} from "./client/NodeJsLedgerIdentityClient";
+import {NodeJsPackageClient} from "./client/NodeJsPackageClient";
+import {NodeJsResetClient} from "./client/NodeJsResetClient";
+import {NodeJsTimeClient} from "./client/NodeJsTimeClient";
+import {NodeJsTransactionClient} from "./client/NodeJsTransactionClient";
 export {
-    ActiveContractsClient,
-    CommandClient,
-    CommandCompletionClient,
-    CommandSubmissionClient,
+    NodeJsActiveContractsClient as ActiveContractsClient,
+    NodeJsCommandClient as CommandClient,
+    NodeJsCommandCompletionClient as CommandCompletionClient,
+    NodeJsCommandSubmissionClient as CommandSubmissionClient,
     DamlLedgerClient,
     LedgerClient,
-    LedgerConfigurationClient,
-    LedgerIdentityClient,
-    PackageClient,
-    ResetClient,
-    TimeClient,
-    TransactionClient
+    NodeJsLedgerConfigurationClient as LedgerConfigurationClient,
+    NodeJsLedgerIdentityClient as LedgerIdentityClient,
+    NodeJsPackageClient as PackageClient,
+    NodeJsResetClient as ResetClient,
+    NodeJsTimeClient as TimeClient,
+    NodeJsTransactionClient as TransactionClient
 };
 
 import * as lf from './generated/da/daml_lf_pb';

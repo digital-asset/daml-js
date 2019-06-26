@@ -3,7 +3,7 @@
 
 import {assert, expect} from 'chai';
 import * as sinon from 'sinon';
-import {CommandSubmissionClient} from "../../src/client/CommandSubmissionClient";
+import {NodeJsCommandSubmissionClient} from "../../src/client/NodeJsCommandSubmissionClient";
 import {SubmitRequest} from "../../src/model/SubmitRequest";
 import {JSONReporter} from "../../src/reporting/JSONReporter";
 import {SubmitRequestCodec} from "../../src/codec/SubmitRequestCodec";
@@ -11,12 +11,12 @@ import {ValidationTree} from "../../src/validation/Validation";
 import {SubmitRequest as PbSubmitRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/command_submission_service_pb";
 import {DummyCommandSubmissionServiceClient} from "./DummyCommandSubmissionServiceClient";
 
-describe('CommandSubmissionClient', () => {
+describe('NodeJsCommandSubmissionClient', () => {
 
     const ledgerId = 'watman';
     const latestRequestSpy = sinon.spy();
     const dummy = new DummyCommandSubmissionServiceClient(latestRequestSpy);
-    const client = new CommandSubmissionClient(ledgerId, dummy, JSONReporter);
+    const client = new NodeJsCommandSubmissionClient(ledgerId, dummy, JSONReporter);
 
     const request: SubmitRequest = {
         commands: {
@@ -50,6 +50,87 @@ describe('CommandSubmissionClient', () => {
         }
     };
 
+    const invalidRequest = {
+        commands: {
+            applicationId: 'app',
+            commandId: 'cmd',
+            party: 'birthday',
+            ledgerEffectiveTime: {seconds: 0, nanoseconds: 1},
+            maximumRecordTime: {seconds: 1, nanoseconds: 2},
+            list: [
+                {
+                    commandType: 'archive',
+                    templateId: {
+                        name: 'foo',
+                        packageId: 'bar'
+                    }
+                }
+            ]
+        }
+    };
+
+    const expectedValidationTree: ValidationTree = {
+        errors: [],
+        children: {
+            commands: {
+                errors: [],
+                children: {
+                    applicationId: {
+                        errors: [],
+                        children: {}
+                    },
+                    commandId: {
+                        errors: [],
+                        children: {}
+                    },
+                    party: {
+                        errors: [],
+                        children: {}
+                    },
+                    ledgerEffectiveTime: {
+                        errors: [],
+                        children: {
+                            seconds: {
+                                errors: [],
+                                children: {}
+                            },
+                            nanoseconds: {
+                                errors: [],
+                                children: {}
+                            }
+                        }
+                    },
+                    maximumRecordTime: {
+                        errors: [],
+                        children: {
+                            seconds: {
+                                errors: [],
+                                children: {}
+                            },
+                            nanoseconds: {
+                                errors: [],
+                                children: {}
+                            }
+                        }
+                    },
+                    list: {
+                        errors: [],
+                        children: {
+                            '0': {
+                                errors: [{
+                                    errorType: 'unexpected-type-tag',
+                                    expectedTypeTags: ['create', 'exercise', 'createAndExercise'],
+                                    actualTypeTag: 'archive'
+                                }],
+                                children: {}
+                            }
+                        }
+                    }
+                }
+            },
+        }
+    };
+
     afterEach(() => {
         sinon.restore();
         latestRequestSpy.resetHistory();
@@ -67,6 +148,15 @@ describe('CommandSubmissionClient', () => {
         });
     });
 
+    it('should correctly forward a command (promisified)', async () => {
+        await client.submit(request);
+        assert(latestRequestSpy.calledOnce);
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbSubmitRequest);
+        const spiedRequest = latestRequestSpy.lastCall.lastArg as PbSubmitRequest;
+        expect(SubmitRequestCodec.deserialize(spiedRequest)).to.deep.equal(request);
+    });
+
     it('should forward the command with the correct ledger identifier', (done) => {
         client.submit(request, (error, _) => {
             expect(error).to.be.null;
@@ -79,95 +169,35 @@ describe('CommandSubmissionClient', () => {
         });
     });
 
+    it('should forward the command with the correct ledger identifier (promisified)', async () => {
+        await client.submit(request);
+        assert(latestRequestSpy.calledOnce);
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbSubmitRequest);
+        const spiedRequest = latestRequestSpy.lastCall.lastArg as PbSubmitRequest;
+        expect(spiedRequest.getCommands()!.getLedgerId()).to.equal(ledgerId);
+    });
+
     it('should perform validation on the Submit endpoint', (done) => {
 
-        const invalidRequest = {
-            commands: {
-                applicationId: 'app',
-                commandId: 'cmd',
-                party: 'birthday',
-                ledgerEffectiveTime: {seconds: 0, nanoseconds: 1},
-                maximumRecordTime: {seconds: 1, nanoseconds: 2},
-                list: [
-                    {
-                        commandType: 'archive',
-                        templateId: {
-                            name: 'foo',
-                            packageId: 'bar'
-                        }
-                    }
-                ]
-            }
-        };
-
-        const expectedValidationTree: ValidationTree = {
-            errors: [],
-            children: {
-                commands: {
-                    errors: [],
-                    children: {
-                        applicationId: {
-                            errors: [],
-                            children: {}
-                        },
-                        commandId: {
-                            errors: [],
-                            children: {}
-                        },
-                        party: {
-                            errors: [],
-                            children: {}
-                        },
-                        ledgerEffectiveTime: {
-                            errors: [],
-                            children: {
-                                seconds: {
-                                    errors: [],
-                                    children: {}
-                                },
-                                nanoseconds: {
-                                    errors: [],
-                                    children: {}
-                                }
-                            }
-                        },
-                        maximumRecordTime: {
-                            errors: [],
-                            children: {
-                                seconds: {
-                                    errors: [],
-                                    children: {}
-                                },
-                                nanoseconds: {
-                                    errors: [],
-                                    children: {}
-                                }
-                            }
-                        },
-                        list: {
-                            errors: [],
-                            children: {
-                                '0': {
-                                    errors: [{
-                                        errorType: 'unexpected-type-tag',
-                                        expectedTypeTags: ['create', 'exercise', 'createAndExercise'],
-                                        actualTypeTag: 'archive'
-                                    }],
-                                    children: {}
-                                }
-                            }
-                        }
-                    }
-                },
-            }
-        };
-
-        client.submit(invalidRequest as any as SubmitRequest, error => {
+        client.submit(invalidRequest as unknown as SubmitRequest, error => {
             expect(error).to.not.be.null;
             expect(JSON.parse(error!.message)).to.deep.equal(expectedValidationTree);
             done();
         });
 
+    });
+
+    it('should perform validation on the Submit endpoint (promisified)', async () => {
+        let errorThrown = false;
+        try {
+            await client.submit(invalidRequest as unknown as SubmitRequest);
+        } catch (error) {
+            expect(error).to.not.be.null;
+            expect(JSON.parse(error.message)).to.deep.equal(expectedValidationTree);
+            errorThrown = true;
+        }
+        assert(errorThrown, 'an error was expected but none has been thrown');
     });
 
 });
