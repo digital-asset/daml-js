@@ -3,7 +3,7 @@
 
 import {SetTimeRequestValidation} from "../validation/SetTimeRequestValidation";
 import {ClientCancellableCall} from "../call/ClientCancellableCall";
-import {Callback, justForward, promisify} from "../util/Callback";
+import {Callback, forwardVoidResponse, promisify} from "../util/Callback";
 import {SetTimeRequest} from "../model/SetTimeRequest";
 import {ClientReadableObjectStream} from "../call/ClientReadableObjectStream";
 import {GetTimeResponse} from "../model/GetTimeResponse";
@@ -33,13 +33,13 @@ export class NodeJsTimeClient {
         return ClientReadableObjectStream.from(this.client.getTime(this.request), GetTimeResponseCodec);
     }
 
-    private setTimeCallback(requestObject: SetTimeRequest, callback: Callback<null>): ClientCancellableCall {
+    private setTimeCallback(requestObject: SetTimeRequest, callback: Callback<void>): ClientCancellableCall {
         const tree = SetTimeRequestValidation.validate(requestObject);
         if (isValid(tree)) {
             const request = SetTimeRequestCodec.serialize(requestObject);
             request.setLedgerId(this.ledgerId);
             return ClientCancellableCall.accept(this.client.setTime(request, (error, _) => {
-                justForward(callback, error, null)
+                forwardVoidResponse(callback, error);
             }));
         } else {
             setImmediate(() => {
@@ -49,11 +49,11 @@ export class NodeJsTimeClient {
         }
     }
 
-    private setTimePromise: (requestObject: SetTimeRequest) => Promise<null> = promisify(this.setTimeCallback);
+    private setTimePromise: (requestObject: SetTimeRequest) => Promise<void> = promisify(this.setTimeCallback);
 
-    setTime(requestObject: SetTimeRequest): Promise<null>
-    setTime(requestObject: SetTimeRequest, callback: Callback<null>): ClientCancellableCall
-    setTime(requestObject: SetTimeRequest, callback?: Callback<null>): ClientCancellableCall | Promise<null> {
+    setTime(requestObject: SetTimeRequest): Promise<void>
+    setTime(requestObject: SetTimeRequest, callback: Callback<void>): ClientCancellableCall
+    setTime(requestObject: SetTimeRequest, callback?: Callback<void>): ClientCancellableCall | Promise<void> {
         return callback ? this.setTimeCallback(requestObject, callback) : this.setTimePromise(requestObject);
     }
 

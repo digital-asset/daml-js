@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import {ResetRequest} from "../generated/com/digitalasset/ledger/api/v1/testing/reset_service_pb";
-import {Callback, justForward, promisify} from "../util/Callback";
+import {Callback, forwardVoidResponse, promisify} from "../util/Callback";
 import {ClientCancellableCall} from "../call/ClientCancellableCall";
 import {IResetServiceClient} from "../generated/com/digitalasset/ledger/api/v1/testing/reset_service_grpc_pb";
 
@@ -17,17 +17,17 @@ export class NodeJsResetClient {
         this.request.setLedgerId(ledgerId);
     }
 
-    private resetCallback(callback: Callback<null>) {
+    private resetCallback(callback: Callback<void>) {
         return ClientCancellableCall.accept(this.client.reset(this.request, (error, _) => {
-            justForward(callback, error, null)
+            forwardVoidResponse(callback, error);
         }));
     }
 
-    private resetPromise: () => Promise<null> = promisify(this.resetCallback);
+    private resetPromise: () => Promise<void> = promisify(this.resetCallback);
 
-    reset(): Promise<null>
-    reset(callback: Callback<null>): ClientCancellableCall
-    reset(callback?: Callback<null>): ClientCancellableCall | Promise<null> {
+    reset(): Promise<void>
+    reset(callback: Callback<void>): ClientCancellableCall
+    reset(callback?: Callback<void>): ClientCancellableCall | Promise<void> {
         return callback ? this.resetCallback(callback) : this.resetPromise();
     }
 

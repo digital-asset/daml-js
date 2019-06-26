@@ -1,7 +1,7 @@
 // Copyright (c) 2019 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {Callback, forward, justForward, promisify} from "../util/Callback";
+import {Callback, forward, forwardVoidResponse, promisify} from "../util/Callback";
 import {ClientCancellableCall} from "../call/ClientCancellableCall";
 import {ICommandServiceClient} from "../generated/com/digitalasset/ledger/api/v1/command_service_grpc_pb";
 import {ValidationReporter} from "../reporting/ValidationReporter";
@@ -29,13 +29,13 @@ export class NodeJsCommandClient implements CommandClient {
         this.reporter = reporter;
     }
 
-    private submitAndWaitCallback(requestObject: SubmitAndWaitRequest, callback: Callback<null>) {
+    private submitAndWaitCallback(requestObject: SubmitAndWaitRequest, callback: Callback<void>) {
         const tree = SubmitAndWaitRequestValidation.validate(requestObject);
         if (isValid(tree)) {
             const request = SubmitAndWaitRequestCodec.serialize(requestObject);
             request.getCommands()!.setLedgerId(this.ledgerId);
             return ClientCancellableCall.accept(this.client.submitAndWait(request, (error, _) => {
-                justForward(callback, error, null)
+                forwardVoidResponse(callback, error);
             }));
         } else {
             setImmediate(() => callback(new Error(this.reporter.render(tree))));
@@ -43,11 +43,11 @@ export class NodeJsCommandClient implements CommandClient {
         }
     };
 
-    private submitAndWaitPromise: (requestObject: SubmitAndWaitRequest) => Promise<null> = promisify(this.submitAndWaitCallback);
+    private submitAndWaitPromise: (requestObject: SubmitAndWaitRequest) => Promise<void> = promisify(this.submitAndWaitCallback);
 
-    submitAndWait(requestObject: SubmitAndWaitRequest): Promise<null>
-    submitAndWait(requestObject: SubmitAndWaitRequest, callback: Callback<null>): ClientCancellableCall
-    submitAndWait(requestObject: SubmitAndWaitRequest, callback?: Callback<null>): ClientCancellableCall | Promise<null> {
+    submitAndWait(requestObject: SubmitAndWaitRequest): Promise<void>
+    submitAndWait(requestObject: SubmitAndWaitRequest, callback: Callback<void>): ClientCancellableCall
+    submitAndWait(requestObject: SubmitAndWaitRequest, callback?: Callback<void>): ClientCancellableCall | Promise<void> {
         return callback ? this.submitAndWaitCallback(requestObject, callback) : this.submitAndWaitPromise(requestObject);
     }
 

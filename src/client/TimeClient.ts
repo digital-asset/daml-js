@@ -27,7 +27,7 @@ export interface TimeClient {
      * Allows clients to change the ledger's clock in an atomic get-and-set
      * operation.
      */
-    setTime(requestObject: SetTimeRequest): Promise<null>
-    setTime(requestObject: SetTimeRequest, callback: Callback<null>): ClientCancellableCall
+    setTime(requestObject: SetTimeRequest): Promise<void>
+    setTime(requestObject: SetTimeRequest, callback: Callback<void>): ClientCancellableCall
 
 }

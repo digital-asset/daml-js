@@ -24,8 +24,8 @@ export interface CommandClient {
      * Propagates the gRPC error of failed submissions including DAML
      * interpretation errors.
      */
-    submitAndWait(requestObject: SubmitAndWaitRequest): Promise<null>
-    submitAndWait(requestObject: SubmitAndWaitRequest, callback: Callback<null>): ClientCancellableCall
+    submitAndWait(requestObject: SubmitAndWaitRequest): Promise<void>
+    submitAndWait(requestObject: SubmitAndWaitRequest, callback: Callback<void>): ClientCancellableCall
 
     /**
      * Submits a single composite command, waits for its result, and returns the transaction.

@@ -6,7 +6,7 @@ import {ClientCancellableCall} from "../call/ClientCancellableCall";
 
 export interface ResetClient {
 
-    reset(): Promise<null>
-    reset(callback: Callback<null>): ClientCancellableCall
+    reset(): Promise<void>
+    reset(callback: Callback<void>): ClientCancellableCall
 
 }

@@ -46,7 +46,7 @@ export interface CommandSubmissionClient {
     /**
      * Submit a single composite command.
      */
-    submit(requestObject: SubmitRequest): Promise<null>
-    submit(requestObject: SubmitRequest, callback: Callback<null>): ClientCancellableCall
+    submit(requestObject: SubmitRequest): Promise<void>
+    submit(requestObject: SubmitRequest, callback: Callback<void>): ClientCancellableCall
 
 }
