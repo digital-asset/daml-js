@@ -7,7 +7,7 @@ set -euxo pipefail
 cd "$(dirname "${0}")"
 
 GRPC_VERSION=1.18.0
-SDK_VERSION=100.12.18
+SDK_VERSION=100.12.25
 
 PROTO_PATH="./proto"
 OUT_PATH="./src/generated"
@@ -39,6 +39,7 @@ if [ ! -d "$OUT_PATH" ]; then
       --proto_path="${PROTO_PATH}" \
       --grpc_out="${OUT_PATH}" \
       "${PROTO_PATH}"/com/digitalasset/ledger/api/v1/*.proto \
+      "${PROTO_PATH}"/com/digitalasset/ledger/api/v1/admin/*.proto \
       "${PROTO_PATH}"/com/digitalasset/ledger/api/v1/testing/*.proto \
       "${PROTO_PATH}"/google/rpc/*.proto \
       "${PROTO_PATH}"/grpc/health/v1/*.proto
@@ -53,6 +54,7 @@ if [ ! -d "$OUT_PATH" ]; then
       --proto_path="${PROTO_PATH}" \
       --ts_out="${OUT_PATH}" \
       "${PROTO_PATH}"/com/digitalasset/ledger/api/v1/*.proto \
+      "${PROTO_PATH}"/com/digitalasset/ledger/api/v1/admin/*.proto \
       "${PROTO_PATH}"/com/digitalasset/ledger/api/v1/testing/*.proto \
       "${PROTO_PATH}"/google/rpc/*.proto \
       "${PROTO_PATH}"/grpc/health/v1/*.proto
