@@ -40,4 +40,6 @@ steps:
   displayName: Blackduck security scan
   env:
     BLACKDUCK_HUBDETECT_TOKEN: $(BLACKDUCK_HUBDETECT_TOKEN)
+  # The BlackDuck token is not available from forks, hence we skip this step
+  condition: not(variables['System.PullRequest.IsFork'])
 
