@@ -1,7 +1,6 @@
 // Copyright (c) 2019 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-
 import {Identifier} from "../model/Identifier";
 import {noFields, RequiredFieldsValidators} from "./Validation";
 import {native} from "./Native";
