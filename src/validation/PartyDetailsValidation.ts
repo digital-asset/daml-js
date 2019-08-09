@@ -2,16 +2,21 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import {PartyDetails} from "../model/PartyDetails";
-import {noFields, RequiredFieldsValidators} from "./Validation";
+import {OptionalFieldsValidators, RequiredFieldsValidators} from "./Validation";
 import {native} from "./Native";
 import {object} from "./Object";
 
 function required(): RequiredFieldsValidators<PartyDetails> {
     return {
         party: native('string'),
-        display_name: native('string'),
-        is_local: native('boolean')
+        isLocal: native('boolean')
     };
 }
 
-export const PartyDetailsValidation = object<PartyDetails>('PartyDetails', required, noFields)
+function optional(): OptionalFieldsValidators<PartyDetails> {
+    return {
+        displayName: native('string')
+    }
+}
+
+export const PartyDetailsValidation = object<PartyDetails>('PartyDetails', required, optional);
