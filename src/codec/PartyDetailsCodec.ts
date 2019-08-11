@@ -16,7 +16,10 @@ export const PartyDetailsCodec: Codec<PbPartyDetails, PartyDetails> = {
     serialize(response: PartyDetails): PbPartyDetails{
         const result = new PbPartyDetails();
         result.setParty(response.party);
-        result.setDisplayName(response.displayName);
+        if (response.displayName !== undefined){
+            const dName:string = response.displayName;
+            result.setDisplayName(dName);
+        }
         result.setIsLocal(response.isLocal);
         return result;
     }

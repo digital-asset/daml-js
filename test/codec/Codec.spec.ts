@@ -180,6 +180,11 @@ import {SubmitAndWaitForTransactionResponseCodec} from "../../src/codec/SubmitAn
 import {SubmitAndWaitForTransactionIdResponseCodec} from "../../src/codec/SubmitAndWaitForTransactionIdResponseCodec";
 import {SubmitAndWaitForTransactionTreeResponseCodec} from "../../src/codec/SubmitAndWaitForTransactionTreeResponseCodec";
 
+import {ListKnownPartiesResponse} from "../../src/model/ListKnownPartiesResponse";
+import {ListKnownPartiesResponse as PbListKnownPartiesResponse, PartyDetails as PbPartyDetails} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb";
+import {PartyDetails} from "../../src/model/PartyDetails";
+import {ListKnownPartiesResponseCodec} from "../../src/codec/ListKnownPartiesResponseCodec";
+
 describe('Codec', () => {
     const packageId = 'packageId';
     const moduleName = 'moduleName';
@@ -1499,6 +1504,33 @@ describe('Codec', () => {
         twoWayCheck(SetTimeRequestCodec, message, object);
     });
 
+    itShouldConvert('ListKnownPartiesResponse', ()=>{
+
+        const responseMessage = new PbListKnownPartiesResponse();
+        const pbPartyDetails = new PbPartyDetails()
+        pbPartyDetails.setParty("party");
+        pbPartyDetails.setDisplayName("displayName");
+        pbPartyDetails.setIsLocal(false);
+        const pbPartyDetailsList = [pbPartyDetails];
+        responseMessage.setPartyDetailsList(pbPartyDetailsList);
+
+        const partyDetails: PartyDetails = {
+            party: "party",
+            displayName: "displayName",
+            isLocal: false
+        };
+        const partyDetailsList : PartyDetails[] = [
+            partyDetails
+        ];
+        const responseObject: ListKnownPartiesResponse = {
+            partyDetails: partyDetailsList
+        };
+        twoWayCheck(
+            ListKnownPartiesResponseCodec,
+            responseMessage,
+            responseObject
+        );
+    });
 });
 
 function itShouldConvert(typeName: String, fn?: Mocha.Func): Mocha.Test {
