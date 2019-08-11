@@ -8,7 +8,8 @@ import {
     GetParticipantIdRequest,
     GetParticipantIdResponse,
     ListKnownPartiesRequest,
-    ListKnownPartiesResponse
+    ListKnownPartiesResponse,
+    PartyDetails
 } from "../../src/generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb"
 import {IPartyManagementServiceClient} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/party_management_service_grpc_pb"
 import {DummyClientUnaryCall} from "../call/DummyClientUnaryCall";
@@ -17,9 +18,19 @@ import * as sinon from "sinon";
 export class DummyPartyManagementServiceClient implements IPartyManagementServiceClient{
 
     private readonly latestRequestSpy: sinon.SinonSpy;
+    private readonly listKnownPartiesResponse: ListKnownPartiesResponse;
 
     constructor(latestRequestSpy: sinon.SinonSpy){
         this.latestRequestSpy = latestRequestSpy;
+        this.listKnownPartiesResponse = new ListKnownPartiesResponse();
+        const dummyPartyDetail : PartyDetails = new PartyDetails();
+        dummyPartyDetail.setParty("party");
+        dummyPartyDetail.setDisplayName("displayname");
+        dummyPartyDetail.setIsLocal(false);
+        const partiesDetail : PartyDetails[] = [
+            dummyPartyDetail
+        ];
+        this.listKnownPartiesResponse.setPartyDetailsList(partiesDetail);
     }
 
     getParticipantId(
@@ -84,7 +95,7 @@ export class DummyPartyManagementServiceClient implements IPartyManagementServic
                 : options
                 : callback;
         this.latestRequestSpy(request);
-        cb(null);
+        cb(null, this.listKnownPartiesResponse);
         return DummyClientUnaryCall.Instance;
     };
 
