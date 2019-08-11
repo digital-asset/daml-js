@@ -17,8 +17,10 @@ import {LedgerConfigurationClient} from "./LedgerConfigurationClient";
 import {NodeJsPackageClient} from "./NodeJsPackageClient";
 import {NodeJsLedgerIdentityClient} from "./NodeJsLedgerIdentityClient";
 import {NodeJsCommandSubmissionClient} from "./NodeJsCommandSubmissionClient";
+import {NodeJsPartyManagementClient} from "./NodeJsPartyManagementClient";
 
 import {LedgerIdentityServiceClient} from "../generated/com/digitalasset/ledger/api/v1/ledger_identity_service_grpc_pb";
+import {PartyManagementServiceClient} from "../generated/com/digitalasset/ledger/api/v1/admin/party_management_service_grpc_pb";
 import {GetLedgerIdentityRequest} from "../generated/com/digitalasset/ledger/api/v1/ledger_identity_service_pb";
 import {ActiveContractsServiceClient} from "../generated/com/digitalasset/ledger/api/v1/active_contracts_service_grpc_pb";
 import {CommandServiceClient} from "../generated/com/digitalasset/ledger/api/v1/command_service_grpc_pb";
@@ -40,6 +42,7 @@ import {promisify} from "util";
 import {ResetClient} from "./ResetClient";
 import {NodeJsTimeClient} from "./NodeJsTimeClient";
 import {NodeJsTransactionClient} from "./NodeJsTransactionClient";
+import {PartyManagementClient} from './PartyManagementClient';
 
 /**
  * A {@link LedgerClient} implementation that connects to an existing Ledger and provides clients to query it. To use the {@link DamlLedgerClient}
@@ -58,6 +61,7 @@ export class DamlLedgerClient implements LedgerClient {
     private readonly _timeClient: TimeClient;
     private readonly _transactionClient: TransactionClient;
     private readonly _resetClient: ResetClient;
+    private readonly _partyManagementClient: PartyManagementClient;
 
     private constructor(
         ledgerId: string,
@@ -111,6 +115,9 @@ export class DamlLedgerClient implements LedgerClient {
             ledgerId,
             new ResetServiceClient(address, credentials)
         );
+        this._partyManagementClient = new NodeJsPartyManagementClient(
+            new PartyManagementServiceClient(address, credentials)
+        );
     }
 
     get activeContractsClient(): ActiveContractsClient {
@@ -151,6 +158,10 @@ export class DamlLedgerClient implements LedgerClient {
 
     get resetClient(): ResetClient {
         return this._resetClient;
+    }
+
+    get partyManagementClient(): PartyManagementClient{
+        return this._partyManagementClient;
     }
 
     private static connectCallback(

@@ -6,18 +6,18 @@ import {PartyDetails} from "../model/PartyDetails";
 import {PartyDetails as PbPartyDetails} from "../generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb"
 
 export const PartyDetailsCodec: Codec<PbPartyDetails, PartyDetails> = {
-    deserialize(request: PbPartyDetails): PartyDetails{
+    deserialize(response: PbPartyDetails): PartyDetails{
         return {
-            party: request.getParty(),
-            display_name: request.getDisplayName(),
-            is_local: request.getIsLocal()
+            party: response.getParty(),
+            displayName: response.getDisplayName(),
+            isLocal: response.getIsLocal()
         };
     },
-    serialize(request: PartyDetails): PbPartyDetails{
+    serialize(response: PartyDetails): PbPartyDetails{
         const result = new PbPartyDetails();
-        result.setParty(request.party);
-        result.setDisplayName(request.display_name);
-        result.setIsLocal(request.is_local);
+        result.setParty(response.party);
+        result.setDisplayName(response.displayName);
+        result.setIsLocal(response.isLocal);
         return result;
     }
 };
