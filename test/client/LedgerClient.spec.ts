@@ -323,4 +323,10 @@ describe("DamlLedgerClient", () => {
         assert(spy.calledOnceWithExactly(ledgerId));
     });
 
+    it('should correct list known parties', async ()=>{
+        const client = await DamlLedgerClient.connect({host: '0.0.0.0', port: port});
+        const parties = await client.partyManagementClient.listKnownParties();
+        assert(parties != null);
+    });
+
 });
