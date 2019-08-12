@@ -4,5 +4,5 @@
 import { PartyDetails } from "./PartyDetails";
 
 export interface ListKnownPartiesResponse {
-    partyDetails: Array<PartyDetails>;
+    partyDetails: Array<PartyDetails>
 }
