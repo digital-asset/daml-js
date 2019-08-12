@@ -9,14 +9,14 @@ export const ListKnownPartiesResponseCodec: Codec<PbListKnownPartiesResponse, Li
     deserialize(response: PbListKnownPartiesResponse): ListKnownPartiesResponse{
         const partyPbDetailsList : PbPartyDetails[] = response.getPartyDetailsList();
         const partyDetailsList = partyPbDetailsList.map(item => {
-            let dName:string = item.getDisplayName()
-            if ( dName !== undefined){
+            let dName = item.getDisplayName();
+            if (dName !== undefined) {
                 return {
                     party: item.getParty(),
                     displayName: dName,
                     isLocal: item.getIsLocal()
                 }
-            }else{
+            } else {
                 return {
                     party: item.getParty(),
                     isLocal: item.getIsLocal()
@@ -24,13 +24,13 @@ export const ListKnownPartiesResponseCodec: Codec<PbListKnownPartiesResponse, Li
             }
 
         });
-        return{
+        return {
             partyDetails: partyDetailsList
         }
     },
     serialize(response: ListKnownPartiesResponse): PbListKnownPartiesResponse{
         const result = new PbListKnownPartiesResponse();
-        const pbPartyDetailsList = response.partyDetails.map(item =>{
+        const pbPartyDetailsList = response.partyDetails.map(item => {
             const pbPartyDetails = new PbPartyDetails();
             pbPartyDetails.setParty(item.party);
             if (item.displayName !== undefined) {

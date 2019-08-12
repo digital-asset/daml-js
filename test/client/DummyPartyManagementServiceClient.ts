@@ -15,15 +15,15 @@ import {IPartyManagementServiceClient} from "../../src/generated/com/digitalasse
 import {DummyClientUnaryCall} from "../call/DummyClientUnaryCall";
 import * as sinon from "sinon";
 
-export class DummyPartyManagementServiceClient implements IPartyManagementServiceClient{
+export class DummyPartyManagementServiceClient implements IPartyManagementServiceClient {
 
     private readonly latestRequestSpy: sinon.SinonSpy;
     private readonly listKnownPartiesResponse: ListKnownPartiesResponse;
 
-    constructor(latestRequestSpy: sinon.SinonSpy){
+    constructor(latestRequestSpy: sinon.SinonSpy) {
         this.latestRequestSpy = latestRequestSpy;
         this.listKnownPartiesResponse = new ListKnownPartiesResponse();
-        const dummyPartyDetail : PartyDetails = new PartyDetails();
+        const dummyPartyDetail = new PartyDetails();
         dummyPartyDetail.setParty("party");
         dummyPartyDetail.setDisplayName("displayname");
         dummyPartyDetail.setIsLocal(false);

@@ -13,10 +13,10 @@ export const PartyDetailsCodec: Codec<PbPartyDetails, PartyDetails> = {
             isLocal: response.getIsLocal()
         };
     },
-    serialize(response: PartyDetails): PbPartyDetails{
+    serialize(response: PartyDetails): PbPartyDetails {
         const result = new PbPartyDetails();
         result.setParty(response.party);
-        if (response.displayName !== undefined){
+        if (response.displayName !== undefined) {
             const dName:string = response.displayName;
             result.setDisplayName(dName);
         }

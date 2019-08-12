@@ -6,15 +6,15 @@ export interface PartyDetails {
     // The stable unique identifier of a DAML party.
     // Must be a valid PartyIdString (as described in ``value.proto``).
     // Required
-    party: string;
+    party: string
   
     // Human readable name associated with the party. Caution, it might not be
     // unique.
     // Optional
-    displayName?: string;
+    displayName?: string
   
     // true if party is hosted by the backing participant.
     // Required
-    isLocal: boolean;
+    isLocal: boolean
   }
   
