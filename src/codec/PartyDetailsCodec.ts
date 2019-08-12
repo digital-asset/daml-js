@@ -6,7 +6,7 @@ import {PartyDetails} from "../model/PartyDetails";
 import {PartyDetails as PbPartyDetails} from "../generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb"
 
 export const PartyDetailsCodec: Codec<PbPartyDetails, PartyDetails> = {
-    deserialize(response: PbPartyDetails): PartyDetails{
+    deserialize(response: PbPartyDetails): PartyDetails {
         return {
             party: response.getParty(),
             displayName: response.getDisplayName(),
