@@ -184,6 +184,7 @@ import {ListKnownPartiesResponse} from "../../src/model/ListKnownPartiesResponse
 import {ListKnownPartiesResponse as PbListKnownPartiesResponse, PartyDetails as PbPartyDetails} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb";
 import {PartyDetails} from "../../src/model/PartyDetails";
 import {ListKnownPartiesResponseCodec} from "../../src/codec/ListKnownPartiesResponseCodec";
+import { PartyDetailsCodec } from '../../src/codec/PartyDetailsCodec';
 
 describe('Codec', () => {
     const packageId = 'packageId';
@@ -1504,7 +1505,23 @@ describe('Codec', () => {
         twoWayCheck(SetTimeRequestCodec, message, object);
     });
 
-    itShouldConvert('ListKnownPartiesResponse', ()=>{
+    itShouldConvert('PartyCodec', ()=> {
+        const pbPartyDetails = new PbPartyDetails()
+        pbPartyDetails.setParty("party");
+        pbPartyDetails.setDisplayName("displayName");
+        pbPartyDetails.setIsLocal(false);
+        
+        const partyDetails: PartyDetails = {
+            party: "party",
+            displayName: "displayName",
+            isLocal: false
+        };
+
+        twoWayCheck(PartyDetailsCodec, pbPartyDetails, partyDetails);
+
+    });
+
+    itShouldConvert('ListKnownPartiesResponse', ()=> {
 
         const responseMessage = new PbListKnownPartiesResponse();
         const pbPartyDetails = new PbPartyDetails()
