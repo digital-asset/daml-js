@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import {Codec} from "./Codec";
+import {PartyDetailsCodec} from "./PartyDetailsCodec";
 import {ListKnownPartiesResponse} from "../model/ListKnownPartiesResponse";
 import {ListKnownPartiesResponse as PbListKnownPartiesResponse, PartyDetails as PbPartyDetails} from "../generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb";
 
@@ -9,20 +10,7 @@ export const ListKnownPartiesResponseCodec: Codec<PbListKnownPartiesResponse, Li
     deserialize(response: PbListKnownPartiesResponse): ListKnownPartiesResponse{
         const partyPbDetailsList : PbPartyDetails[] = response.getPartyDetailsList();
         const partyDetailsList = partyPbDetailsList.map(item => {
-            const dName = item.getDisplayName();
-            if (dName !== undefined) {
-                return {
-                    party: item.getParty(),
-                    displayName: dName,
-                    isLocal: item.getIsLocal()
-                }
-            } else {
-                return {
-                    party: item.getParty(),
-                    isLocal: item.getIsLocal()
-                }
-            }
-
+            return PartyDetailsCodec.deserialize(item);
         });
         return {
             partyDetails: partyDetailsList
@@ -31,14 +19,7 @@ export const ListKnownPartiesResponseCodec: Codec<PbListKnownPartiesResponse, Li
     serialize(response: ListKnownPartiesResponse): PbListKnownPartiesResponse{
         const result = new PbListKnownPartiesResponse();
         const pbPartyDetailsList = response.partyDetails.map(item => {
-            const pbPartyDetails = new PbPartyDetails();
-            pbPartyDetails.setParty(item.party);
-            if (item.displayName !== undefined) {
-                const dName: string = item.displayName;
-                pbPartyDetails.setDisplayName(dName);
-            }
-            pbPartyDetails.setIsLocal(item.isLocal);
-            return pbPartyDetails;
+            return PartyDetailsCodec.serialize(item);
         });
         result.setPartyDetailsList(pbPartyDetailsList);
         return result;
