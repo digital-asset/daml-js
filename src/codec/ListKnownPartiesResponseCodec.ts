@@ -9,7 +9,7 @@ export const ListKnownPartiesResponseCodec: Codec<PbListKnownPartiesResponse, Li
     deserialize(response: PbListKnownPartiesResponse): ListKnownPartiesResponse{
         const partyPbDetailsList : PbPartyDetails[] = response.getPartyDetailsList();
         const partyDetailsList = partyPbDetailsList.map(item => {
-            let dName = item.getDisplayName();
+            const dName = item.getDisplayName();
             if (dName !== undefined) {
                 return {
                     party: item.getParty(),
