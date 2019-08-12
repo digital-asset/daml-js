@@ -3,37 +3,12 @@
 
 import * as jsc from 'jsverify';
 import {PartyDetails} from "../../src/model/PartyDetails";
+import { maybe } from './Maybe';
 
-export const ArbitraryPartyDetails: jsc.Arbitrary<PartyDetails> = jsc
-    .tuple([jsc.string, jsc.string, jsc.bool])
-    .smap<PartyDetails>(
-        ([party, displayName, isLocal]) => {
-            if (displayName !== undefined){
-                return {
-                    party: party,
-                    displayName: displayName,
-                    isLocal: isLocal
-                };
-            }else{
-                return {
-                    party: party,
-                    isLocal: isLocal
-                }; 
-            }
-        },
-        partyDetails => {
-            if (partyDetails.displayName !== undefined){
-                return [
-                    partyDetails.party,
-                    partyDetails.displayName,
-                    partyDetails.isLocal
-                ];
-            }else{
-                return [
-                    partyDetails.party,
-                    "",
-                    partyDetails.isLocal
-                ];
-            }
-        }
-    );
+export const ArbitraryPartyDetails: jsc.Arbitrary<PartyDetails> = 
+    jsc.record<PartyDetails>({
+        party: jsc.string,
+        displayName: maybe(jsc.string),
+        isLocal: jsc.bool
+    });
+    
