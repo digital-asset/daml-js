@@ -4,7 +4,7 @@
 [![Build](https://dev.azure.com/digitalasset/daml/_apis/build/status/digital-asset.daml-js?branchName=master&label=Build)](https://dev.azure.com/digitalasset/daml/_build/latest?definitionId=13&branchName=master)
 
 ```
-Copyright 2019 Digital Asset (Switzerland) GmbH and/or its affiliates. All Rights Reserved.
+Copyright 2019 The DAML Authors. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 ```
 
