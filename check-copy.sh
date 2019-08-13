@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Copyright (c) 2019 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
+# Copyright (c) 2019 The DAML Authors. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
 set -euo pipefail
 
-TS_HEAD="// Copyright (c) $(date +%Y) Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.\n// SPDX-License-Identifier: Apache-2.0"
-JS_HEAD="// Copyright (c) $(date +%Y) Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.\n// SPDX-License-Identifier: Apache-2.0"
-SH_HEAD="#!/usr/bin/env bash\n# Copyright (c) $(date +%Y) Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.\n# SPDX-License-Identifier: Apache-2.0"
+TS_HEAD="// Copyright (c) $(date +%Y) The DAML Authors. All rights reserved.\n// SPDX-License-Identifier: Apache-2.0"
+JS_HEAD="// Copyright (c) $(date +%Y) The DAML Authors. All rights reserved.\n// SPDX-License-Identifier: Apache-2.0"
+SH_HEAD="#!/usr/bin/env bash\n# Copyright (c) $(date +%Y) The DAML Authors. All rights reserved.\n# SPDX-License-Identifier: Apache-2.0"
 
 RESULT=0
 
