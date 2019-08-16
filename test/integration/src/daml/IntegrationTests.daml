@@ -37,14 +37,3 @@ template Pong
           else do
             create Ping with sender = receiver; receiver = sender; count = count + 1
             return ()
-
-template AlarmClock
-  with
-    sleeper: Party
-  where
-    signatory sleeper
-
-    controller sleeper can
-      WakeUp : ()
-        do
-          return ()

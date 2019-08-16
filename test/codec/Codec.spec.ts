@@ -179,12 +179,16 @@ import {CreateAndExerciseCommand} from "../../src/model/CreateAndExerciseCommand
 import {SubmitAndWaitForTransactionResponseCodec} from "../../src/codec/SubmitAndWaitForTransactionResponseCodec";
 import {SubmitAndWaitForTransactionIdResponseCodec} from "../../src/codec/SubmitAndWaitForTransactionIdResponseCodec";
 import {SubmitAndWaitForTransactionTreeResponseCodec} from "../../src/codec/SubmitAndWaitForTransactionTreeResponseCodec";
-
 import {ListKnownPartiesResponse} from "../../src/model/ListKnownPartiesResponse";
-import {ListKnownPartiesResponse as PbListKnownPartiesResponse, PartyDetails as PbPartyDetails} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb";
+import {ListKnownPartiesResponse as PbListKnownPartiesResponse, PartyDetails as PbPartyDetails, AllocatePartyRequest as PbAllocatePartyRequest, AllocatePartyResponse as PbAllocatePartyResponse} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb";
 import {PartyDetails} from "../../src/model/PartyDetails";
 import {ListKnownPartiesResponseCodec} from "../../src/codec/ListKnownPartiesResponseCodec";
-import { PartyDetailsCodec } from '../../src/codec/PartyDetailsCodec';
+import {PartyDetailsCodec} from '../../src/codec/PartyDetailsCodec';
+import {AllocatePartyRequestCodec} from "../../src/codec/AllocatePartyRequestCodec";
+import {AllocatePartyResponseCodec} from "../../src/codec/AllocatePartyResponseCodec";
+import {AllocatePartyRequest} from "../../src/model/AllocatePartyRequest";
+import {AllocatePartyResponse} from "../../src/model/AllocatePartyResponse";
+
 
 describe('Codec', () => {
     const packageId = 'packageId';
@@ -1505,48 +1509,63 @@ describe('Codec', () => {
         twoWayCheck(SetTimeRequestCodec, message, object);
     });
 
-    itShouldConvert('PartyCodec', ()=> {
-        const pbPartyDetails = new PbPartyDetails()
-        pbPartyDetails.setParty("party");
-        pbPartyDetails.setDisplayName("displayName");
-        pbPartyDetails.setIsLocal(false);
-        
-        const partyDetails: PartyDetails = {
+    itShouldConvert('PartyDetailsCodec', ()=> {
+        const message = new PbPartyDetails();
+        message.setParty("party");
+        message.setDisplayName("displayName");
+        message.setIsLocal(false);
+        const object: PartyDetails = {
             party: "party",
             displayName: "displayName",
             isLocal: false
         };
-
-        twoWayCheck(PartyDetailsCodec, pbPartyDetails, partyDetails);
+        twoWayCheck(PartyDetailsCodec, message, object);
 
     });
 
-    itShouldConvert('ListKnownPartiesResponse', ()=> {
-
-        const responseMessage = new PbListKnownPartiesResponse();
-        const pbPartyDetails = new PbPartyDetails()
-        pbPartyDetails.setParty("party");
-        pbPartyDetails.setDisplayName("displayName");
-        pbPartyDetails.setIsLocal(false);
-        const pbPartyDetailsList = [pbPartyDetails];
-        responseMessage.setPartyDetailsList(pbPartyDetailsList);
-
-        const partyDetails: PartyDetails = {
-            party: "party",
-            displayName: "displayName",
-            isLocal: false
+    itShouldConvert('ListKnownPartiesResponse', () => {
+        const message = new PbListKnownPartiesResponse();
+        const partyDetails = new PbPartyDetails();
+        partyDetails.setParty("party");
+        partyDetails.setDisplayName("displayName");
+        partyDetails.setIsLocal(false);
+        message.setPartyDetailsList([partyDetails]);
+        const object: ListKnownPartiesResponse = {
+            partyDetails: [{
+                party: "party",
+                displayName: "displayName",
+                isLocal: false
+            }]
         };
-        const partyDetailsList : PartyDetails[] = [
-            partyDetails
-        ];
-        const responseObject: ListKnownPartiesResponse = {
-            partyDetails: partyDetailsList
+        twoWayCheck(ListKnownPartiesResponseCodec, message, object);
+    });
+
+    itShouldConvert('AllocatePartyRequest', () => {
+        const message = new PbAllocatePartyRequest();
+        message.setPartyIdHint("alice");
+        message.setDisplayName("Alice Robertson");
+        const object: AllocatePartyRequest = {
+            partyIdHint: "alice",
+            displayName: "Alice Robertson"
         };
-        twoWayCheck(
-            ListKnownPartiesResponseCodec,
-            responseMessage,
-            responseObject
-        );
+        twoWayCheck(AllocatePartyRequestCodec, message, object);
+    });
+
+    itShouldConvert('AllocatePartyResponse', () => {
+        const message = new PbAllocatePartyResponse();
+        const partyDetails = new PbPartyDetails();
+        partyDetails.setParty("party");
+        partyDetails.setDisplayName("displayName");
+        partyDetails.setIsLocal(false);
+        message.setPartyDetails(partyDetails);
+        const object: AllocatePartyResponse = {
+            partyDetails: {
+                party: "party",
+                displayName: "displayName",
+                isLocal: false
+            }
+        };
+        twoWayCheck(AllocatePartyResponseCodec, message, object);
     });
 });
 

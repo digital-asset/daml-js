@@ -19,18 +19,17 @@ export class DummyPartyManagementServiceClient implements IPartyManagementServic
 
     private readonly latestRequestSpy: sinon.SinonSpy;
     private readonly listKnownPartiesResponse: ListKnownPartiesResponse;
+    private readonly allocatePartyResponse: AllocatePartyResponse;
 
     constructor(latestRequestSpy: sinon.SinonSpy) {
         this.latestRequestSpy = latestRequestSpy;
         this.listKnownPartiesResponse = new ListKnownPartiesResponse();
-        const dummyPartyDetail = new PartyDetails();
-        dummyPartyDetail.setParty("party");
-        dummyPartyDetail.setDisplayName("displayname");
-        dummyPartyDetail.setIsLocal(false);
-        const partiesDetail : PartyDetails[] = [
-            dummyPartyDetail
-        ];
-        this.listKnownPartiesResponse.setPartyDetailsList(partiesDetail);
+        this.listKnownPartiesResponse.setPartyDetailsList([]);
+        this.allocatePartyResponse = new AllocatePartyResponse();
+        const dummyPartyDetails = new PartyDetails();
+        dummyPartyDetails.setParty("party");
+        dummyPartyDetails.setIsLocal(true);
+        this.allocatePartyResponse.setPartyDetails(dummyPartyDetails);
     }
 
     getParticipantId(
@@ -111,7 +110,7 @@ export class DummyPartyManagementServiceClient implements IPartyManagementServic
         metadata: Metadata, 
         callback: (
             error: Error | null, 
-            esponse: AllocatePartyResponse) => void
+            response: AllocatePartyResponse) => void
     ): ClientUnaryCall;
 
     allocateParty(
@@ -127,7 +126,7 @@ export class DummyPartyManagementServiceClient implements IPartyManagementServic
                 : options
                 : callback;
         this.latestRequestSpy(request);
-        cb(null);
+        cb(null, this.allocatePartyResponse);
         return DummyClientUnaryCall.Instance;
     }
 }

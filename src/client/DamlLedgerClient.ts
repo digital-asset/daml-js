@@ -116,7 +116,8 @@ export class DamlLedgerClient implements LedgerClient {
             new ResetServiceClient(address, credentials)
         );
         this._partyManagementClient = new NodeJsPartyManagementClient(
-            new PartyManagementServiceClient(address, credentials)
+            new PartyManagementServiceClient(address, credentials),
+            reporter
         );
     }
 

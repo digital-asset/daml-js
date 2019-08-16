@@ -13,6 +13,8 @@ import {NodeJsPackageClient} from "./client/NodeJsPackageClient";
 import {NodeJsResetClient} from "./client/NodeJsResetClient";
 import {NodeJsTimeClient} from "./client/NodeJsTimeClient";
 import {NodeJsTransactionClient} from "./client/NodeJsTransactionClient";
+import {NodeJsPartyManagementClient} from "./client/NodeJsPartyManagementClient";
+
 export {
     NodeJsActiveContractsClient as ActiveContractsClient,
     NodeJsCommandClient as CommandClient,
@@ -25,13 +27,16 @@ export {
     NodeJsPackageClient as PackageClient,
     NodeJsResetClient as ResetClient,
     NodeJsTimeClient as TimeClient,
-    NodeJsTransactionClient as TransactionClient
+    NodeJsTransactionClient as TransactionClient,
+    NodeJsPartyManagementClient as PartyManagementClient
 };
 
 import * as lf from './generated/da/daml_lf_pb';
 export {lf};
 
 import {Any} from './model/Any';
+import {AllocatePartyRequest} from "./model/AllocatePartyRequest";
+import {AllocatePartyResponse} from "./model/AllocatePartyResponse";
 import {ArchivedEvent} from './model/ArchivedEvent';
 import {Checkpoint} from './model/Checkpoint';
 import {Commands} from './model/Commands';
@@ -134,6 +139,8 @@ export {
     CompletionStreamResponse,
     CompletionStreamRequest,
     CompletionEndResponse,
+    AllocatePartyRequest,
+    AllocatePartyResponse,
     Command,
     Commands,
     Completion,
