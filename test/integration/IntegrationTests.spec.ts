@@ -208,10 +208,29 @@ describe("Integration tests", () => {
                             done();
                         });
                     });
-                }, 100);
+                }, 500);
             });
         });
     });
+
+    it('should be able to retrieve and set parties as expected', (done) => {
+        withLedgerClient(client => {
+            client.partyManagementClient.listKnownParties((error, firstPartiesResponse) => {
+                expect(error).to.be.null;
+                expect(firstPartiesResponse!.partyDetails).to.be.empty;
+                client.partyManagementClient.allocateParty({}, (error, allocatePartyResponse) => {
+                    expect(error).to.be.null;
+                    const allocatedParty = allocatePartyResponse!.partyDetails;
+                    client.partyManagementClient.listKnownParties((error, secondPartiesResponse) => {
+                        expect(error).to.be.null;
+                        expect(secondPartiesResponse!.partyDetails).to.have.length(1);
+                        expect(secondPartiesResponse!.partyDetails[0]).to.deep.equal(allocatedParty);
+                        done();
+                    });
+                })
+            });
+        });
+    })
 
 });
 

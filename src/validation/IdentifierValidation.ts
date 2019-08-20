@@ -1,7 +1,6 @@
 // Copyright (c) 2019 The DAML Authors. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-
 import {Identifier} from "../model/Identifier";
 import {noFields, RequiredFieldsValidators} from "./Validation";
 import {native} from "./Native";

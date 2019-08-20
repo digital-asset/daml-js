@@ -1,11 +1,11 @@
-sdk-version: 0.12.16
+sdk-version: 0.12.25
 name: IntegrationTests
 source: daml/IntegrationTests.daml
 parties:
   - Alice
   - Bob
 exposed-modules:
-  - PingPong
+  - IntegrationTests
 version: '0.0.0'
 dependencies:
   - daml-prim

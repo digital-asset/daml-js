@@ -96,6 +96,8 @@ import {SubmitAndWaitForTransactionIdResponseValidation} from "../../src/validat
 import {SubmitAndWaitForTransactionTreeResponseValidation} from "../../src/validation/SubmitAndWaitForTransactionTreeResponseValidation";
 import {ArbitrarySubmitAndWaitForTransactionResponse} from "../arbitrary/ArbitrarySubmitAndWaitForTransactionResponse";
 import {ArbitrarySubmitAndWaitForTransactionTreeResponse} from "../arbitrary/ArbitrarySubmitAndWaitForTransactionTreeResponse";
+import {ArbitraryAllocatePartyRequest} from "../arbitrary/ArbitraryAllocatePartyRequest";
+import {AllocatePartyRequestValidation} from "../../src/validation/AllocatePartyRequestValidation";
 
 function test<A extends { [_: string]: any }>(
     validation: ObjectValidation<A>,
@@ -205,6 +207,7 @@ function test<A extends { [_: string]: any }>(
 }
 
 test(AnyValidation, ArbitraryAny);
+test(AllocatePartyRequestValidation, ArbitraryAllocatePartyRequest);
 test(ArchivedEventValidation, ArbitraryArchivedEvent);
 test(CheckpointValidation, ArbitraryCheckpoint);
 test(CommandsValidation, ArbitraryCommands);

@@ -57,6 +57,11 @@ import {
 } from "../../src/generated/com/digitalasset/ledger/api/v1/testing/time_service_pb";
 import {TransactionServiceService} from "../../src/generated/com/digitalasset/ledger/api/v1/transaction_service_grpc_pb";
 import {ResetServiceService} from "../../src/generated/com/digitalasset/ledger/api/v1/testing/reset_service_grpc_pb";
+import {
+    ListKnownPartiesRequest,
+    ListKnownPartiesResponse
+} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb";
+import {PartyManagementServiceService} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/party_management_service_grpc_pb";
 
 export class DummyServer extends Server {
     constructor(ledgerId: string, spy: SinonSpy) {
@@ -64,6 +69,8 @@ export class DummyServer extends Server {
 
         const ledgerIdentityResponse: GetLedgerIdentityResponse = new GetLedgerIdentityResponse();
         ledgerIdentityResponse.setLedgerId(ledgerId);
+
+        const listKnownPartiesResponse: ListKnownPartiesResponse = new ListKnownPartiesResponse();
 
         const empty = new Empty();
 
@@ -360,5 +367,43 @@ export class DummyServer extends Server {
                 callback(null, empty);
             }
         });
+
+        this.addService(PartyManagementServiceService, {
+            // This is not needed for now
+            getParticipantId(
+                _call: null,
+                callback: (
+                    error: ServiceError | null,
+                    value: null,
+                    trailer?: Metadata,
+                    flags?: number
+                ) => void
+            ): void {
+                callback(null, null);
+            },
+            listKnownParties(
+                _call: ServerUnaryCall<ListKnownPartiesRequest>,
+                callback: (
+                    error: ServiceError | null,
+                    value: ListKnownPartiesResponse | null,
+                    trailer?: Metadata,
+                    flags?: number
+                ) => void
+            ): void {
+                callback(null, listKnownPartiesResponse);
+            },
+            // This is not needed
+            allocateParty(
+                _call: null,
+                callback: (
+                    error: ServiceError | null,
+                    value: null,
+                    trailer?: Metadata,
+                    flags?: number
+                ) => void
+            ): void {
+                callback(null, null);
+            }
+        })
     }
 }
