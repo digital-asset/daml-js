@@ -18,11 +18,13 @@ import * as sinon from "sinon";
 export class DummyPartyManagementServiceClient implements IPartyManagementServiceClient {
 
     private readonly latestRequestSpy: sinon.SinonSpy;
+    private readonly getParticipantIdResponse:GetParticipantIdResponse;
     private readonly listKnownPartiesResponse: ListKnownPartiesResponse;
     private readonly allocatePartyResponse: AllocatePartyResponse;
 
     constructor(latestRequestSpy: sinon.SinonSpy) {
         this.latestRequestSpy = latestRequestSpy;
+        this.getParticipantIdResponse = new GetParticipantIdResponse();
         this.listKnownPartiesResponse = new ListKnownPartiesResponse();
         this.listKnownPartiesResponse.setPartyDetailsList([]);
         this.allocatePartyResponse = new AllocatePartyResponse();
@@ -61,7 +63,7 @@ export class DummyPartyManagementServiceClient implements IPartyManagementServic
                : options
                : callback;
         this.latestRequestSpy(request)
-        cb(null);
+        cb(null, this.getParticipantIdResponse);
         return DummyClientUnaryCall.Instance;
     };
     

@@ -5,7 +5,7 @@ import {assert, expect} from 'chai';
 import {NodeJsPartyManagementClient} from "../../src/client/NodeJsPartyManagementClient";
 import {DummyPartyManagementServiceClient} from "./DummyPartyManagementServiceClient";
 import * as sinon from "sinon";
-import {ListKnownPartiesRequest as PbListKnownPartiesRequest, AllocatePartyRequest as PbAllocatePartyRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb";
+import {GetParticipantIdRequest as PbGetParticipantIdRequest, ListKnownPartiesRequest as PbListKnownPartiesRequest, AllocatePartyRequest as PbAllocatePartyRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb";
 import {JSONReporter} from "../../src/reporting/JSONReporter";
 import {AllocatePartyRequest} from "../../src/model/AllocatePartyRequest";
 import {ValidationTree} from "../../src/validation/Validation";
@@ -110,6 +110,23 @@ describe("NodeJsPartyManagementClient", () => {
         assert(latestRequestSpy.calledOnce, 'The latestRequestSpy has not been called exactly once');
         expect(latestRequestSpy.lastCall.args).to.have.length(1);
         expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbListKnownPartiesRequest);
+    });
+
+    it("should correctly return participantId", (done)=>{
+        client.getParticipantId((error, _response) => {
+            expect(error).to.be.null;
+            assert(latestRequestSpy.calledOnce, 'The latestRequestSpy has not beeen called exactly once');
+            expect(latestRequestSpy.lastCall.args).to.have.length(1);
+            expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbGetParticipantIdRequest);
+            done();
+        })
+    });
+
+    it("should correctly return participantId (promisified)", async ()=>{
+        await client.getParticipantId();
+        assert(latestRequestSpy.calledOnce, 'The latestRequestSpy has not been called exactly once');
+        expect(latestRequestSpy.lastCall.args).to.have.length(1);
+        expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbGetParticipantIdRequest);
     });
 
 });

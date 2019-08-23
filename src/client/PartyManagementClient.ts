@@ -3,6 +3,7 @@
 
 import {Callback} from "../util/Callback";
 import {ClientCancellableCall} from "../call/ClientCancellableCall";
+import {GetParticipantIdResponse} from "../model/GetParticipantIdResponse";
 import {ListKnownPartiesResponse} from "../model/ListKnownPartiesResponse";
 import {AllocatePartyRequest} from "../model/AllocatePartyRequest";
 import {AllocatePartyResponse} from "../model/AllocatePartyResponse";
@@ -19,6 +20,13 @@ import {AllocatePartyResponse} from "../model/AllocatePartyResponse";
  * Subsequently, only specific errors of individual calls not related to authorization will be described.
  */
 export interface PartyManagementClient{
+
+    /**
+     * Get an id representing the ledger participant
+     * 
+     */
+    getParticipantId(): Promise<GetParticipantIdResponse>
+    getParticipantId(callback: Callback<GetParticipantIdResponse>): ClientCancellableCall
 
     /**
      * Adds a new party to the set managed by the backing participant.

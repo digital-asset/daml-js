@@ -179,8 +179,10 @@ import {CreateAndExerciseCommand} from "../../src/model/CreateAndExerciseCommand
 import {SubmitAndWaitForTransactionResponseCodec} from "../../src/codec/SubmitAndWaitForTransactionResponseCodec";
 import {SubmitAndWaitForTransactionIdResponseCodec} from "../../src/codec/SubmitAndWaitForTransactionIdResponseCodec";
 import {SubmitAndWaitForTransactionTreeResponseCodec} from "../../src/codec/SubmitAndWaitForTransactionTreeResponseCodec";
+import {GetParticipantIdResponse} from "../../src/model/GetParticipantIdResponse";
+import {GetParticipantIdResponseCodec} from "../../src/codec/GetParticipantIdResponseCodec";
 import {ListKnownPartiesResponse} from "../../src/model/ListKnownPartiesResponse";
-import {ListKnownPartiesResponse as PbListKnownPartiesResponse, PartyDetails as PbPartyDetails, AllocatePartyRequest as PbAllocatePartyRequest, AllocatePartyResponse as PbAllocatePartyResponse} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb";
+import {ListKnownPartiesResponse as PbListKnownPartiesResponse, PartyDetails as PbPartyDetails, AllocatePartyRequest as PbAllocatePartyRequest, AllocatePartyResponse as PbAllocatePartyResponse, GetParticipantIdResponse as PbGetParticipantIdResponse} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb";
 import {PartyDetails} from "../../src/model/PartyDetails";
 import {ListKnownPartiesResponseCodec} from "../../src/codec/ListKnownPartiesResponseCodec";
 import {PartyDetailsCodec} from '../../src/codec/PartyDetailsCodec';
@@ -188,7 +190,6 @@ import {AllocatePartyRequestCodec} from "../../src/codec/AllocatePartyRequestCod
 import {AllocatePartyResponseCodec} from "../../src/codec/AllocatePartyResponseCodec";
 import {AllocatePartyRequest} from "../../src/model/AllocatePartyRequest";
 import {AllocatePartyResponse} from "../../src/model/AllocatePartyResponse";
-
 
 describe('Codec', () => {
     const packageId = 'packageId';
@@ -1566,6 +1567,16 @@ describe('Codec', () => {
             }
         };
         twoWayCheck(AllocatePartyResponseCodec, message, object);
+    });
+
+    itShouldConvert("GetParticipantIdResponseCodec", () => {
+        const message = new PbGetParticipantIdResponse();
+        message.setParticipantId("test");
+        const object: GetParticipantIdResponse = {
+            participantId: "test"
+        };
+        twoWayCheck(GetParticipantIdResponseCodec, message, object)
+        
     });
 });
 
