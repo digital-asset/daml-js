@@ -9,7 +9,7 @@
  *
  * ```
  * {
- *    participantId: "some-participan-id"
+ *    participantId: "some-participant-id"
  * }
  * ```
  *
