@@ -208,7 +208,7 @@ describe("Integration tests", () => {
                             done();
                         });
                     });
-                }, 500);
+                }, 1800);
             });
         });
     });
