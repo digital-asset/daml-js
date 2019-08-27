@@ -112,7 +112,7 @@ describe("NodeJsPartyManagementClient", () => {
         expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbListKnownPartiesRequest);
     });
 
-    it("should correctly return participantId", (done)=>{
+    it("should correctly send a request for a participant identifier", (done)=>{
         client.getParticipantId((error, _response) => {
             expect(error).to.be.null;
             assert(latestRequestSpy.calledOnce, 'The latestRequestSpy has not beeen called exactly once');
@@ -122,7 +122,7 @@ describe("NodeJsPartyManagementClient", () => {
         })
     });
 
-    it("should correctly return participantId (promisified)", async ()=>{
+    it("should correctly send a request for a participant identifier (promisified)", async ()=>{
         await client.getParticipantId();
         assert(latestRequestSpy.calledOnce, 'The latestRequestSpy has not been called exactly once');
         expect(latestRequestSpy.lastCall.args).to.have.length(1);
