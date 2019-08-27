@@ -3,6 +3,7 @@
 
 import {Callback} from "../util/Callback";
 import {ClientCancellableCall} from "../call/ClientCancellableCall";
+import {GetParticipantIdResponse} from "../model/GetParticipantIdResponse";
 import {ListKnownPartiesResponse} from "../model/ListKnownPartiesResponse";
 import {AllocatePartyRequest} from "../model/AllocatePartyRequest";
 import {AllocatePartyResponse} from "../model/AllocatePartyResponse";
@@ -19,6 +20,17 @@ import {AllocatePartyResponse} from "../model/AllocatePartyResponse";
  * Subsequently, only specific errors of individual calls not related to authorization will be described.
  */
 export interface PartyManagementClient{
+
+    /**
+     * Get an id representing the ledger participant
+     * 
+     * Return the identifier of the backing participant. All horizontally scaled replicas should return the same id. 
+     * This method is expected to succeed provided the backing participant is healthy, otherwise it responds with 
+     * INTERNAL grpc error.
+     * 
+     */
+    getParticipantId(): Promise<GetParticipantIdResponse>
+    getParticipantId(callback: Callback<GetParticipantIdResponse>): ClientCancellableCall
 
     /**
      * Adds a new party to the set managed by the backing participant.
