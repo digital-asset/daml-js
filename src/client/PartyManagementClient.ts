@@ -24,6 +24,10 @@ export interface PartyManagementClient{
     /**
      * Get an id representing the ledger participant
      * 
+     * Return the identifier of the backing participant. All horizontally scaled replicas should return the same id. 
+     * This method is expected to succeed provided the backing participant is healthy, otherwise it responds with 
+     * INTERNAL grpc error.
+     * 
      */
     getParticipantId(): Promise<GetParticipantIdResponse>
     getParticipantId(callback: Callback<GetParticipantIdResponse>): ClientCancellableCall
