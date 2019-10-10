@@ -192,7 +192,9 @@ import {AllocatePartyRequest} from "../../src/model/AllocatePartyRequest";
 import {AllocatePartyResponse} from "../../src/model/AllocatePartyResponse";
 import {PackageDetails} from "../../src/model/PackageDetails";
 import {PackageDetailsCodec} from "../../src/codec/PackageDetailsCodec";
-import {PackageDetails as PbPackageDetails} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/package_management_service_pb"
+import {ListKnownPackageResponseCodec} from "../../src/codec/ListKnownPackageResponseCodec";
+import {ListKnownPackageResponse} from "../../src/model/ListKnownPackageResponse";
+import {ListKnownPackagesResponse as PbListKnownPackagesResponse, PackageDetails as PbPackageDetails} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/package_management_service_pb";
 
 describe('Codec', () => {
     const packageId = 'packageId';
@@ -1593,6 +1595,26 @@ describe('Codec', () => {
             sourceDescription: "Description"
         };
         twoWayCheck(PackageDetailsCodec, message, object);
+    });
+
+    itShouldConvert("ListKnowPackageResponseCodec", ()=>{
+        const packageDetails = new PbPackageDetails();
+        packageDetails.setPackageId("12345");
+        packageDetails.setPackageSize(4);
+        packageDetails.setKnownSince(undefined);
+        packageDetails.setSourceDescription("Source Package");
+        const packageDetailList:Array<PbPackageDetails> = new Array<PbPackageDetails>();
+        packageDetailList.push(packageDetails);
+        const message = new PbListKnownPackagesResponse()
+        message.setPackageDetailsList(packageDetailList);
+        const object:ListKnownPackageResponse = {
+            packageDetailsList: [{
+                packageId: "12345",
+                packageSize: 4,
+                sourceDescription: "Source Package"
+            }]
+        };
+        twoWayCheck(ListKnownPackageResponseCodec, message, object);
     });
 });
 
