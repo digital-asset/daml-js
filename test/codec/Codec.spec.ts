@@ -194,7 +194,12 @@ import {PackageDetails} from "../../src/model/PackageDetails";
 import {PackageDetailsCodec} from "../../src/codec/PackageDetailsCodec";
 import {ListKnownPackageResponseCodec} from "../../src/codec/ListKnownPackageResponseCodec";
 import {ListKnownPackageResponse} from "../../src/model/ListKnownPackageResponse";
-import {ListKnownPackagesResponse as PbListKnownPackagesResponse, PackageDetails as PbPackageDetails} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/package_management_service_pb";
+import {UploadDarFileRequest} from "../../src/model/UploadDarFileRequest";
+import {UploadDarFileRequestCodec} from "../../src/codec/UploadDarFileRequestCodec";
+import {ListKnownPackagesResponse as PbListKnownPackagesResponse, 
+        PackageDetails as PbPackageDetails,
+        UploadDarFileRequest as PbUploadDarFileRequest,
+    } from "../../src/generated/com/digitalasset/ledger/api/v1/admin/package_management_service_pb";
 
 describe('Codec', () => {
     const packageId = 'packageId';
@@ -1615,6 +1620,15 @@ describe('Codec', () => {
             }]
         };
         twoWayCheck(ListKnownPackageResponseCodec, message, object);
+    });
+
+    itShouldConvert("UploadDarFileRequestCodec", ()=>{
+        const message = new PbUploadDarFileRequest();
+        message.setDarFile("abcdef");
+        const object:UploadDarFileRequest = {
+            darFile: "abcdef"
+        }
+        twoWayCheck(UploadDarFileRequestCodec, message, object)
     });
 });
 
