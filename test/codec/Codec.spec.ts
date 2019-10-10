@@ -190,6 +190,9 @@ import {AllocatePartyRequestCodec} from "../../src/codec/AllocatePartyRequestCod
 import {AllocatePartyResponseCodec} from "../../src/codec/AllocatePartyResponseCodec";
 import {AllocatePartyRequest} from "../../src/model/AllocatePartyRequest";
 import {AllocatePartyResponse} from "../../src/model/AllocatePartyResponse";
+import {PackageDetails} from "../../src/model/PackageDetails";
+import {PackageDetailsCodec} from "../../src/codec/PackageDetailsCodec";
+import {PackageDetails as PbPackageDetails} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/package_management_service_pb"
 
 describe('Codec', () => {
     const packageId = 'packageId';
@@ -1576,7 +1579,20 @@ describe('Codec', () => {
             participantId: "test"
         };
         twoWayCheck(GetParticipantIdResponseCodec, message, object)
-        
+    });
+
+    itShouldConvert("PackageDetailsCodec", ()=>{
+        const message = new PbPackageDetails();
+        message.setPackageId("12345");
+        message.setPackageSize(4);
+        message.setKnownSince(undefined);
+        message.setSourceDescription("Description");
+        const object: PackageDetails = {
+            packageId: "12345",
+            packageSize: 4,
+            sourceDescription: "Description"
+        };
+        twoWayCheck(PackageDetailsCodec, message, object);
     });
 });
 

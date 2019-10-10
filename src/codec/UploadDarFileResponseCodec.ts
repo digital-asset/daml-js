@@ -7,9 +7,11 @@ import {UploadDarFileResponse as PbUploadDarFileResponse} from "../generated/com
 
 export const UploadDarFileResponseCodec: Codec<PbUploadDarFileResponse, UploadDarFileResponse> = {
     deserialize(message: PbUploadDarFileResponse): UploadDarFileResponse {
+        message
         return {}
     },
     serialize(object:UploadDarFileResponse): PbUploadDarFileResponse {
+        object
         return new PbUploadDarFileResponse()
     }
 }
