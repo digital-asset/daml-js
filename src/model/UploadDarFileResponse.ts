@@ -1,0 +1,13 @@
+
+/**
+ * Examples:
+ * 
+ * ```
+ * {
+ *     
+ * }
+ * ```
+ */
+export interface UploadDarFileResponse {
+
+}
