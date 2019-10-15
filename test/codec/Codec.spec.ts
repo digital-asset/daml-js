@@ -196,12 +196,9 @@ import {ListKnownPackageResponseCodec} from "../../src/codec/ListKnownPackageRes
 import {ListKnownPackageResponse} from "../../src/model/ListKnownPackageResponse";
 import {UploadDarFileRequest} from "../../src/model/UploadDarFileRequest";
 import {UploadDarFileRequestCodec} from "../../src/codec/UploadDarFileRequestCodec";
-import {UploadDarFileResponse} from "../../src/model/UploadDarFileResponse";
-import {UploadDarFileResponseCodec} from "../../src/codec/UploadDarFileResponseCodec";
 import {ListKnownPackagesResponse as PbListKnownPackagesResponse, 
         PackageDetails as PbPackageDetails,
-        UploadDarFileRequest as PbUploadDarFileRequest,
-        UploadDarFileResponse as PbUploadDarFileResponse,
+        UploadDarFileRequest as PbUploadDarFileRequest
     } from "../../src/generated/com/digitalasset/ledger/api/v1/admin/package_management_service_pb";
 
 describe('Codec', () => {
@@ -1634,11 +1631,6 @@ describe('Codec', () => {
         twoWayCheck(UploadDarFileRequestCodec, message, object)
     });
 
-    itShouldConvert("UploadDarFileResponseCodec", ()=>{
-        const message = new PbUploadDarFileResponse();
-        const object:UploadDarFileResponse = {}
-        twoWayCheck(UploadDarFileResponseCodec, message, object);
-    })
 });
 
 function itShouldConvert(typeName: String, fn?: Mocha.Func): Mocha.Test {
