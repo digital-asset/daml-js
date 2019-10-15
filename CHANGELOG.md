@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unrelease]
+- complete support for package management by adding support for list know packages and upload dar file from SDK 0.12.25 [#85](https://github.com/digital-asset/daml-js/pull/85)
+
 ## [0.8.1]
 - complete support for party management by adding support for participant identifier retrieval from SDK 0.12.25 [#83](https://github.com/digital-asset/daml-js/pull/83)
 

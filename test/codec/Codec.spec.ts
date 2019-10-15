@@ -190,6 +190,16 @@ import {AllocatePartyRequestCodec} from "../../src/codec/AllocatePartyRequestCod
 import {AllocatePartyResponseCodec} from "../../src/codec/AllocatePartyResponseCodec";
 import {AllocatePartyRequest} from "../../src/model/AllocatePartyRequest";
 import {AllocatePartyResponse} from "../../src/model/AllocatePartyResponse";
+import {PackageDetails} from "../../src/model/PackageDetails";
+import {PackageDetailsCodec} from "../../src/codec/PackageDetailsCodec";
+import {ListKnownPackageResponseCodec} from "../../src/codec/ListKnownPackageResponseCodec";
+import {ListKnownPackageResponse} from "../../src/model/ListKnownPackageResponse";
+import {UploadDarFileRequest} from "../../src/model/UploadDarFileRequest";
+import {UploadDarFileRequestCodec} from "../../src/codec/UploadDarFileRequestCodec";
+import {ListKnownPackagesResponse as PbListKnownPackagesResponse, 
+        PackageDetails as PbPackageDetails,
+        UploadDarFileRequest as PbUploadDarFileRequest
+    } from "../../src/generated/com/digitalasset/ledger/api/v1/admin/package_management_service_pb";
 
 describe('Codec', () => {
     const packageId = 'packageId';
@@ -1576,8 +1586,51 @@ describe('Codec', () => {
             participantId: "test"
         };
         twoWayCheck(GetParticipantIdResponseCodec, message, object)
-        
     });
+
+    itShouldConvert("PackageDetailsCodec", ()=>{
+        const message = new PbPackageDetails();
+        message.setPackageId("12345");
+        message.setPackageSize(4);
+        message.setKnownSince(undefined);
+        message.setSourceDescription("Description");
+        const object: PackageDetails = {
+            packageId: "12345",
+            packageSize: 4,
+            sourceDescription: "Description"
+        };
+        twoWayCheck(PackageDetailsCodec, message, object);
+    });
+
+    itShouldConvert("ListKnowPackageResponseCodec", ()=>{
+        const packageDetails = new PbPackageDetails();
+        packageDetails.setPackageId("12345");
+        packageDetails.setPackageSize(4);
+        packageDetails.setKnownSince(undefined);
+        packageDetails.setSourceDescription("Source Package");
+        const packageDetailList:Array<PbPackageDetails> = new Array<PbPackageDetails>();
+        packageDetailList.push(packageDetails);
+        const message = new PbListKnownPackagesResponse()
+        message.setPackageDetailsList(packageDetailList);
+        const object:ListKnownPackageResponse = {
+            packageDetailsList: [{
+                packageId: "12345",
+                packageSize: 4,
+                sourceDescription: "Source Package"
+            }]
+        };
+        twoWayCheck(ListKnownPackageResponseCodec, message, object);
+    });
+
+    itShouldConvert("UploadDarFileRequestCodec", ()=>{
+        const message = new PbUploadDarFileRequest();
+        message.setDarFile("abcdef");
+        const object:UploadDarFileRequest = {
+            darFile: "abcdef"
+        }
+        twoWayCheck(UploadDarFileRequestCodec, message, object)
+    });
+
 });
 
 function itShouldConvert(typeName: String, fn?: Mocha.Func): Mocha.Test {
