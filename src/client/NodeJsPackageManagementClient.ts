@@ -6,11 +6,9 @@ import {ListKnownPackagesRequest} from "../generated/com/digitalasset/ledger/api
 import {ListKnownPackageResponse} from "../model/ListKnownPackageResponse";
 import {ListKnownPackageResponseCodec} from "../codec/ListKnownPackageResponseCodec";
 import {UploadDarFileRequest} from "../model/UploadDarFileRequest";
-import {UploadDarFileResponse} from "../model/UploadDarFileResponse";
 import {UploadDarFileRequestCodec} from "../codec/UploadDarFileRequestCodec";
-import {UploadDarFileResponseCodec} from "../codec/UploadDarFileResponseCodec";
 import {PackagementClient} from "./PackageManagementClient";
-import {Callback, forward, promisify} from "../util/Callback";
+import {Callback, forward, promisify, forwardVoidResponse} from "../util/Callback";
 import {ClientCancellableCall} from "../call/ClientCancellableCall";
 import {ValidationReporter} from "../reporting/ValidationReporter";
 import {UploadDarFileRequestValidation} from "../validation/UploadDarFileRequestValidation";
@@ -40,12 +38,12 @@ export class NodeJsPackageManagementClient implements PackagementClient {
         return callback ? this.listKnownPackagesCallback(callback) : this.listKnownPackagesPromise();
     }
 
-    private uploadDarFileCallback(requestObj: UploadDarFileRequest, callback: Callback<UploadDarFileResponse>) {
+    private uploadDarFileCallback(requestObj: UploadDarFileRequest, callback: Callback<void>) {
         const validation = UploadDarFileRequestValidation.validate(requestObj);
         if (isValid(validation)) {
             const request = UploadDarFileRequestCodec.serialize(requestObj);
-            return ClientCancellableCall.accept(this.client.uploadDarFile(request, (error, response)=>{
-                forward(callback, error, response, UploadDarFileResponseCodec.deserialize);
+            return ClientCancellableCall.accept(this.client.uploadDarFile(request, (error, _)=>{
+                forwardVoidResponse(callback, error);
             }))
         }else {
             setImmediate(() => callback(new Error(this.reporter.render(validation))));
@@ -53,11 +51,11 @@ export class NodeJsPackageManagementClient implements PackagementClient {
         }
     }
 
-    private uploadDarFilePromise: (requestObj: UploadDarFileRequest) => Promise<UploadDarFileResponse> = promisify(this.uploadDarFileCallback);
+    private uploadDarFilePromise: (requestObj: UploadDarFileRequest) => Promise<void> = promisify(this.uploadDarFileCallback);
 
-    uploadDarFile(requestObj: UploadDarFileRequest): Promise<UploadDarFileResponse>
-    uploadDarFile(requestObj: UploadDarFileRequest, callback: Callback<UploadDarFileResponse>): ClientCancellableCall
-    uploadDarFile(requestObj: UploadDarFileRequest, callback?: Callback<UploadDarFileResponse>): ClientCancellableCall | Promise<UploadDarFileResponse> {
+    uploadDarFile(requestObj: UploadDarFileRequest): Promise<void>
+    uploadDarFile(requestObj: UploadDarFileRequest, callback: Callback<void>): ClientCancellableCall
+    uploadDarFile(requestObj: UploadDarFileRequest, callback?: Callback<void>): ClientCancellableCall | Promise<void> {
         return callback ? this.uploadDarFileCallback(requestObj, callback) : this.uploadDarFilePromise(requestObj);
     }
     
