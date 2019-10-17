@@ -6,7 +6,7 @@ import {ClientCancellableCall} from "../call/ClientCancellableCall";
 import {ListKnownPackageResponse} from "../model/ListKnownPackageResponse";
 import {UploadDarFileRequest} from "../model/UploadDarFileRequest";
 
-export interface PackagementClient {
+export interface PackageManagementClient {
     listKnownPackages(): Promise<ListKnownPackageResponse>
     listKnownPackages(callback: Callback<ListKnownPackageResponse>): ClientCancellableCall
     

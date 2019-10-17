@@ -7,14 +7,14 @@ import {ListKnownPackageResponse} from "../model/ListKnownPackageResponse";
 import {ListKnownPackageResponseCodec} from "../codec/ListKnownPackageResponseCodec";
 import {UploadDarFileRequest} from "../model/UploadDarFileRequest";
 import {UploadDarFileRequestCodec} from "../codec/UploadDarFileRequestCodec";
-import {PackagementClient} from "./PackageManagementClient";
+import {PackageManagementClient} from "./PackageManagementClient";
 import {Callback, forward, promisify, forwardVoidResponse} from "../util/Callback";
 import {ClientCancellableCall} from "../call/ClientCancellableCall";
 import {ValidationReporter} from "../reporting/ValidationReporter";
 import {UploadDarFileRequestValidation} from "../validation/UploadDarFileRequestValidation";
 import {isValid} from "../validation/Validation";
 
-export class NodeJsPackageManagementClient implements PackagementClient {
+export class NodeJsPackageManagementClient implements PackageManagementClient {
     
     private static listKnownPackageRequest = new ListKnownPackagesRequest();
     private readonly client: IPackageManagementServiceClient;
