@@ -13,6 +13,7 @@ import {TimeClient} from "./TimeClient";
 import {TransactionClient} from "./TransactionClient";
 import {ResetClient} from "./ResetClient";
 import {PartyManagementClient} from "./PartyManagementClient";
+import {PackageManagementClient} from "./PackageManagementClient";
 
 /**
  * The ledger required to connect to a {@link LedgerClient}
@@ -45,4 +46,5 @@ export interface LedgerClient {
     transactionClient: TransactionClient
     resetClient: ResetClient
     partyManagementClient: PartyManagementClient
+    packageManagementClient: PackageManagementClient
 }
