@@ -62,7 +62,12 @@ import {
     ListKnownPartiesResponse
 } from "../../src/generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb";
 import {PartyManagementServiceService} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/party_management_service_grpc_pb";
-
+import {
+    ListKnownPackagesRequest,
+    ListKnownPackagesResponse,
+    UploadDarFileRequest
+} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/package_management_service_pb";
+import {PackageManagementServiceService} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/package_management_service_grpc_pb";
 export class DummyServer extends Server {
     constructor(ledgerId: string, spy: SinonSpy) {
         super();
@@ -100,6 +105,8 @@ export class DummyServer extends Server {
         const submitAndWaitForTransactionResponse = new SubmitAndWaitForTransactionResponse();
         const submitAndWaitForTransactionIdResponse = new SubmitAndWaitForTransactionIdResponse();
         const submitAndWaitForTransactionTreeResponse = new SubmitAndWaitForTransactionTreeResponse();
+
+        const listKnownPackagesResponse = new ListKnownPackagesResponse();
 
         this.addService(ActiveContractsServiceService, {
             getActiveContracts(
@@ -398,6 +405,31 @@ export class DummyServer extends Server {
                 callback: (
                     error: ServiceError | null,
                     value: null,
+                    trailer?: Metadata,
+                    flags?: number
+                ) => void
+            ): void {
+                callback(null, null);
+            }
+        })
+
+        this.addService(PackageManagementServiceService, {
+            listKnownPackages(
+                _call: ServerUnaryCall<ListKnownPackagesRequest>,
+                callback: (
+                    error: ServiceError | null,
+                    value: ListKnownPackagesResponse | null,
+                    trailer?: Metadata,
+                    flags?: number
+                ) => void
+            ): void {
+                callback(null, listKnownPackagesResponse);
+            },
+            uploadDarFile(
+                _call: ServerUnaryCall<UploadDarFileRequest>,
+                callback: (
+                    error: ServiceError | null,
+                    value: void | null,
                     trailer?: Metadata,
                     flags?: number
                 ) => void

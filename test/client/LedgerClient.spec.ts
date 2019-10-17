@@ -338,9 +338,6 @@ describe("DamlLedgerClient", () => {
     it('should have a method to upload dar file', async () =>{
         const client = await DamlLedgerClient.connect({host: '0.0.0.0', port: port});
         assert(client.packageManagementClient.uploadDarFile !== undefined);
-        await client.packageManagementClient.uploadDarFile({
-            darFile: "test"
-        })
     });
 
 });
