@@ -230,8 +230,69 @@ describe("Integration tests", () => {
                 })
             });
         });
-    })
+    });
 
+});
+
+const darToUpload = fs.readFileSync(`${__dirname}/src/uploadDar/dist/UploadDarIntegrationTests.dar`);
+const tokenPackageId = Archive.deserializeBinary(fs.readFileSync(`${__dirname}/src/uploadDar/dist/UploadDarIntegrationTests.dalf`)).getHash();
+
+describe("Upload DAR integration test", () => {
+
+    it('should be able to upload Dar file', (done) =>{
+        const darToUploadInString = darToUpload.toString('base64');
+        withLedgerClient((client) => {
+            client.packageManagementClient.uploadDarFile({
+                darFile: darToUploadInString
+            });
+            done();
+        });
+    });
+
+    it('should list known packages', (done)=>{
+        withLedgerClient((client) => {
+            const packages = client.packageManagementClient.listKnownPackages();
+            expect(packages).to.be.not.null;
+            done();
+        });
+    });
+
+    const commands = {
+        commands: {
+            applicationId: 'UploadDarIntegrationTests',
+            commandId: uuid(),
+            workflowId: 'IntegrationTests',
+            ledgerEffectiveTime: {seconds: 0, nanoseconds: 0},
+            maximumRecordTime: {seconds: 5, nanoseconds: 0},
+            party: 'Alice',
+            list: [
+                {
+                    commandType: 'create' as 'create',
+                    templateId: {
+                        packageId: tokenPackageId,
+                        moduleName: 'CreateToken',
+                        entityName: 'Token'
+                    },
+                    arguments: {
+                        fields: {
+                            issuer: {valueType: 'party' as 'party', party: 'Alice'},
+                            owner: {valueType: 'party' as 'party', party: 'Bob'},
+                            value: {valueType: 'int64' as 'int64', int64: '0'}
+                        }
+                    }
+                }
+            ]
+        }
+    };
+
+    it('should successfully submit and wait for a command', (done) => {
+        withLedgerClient((client) => {
+            client.commandClient.submitAndWait(commands, (error) => {
+                expect(error).to.be.null;
+                done();
+            });
+        });
+    });
 });
 
 function withLedgerClient(callback: (client: LedgerClient) => void): void {

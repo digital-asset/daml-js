@@ -10,6 +10,7 @@ proto
 docs
 lib
 sandbox.port
+.daml
 test/integration/src/sandbox.err
 test/integration/src/sandbox.out
 test/integration/src/sandbox.log
@@ -17,3 +18,9 @@ test/integration/src/.package-database
 test/integration/src/daml/*.hi
 test/integration/src/daml/*.hie
 test/integration/src/dist
+test/integration/src/uploadDar/.package-database
+test/integration/src/uploadDar/sandbox.err
+test/integration/src/uploadDar/sandbox.out
+test/integration/src/uploadDar/sandbox.log
+test/integration/src/uploadDar/dist
+test/integration/src/uploadDar/.interfaces/daml

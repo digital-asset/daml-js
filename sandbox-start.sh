@@ -7,6 +7,8 @@ set -euxo pipefail
 cd "$(dirname "${0}")"
 DAML_SRC=test/integration/src
 
+(cd "$DAML_SRC/uploadDar" && "$HOME"/.daml/bin/daml build && unzip -o dist/UploadDarIntegrationTests.dar UploadDarIntegrationTests.dalf -d dist )
+
 (cd "$DAML_SRC" && "$HOME"/.daml/bin/daml build && unzip -o dist/IntegrationTests.dar IntegrationTests.dalf -d dist)
 PORT=$(node reserve-port)
 echo "$PORT" > sandbox.port
