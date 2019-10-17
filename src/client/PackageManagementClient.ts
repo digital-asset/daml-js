@@ -6,10 +6,23 @@ import {ClientCancellableCall} from "../call/ClientCancellableCall";
 import {ListKnownPackageResponse} from "../model/ListKnownPackageResponse";
 import {UploadDarFileRequest} from "../model/UploadDarFileRequest";
 
-export interface PackagementClient {
+/**
+ * Methods to inspect package and to upload DAR files
+ */
+export interface PackageManagementClient {
+
+    /**
+     * List information about packages uploaded to participants.
+     */
     listKnownPackages(): Promise<ListKnownPackageResponse>
     listKnownPackages(callback: Callback<ListKnownPackageResponse>): ClientCancellableCall
     
+    /**
+     * 
+     * Method to upload dar file.
+     * 
+     * @param requestObj encapsulate dar file stream.
+     */
     uploadDarFile(requestObj:UploadDarFileRequest): Promise<void>
     uploadDarFile(requestObj:UploadDarFileRequest, callback: Callback<void>): ClientCancellableCall
 }

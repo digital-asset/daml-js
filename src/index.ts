@@ -14,6 +14,7 @@ import {NodeJsResetClient} from "./client/NodeJsResetClient";
 import {NodeJsTimeClient} from "./client/NodeJsTimeClient";
 import {NodeJsTransactionClient} from "./client/NodeJsTransactionClient";
 import {NodeJsPartyManagementClient} from "./client/NodeJsPartyManagementClient";
+import {NodeJsPackageManagementClient} from "./client/NodeJsPackageManagementClient";
 
 export {
     NodeJsActiveContractsClient as ActiveContractsClient,
@@ -28,7 +29,8 @@ export {
     NodeJsResetClient as ResetClient,
     NodeJsTimeClient as TimeClient,
     NodeJsTransactionClient as TransactionClient,
-    NodeJsPartyManagementClient as PartyManagementClient
+    NodeJsPartyManagementClient as PartyManagementClient,
+    NodeJsPackageManagementClient as PackageManagementClient
 };
 
 import * as lf from './generated/da/daml_lf_pb';
@@ -88,6 +90,7 @@ import {TransactionFilter} from './model/TransactionFilter';
 import {TransactionTree} from './model/TransactionTree';
 import {Transaction} from './model/Transaction';
 import {TreeEvent} from './model/TreeEvent';
+import {UploadDarFileRequest} from './model/UploadDarFileRequest';
 import {Value} from './model/Value';
 import {Variant} from './model/Variant';
 
@@ -141,6 +144,7 @@ export {
     CompletionEndResponse,
     AllocatePartyRequest,
     AllocatePartyResponse,
+    UploadDarFileRequest,
     Command,
     Commands,
     Completion,
