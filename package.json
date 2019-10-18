@@ -1,6 +1,6 @@
 {
   "name": "@digitalasset/daml-ledger",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "description": "DAML Ledger API Node.js bindings",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
