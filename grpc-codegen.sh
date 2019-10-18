@@ -7,7 +7,7 @@ set -euxo pipefail
 cd "$(dirname "${0}")"
 
 GRPC_VERSION=1.18.0
-SDK_VERSION=100.12.25
+SDK_VERSION=100.13.10
 
 PROTO_PATH="./proto"
 OUT_PATH="./src/generated"

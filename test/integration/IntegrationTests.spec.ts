@@ -239,24 +239,6 @@ const tokenPackageId = Archive.deserializeBinary(fs.readFileSync(`${__dirname}/s
 
 describe("Upload DAR integration test", () => {
 
-    it('should be able to upload Dar file', (done) =>{
-        const darToUploadInString = darToUpload.toString('base64');
-        withLedgerClient((client) => {
-            client.packageManagementClient.uploadDarFile({
-                darFile: darToUploadInString
-            });
-            done();
-        });
-    });
-
-    it('should list known packages', (done)=>{
-        withLedgerClient((client) => {
-            const packages = client.packageManagementClient.listKnownPackages();
-            expect(packages).to.be.not.null;
-            done();
-        });
-    });
-
     const commands = {
         commands: {
             applicationId: 'UploadDarIntegrationTests',
@@ -285,10 +267,25 @@ describe("Upload DAR integration test", () => {
         }
     };
 
-    it('should successfully submit and wait for a command', (done) => {
+    it('should be able to upload Dar file', (done) =>{
+        const darToUploadInString = darToUpload.toString('base64');
         withLedgerClient((client) => {
-            client.commandClient.submitAndWait(commands, (error) => {
+            client.packageManagementClient.uploadDarFile({
+                darFile: darToUploadInString
+            });
+
+            client.packageManagementClient.listKnownPackages((error, response) => {
                 expect(error).to.be.null;
+
+                if (response !== undefined) {
+                    response.packageDetailsList.forEach( (item) => {
+                        expect(item.packageId).to.be.not.null;
+                    })
+                }
+
+                client.commandClient.submitAndWait(commands, (error) => {
+                    expect(error).to.be.null;
+                });
                 done();
             });
         });
