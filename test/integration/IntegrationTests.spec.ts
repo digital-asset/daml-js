@@ -277,8 +277,7 @@ describe("Upload DAR integration test", () => {
             client.packageManagementClient.listKnownPackages((error, response) => {
                 expect(error).to.be.null;
 
-                expect(response).to.be.not.null;
-                const results = response.packageDetailsList.map((item)=>{
+                const results = response!.packageDetailsList.map((item)=>{
                     return item.packageId;
                 });
 
