@@ -76,6 +76,7 @@ import {InclusiveFilters} from './model/InclusiveFilters';
 import {LedgerConfiguration} from './model/LedgerConfiguration';
 import {LedgerOffset, LedgerOffsetBoundaryValue} from './model/LedgerOffset';
 import {ListPackagesResponse} from './model/ListPackagesResponse';
+import {ListKnownPackageResponse} from './model/ListKnownPackageResponse';
 import {PackageStatus} from './model/PackageStatus';
 import {Record} from './model/Record';
 import {SetTimeRequest} from './model/SetTimeRequest';
@@ -144,6 +145,7 @@ export {
     CompletionEndResponse,
     AllocatePartyRequest,
     AllocatePartyResponse,
+    ListKnownPackageResponse,
     UploadDarFileRequest,
     Command,
     Commands,

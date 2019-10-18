@@ -1,11 +1,11 @@
 sdk-version: 0.13.10
-name: IntegrationTests
-source: daml/IntegrationTests.daml
+name: UploadDarIntegrationTests
+source: daml/Main.daml
 parties:
   - Alice
   - Bob
 exposed-modules:
-  - IntegrationTests
+  - CreateToken
 version: '0.0.0'
 dependencies:
   - daml-prim

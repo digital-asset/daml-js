@@ -18,9 +18,10 @@ import {NodeJsPackageClient} from "./NodeJsPackageClient";
 import {NodeJsLedgerIdentityClient} from "./NodeJsLedgerIdentityClient";
 import {NodeJsCommandSubmissionClient} from "./NodeJsCommandSubmissionClient";
 import {NodeJsPartyManagementClient} from "./NodeJsPartyManagementClient";
-
+import {NodeJsPackageManagementClient} from "./NodeJsPackageManagementClient";
 import {LedgerIdentityServiceClient} from "../generated/com/digitalasset/ledger/api/v1/ledger_identity_service_grpc_pb";
 import {PartyManagementServiceClient} from "../generated/com/digitalasset/ledger/api/v1/admin/party_management_service_grpc_pb";
+import {PackageManagementServiceClient} from "../generated/com/digitalasset/ledger/api/v1/admin/package_management_service_grpc_pb";
 import {GetLedgerIdentityRequest} from "../generated/com/digitalasset/ledger/api/v1/ledger_identity_service_pb";
 import {ActiveContractsServiceClient} from "../generated/com/digitalasset/ledger/api/v1/active_contracts_service_grpc_pb";
 import {CommandServiceClient} from "../generated/com/digitalasset/ledger/api/v1/command_service_grpc_pb";
@@ -43,6 +44,7 @@ import {ResetClient} from "./ResetClient";
 import {NodeJsTimeClient} from "./NodeJsTimeClient";
 import {NodeJsTransactionClient} from "./NodeJsTransactionClient";
 import {PartyManagementClient} from './PartyManagementClient';
+import {PackageManagementClient} from './PackageManagementClient';
 
 /**
  * A {@link LedgerClient} implementation that connects to an existing Ledger and provides clients to query it. To use the {@link DamlLedgerClient}
@@ -62,6 +64,7 @@ export class DamlLedgerClient implements LedgerClient {
     private readonly _transactionClient: TransactionClient;
     private readonly _resetClient: ResetClient;
     private readonly _partyManagementClient: PartyManagementClient;
+    private readonly _packageManagementClient: PackageManagementClient;
 
     private constructor(
         ledgerId: string,
@@ -119,6 +122,11 @@ export class DamlLedgerClient implements LedgerClient {
             new PartyManagementServiceClient(address, credentials),
             reporter
         );
+
+        this._packageManagementClient = new NodeJsPackageManagementClient(
+            new PackageManagementServiceClient(address, credentials),
+            reporter
+        )
     }
 
     get activeContractsClient(): ActiveContractsClient {
@@ -163,6 +171,10 @@ export class DamlLedgerClient implements LedgerClient {
 
     get partyManagementClient(): PartyManagementClient{
         return this._partyManagementClient;
+    }
+
+    get packageManagementClient(): PackageManagementClient{
+        return this._packageManagementClient;
     }
 
     private static connectCallback(

@@ -1,0 +1,20 @@
+-- Copyright (c) 2019, The DAML Authors. All rights reserved.
+-- SPDX-License-Identifier: Apache-2.0
+
+daml 1.2
+
+module CreateToken where
+
+template Token
+    with 
+      issuer : Party
+      owner : Party
+      value : Int
+    where
+        signatory issuer
+        observer owner              
+
+  
+     
+    
+    

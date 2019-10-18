@@ -230,8 +230,66 @@ describe("Integration tests", () => {
                 })
             });
         });
-    })
+    });
 
+});
+
+const darToUpload = fs.readFileSync(`${__dirname}/src/uploadDar/dist/UploadDarIntegrationTests.dar`);
+const tokenPackageId = Archive.deserializeBinary(fs.readFileSync(`${__dirname}/src/uploadDar/dist/UploadDarIntegrationTests.dalf`)).getHash();
+
+describe("Upload DAR integration test", () => {
+
+    const commands = {
+        commands: {
+            applicationId: 'UploadDarIntegrationTests',
+            commandId: uuid(),
+            workflowId: 'IntegrationTests',
+            ledgerEffectiveTime: {seconds: 0, nanoseconds: 0},
+            maximumRecordTime: {seconds: 5, nanoseconds: 0},
+            party: 'Alice',
+            list: [
+                {
+                    commandType: 'create' as 'create',
+                    templateId: {
+                        packageId: tokenPackageId,
+                        moduleName: 'CreateToken',
+                        entityName: 'Token'
+                    },
+                    arguments: {
+                        fields: {
+                            issuer: {valueType: 'party' as 'party', party: 'Alice'},
+                            owner: {valueType: 'party' as 'party', party: 'Bob'},
+                            value: {valueType: 'int64' as 'int64', int64: '0'}
+                        }
+                    }
+                }
+            ]
+        }
+    };
+
+    it('should be able to upload Dar file', (done) =>{
+        const darToUploadInString = darToUpload.toString('base64');
+        withLedgerClient((client) => {
+            client.packageManagementClient.uploadDarFile({
+                darFile: darToUploadInString
+            });
+
+            client.packageManagementClient.listKnownPackages((error, response) => {
+                expect(error).to.be.null;
+
+                const results = response!.packageDetailsList.map((item)=>{
+                    return item.packageId;
+                });
+
+                expect(results.includes("4b28a295e1af8166b6f082ad2ceeb2f85d6198aaee7638bd8f9cd02bf1d04147")).to.be.true;
+
+                client.commandClient.submitAndWait(commands, (error) => {
+                    expect(error).to.be.null;
+                    done();
+                });
+            });
+        });
+    });
 });
 
 function withLedgerClient(callback: (client: LedgerClient) => void): void {
