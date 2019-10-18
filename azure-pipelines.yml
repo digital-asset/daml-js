@@ -23,7 +23,7 @@ strategy:
     node_8_daml_0.13.10:
       nodejs_version: 8.x
       daml_sdk_version: 0.13.10
-    node_10_daml_0.12.25:
+    node_10_daml_0.13.10:
       nodejs_version: 10.x
       daml_sdk_version: 0.13.10
 
