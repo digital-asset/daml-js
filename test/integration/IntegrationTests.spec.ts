@@ -277,16 +277,17 @@ describe("Upload DAR integration test", () => {
             client.packageManagementClient.listKnownPackages((error, response) => {
                 expect(error).to.be.null;
 
-                if (response !== undefined) {
-                    response.packageDetailsList.forEach( (item) => {
-                        expect(item.packageId).to.be.not.null;
-                    })
-                }
+                expect(response).to.be.not.null;
+                const results = response.packageDetailsList.map((item)=>{
+                    return item.packageId;
+                });
+
+                expect(results.includes("4b28a295e1af8166b6f082ad2ceeb2f85d6198aaee7638bd8f9cd02bf1d04147")).to.be.true;
 
                 client.commandClient.submitAndWait(commands, (error) => {
                     expect(error).to.be.null;
+                    done();
                 });
-                done();
             });
         });
     });
