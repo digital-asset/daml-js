@@ -1,4 +1,4 @@
-// Copyright (c) 2019 The DAML Authors. All rights reserved.
+// Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 import {expect} from 'chai';
@@ -577,11 +577,11 @@ describe('Codec', () => {
         twoWayCheck(ValueCodec, dateMessage, dateObject);
     });
 
-    itShouldConvert('ValueValidation(Decimal)', () => {
-        const decimalMessage = new PbValue();
-        decimalMessage.setDecimal('30');
-        const decimalObject: Value = {valueType: 'decimal', decimal: '30'};
-        twoWayCheck(ValueCodec, decimalMessage, decimalObject);
+    itShouldConvert('ValueValidation(Numeric)', () => {
+        const numericMessage = new PbValue();
+        numericMessage.setNumeric('30');
+        const numericObject: Value = {valueType: 'decimal', decimal: '30'};
+        twoWayCheck(ValueCodec, numericMessage, numericObject);
     });
 
     itShouldConvert('ValueValidation(Int64)', () => {
@@ -1259,7 +1259,6 @@ describe('Codec', () => {
         message.setChoiceArgument(argument);
         message.setChoice('freedom');
         message.setConsuming(true);
-        message.setContractCreatingEventId('father');
         message.setChildEventIdsList(['event']);
 
         const object: ExercisedEvent = {
@@ -1276,7 +1275,6 @@ describe('Codec', () => {
             childEventIds: ['event'],
             choice: 'freedom',
             consuming: true,
-            contractCreatingEventId: 'father',
             witnessParties: ['house-warming']
         };
 

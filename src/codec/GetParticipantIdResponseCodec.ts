@@ -1,4 +1,4 @@
-// Copyright (c) 2019 The DAML Authors. All rights reserved.
+// Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 
@@ -7,7 +7,7 @@ import {GetParticipantIdResponse} from "../model/GetParticipantIdResponse";
 import {GetParticipantIdResponse as PbGetParticipantIdResponse} from "../generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb";
 
 export const GetParticipantIdResponseCodec: Codec<PbGetParticipantIdResponse, GetParticipantIdResponse> = {
-    deserialize(message: PbGetParticipantIdResponse): GetParticipantIdResponse{
+    deserialize(message: PbGetParticipantIdResponse): GetParticipantIdResponse {
         const object: GetParticipantIdResponse = {
             participantId: message.getParticipantId()
         };

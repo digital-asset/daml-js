@@ -1,4 +1,4 @@
-// Copyright (c) 2019 The DAML Authors. All rights reserved.
+// Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 import {Value} from "./Value";
@@ -29,7 +29,6 @@ import {Identifier} from "./Identifier";
  *         }
  *     },
  *     consuming: true,
- *     contractCreatingEventId: 'some-creating-event-id',
  *     contractId: 'some-contract-id',
  *     eventId: 'some-event-id',
  *     templateId: {
@@ -80,11 +79,6 @@ export interface ExercisedEvent {
      * If true, the target contract may no longer be exercised.
      */
     consuming: boolean
-
-    /**
-     * The identifier of the event in which the target contract has been created.
-     */
-    contractCreatingEventId: string
 
     /**
      * The identifier of the target contract.

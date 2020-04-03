@@ -1,17 +1,17 @@
-// Copyright (c) 2019 The DAML Authors. All rights reserved.
+// Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 import * as fs from 'fs';
 import {expect} from 'chai';
-import {Archive} from '../../src/generated/da/daml_lf_pb';
 import {DamlLedgerClient} from "../../src/client/DamlLedgerClient";
 import {LedgerClient} from "../../src/client/LedgerClient";
 import {GetActiveContractsResponse} from "../../src/model/GetActiveContractsResponse";
 import {GetTransactionsResponse} from "../../src/model/GetTransactionsResponse";
 import {LedgerOffsetBoundaryValue} from "../../src/model/LedgerOffset";
 import {v4 as uuid} from "uuid";
+import {SubmitAndWaitRequest} from "../../lib";
 
-const packageId = Archive.deserializeBinary(fs.readFileSync(`${__dirname}/src/dist/IntegrationTests.dalf`)).getHash();
+const packageId: string = fs.readFileSync(`${__dirname}/IntegrationTests-0.0.0.sha256`, { encoding: 'UTF8'}).replace(/\n$/, '');
 
 describe("Integration tests", () => {
 
@@ -67,37 +67,39 @@ describe("Integration tests", () => {
         });
     });
 
-    const commands = {
-        commands: {
-            applicationId: 'ActiveContractsClientIntegrationTests',
-            commandId: uuid(),
-            workflowId: 'IntegrationTests',
-            ledgerEffectiveTime: {seconds: 0, nanoseconds: 0},
-            maximumRecordTime: {seconds: 5, nanoseconds: 0},
-            party: 'Alice',
-            list: [
-                {
-                    commandType: 'create' as 'create',
-                    templateId: {
-                        packageId: packageId,
-                        moduleName: 'IntegrationTests',
-                        entityName: 'Ping'
-                    },
-                    arguments: {
-                        fields: {
-                            sender: {valueType: 'party' as 'party', party: 'Alice'},
-                            receiver: {valueType: 'party' as 'party', party: 'Bob'},
-                            count: {valueType: 'int64' as 'int64', int64: '0'}
+    function commands(): SubmitAndWaitRequest {
+        return {
+            commands: {
+                applicationId: 'ActiveContractsClientIntegrationTests',
+                commandId: uuid(),
+                workflowId: 'IntegrationTests',
+                ledgerEffectiveTime: {seconds: 0, nanoseconds: 0},
+                maximumRecordTime: {seconds: 5, nanoseconds: 0},
+                party: 'Alice',
+                list: [
+                    {
+                        commandType: 'create' as 'create',
+                        templateId: {
+                            packageId: packageId,
+                            moduleName: 'IntegrationTests',
+                            entityName: 'Ping'
+                        },
+                        arguments: {
+                            fields: {
+                                sender: {valueType: 'party' as 'party', party: 'Alice'},
+                                receiver: {valueType: 'party' as 'party', party: 'Bob'},
+                                count: {valueType: 'int64' as 'int64', int64: '0'}
+                            }
                         }
                     }
-                }
-            ]
+                ]
+            }
         }
-    };
+    }
 
     it('should successfully submit and wait for a command', (done) => {
         withLedgerClient((client) => {
-            client.commandClient.submitAndWait(commands, (error) => {
+            client.commandClient.submitAndWait(commands(), (error) => {
                 expect(error).to.be.null;
                 done();
             });
@@ -106,7 +108,7 @@ describe("Integration tests", () => {
 
     it('should successfully submit and wait for a transaction identifier', (done) => {
         withLedgerClient((client) => {
-            client.commandClient.submitAndWaitForTransactionId(commands, (error, response) => {
+            client.commandClient.submitAndWaitForTransactionId(commands(), (error, response) => {
                 expect(error).to.be.null;
                 expect(response).to.not.be.null;
                 expect(response!.transactionId).to.be.a('string');
@@ -117,7 +119,7 @@ describe("Integration tests", () => {
 
     it('should successfully submit and wait for a transaction', (done) => {
         withLedgerClient((client) => {
-            client.commandClient.submitAndWaitForTransaction(commands, (error, response) => {
+            client.commandClient.submitAndWaitForTransaction(commands(), (error, response) => {
                 expect(error).to.be.null;
                 expect(response).to.not.be.null;
                 expect(response!.transaction).to.not.be.null;
@@ -128,7 +130,7 @@ describe("Integration tests", () => {
 
     it('should successfully submit and wait for a transaction tree', (done) => {
         withLedgerClient((client) => {
-            client.commandClient.submitAndWaitForTransactionTree(commands, (error, response) => {
+            client.commandClient.submitAndWaitForTransactionTree(commands(), (error, response) => {
                 expect(error).to.be.null;
                 expect(response).to.not.be.null;
                 expect(response!.transaction).to.not.be.null;
@@ -160,7 +162,7 @@ describe("Integration tests", () => {
 
     it('should correctly submit commands to the submission endpoint', (done) => {
         withLedgerClient(client => {
-            client.commandSubmissionClient.submit(commands, (error) => {
+            client.commandSubmissionClient.submit(commands(), (error) => {
                 expect(error).to.be.null;
                 done();
             });
@@ -234,8 +236,8 @@ describe("Integration tests", () => {
 
 });
 
-const darToUpload = fs.readFileSync(`${__dirname}/src/uploadDar/dist/UploadDarIntegrationTests.dar`);
-const tokenPackageId = Archive.deserializeBinary(fs.readFileSync(`${__dirname}/src/uploadDar/dist/UploadDarIntegrationTests.dalf`)).getHash();
+const darToUpload = fs.readFileSync(`${__dirname}/src/uploadDar/.daml/dist/UploadDarIntegrationTests-0.0.0.dar`);
+const tokenPackageId = fs.readFileSync(`${__dirname}/UploadDarIntegrationTests-0.0.0.sha256`, { encoding: 'UTF8'}).replace(/\n$/, '');
 
 describe("Upload DAR integration test", () => {
 
@@ -281,7 +283,7 @@ describe("Upload DAR integration test", () => {
                     return item.packageId;
                 });
 
-                expect(results.includes("4b28a295e1af8166b6f082ad2ceeb2f85d6198aaee7638bd8f9cd02bf1d04147")).to.be.true;
+                expect(results.includes(tokenPackageId)).to.be.true;
 
                 client.commandClient.submitAndWait(commands, (error) => {
                     expect(error).to.be.null;

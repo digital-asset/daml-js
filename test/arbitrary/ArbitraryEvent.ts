@@ -1,4 +1,4 @@
-// Copyright (c) 2019 The DAML Authors. All rights reserved.
+// Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 import * as jsc from 'jsverify';
@@ -38,7 +38,6 @@ export const ArbitraryExercisedEvent: jsc.Arbitrary<ExercisedEvent> =
         choice: jsc.string,
         argument: ArbitraryValue,
         consuming: jsc.bool,
-        contractCreatingEventId: jsc.string,
         contractId: jsc.string,
         eventId: jsc.string,
         templateId: ArbitraryIdentifier,

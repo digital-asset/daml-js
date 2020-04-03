@@ -1,4 +1,4 @@
-// Copyright (c) 2019 The DAML Authors. All rights reserved.
+// Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 import {
@@ -23,8 +23,8 @@ export const ValueCodec: Codec<PbValue, Value> = {
             return {valueType: 'contractId', contractId: value.getContractId()};
         } else if (value.hasDate()) {
             return {valueType: 'date', date: '' + value.getDate()};
-        } else if (value.hasDecimal()) {
-            return {valueType: 'decimal', decimal: value.getDecimal()};
+        } else if (value.hasNumeric()) {
+            return {valueType: 'decimal', decimal: value.getNumeric()};
         } else if (value.hasInt64()) {
             return {valueType: 'int64', int64: value.getInt64()};
         } else if (value.hasList()) {
@@ -98,7 +98,7 @@ export const ValueCodec: Codec<PbValue, Value> = {
                 message.setDate(parseInt(object.date));
                 break;
             case "decimal":
-                message.setDecimal(object.decimal);
+                message.setNumeric(object.decimal);
                 break;
             case "int64":
                 message.setInt64(object.int64);

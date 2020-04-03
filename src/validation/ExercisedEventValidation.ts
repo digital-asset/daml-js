@@ -1,4 +1,4 @@
-// Copyright (c) 2019 The DAML Authors. All rights reserved.
+// Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 
@@ -18,7 +18,6 @@ function required(): RequiredFieldsValidators<ExercisedEvent> {
         choice: native('string'),
         argument: ValueValidation,
         consuming: native('boolean'),
-        contractCreatingEventId: native('string'),
         contractId: native('string'),
         eventId: native('string'),
         templateId: IdentifierValidation,

@@ -1,4 +1,4 @@
-// Copyright (c) 2019 The DAML Authors. All rights reserved.
+// Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 import {assert, expect} from 'chai';
@@ -115,7 +115,7 @@ describe("NodeJsPartyManagementClient", () => {
     it("should correctly send a request for a participant identifier", (done)=>{
         client.getParticipantId((error, _response) => {
             expect(error).to.be.null;
-            assert(latestRequestSpy.calledOnce, 'The latestRequestSpy has not beeen called exactly once');
+            assert(latestRequestSpy.calledOnce, 'The latestRequestSpy has not been called exactly once');
             expect(latestRequestSpy.lastCall.args).to.have.length(1);
             expect(latestRequestSpy.lastCall.lastArg).to.be.an.instanceof(PbGetParticipantIdRequest);
             done();

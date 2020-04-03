@@ -1,4 +1,4 @@
-// Copyright (c) 2019 The DAML Authors. All rights reserved.
+// Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 import {NodeJsActiveContractsClient} from "./client/NodeJsActiveContractsClient";
@@ -33,7 +33,7 @@ export {
     NodeJsPackageManagementClient as PackageManagementClient
 };
 
-import * as lf from './generated/da/daml_lf_pb';
+import * as lf from './generated/com/digitalasset/daml_lf_1_6/daml_lf_pb';
 export {lf};
 
 import {Any} from './model/Any';

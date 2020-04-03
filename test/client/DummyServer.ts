@@ -1,4 +1,4 @@
-// Copyright (c) 2019 The DAML Authors. All rights reserved.
+// Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 import {Metadata, Server, ServerUnaryCall, ServerWriteableStream, ServiceError} from 'grpc';
@@ -388,6 +388,17 @@ export class DummyServer extends Server {
             ): void {
                 callback(null, null);
             },
+            getParties(
+                _call: null,
+                callback: (
+                    error: ServiceError | null,
+                    value: null,
+                    trailer?: Metadata,
+                    flags?: number
+                ) => void
+            ): void {
+                callback(null, null);
+            },
             listKnownParties(
                 _call: ServerUnaryCall<ListKnownPartiesRequest>,
                 callback: (
@@ -411,7 +422,7 @@ export class DummyServer extends Server {
             ): void {
                 callback(null, null);
             }
-        })
+        });
 
         this.addService(PackageManagementServiceService, {
             listKnownPackages(
@@ -436,6 +447,6 @@ export class DummyServer extends Server {
             ): void {
                 callback(null, null);
             }
-        })
+        });
     }
 }

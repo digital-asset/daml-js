@@ -1,4 +1,4 @@
-// Copyright (c) 2019 The DAML Authors. All rights reserved.
+// Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 import {expect} from 'chai';
@@ -475,7 +475,7 @@ describe('Reference Codec (SubmitRequestValidation/Pvp)', () => {
     const baseAmountField = new PbRecordField();
     baseAmountField.setLabel('baseAmount');
     const baseAmountValue = new PbValue();
-    baseAmountValue.setDecimal('1000000.00');
+    baseAmountValue.setNumeric('1000000.00');
     baseAmountField.setValue(baseAmountValue);
     record.addFields(baseAmountField);
 
@@ -520,7 +520,7 @@ describe('Reference Codec (SubmitRequestValidation/Pvp)', () => {
     const quoteAmountField = new PbRecordField();
     quoteAmountField.setLabel('quoteAmount');
     const quoteAmountValue = new PbValue();
-    quoteAmountValue.setDecimal('1000001.00');
+    quoteAmountValue.setNumeric('1000001.00');
     quoteAmountField.setValue(quoteAmountValue);
     record.addFields(quoteAmountField);
 

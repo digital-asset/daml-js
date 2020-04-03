@@ -1,4 +1,4 @@
-# Copyright (c) 2019 The DAML Authors. All rights reserved.
+# Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 .DS_Store
 .idea
@@ -24,3 +24,4 @@ test/integration/src/uploadDar/sandbox.out
 test/integration/src/uploadDar/sandbox.log
 test/integration/src/uploadDar/dist
 test/integration/src/uploadDar/.interfaces/daml
+test/integration/*.sha256
