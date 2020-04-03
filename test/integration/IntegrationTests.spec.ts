@@ -67,37 +67,39 @@ describe("Integration tests", () => {
         });
     });
 
-    const commands = {
-        commands: {
-            applicationId: 'ActiveContractsClientIntegrationTests',
-            commandId: uuid(),
-            workflowId: 'IntegrationTests',
-            ledgerEffectiveTime: {seconds: 0, nanoseconds: 0},
-            maximumRecordTime: {seconds: 5, nanoseconds: 0},
-            party: 'Alice',
-            list: [
-                {
-                    commandType: 'create' as 'create',
-                    templateId: {
-                        packageId: packageId,
-                        moduleName: 'IntegrationTests',
-                        entityName: 'Ping'
-                    },
-                    arguments: {
-                        fields: {
-                            sender: {valueType: 'party' as 'party', party: 'Alice'},
-                            receiver: {valueType: 'party' as 'party', party: 'Bob'},
-                            count: {valueType: 'int64' as 'int64', int64: '0'}
+    function commands() {
+        return {
+            commands: {
+                applicationId: 'ActiveContractsClientIntegrationTests',
+                commandId: uuid(),
+                workflowId: 'IntegrationTests',
+                ledgerEffectiveTime: {seconds: 0, nanoseconds: 0},
+                maximumRecordTime: {seconds: 5, nanoseconds: 0},
+                party: 'Alice',
+                list: [
+                    {
+                        commandType: 'create' as 'create',
+                        templateId: {
+                            packageId: packageId,
+                            moduleName: 'IntegrationTests',
+                            entityName: 'Ping'
+                        },
+                        arguments: {
+                            fields: {
+                                sender: {valueType: 'party' as 'party', party: 'Alice'},
+                                receiver: {valueType: 'party' as 'party', party: 'Bob'},
+                                count: {valueType: 'int64' as 'int64', int64: '0'}
+                            }
                         }
                     }
-                }
-            ]
+                ]
+            }
         }
-    };
+    }
 
     it('should successfully submit and wait for a command', (done) => {
         withLedgerClient((client) => {
-            client.commandClient.submitAndWait(commands, (error) => {
+            client.commandClient.submitAndWait(commands(), (error) => {
                 expect(error).to.be.null;
                 done();
             });
@@ -106,7 +108,7 @@ describe("Integration tests", () => {
 
     it('should successfully submit and wait for a transaction identifier', (done) => {
         withLedgerClient((client) => {
-            client.commandClient.submitAndWaitForTransactionId(commands, (error, response) => {
+            client.commandClient.submitAndWaitForTransactionId(commands(), (error, response) => {
                 expect(error).to.be.null;
                 expect(response).to.not.be.null;
                 expect(response!.transactionId).to.be.a('string');
@@ -117,7 +119,7 @@ describe("Integration tests", () => {
 
     it('should successfully submit and wait for a transaction', (done) => {
         withLedgerClient((client) => {
-            client.commandClient.submitAndWaitForTransaction(commands, (error, response) => {
+            client.commandClient.submitAndWaitForTransaction(commands(), (error, response) => {
                 expect(error).to.be.null;
                 expect(response).to.not.be.null;
                 expect(response!.transaction).to.not.be.null;
@@ -128,7 +130,7 @@ describe("Integration tests", () => {
 
     it('should successfully submit and wait for a transaction tree', (done) => {
         withLedgerClient((client) => {
-            client.commandClient.submitAndWaitForTransactionTree(commands, (error, response) => {
+            client.commandClient.submitAndWaitForTransactionTree(commands(), (error, response) => {
                 expect(error).to.be.null;
                 expect(response).to.not.be.null;
                 expect(response!.transaction).to.not.be.null;
@@ -160,7 +162,7 @@ describe("Integration tests", () => {
 
     it('should correctly submit commands to the submission endpoint', (done) => {
         withLedgerClient(client => {
-            client.commandSubmissionClient.submit(commands, (error) => {
+            client.commandSubmissionClient.submit(commands(), (error) => {
                 expect(error).to.be.null;
                 done();
             });
