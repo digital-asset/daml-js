@@ -388,6 +388,17 @@ export class DummyServer extends Server {
             ): void {
                 callback(null, null);
             },
+            getParties(
+                _call: null,
+                callback: (
+                    error: ServiceError | null,
+                    value: null,
+                    trailer?: Metadata,
+                    flags?: number
+                ) => void
+            ): void {
+                callback(null, null);
+            },
             listKnownParties(
                 _call: ServerUnaryCall<ListKnownPartiesRequest>,
                 callback: (
@@ -411,7 +422,7 @@ export class DummyServer extends Server {
             ): void {
                 callback(null, null);
             }
-        })
+        });
 
         this.addService(PackageManagementServiceService, {
             listKnownPackages(
@@ -436,6 +447,6 @@ export class DummyServer extends Server {
             ): void {
                 callback(null, null);
             }
-        })
+        });
     }
 }

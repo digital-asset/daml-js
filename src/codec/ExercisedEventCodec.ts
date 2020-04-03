@@ -17,7 +17,6 @@ export const ExercisedEventCodec: Codec<PbExercisedEvent, ExercisedEvent> = {
             choice: message.getChoice(),
             argument: ValueCodec.deserialize(message.getChoiceArgument()!),
             consuming: message.getConsuming(),
-            contractCreatingEventId: message.getContractCreatingEventId(),
             contractId: message.getContractId(),
             eventId: message.getEventId(),
             templateId: IdentifierCodec.deserialize(message.getTemplateId()!),
@@ -39,7 +38,6 @@ export const ExercisedEventCodec: Codec<PbExercisedEvent, ExercisedEvent> = {
         message.setChoice(object.choice);
         message.setChoiceArgument(ValueCodec.serialize(object.argument));
         message.setConsuming(object.consuming);
-        message.setContractCreatingEventId(object.contractCreatingEventId);
         message.setContractId(object.contractId);
         message.setEventId(object.eventId);
         message.setTemplateId(IdentifierCodec.serialize(object.templateId));

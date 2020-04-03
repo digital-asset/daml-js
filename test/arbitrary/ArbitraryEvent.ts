@@ -38,7 +38,6 @@ export const ArbitraryExercisedEvent: jsc.Arbitrary<ExercisedEvent> =
         choice: jsc.string,
         argument: ArbitraryValue,
         consuming: jsc.bool,
-        contractCreatingEventId: jsc.string,
         contractId: jsc.string,
         eventId: jsc.string,
         templateId: ArbitraryIdentifier,

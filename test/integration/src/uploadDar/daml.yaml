@@ -1,4 +1,4 @@
-sdk-version: 0.13.10
+sdk-version: 0.13.55
 name: UploadDarIntegrationTests
 source: daml/Main.daml
 parties:

@@ -6,7 +6,7 @@ import {
     AllocatePartyRequest,
     AllocatePartyResponse,
     GetParticipantIdRequest,
-    GetParticipantIdResponse,
+    GetParticipantIdResponse, GetPartiesRequest, GetPartiesResponse,
     ListKnownPartiesRequest,
     ListKnownPartiesResponse,
     PartyDetails
@@ -18,13 +18,15 @@ import * as sinon from "sinon";
 export class DummyPartyManagementServiceClient implements IPartyManagementServiceClient {
 
     private readonly latestRequestSpy: sinon.SinonSpy;
-    private readonly getParticipantIdResponse:GetParticipantIdResponse;
+    private readonly getParticipantIdResponse: GetParticipantIdResponse;
+    private readonly getPartiesResponse: GetPartiesResponse;
     private readonly listKnownPartiesResponse: ListKnownPartiesResponse;
     private readonly allocatePartyResponse: AllocatePartyResponse;
 
     constructor(latestRequestSpy: sinon.SinonSpy) {
         this.latestRequestSpy = latestRequestSpy;
         this.getParticipantIdResponse = new GetParticipantIdResponse();
+        this.getPartiesResponse = new GetPartiesResponse();
         this.listKnownPartiesResponse = new ListKnownPartiesResponse();
         this.listKnownPartiesResponse.setPartyDetailsList([]);
         this.allocatePartyResponse = new AllocatePartyResponse();
@@ -49,9 +51,9 @@ export class DummyPartyManagementServiceClient implements IPartyManagementServic
             error: Error | null, 
             response: GetParticipantIdResponse) => void
     ): ClientUnaryCall;
-    
+
     getParticipantId(
-        request: GetParticipantIdRequest, 
+        request: GetParticipantIdRequest,
         metadata: any, 
         options?: any, 
         callback?: any
@@ -64,6 +66,39 @@ export class DummyPartyManagementServiceClient implements IPartyManagementServic
                : callback;
         this.latestRequestSpy(request)
         cb(null, this.getParticipantIdResponse);
+        return DummyClientUnaryCall.Instance;
+    };
+
+    getParties(
+        request: GetPartiesRequest,
+        callback: (
+            error: Error | null,
+            response: GetPartiesResponse
+        ) => void
+    ): ClientUnaryCall;
+
+    getParties(
+        request: GetPartiesRequest,
+        metadata: Metadata,
+        callback: (
+            error: Error | null,
+            response: GetPartiesResponse) => void
+    ): ClientUnaryCall;
+
+    getParties(
+        request: GetPartiesRequest,
+        metadata: any,
+        options?: any,
+        callback?: any
+    ){
+        const cb =
+            callback === undefined
+                ? options === undefined
+                ? metadata
+                : options
+                : callback;
+        this.latestRequestSpy(request)
+        cb(null, this.getPartiesResponse);
         return DummyClientUnaryCall.Instance;
     };
     

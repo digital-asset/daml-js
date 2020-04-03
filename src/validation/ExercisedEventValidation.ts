@@ -18,7 +18,6 @@ function required(): RequiredFieldsValidators<ExercisedEvent> {
         choice: native('string'),
         argument: ValueValidation,
         consuming: native('boolean'),
-        contractCreatingEventId: native('string'),
         contractId: native('string'),
         eventId: native('string'),
         templateId: IdentifierValidation,

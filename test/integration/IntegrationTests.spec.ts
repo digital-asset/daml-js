@@ -3,7 +3,7 @@
 
 import * as fs from 'fs';
 import {expect} from 'chai';
-import {Archive} from '../../src/generated/da/daml_lf_pb';
+import {Archive} from '../../src/generated/com/digitalasset/daml_lf_1_6/daml_lf_pb';
 import {DamlLedgerClient} from "../../src/client/DamlLedgerClient";
 import {LedgerClient} from "../../src/client/LedgerClient";
 import {GetActiveContractsResponse} from "../../src/model/GetActiveContractsResponse";
