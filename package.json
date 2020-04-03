@@ -12,7 +12,7 @@
     "ci-pipeline": "npm ci && ./check-copy.sh && rm -rf proto src/generated && npm run pretest && npm run test-with-fixed-seed",
     "release-docs": "rm -rf docs && typedoc --tsconfig tsconfig-docs.json --out ./docs/$(git describe --tags) src",
     "prepack": "./grpc-codegen.sh && tsc --build tsconfig-dist.json && cp -r src/generated lib",
-    "pretest": " ./sandbox-start.sh && ./grpc-codegen.sh && tsc --build tsconfig-dist.json && tsc --build tsconfig-test.json",
+    "pretest": " ./sandbox-start.sh && npm run prepack && tsc --build tsconfig-test.json",
     "test": "DAML_SANDBOX_PORT=$(cat sandbox.port) TS_NODE_COMPILER_OPTIONS=$(node compiler-options) mocha -r ts-node/register --recursive './test/**/*.spec.ts'",
     "test-with-fixed-seed": "DAML_SANDBOX_PORT=$(cat sandbox.port) TS_NODE_COMPILER_OPTIONS=$(node compiler-options) mocha -r ts-node/register --jsverifyRngState 86f24ba518063e9c7d --recursive './test/**/*.spec.ts'"
   },

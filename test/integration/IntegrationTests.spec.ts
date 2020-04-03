@@ -11,7 +11,7 @@ import {LedgerOffsetBoundaryValue} from "../../src/model/LedgerOffset";
 import {v4 as uuid} from "uuid";
 import {SubmitAndWaitRequest} from "../../lib";
 
-const packageId: string = fs.readFileSync(`${__dirname}/IntegrationTests.sha256`, { encoding: 'UTF8'});
+const packageId: string = fs.readFileSync(`${__dirname}/IntegrationTests-0.0.0.sha256`, { encoding: 'UTF8'}).replace(/\n$/, '');
 
 describe("Integration tests", () => {
 
@@ -236,8 +236,8 @@ describe("Integration tests", () => {
 
 });
 
-const darToUpload = fs.readFileSync(`${__dirname}/src/uploadDar/.daml/dist/UploadDarIntegrationTests.dar`);
-const tokenPackageId = fs.readFileSync(`${__dirname}/UploadDarIntegrationTests.sha256`, { encoding: 'UTF8'});
+const darToUpload = fs.readFileSync(`${__dirname}/src/uploadDar/.daml/dist/UploadDarIntegrationTests-0.0.0.dar`);
+const tokenPackageId = fs.readFileSync(`${__dirname}/UploadDarIntegrationTests-0.0.0.sha256`, { encoding: 'UTF8'}).replace(/\n$/, '');
 
 describe("Upload DAR integration test", () => {
 
@@ -283,7 +283,7 @@ describe("Upload DAR integration test", () => {
                     return item.packageId;
                 });
 
-                expect(results.includes("4b28a295e1af8166b6f082ad2ceeb2f85d6198aaee7638bd8f9cd02bf1d04147")).to.be.true;
+                expect(results.includes(tokenPackageId)).to.be.true;
 
                 client.commandClient.submitAndWait(commands, (error) => {
                     expect(error).to.be.null;
