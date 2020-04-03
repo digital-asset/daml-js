@@ -24,3 +24,4 @@ test/integration/src/uploadDar/sandbox.out
 test/integration/src/uploadDar/sandbox.log
 test/integration/src/uploadDar/dist
 test/integration/src/uploadDar/.interfaces/daml
+test/integration/*.sha256

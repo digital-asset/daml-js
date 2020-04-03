@@ -3,15 +3,15 @@
 
 import * as fs from 'fs';
 import {expect} from 'chai';
-import {Archive} from '../../src/generated/com/digitalasset/daml_lf_1_6/daml_lf_pb';
 import {DamlLedgerClient} from "../../src/client/DamlLedgerClient";
 import {LedgerClient} from "../../src/client/LedgerClient";
 import {GetActiveContractsResponse} from "../../src/model/GetActiveContractsResponse";
 import {GetTransactionsResponse} from "../../src/model/GetTransactionsResponse";
 import {LedgerOffsetBoundaryValue} from "../../src/model/LedgerOffset";
 import {v4 as uuid} from "uuid";
+import {SubmitAndWaitRequest} from "../../lib";
 
-const packageId = Archive.deserializeBinary(fs.readFileSync(`${__dirname}/src/dist/IntegrationTests.dalf`)).getHash();
+const packageId: string = fs.readFileSync(`${__dirname}/IntegrationTests.sha256`, { encoding: 'UTF8'});
 
 describe("Integration tests", () => {
 
@@ -67,7 +67,7 @@ describe("Integration tests", () => {
         });
     });
 
-    function commands() {
+    function commands(): SubmitAndWaitRequest {
         return {
             commands: {
                 applicationId: 'ActiveContractsClientIntegrationTests',
@@ -236,8 +236,8 @@ describe("Integration tests", () => {
 
 });
 
-const darToUpload = fs.readFileSync(`${__dirname}/src/uploadDar/dist/UploadDarIntegrationTests.dar`);
-const tokenPackageId = Archive.deserializeBinary(fs.readFileSync(`${__dirname}/src/uploadDar/dist/UploadDarIntegrationTests.dalf`)).getHash();
+const darToUpload = fs.readFileSync(`${__dirname}/src/uploadDar/.daml/dist/UploadDarIntegrationTests.dar`);
+const tokenPackageId = fs.readFileSync(`${__dirname}/UploadDarIntegrationTests.sha256`, { encoding: 'UTF8'});
 
 describe("Upload DAR integration test", () => {
 
