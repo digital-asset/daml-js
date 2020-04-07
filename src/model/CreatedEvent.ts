@@ -3,6 +3,7 @@
 
 import {Identifier} from "./Identifier";
 import {Record} from "./Record";
+import {Value} from "./Value";
 
 /**
  * Records that a contract has been created, and choices may now be exercised on it.
@@ -75,4 +76,11 @@ export interface CreatedEvent {
      * @since Ledger API 0.12.18
      */
     agreementText?: string
+
+    /**
+     * The key of the contract created by this event.
+     *
+     * @since Ledger API 0.12.25
+     */
+    contractKey?: Value
 }
