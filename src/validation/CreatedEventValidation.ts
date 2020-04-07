@@ -5,6 +5,7 @@ import {native} from "./Native";
 import {CreatedEvent} from "../model/CreatedEvent";
 import {RecordValidation} from "./RecordValidation";
 import {IdentifierValidation} from "./IdentifierValidation";
+import {ValueValidation} from "./ValueValidation";
 import {array} from "./Array";
 import {object} from "./Object";
 import {OptionalFieldsValidators, RequiredFieldsValidators} from "./Validation";
@@ -23,7 +24,8 @@ function required(): RequiredFieldsValidators<CreatedEvent> {
 
 function optional(): OptionalFieldsValidators<CreatedEvent> {
     return {
-        agreementText: native('string')
+        agreementText: native('string'),
+        contractKey: ValueValidation,
     };
 }
 

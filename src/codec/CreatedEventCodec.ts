@@ -5,6 +5,7 @@ import {Codec} from "./Codec";
 import {CreatedEvent} from "../model/CreatedEvent";
 import {IdentifierCodec} from "./IdentifierCodec";
 import {RecordCodec} from "./RecordCodec";
+import {ValueCodec} from "./ValueCodec";
 import {CreatedEvent as PbCreatedEvent} from "../generated/com/digitalasset/ledger/api/v1/event_pb";
 import {StringValue} from "google-protobuf/google/protobuf/wrappers_pb";
 
@@ -21,6 +22,9 @@ export const CreatedEventCodec: Codec<PbCreatedEvent, CreatedEvent> = {
         if (message.hasAgreementText()) {
             object.agreementText = message.getAgreementText()!.getValue();
         }
+        if (message.hasContractKey()) {
+            object.contractKey = ValueCodec.deserialize(message.getContractKey()!);
+        }
         return object;
     },
     serialize(object: CreatedEvent): PbCreatedEvent {
@@ -34,6 +38,9 @@ export const CreatedEventCodec: Codec<PbCreatedEvent, CreatedEvent> = {
             const agreementText = new StringValue();
             agreementText.setValue(object.agreementText);
             message.setAgreementText(agreementText);
+        }
+        if (object.contractKey !== undefined) {
+            message.setContractKey(ValueCodec.serialize(object.contractKey));
         }
         return message;
     }

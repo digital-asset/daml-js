@@ -9,7 +9,7 @@ import {GetActiveContractsResponse} from "../../src/model/GetActiveContractsResp
 import {GetTransactionsResponse} from "../../src/model/GetTransactionsResponse";
 import {LedgerOffsetBoundaryValue} from "../../src/model/LedgerOffset";
 import {v4 as uuid} from "uuid";
-import {SubmitAndWaitRequest} from "../../lib";
+import {daml, GetTransactionTreesResponse, SubmitAndWaitRequest} from "../../lib";
 
 const packageId: string = fs.readFileSync(`${__dirname}/IntegrationTests-0.0.0.sha256`, { encoding: 'UTF8'}).replace(/\n$/, '');
 
@@ -67,7 +67,7 @@ describe("Integration tests", () => {
         });
     });
 
-    function commands(): SubmitAndWaitRequest {
+    function createPing(): SubmitAndWaitRequest {
         return {
             commands: {
                 applicationId: 'ActiveContractsClientIntegrationTests',
@@ -99,7 +99,7 @@ describe("Integration tests", () => {
 
     it('should successfully submit and wait for a command', (done) => {
         withLedgerClient((client) => {
-            client.commandClient.submitAndWait(commands(), (error) => {
+            client.commandClient.submitAndWait(createPing(), (error) => {
                 expect(error).to.be.null;
                 done();
             });
@@ -108,7 +108,7 @@ describe("Integration tests", () => {
 
     it('should successfully submit and wait for a transaction identifier', (done) => {
         withLedgerClient((client) => {
-            client.commandClient.submitAndWaitForTransactionId(commands(), (error, response) => {
+            client.commandClient.submitAndWaitForTransactionId(createPing(), (error, response) => {
                 expect(error).to.be.null;
                 expect(response).to.not.be.null;
                 expect(response!.transactionId).to.be.a('string');
@@ -119,7 +119,7 @@ describe("Integration tests", () => {
 
     it('should successfully submit and wait for a transaction', (done) => {
         withLedgerClient((client) => {
-            client.commandClient.submitAndWaitForTransaction(commands(), (error, response) => {
+            client.commandClient.submitAndWaitForTransaction(createPing(), (error, response) => {
                 expect(error).to.be.null;
                 expect(response).to.not.be.null;
                 expect(response!.transaction).to.not.be.null;
@@ -130,7 +130,7 @@ describe("Integration tests", () => {
 
     it('should successfully submit and wait for a transaction tree', (done) => {
         withLedgerClient((client) => {
-            client.commandClient.submitAndWaitForTransactionTree(commands(), (error, response) => {
+            client.commandClient.submitAndWaitForTransactionTree(createPing(), (error, response) => {
                 expect(error).to.be.null;
                 expect(response).to.not.be.null;
                 expect(response!.transaction).to.not.be.null;
@@ -162,7 +162,7 @@ describe("Integration tests", () => {
 
     it('should correctly submit commands to the submission endpoint', (done) => {
         withLedgerClient(client => {
-            client.commandSubmissionClient.submit(commands(), (error) => {
+            client.commandSubmissionClient.submit(createPing(), (error) => {
                 expect(error).to.be.null;
                 done();
             });
@@ -230,6 +230,73 @@ describe("Integration tests", () => {
                         done();
                     });
                 })
+            });
+        });
+    });
+
+    function createContractKeys(arg: {owner: string, n: number }): SubmitAndWaitRequest {
+        return {
+            commands: {
+                applicationId: 'ActiveContractsClientIntegrationTests',
+                commandId: `${arg.owner}-${arg.n}`,
+                workflowId: 'IntegrationTests',
+                ledgerEffectiveTime: {seconds: 0, nanoseconds: 0},
+                maximumRecordTime: {seconds: 5, nanoseconds: 0},
+                party: arg.owner,
+                list: [
+                    {
+                        commandType: 'create' as 'create',
+                        templateId: {
+                            packageId: packageId,
+                            moduleName: 'IntegrationTests',
+                            entityName: 'ContractKeys'
+                        },
+                        arguments: {
+                            fields: {
+                                owner: {valueType: 'party' as 'party', party: arg.owner},
+                                n: {valueType: 'int64', int64: arg.n.toString()},
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }
+
+    it('should have the expected fields in a transaction trees response', (done) => {
+        withLedgerClient(client => {
+            client.commandSubmissionClient.submit(createContractKeys({owner: 'ContractKeysOwner', n: 42}), (error) => {
+                expect(error).to.be.null;
+                const txs = client.transactionClient.getTransactionTrees({
+                    begin: {offsetType: 'boundary', boundary: LedgerOffsetBoundaryValue.BEGIN},
+                    end: {offsetType: 'boundary', boundary: LedgerOffsetBoundaryValue.END},
+                    filter: {
+                        filtersByParty: {
+                            ContractKeysOwner: {}
+                        }
+                    }
+                });
+                txs.on('error', (error) => {
+                    done(error);
+                });
+                txs.on('data', (data) => {
+                    const trees = data as GetTransactionTreesResponse;
+                    expect(trees.transactions).to.have.length(1);
+                    expect(trees.transactions[0].rootEventIds).to.have.length(1);
+                    const lonelyEventId = trees.transactions[0].rootEventIds[0];
+                    const lonelyEvent = trees.transactions[0].eventsById[lonelyEventId];
+                    expect(lonelyEvent.eventType).to.equal('created');
+                    if (lonelyEvent.eventType === 'created') {
+                        expect(lonelyEvent.contractKey).to.not.be.null;
+                        const expectedKey =
+                            daml.tuple([
+                                daml.party('ContractKeysOwner'),
+                                daml.int64(47),
+                            ]);
+                        expect(lonelyEvent.contractKey).to.deep.equal(expectedKey);
+                    }
+                    done();
+                });
             });
         });
     });

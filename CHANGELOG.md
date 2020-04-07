@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## Unreleased
+### Added
+- add support for contract keys in created events from SDK 0.12.25 [#95](https://github.com/digital-asset/daml-js/issues/95)
+
 ## [0.9.0]
 ### Changed
 - support SDK 0.13.55 [#92](https://github.com/digital-asset/daml-js/pull/92)

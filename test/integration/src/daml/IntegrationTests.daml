@@ -1,7 +1,6 @@
 -- Copyright (c) 2019, The DAML Authors. All rights reserved.
 -- SPDX-License-Identifier: Apache-2.0
 
-daml 1.2
 module IntegrationTests where
 
 template Ping
@@ -37,3 +36,13 @@ template Pong
           else do
             create Ping with sender = receiver; receiver = sender; count = count + 1
             return ()
+
+template ContractKeys
+  with
+    owner: Party
+    n: Int
+  where
+    signatory owner
+
+    key (owner, n + 5): (Party, Int)
+    maintainer key._1

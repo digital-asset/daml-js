@@ -1637,5 +1637,5 @@ function itShouldConvert(typeName: String, fn?: Mocha.Func): Mocha.Test {
 
 function twoWayCheck<M, O>(codec: Codec<M, O>, m: M, o: O): void {
     expect(codec.deserialize(m)).to.deep.equal(o);
-    expect(codec.serialize(o)).to.deep.equal(m);
+    expect(JSON.stringify(codec.serialize(o))).to.equal(JSON.stringify(m));
 }

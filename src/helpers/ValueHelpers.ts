@@ -40,6 +40,40 @@ Object.freeze(none);
  */
 export const ValueHelpers = {
     /**
+     * Turns an array of {@link Value}s into the underlying representation for DAML tuples
+     *
+     * Example:
+     *
+     * ```
+     * daml.tuple({
+     *     daml.text('hello'),
+     *     daml.text('world'),
+     * });
+     * ```
+     * becomes
+     *
+     * ```
+     * {
+     *     valueType: 'record',
+     *     fields: {
+     *         0: { valueType: 'text', text: 'hello' },
+     *         1: { valueType: 'text', text: 'world' }
+     *     }
+     * }
+     * ```
+     */
+    tuple: (values: Value[]): RecordValue => {
+        const fields: Record<string, Value> = {};
+        const tuple: RecordValue = {
+            valueType: 'record',
+            fields: fields,
+        };
+        for (let i = 0; i < values.length; i++) {
+            fields[i] = values[i];
+        }
+        return tuple;
+    },
+    /**
      * Turns a plain object with {@link Value}s into the underlying representation for records
      *
      * Example:
