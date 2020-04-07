@@ -17,7 +17,9 @@ export const CreatedEventCodec: Codec<PbCreatedEvent, CreatedEvent> = {
             contractId: message.getContractId(),
             templateId: IdentifierCodec.deserialize(message.getTemplateId()!),
             arguments: RecordCodec.deserialize(message.getCreateArguments()!),
-            witnessParties: message.getWitnessPartiesList()
+            witnessParties: message.getWitnessPartiesList(),
+            signatories: message.getSignatoriesList(),
+            observers: message.getObserversList()
         };
         if (message.hasAgreementText()) {
             object.agreementText = message.getAgreementText()!.getValue();
@@ -34,6 +36,12 @@ export const CreatedEventCodec: Codec<PbCreatedEvent, CreatedEvent> = {
         message.setTemplateId(IdentifierCodec.serialize(object.templateId));
         message.setCreateArguments(RecordCodec.serialize(object.arguments));
         message.setWitnessPartiesList(object.witnessParties);
+        for (const signatory of object.signatories) {
+            message.addSignatories(signatory);
+        }
+        for (const observer of object.observers) {
+            message.addObservers(observer);
+        }
         if (object.agreementText !== undefined) {
             const agreementText = new StringValue();
             agreementText.setValue(object.agreementText);

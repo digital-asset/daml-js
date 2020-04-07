@@ -372,13 +372,17 @@ describe('Codec', () => {
     createdEventMessage.setTemplateId(identifierMessage);
     createdEventMessage.setCreateArguments(recordMessage);
     createdEventMessage.setWitnessPartiesList(['Alice', 'Bob']);
+    createdEventMessage.setSignatoriesList(['Alice']);
+    createdEventMessage.setObserversList([]);
     const createdEventObject: CreatedEvent = {
         eventType: "created",
         eventId: 'eventId',
         contractId: 'contractId',
         templateId: identifierObject,
         arguments: recordObject,
-        witnessParties: ['Alice', 'Bob']
+        witnessParties: ['Alice', 'Bob'],
+        signatories: ['Alice'],
+        observers: []
     };
 
     const transactionTemplateId = new PbIdentifier();
@@ -451,6 +455,8 @@ describe('Codec', () => {
     transactionTreeCreated.setEventId('some-event-id');
     transactionTreeCreated.setWitnessPartiesList(['pool']);
     transactionTreeCreated.setCreateArguments(createdArgs);
+    transactionTreeCreated.setSignatoriesList(['Alice']);
+    transactionTreeCreated.setObserversList([]);
     transactionTreeEvent.setCreated(transactionTreeCreated);
 
     const transactionTreeEffectiveAt = new PbTimestamp();
@@ -484,7 +490,9 @@ describe('Codec', () => {
                     fields: {
                         foo: {valueType: 'contractId', contractId: 'boo'}
                     }
-                }
+                },
+                signatories: ['Alice'],
+                observers: []
             }
         },
         rootEventIds: ['root'],
@@ -869,6 +877,8 @@ describe('Codec', () => {
         transactionTreeCreated.setContractId('some-contract-id');
         transactionTreeCreated.setEventId('some-event-id');
         transactionTreeCreated.setWitnessPartiesList(['pool']);
+        transactionTreeCreated.setSignatoriesList(['Alice']);
+        transactionTreeCreated.setObserversList([]);
         transactionTreeCreated.setCreateArguments(createdArgs);
         transactionTreeEvent.setCreated(transactionTreeCreated);
 
@@ -1420,6 +1430,8 @@ describe('Codec', () => {
         created.setContractId('some-contract-id');
         created.setEventId('some-event-id');
         created.setWitnessPartiesList(['pool']);
+        created.setSignatoriesList(['Alice']);
+        created.setObserversList(['Bob']);
         created.setCreateArguments(createdArgs);
         event.setCreated(created);
 
@@ -1459,7 +1471,9 @@ describe('Codec', () => {
                                 fields: {
                                     foo: {valueType: 'contractId', contractId: 'boo'}
                                 }
-                            }
+                            },
+                            signatories: ['Alice'],
+                            observers: ['Bob']
                         }
                     },
                     rootEventIds: ['root'],

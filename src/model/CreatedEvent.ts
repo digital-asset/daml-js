@@ -25,7 +25,9 @@ import {Value} from "./Value";
  *             someKey: { valueType: 'bool', bool: true }
  *         }
  *     },
- *     witnessParties: [ 'Alice', 'Bob' ]
+ *     witnessParties: [ 'Alice', 'Bob' ],
+ *     signatories: ['Alice'],
+ *     observers: []
  * }
  * ```
  *
@@ -83,4 +85,18 @@ export interface CreatedEvent {
      * @since Ledger API 0.12.25
      */
     contractKey?: Value
+
+    /**
+     * The signatories of the contract created by this event.
+     *
+     * @since Ledger API 0.13.8
+     */
+    signatories: string[]
+
+    /**
+     * The observers of the contract created by this event.
+     *
+     * @since Ledger API 0.13.8
+     */
+    observers: string[]
 }
