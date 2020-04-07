@@ -294,6 +294,8 @@ describe("Integration tests", () => {
                                 daml.int64(47),
                             ]);
                         expect(lonelyEvent.contractKey).to.deep.equal(expectedKey);
+                        expect(lonelyEvent.signatories).to.deep.equal(['ContractKeysOwner']);
+                        expect(lonelyEvent.observers).to.be.empty;
                     }
                     done();
                 });

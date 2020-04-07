@@ -45,10 +45,10 @@ export const ValueHelpers = {
      * Example:
      *
      * ```
-     * daml.tuple({
+     * daml.tuple([
      *     daml.text('hello'),
      *     daml.text('world'),
-     * });
+     * ]);
      * ```
      * becomes
      *

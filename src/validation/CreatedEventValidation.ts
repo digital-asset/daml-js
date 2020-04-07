@@ -19,6 +19,8 @@ function required(): RequiredFieldsValidators<CreatedEvent> {
         eventId: native('string'),
         templateId: IdentifierValidation,
         witnessParties: array(native('string')),
+        signatories: array(native('string')),
+        observers: array(native('string'))
     };
 }
 
