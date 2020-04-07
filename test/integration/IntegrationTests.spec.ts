@@ -67,7 +67,7 @@ describe("Integration tests", () => {
         });
     });
 
-    function commands(): SubmitAndWaitRequest {
+    function createPing(): SubmitAndWaitRequest {
         return {
             commands: {
                 applicationId: 'ActiveContractsClientIntegrationTests',
@@ -99,7 +99,7 @@ describe("Integration tests", () => {
 
     it('should successfully submit and wait for a command', (done) => {
         withLedgerClient((client) => {
-            client.commandClient.submitAndWait(commands(), (error) => {
+            client.commandClient.submitAndWait(createPing(), (error) => {
                 expect(error).to.be.null;
                 done();
             });
@@ -108,7 +108,7 @@ describe("Integration tests", () => {
 
     it('should successfully submit and wait for a transaction identifier', (done) => {
         withLedgerClient((client) => {
-            client.commandClient.submitAndWaitForTransactionId(commands(), (error, response) => {
+            client.commandClient.submitAndWaitForTransactionId(createPing(), (error, response) => {
                 expect(error).to.be.null;
                 expect(response).to.not.be.null;
                 expect(response!.transactionId).to.be.a('string');
@@ -119,7 +119,7 @@ describe("Integration tests", () => {
 
     it('should successfully submit and wait for a transaction', (done) => {
         withLedgerClient((client) => {
-            client.commandClient.submitAndWaitForTransaction(commands(), (error, response) => {
+            client.commandClient.submitAndWaitForTransaction(createPing(), (error, response) => {
                 expect(error).to.be.null;
                 expect(response).to.not.be.null;
                 expect(response!.transaction).to.not.be.null;
@@ -130,7 +130,7 @@ describe("Integration tests", () => {
 
     it('should successfully submit and wait for a transaction tree', (done) => {
         withLedgerClient((client) => {
-            client.commandClient.submitAndWaitForTransactionTree(commands(), (error, response) => {
+            client.commandClient.submitAndWaitForTransactionTree(createPing(), (error, response) => {
                 expect(error).to.be.null;
                 expect(response).to.not.be.null;
                 expect(response!.transaction).to.not.be.null;
@@ -162,7 +162,7 @@ describe("Integration tests", () => {
 
     it('should correctly submit commands to the submission endpoint', (done) => {
         withLedgerClient(client => {
-            client.commandSubmissionClient.submit(commands(), (error) => {
+            client.commandSubmissionClient.submit(createPing(), (error) => {
                 expect(error).to.be.null;
                 done();
             });
