@@ -234,7 +234,7 @@ describe("Integration tests", () => {
         });
     });
 
-    function createContractKeys(arg: {owner: string, n: number }): SubmitAndWaitRequest {
+    function createContractKeys(arg: {owner: string, n: number, color: string }): SubmitAndWaitRequest {
         return {
             commands: {
                 applicationId: 'ActiveContractsClientIntegrationTests',
@@ -255,6 +255,7 @@ describe("Integration tests", () => {
                             fields: {
                                 owner: {valueType: 'party' as 'party', party: arg.owner},
                                 n: {valueType: 'int64', int64: arg.n.toString()},
+                                color: {valueType: 'enum', constructor: arg.color}
                             }
                         }
                     }
@@ -265,7 +266,7 @@ describe("Integration tests", () => {
 
     it('should have the expected fields in a transaction trees response', (done) => {
         withLedgerClient(client => {
-            client.commandSubmissionClient.submit(createContractKeys({owner: 'ContractKeysOwner', n: 42}), (error) => {
+            client.commandSubmissionClient.submit(createContractKeys({owner: 'ContractKeysOwner', n: 42, color: 'Red'}), (error) => {
                 expect(error).to.be.null;
                 const txs = client.transactionClient.getTransactionTrees({
                     begin: {offsetType: 'boundary', boundary: LedgerOffsetBoundaryValue.BEGIN},
@@ -296,6 +297,11 @@ describe("Integration tests", () => {
                         expect(lonelyEvent.contractKey).to.deep.equal(expectedKey);
                         expect(lonelyEvent.signatories).to.deep.equal(['ContractKeysOwner']);
                         expect(lonelyEvent.observers).to.be.empty;
+                        expect(lonelyEvent.arguments.fields).to.deep.equal({
+                            0: daml.party('ContractKeysOwner'),
+                            1: daml.int64(42),
+                            2: daml.enum('Red')
+                        });
                     }
                     done();
                 });

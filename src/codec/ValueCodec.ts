@@ -5,15 +5,17 @@ import {
     List as PbList,
     Optional as PbOptional,
     Map as PbMap,
-    Value as PbValue
+    Value as PbValue,
+    Enum as PbEnum
 } from '../generated/com/digitalasset/ledger/api/v1/value_pb';
 import {Empty as PbEmpty} from 'google-protobuf/google/protobuf/empty_pb';
 
 import {Codec} from "./Codec";
-import {MapValue, RecordValue, Value, VariantValue} from "../model/Value";
+import {EnumValue, MapValue, RecordValue, Value, VariantValue} from "../model/Value";
 import {RecordCodec} from "./RecordCodec";
 import {VariantCodec} from "./VariantCodec";
 import {ErrorMessages} from "../util/ErrorMessages";
+import {IdentifierCodec} from "./IdentifierCodec";
 
 export const ValueCodec: Codec<PbValue, Value> = {
     deserialize(value: PbValue): Value {
@@ -23,6 +25,18 @@ export const ValueCodec: Codec<PbValue, Value> = {
             return {valueType: 'contractId', contractId: value.getContractId()};
         } else if (value.hasDate()) {
             return {valueType: 'date', date: '' + value.getDate()};
+        } else if (value.hasEnum()) {
+            const damlEnum = value.getEnum()!;
+            value.getEnum()!.getEnumId();
+            value.getEnum()!.getConstructor();
+            const result: EnumValue = {
+                valueType: 'enum',
+                constructor: damlEnum.getConstructor()
+            };
+            if (damlEnum.hasEnumId()) {
+                result.enumId = IdentifierCodec.deserialize(damlEnum.getEnumId()!);
+            }
+            return result;
         } else if (value.hasNumeric()) {
             return {valueType: 'decimal', decimal: value.getNumeric()};
         } else if (value.hasInt64()) {
@@ -99,6 +113,14 @@ export const ValueCodec: Codec<PbValue, Value> = {
                 break;
             case "decimal":
                 message.setNumeric(object.decimal);
+                break;
+            case "enum":
+                const pbEnum: PbEnum = new PbEnum();
+                pbEnum.setConstructor(object.constructor);
+                if (object.enumId !== undefined) {
+                    pbEnum.setEnumId(IdentifierCodec.serialize(object.enumId));
+                }
+                message.setEnum(pbEnum);
                 break;
             case "int64":
                 message.setInt64(object.int64);

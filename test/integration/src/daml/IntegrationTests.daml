@@ -37,10 +37,14 @@ template Pong
             create Ping with sender = receiver; receiver = sender; count = count + 1
             return ()
 
+data Color = Red | Green | Blue
+    deriving (Eq, Show)
+
 template ContractKeys
   with
     owner: Party
     n: Int
+    color: Color
   where
     signatory owner
 
