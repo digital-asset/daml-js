@@ -1,6 +1,6 @@
 sdk-version: 0.13.55
 name: UploadDarIntegrationTests
-source: daml/Main.daml
+source: daml/CreateToken.daml
 parties:
   - Alice
   - Bob
