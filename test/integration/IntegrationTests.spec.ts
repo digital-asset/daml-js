@@ -410,7 +410,6 @@ describe('Template identifier retrieval', () => {
                 expect(response!.packageIds).to.contain(packageId).and.to.contain(tokenPackageId);
                 client.packageClient.getPackage(packageId, (error, response) => {
                     expect(error).to.be.null;
-                    console.log(JSON.stringify(getTemplateIds(response!.archivePayload)));
                     expect(getTemplateIds(response!.archivePayload).sort()).to.deep.equal(['IntegrationTests:Ping', 'IntegrationTests:Pong', 'IntegrationTests:ContractKeys'].sort());
                     client.packageClient.getPackage(tokenPackageId, (error, response) => {
                         expect(error).to.be.null;
