@@ -163,6 +163,9 @@ export class NodeJsTransactionClient {
         if (isValid(tree)) {
             const request = GetTransactionsRequestCodec.serialize(requestObject);
             request.setLedgerId(this.ledgerId);
+            if (requestObject.verbose === undefined) {
+                request.setVerbose(true);
+            }
             return ClientReadableObjectStream.from(this.client.getTransactionTrees(request), GetTransactionTreesResponseCodec);
         } else {
             return ClientReadableObjectStream.from(new Error(this.reporter.render(tree)));

@@ -275,7 +275,8 @@ describe("Integration tests", () => {
                         filtersByParty: {
                             ContractKeysOwner: {}
                         }
-                    }
+                    },
+                    verbose: false
                 });
                 txs.on('error', (error) => {
                     done(error);
