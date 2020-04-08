@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - add support for contract keys in created events from SDK 0.12.25 [#95](https://github.com/digital-asset/daml-js/issues/95)
 - add support for DAML-LF 1.8 (and earlier) [#98](https://github.com/digital-asset/daml-js/issues/98)
 - the call to `getTransactionTrees` is now verbose by default (mirroring `getTransactions`) [#102](https://github.com/digital-asset/daml-js/issues/102)
+- `LedgerClientOptions` now has an optional `grpcOption` key where options for the gRPC clients can be passed; options are passed as is, refer to the [official gRPC documentation](https://grpc.github.io/grpc/core/group__grpc__arg__keys.html) [#16](https://github.com/digital-asset/daml-js/issues/16)
 
 ## [0.9.0]
 ### Changed

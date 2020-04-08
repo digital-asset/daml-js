@@ -70,61 +70,62 @@ export class DamlLedgerClient implements LedgerClient {
         ledgerId: string,
         address: string,
         credentials: ChannelCredentials,
-        reporter: ValidationReporter
+        reporter: ValidationReporter,
+        grpcOptions?: object
     ) {
         this.ledgerId = ledgerId;
         this._activeContractsClient = new NodeJsActiveContractsClient(
             ledgerId,
-            new ActiveContractsServiceClient(address, credentials),
+            new ActiveContractsServiceClient(address, credentials, grpcOptions),
             reporter
         );
         this._commandClient = new NodeJsCommandClient(
             ledgerId,
-            new CommandServiceClient(address, credentials),
+            new CommandServiceClient(address, credentials, grpcOptions),
             reporter
         );
         this._commandCompletionClient = new NodeJsCommandCompletionClient(
             ledgerId,
-            new CommandCompletionServiceClient(address, credentials),
+            new CommandCompletionServiceClient(address, credentials, grpcOptions),
             reporter
         );
         this._commandSubmissionClient = new NodeJsCommandSubmissionClient(
             ledgerId,
-            new CommandSubmissionServiceClient(address, credentials),
+            new CommandSubmissionServiceClient(address, credentials, grpcOptions),
             reporter
         );
         this._ledgerIdentityClient = new NodeJsLedgerIdentityClient(
-            new LedgerIdentityServiceClient(address, credentials)
+            new LedgerIdentityServiceClient(address, credentials, grpcOptions)
         );
         this._packageClient = new NodeJsPackageClient(
             ledgerId,
-            new PackageServiceClient(address, credentials)
+            new PackageServiceClient(address, credentials, grpcOptions)
         );
         this._ledgerConfigurationClient = new NodeJsLedgerConfigurationClient(
             ledgerId,
-            new LedgerConfigurationServiceClient(address, credentials)
+            new LedgerConfigurationServiceClient(address, credentials, grpcOptions)
         );
         this._timeClient = new NodeJsTimeClient(
             ledgerId,
-            new TimeServiceClient(address, credentials),
+            new TimeServiceClient(address, credentials, grpcOptions),
             reporter
         );
         this._transactionClient = new NodeJsTransactionClient(
             ledgerId,
-            new TransactionServiceClient(address, credentials),
+            new TransactionServiceClient(address, credentials, grpcOptions),
             reporter
         );
         this._resetClient = new NodeJsResetClient(
             ledgerId,
-            new ResetServiceClient(address, credentials)
+            new ResetServiceClient(address, credentials, grpcOptions)
         );
         this._partyManagementClient = new NodeJsPartyManagementClient(
-            new PartyManagementServiceClient(address, credentials),
+            new PartyManagementServiceClient(address, credentials, grpcOptions),
             reporter
         );
 
         this._packageManagementClient = new NodeJsPackageManagementClient(
-            new PackageManagementServiceClient(address, credentials),
+            new PackageManagementServiceClient(address, credentials, grpcOptions),
             reporter
         )
     }
@@ -213,7 +214,8 @@ export class DamlLedgerClient implements LedgerClient {
                         response.getLedgerId(),
                         address,
                         creds,
-                        reporter
+                        reporter,
+                        options.grpcOptions
                     );
                 });
             }

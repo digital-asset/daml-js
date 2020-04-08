@@ -310,6 +310,18 @@ describe("Integration tests", () => {
         });
     });
 
+    it('should allow to freely set gRPC options', (done) => {
+        // Set the receive message threshold to 1KB, which should be way less than the compressed DAR size for integration tests (~30KB)
+        withConfiguredLedgerClient({'grpc.max_receive_message_length': 1024 }, client => {
+            client.packageClient.getPackage(packageId, (error, response) => {
+                expect(response).to.be.undefined;
+                expect(error).to.not.be.null.and.to.not.be.undefined;
+                expect(error!.message).to.contain('RESOURCE_EXHAUSTED');
+                done();
+            });
+        });
+    });
+
 });
 
 const darToUpload = fs.readFileSync(`${__dirname}/src/uploadDar/.daml/dist/UploadDarIntegrationTests-0.0.0.dar`);
@@ -423,6 +435,14 @@ describe('Template identifier retrieval', () => {
 
 function withLedgerClient(callback: (client: LedgerClient) => void): void {
     DamlLedgerClient.connect({host: '0.0.0.0', port: parseInt(process.env['DAML_SANDBOX_PORT']!)}, (error, client) => {
+        expect(error).to.be.null;
+        expect(client).to.not.be.null;
+        callback(client!);
+    });
+}
+
+function withConfiguredLedgerClient(grpcOptions: object, callback: (client: LedgerClient) => void): void {
+    DamlLedgerClient.connect({host: '0.0.0.0', port: parseInt(process.env['DAML_SANDBOX_PORT']!), grpcOptions: grpcOptions}, (error, client) => {
         expect(error).to.be.null;
         expect(client).to.not.be.null;
         callback(client!);
