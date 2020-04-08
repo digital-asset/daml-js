@@ -33,7 +33,7 @@ export {
     NodeJsPackageManagementClient as PackageManagementClient
 };
 
-import * as lf from './generated/com/digitalasset/daml_lf_1_6/daml_lf_pb';
+import * as lf from './generated/com/digitalasset/daml_lf_1_8/daml_lf_pb';
 export {lf};
 
 import {Any} from './model/Any';

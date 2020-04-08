@@ -9,7 +9,7 @@ import {GetActiveContractsResponse} from "../../src/model/GetActiveContractsResp
 import {GetTransactionsResponse} from "../../src/model/GetTransactionsResponse";
 import {LedgerOffsetBoundaryValue} from "../../src/model/LedgerOffset";
 import {v4 as uuid} from "uuid";
-import {daml, GetTransactionTreesResponse, SubmitAndWaitRequest} from "../../lib";
+import {daml, lf, GetTransactionTreesResponse, SubmitAndWaitRequest} from "../../lib";
 
 const packageId: string = fs.readFileSync(`${__dirname}/IntegrationTests-0.0.0.sha256`, { encoding: 'UTF8'}).replace(/\n$/, '');
 
@@ -368,6 +368,60 @@ describe("Upload DAR integration test", () => {
             });
         });
     });
+});
+
+describe('Template identifier retrieval', () => {
+
+    function getTemplateIds(archivePayload: string): string[] {
+        const templateNames: string[] = [];
+        const archive = lf.ArchivePayload.deserializeBinary(archivePayload as unknown as Uint8Array).getDamlLf1()!;
+        for (const damlModule of archive.getModulesList()) {
+            if (damlModule.hasNameDname()) {
+                expect(damlModule.hasNameDname()).to.be.true;
+                const moduleName = damlModule.getNameDname()!.getSegmentsList().join('.');
+                for (const template of damlModule.getTemplatesList()) {
+                    expect(template.hasTyconDname()).to.be.true;
+                    const templateName = template.getTyconDname()!.getSegmentsList().join('.');
+                    templateNames.push(`${moduleName}:${templateName}`);
+                }
+            } else if (damlModule.hasNameInternedDname()) {
+                expect(damlModule.hasNameInternedDname()).to.be.true;
+                const internedDottedNames = archive.getInternedDottedNamesList();
+                const internedStrings = archive.getInternedStringsList();
+                const i = damlModule.getNameInternedDname();
+                const moduleName = internedDottedNames[i].getSegmentsInternedStrList().map(j => internedStrings[j]).join('.');
+                for (const template of damlModule.getTemplatesList()) {
+                    expect(template.hasTyconInternedDname()).to.be.true;
+                    const k = template.getTyconInternedDname();
+                    const templateName = internedDottedNames[k].getSegmentsInternedStrList().map(l => internedStrings[l]).join('.');
+                    templateNames.push(`${moduleName}:${templateName}`);
+                }
+            }
+        }
+        return templateNames;
+    }
+
+    it('should allow to dynamically look up for template identifiers regardless the DAML-LF version of a package', (done) => {
+        withLedgerClient(client => {
+            client.packageClient.listPackages((error, response) => {
+                expect(error).to.be.null;
+                expect(response).to.not.be.null.and.to.not.be.undefined;
+                expect(response!.packageIds).to.not.be.empty;
+                expect(response!.packageIds).to.contain(packageId).and.to.contain(tokenPackageId);
+                client.packageClient.getPackage(packageId, (error, response) => {
+                    expect(error).to.be.null;
+                    console.log(JSON.stringify(getTemplateIds(response!.archivePayload)));
+                    expect(getTemplateIds(response!.archivePayload).sort()).to.deep.equal(['IntegrationTests:Ping', 'IntegrationTests:Pong', 'IntegrationTests:ContractKeys'].sort());
+                    client.packageClient.getPackage(tokenPackageId, (error, response) => {
+                        expect(error).to.be.null;
+                        expect(getTemplateIds(response!.archivePayload).sort()).to.deep.equal(['CreateToken:Token'].sort());
+                        done();
+                    })
+                });
+            });
+        });
+    });
+
 });
 
 function withLedgerClient(callback: (client: LedgerClient) => void): void {
