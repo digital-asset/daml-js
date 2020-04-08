@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## Unreleased
+## [0.9.1]
 ### Added
 - add support for enum values from SDK 0.13.13 [#97](https://github.com/digital-asset/daml-js/issues/97)
 - add support for signatories and observers in created events from SDK 0.13.8 [#96](https://github.com/digital-asset/daml-js/issues/96)
