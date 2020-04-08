@@ -27,8 +27,6 @@ export const ValueCodec: Codec<PbValue, Value> = {
             return {valueType: 'date', date: '' + value.getDate()};
         } else if (value.hasEnum()) {
             const damlEnum = value.getEnum()!;
-            value.getEnum()!.getEnumId();
-            value.getEnum()!.getConstructor();
             const result: EnumValue = {
                 valueType: 'enum',
                 constructor: damlEnum.getConstructor()
