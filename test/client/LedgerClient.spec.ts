@@ -18,9 +18,8 @@ describe("DamlLedgerClient", () => {
     const emptyCommands = {
         commands: {
             applicationId: '',
-            commandId: '', party: '',
-            ledgerEffectiveTime: {seconds: 0, nanoseconds: 0},
-            maximumRecordTime: {seconds: 0, nanoseconds: 0},
+            commandId: '',
+            party: '',
             list: []
         }
     };

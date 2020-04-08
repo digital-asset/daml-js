@@ -10,14 +10,10 @@ import {Duration} from "./Duration";
  *
  * ```
  * {
- *     maxTtl: {
- *         seconds: 5,
+ *     maxDeduplicationTime: {
+ *         seconds: 120,
  *         nanoseconds: 0
  *     },
- *     minTtl: {
- *         seconds: 0,
- *         nanoseconds: 0
- *     }
  * }
  * ```
  *
@@ -28,13 +24,8 @@ import {Duration} from "./Duration";
 export interface LedgerConfiguration {
 
     /**
-     * Minimum difference between ledger effective time and maximum record time in submitted commands.
+     * Maximum duration of the deduplication window
      */
-    maxTtl: Duration
-
-    /**
-     * Maximum difference between ledger effective time and maximum record time in submitted commands.
-     */
-    minTtl: Duration
+    maxDeduplicationTime: Duration
 
 }

@@ -22,8 +22,6 @@ describe("NodeJsCommandClient", () => {
         commands: {
             applicationId: 'some-application-id',
             commandId: 'some-command-id',
-            ledgerEffectiveTime: {seconds: 42, nanoseconds: 47},
-            maximumRecordTime: {seconds: 37, nanoseconds: 999},
             party: 'birthday-party',
             workflowId: 'some-workflow-id',
             list: [
@@ -46,8 +44,6 @@ describe("NodeJsCommandClient", () => {
             applicationId: 'app',
             commandId: 'cmd',
             party: 'birthday',
-            ledgerEffectiveTime: {seconds: 0, nanoseconds: 1},
-            maximumRecordTime: {seconds: 1, nanoseconds: 2},
             list: [
                 {
                     commandType: 'archive',
@@ -77,32 +73,6 @@ describe("NodeJsCommandClient", () => {
                     party: {
                         errors: [],
                         children: {}
-                    },
-                    ledgerEffectiveTime: {
-                        errors: [],
-                        children: {
-                            seconds: {
-                                errors: [],
-                                children: {}
-                            },
-                            nanoseconds: {
-                                errors: [],
-                                children: {}
-                            }
-                        }
-                    },
-                    maximumRecordTime: {
-                        errors: [],
-                        children: {
-                            seconds: {
-                                errors: [],
-                                children: {}
-                            },
-                            nanoseconds: {
-                                errors: [],
-                                children: {}
-                            }
-                        }
                     },
                     list: {
                         errors: [],

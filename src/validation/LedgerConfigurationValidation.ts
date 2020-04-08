@@ -8,8 +8,7 @@ import {object} from "./Object";
 
 function required(): RequiredFieldsValidators<LedgerConfiguration> {
     return {
-        maxTtl: DurationValidation,
-        minTtl: DurationValidation
+        maxDeduplicationTime: DurationValidation
     };
 }
 

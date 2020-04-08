@@ -73,8 +73,6 @@ describe("Integration tests", () => {
                 applicationId: 'ActiveContractsClientIntegrationTests',
                 commandId: uuid(),
                 workflowId: 'IntegrationTests',
-                ledgerEffectiveTime: {seconds: 0, nanoseconds: 0},
-                maximumRecordTime: {seconds: 5, nanoseconds: 0},
                 party: 'Alice',
                 list: [
                     {
@@ -240,8 +238,6 @@ describe("Integration tests", () => {
                 applicationId: 'ActiveContractsClientIntegrationTests',
                 commandId: `${arg.owner}-${arg.n}`,
                 workflowId: 'IntegrationTests',
-                ledgerEffectiveTime: {seconds: 0, nanoseconds: 0},
-                maximumRecordTime: {seconds: 5, nanoseconds: 0},
                 party: arg.owner,
                 list: [
                     {
@@ -266,7 +262,8 @@ describe("Integration tests", () => {
 
     it('should have the expected fields in a transaction trees response', (done) => {
         withLedgerClient(client => {
-            client.commandSubmissionClient.submit(createContractKeys({owner: 'ContractKeysOwner', n: 42, color: 'Red'}), (error) => {
+            client.commandClient.submitAndWait(createContractKeys({owner: 'ContractKeysOwner', n: 42, color: 'Red'}), (error) => {
+                let receivedData = 0;
                 expect(error).to.be.null;
                 const txs = client.transactionClient.getTransactionTrees({
                     begin: {offsetType: 'boundary', boundary: LedgerOffsetBoundaryValue.BEGIN},
@@ -282,6 +279,7 @@ describe("Integration tests", () => {
                     done(error);
                 });
                 txs.on('data', (data) => {
+                    receivedData++;
                     const trees = data as GetTransactionTreesResponse;
                     expect(trees.transactions).to.have.length(1);
                     expect(trees.transactions[0].rootEventIds).to.have.length(1);
@@ -305,6 +303,11 @@ describe("Integration tests", () => {
                         });
                     }
                     done();
+                });
+                txs.on('end', () => {
+                    if (receivedData < 1) {
+                        done('no data received');
+                    }
                 });
             });
         });
@@ -334,8 +337,6 @@ describe("Upload DAR integration test", () => {
             applicationId: 'UploadDarIntegrationTests',
             commandId: uuid(),
             workflowId: 'IntegrationTests',
-            ledgerEffectiveTime: {seconds: 0, nanoseconds: 0},
-            maximumRecordTime: {seconds: 5, nanoseconds: 0},
             party: 'Alice',
             list: [
                 {
@@ -357,27 +358,33 @@ describe("Upload DAR integration test", () => {
         }
     };
 
-    it('should be able to upload Dar file', (done) =>{
+    it('should be able to upload a DAR file', (done) =>{
         const darToUploadInString = darToUpload.toString('base64');
         withLedgerClient((client) => {
             client.packageManagementClient.uploadDarFile({
                 darFile: darToUploadInString
             });
 
-            client.packageManagementClient.listKnownPackages((error, response) => {
-                expect(error).to.be.null;
+            // Allow 1s for the PackageManagementService to index the newly uploaded package
+            setTimeout(() => {
 
-                const results = response!.packageDetailsList.map((item)=>{
-                    return item.packageId;
-                });
-
-                expect(results.includes(tokenPackageId)).to.be.true;
-
-                client.commandClient.submitAndWait(commands, (error) => {
+                client.packageManagementClient.listKnownPackages((error, response) => {
                     expect(error).to.be.null;
-                    done();
+
+                    const results = response!.packageDetailsList.map((item)=>{
+                        return item.packageId;
+                    });
+
+                    expect(results).to.contain(tokenPackageId);
+
+                    client.commandClient.submitAndWait(commands, (error) => {
+                        expect(error).to.be.null;
+                        done();
+                    });
                 });
-            });
+
+            }, 1000);
+
         });
     });
 });

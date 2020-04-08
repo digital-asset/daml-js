@@ -9,14 +9,13 @@ import {LedgerConfiguration as PbLedgerConfiguration} from "../generated/com/dig
 export const LedgerConfigurationCodec: Codec<PbLedgerConfiguration, LedgerConfiguration> = {
     deserialize(message: PbLedgerConfiguration): LedgerConfiguration {
         return {
-            minTtl: DurationCodec.deserialize(message.getMinTtl()!),
-            maxTtl: DurationCodec.deserialize(message.getMaxTtl()!)
+            maxDeduplicationTime: DurationCodec.deserialize(message.getMaxDeduplicationTime()!)
         };
     },
     serialize(object: LedgerConfiguration): PbLedgerConfiguration {
         const message = new PbLedgerConfiguration();
-        message.setMinTtl(DurationCodec.serialize(object.minTtl));
-        message.setMaxTtl(DurationCodec.serialize(object.maxTtl));
+        message.setMaxDeduplicationTime(DurationCodec.serialize(object.maxDeduplicationTime));
         return message;
     }
 };
+

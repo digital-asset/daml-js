@@ -22,8 +22,6 @@ describe('NodeJsCommandSubmissionClient', () => {
         commands: {
             applicationId: '2345',
             commandId: 'sfdgsdfg',
-            ledgerEffectiveTime: {seconds: 5445, nanoseconds: 2342},
-            maximumRecordTime: {seconds: 656, nanoseconds: 634},
             party: '452g245',
             workflowId: 'dfg346',
             list: [
@@ -55,8 +53,6 @@ describe('NodeJsCommandSubmissionClient', () => {
             applicationId: 'app',
             commandId: 'cmd',
             party: 'birthday',
-            ledgerEffectiveTime: {seconds: 0, nanoseconds: 1},
-            maximumRecordTime: {seconds: 1, nanoseconds: 2},
             list: [
                 {
                     commandType: 'archive',
@@ -86,32 +82,6 @@ describe('NodeJsCommandSubmissionClient', () => {
                     party: {
                         errors: [],
                         children: {}
-                    },
-                    ledgerEffectiveTime: {
-                        errors: [],
-                        children: {
-                            seconds: {
-                                errors: [],
-                                children: {}
-                            },
-                            nanoseconds: {
-                                errors: [],
-                                children: {}
-                            }
-                        }
-                    },
-                    maximumRecordTime: {
-                        errors: [],
-                        children: {
-                            seconds: {
-                                errors: [],
-                                children: {}
-                            },
-                            nanoseconds: {
-                                errors: [],
-                                children: {}
-                            }
-                        }
                     },
                     list: {
                         errors: [],

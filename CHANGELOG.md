@@ -3,6 +3,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## Unreleased
+### Removed
+- `ledgerEffectiveTime` and `maximumRecordTime` have been dropped by commands [#107](https://github.com/digital-asset/daml-js/issues/107)
+- `maxTtl` and `minTtl` have been dropped by ledger configuration [#107](https://github.com/digital-asset/daml-js/issues/107)
+
+### Added
+- `maxDeduplicationTime` has been added to the ledger configuration response [#107](https://github.com/digital-asset/daml-js/issues/107)
+
+### Fixed
+- the `knownSince` field is now correctly encoded into a plain object [#107](https://github.com/digital-asset/daml-js/issues/107)
+
 ## [0.9.1]
 ### Added
 - add support for enum values from SDK 0.13.13 [#97](https://github.com/digital-asset/daml-js/issues/97)
