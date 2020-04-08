@@ -156,6 +156,26 @@ describe('NodeJsTransactionClient', () => {
 
     });
 
+    it('should set the verbose flag to true by default in transactionTrees requests', (done) => {
+
+        const requestWithoutExplicitVerbose = {...transactionsRequest};
+        delete requestWithoutExplicitVerbose.verbose;
+
+        const call = client.getTransactionTrees(requestWithoutExplicitVerbose);
+        call.on('error', (error) => {
+            done(error);
+        });
+        call.on('end', () => {
+            assert(latestRequestSpy.calledOnce, 'The latestRequestSpy has not been called exactly once');
+            expect(latestRequestSpy.lastCall.args).to.have.length(1);
+            expect(latestRequestSpy.lastCall.lastArg).to.be.instanceof(PbGetTransactionsRequest);
+            const spiedRequest = latestRequestSpy.lastCall.lastArg as PbGetTransactionsRequest;
+            expect(spiedRequest.getVerbose()).to.be.true;
+            done();
+        });
+
+    });
+
     it('should pass the correct ledger identifier to the transaction trees request', (done) => {
         const call = client.getTransactionTrees(transactionsRequest);
         call.on('error', (error) => {
