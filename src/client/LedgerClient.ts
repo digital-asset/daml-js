@@ -24,7 +24,8 @@ export interface LedgerClientOptions {
     reporter?: ValidationReporter
     rootCerts?: Buffer
     privateKey?: Buffer
-    certChain?: Buffer
+    certChain?: Buffer,
+    grpcOptions?: object,
 }
 
 /**
