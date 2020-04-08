@@ -6,6 +6,7 @@ import {
     ContractIdValue,
     DateValue,
     DecimalValue,
+    EnumValue,
     Int64Value,
     ListValue,
     MapValue,
@@ -55,6 +56,17 @@ export const DecimalValueValidation = object<DecimalValue>('DecimalValue', () =>
         decimal: native('string')
     }
 }, noFields);
+
+export const EnumValueValidation = object<EnumValue>('EnumValue', () => {
+    return {
+        valueType: string('enum'),
+        constructor: native('string')
+    }
+}, () => {
+    return {
+        enumId: IdentifierValidation
+    }
+});
 
 export const Int64ValueValidation = object<Int64Value>('Int64Value', () => {
     return {
@@ -143,6 +155,7 @@ function values(): { [_ in Value['valueType']]: Validation } {
         contractId: ContractIdValueValidation,
         date: DateValueValidation,
         decimal: DecimalValueValidation,
+        enum: EnumValueValidation,
         int64: Int64ValueValidation,
         list: ListValueValidation,
         party: PartyValueValidation,

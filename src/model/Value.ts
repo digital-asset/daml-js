@@ -3,6 +3,7 @@
 
 import {Record} from "./Record";
 import {Variant} from "./Variant";
+import {Identifier} from "./Identifier";
 
 /**
  * Contains nested values.
@@ -58,6 +59,28 @@ export interface RecordValue extends Record {
  */
 export interface VariantValue extends Variant {
     valueType: 'variant'
+}
+
+/**
+ * A value with alternative representations.
+ *
+ * Example:
+ *
+ * ```
+ * {
+ *     valueType: 'enum',
+ *     constructor: 'Red'
+ * }
+ * ```
+ *
+ * To express values in a more concise way, you can have a look at the {@link ValueHelpers}.
+ *
+ * @see Identifier
+ */
+export interface EnumValue {
+    valueType: 'enum'
+    constructor: string
+    enumId?: Identifier
 }
 
 /**
@@ -323,6 +346,7 @@ export interface MapValue {
 export type Value =
     RecordValue
     | VariantValue
+    | EnumValue
     | ContractIdValue
     | ListValue
     | Int64Value

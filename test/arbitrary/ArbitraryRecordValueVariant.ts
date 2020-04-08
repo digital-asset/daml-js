@@ -35,6 +35,11 @@ const ArbitraryDecimalValue = jsc.record({
     decimal: jsc.string
 }) as jsc.Arbitrary<Value>;
 
+const ArbitraryEnumValue = jsc.record({
+    valueType: jsc.constant("enum"),
+    constructor: jsc.string
+}) as jsc.Arbitrary<Value>;
+
 const ArbitraryInt64Value = jsc.record({
     valueType: jsc.constant("int64"),
     int64: ArbitraryIntegerString
@@ -89,6 +94,7 @@ const { ArbitraryRecordValue, ArbitraryVariantValue, ArbitraryValue } =
             ArbitraryContractIdValue,
             ArbitraryDateValue,
             ArbitraryDecimalValue,
+            ArbitraryEnumValue,
             ArbitraryInt64Value,
             tie('ArbitraryListValue'),
             tie('ArbitraryMapValue'),

@@ -5,6 +5,7 @@ import {
     BoolValue,
     ContractIdValue, DateValue,
     DecimalValue,
+    EnumValue,
     Int64Value, ListValue, MapValue, OptionalValue, PartyValue,
     RecordValue,
     TextValue,
@@ -107,15 +108,39 @@ export const ValueHelpers = {
         return record;
     },
     /**
+     * Wraps a constructor into the underlying representation for enums
+     *
+     * Example:
+     *
+     * ```
+     * daml.enum('Red');
+     * ```
+     * becomes
+     *
+     * ```
+     * {
+     *     valueType: 'enum',
+     *     constructor: 'Red'
+     * }
+     * ```
+     */
+    enum: (constructor: string, enumId?: Identifier): EnumValue => {
+        const variant: EnumValue = {
+            valueType: "enum",
+            constructor: constructor
+        };
+        if (enumId) {
+            variant.enumId = enumId;
+        }
+        return variant;
+    },
+    /**
      * Wraps a constructor and a {@link Value} into the underlying representation for variants
      *
      * Example:
      *
      * ```
-     * daml.variant({
-     *     constructor: 'Person',
-     *     value: daml.text('Alice'),
-     * });
+     * daml.variant('Person', daml.text('Alice')));
      * ```
      * becomes
      *
