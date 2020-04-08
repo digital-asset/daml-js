@@ -1,7 +1,7 @@
 // Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/timestamp_pb";
+import {Timestamp} from "./Timestamp";
 
 /**
  * A representation of information abput dar package.
@@ -21,7 +21,7 @@ export interface PackageDetails {
     /**
      * Time when the package is uploaded
      */
-    knownSince?: google_protobuf_timestamp_pb.Timestamp
+    knownSince?: Timestamp
 
     /**
      * A texttual description associated with the package

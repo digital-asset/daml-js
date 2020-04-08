@@ -12,4 +12,4 @@ DAML_SRC=test/integration/src
 
 PORT=$(node reserve-port)
 echo "$PORT" > sandbox.port
-(cd "$DAML_SRC" && "$HOME"/.daml/bin/daml sandbox --eager-package-loading -p "$PORT" .daml/dist/*.dar >sandbox.out 2>sandbox.err &)
+(cd "$DAML_SRC" && "$HOME"/.daml/bin/daml sandbox --static-time --eager-package-loading -p "$PORT" .daml/dist/*.dar >sandbox.out 2>sandbox.err &)

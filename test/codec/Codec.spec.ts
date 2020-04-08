@@ -342,25 +342,15 @@ describe('Codec', () => {
     command1.setCreate(createCommandMessage);
     const command2 = new PbCommand();
     command2.setExercise(exerciseCommandMessage);
-    const ledgerEffectiveTime = new PbTimestamp();
-    ledgerEffectiveTime.setSeconds(60);
-    ledgerEffectiveTime.setNanos(61);
-    const maximumRecordTime = new PbTimestamp();
-    maximumRecordTime.setSeconds(62);
-    maximumRecordTime.setNanos(63);
     const commandsMessage = new PbCommands();
     commandsMessage.setApplicationId('applicationId');
     commandsMessage.setCommandId('commandId');
-    commandsMessage.setLedgerEffectiveTime(ledgerEffectiveTime);
-    commandsMessage.setMaximumRecordTime(maximumRecordTime);
     commandsMessage.setParty('Alice');
     commandsMessage.setWorkflowId('workflowId');
     commandsMessage.setCommandsList([command1, command2]);
     const commandsObject: Commands = {
         applicationId: 'applicationId',
         commandId: 'commandId',
-        ledgerEffectiveTime: {seconds: 60, nanoseconds: 61},
-        maximumRecordTime: {seconds: 62, nanoseconds: 63},
         party: 'Alice',
         workflowId: 'workflowId',
         list: [createCommandObject, exerciseCommandObject]
@@ -1132,26 +1122,17 @@ describe('Codec', () => {
     });
 
     itShouldConvert('LedgerConfiguration', () => {
-        const maxTtl = new PbDuration();
-        maxTtl.setSeconds(20);
-        maxTtl.setNanos(21);
-
-        const minTtl = new PbDuration();
-        minTtl.setSeconds(22);
-        minTtl.setNanos(23);
+        const maxDeduplicationTime = new PbDuration();
+        maxDeduplicationTime.setSeconds(20);
+        maxDeduplicationTime.setNanos(21);
 
         const message = new PbLedgerConfiguration();
-        message.setMaxTtl(maxTtl);
-        message.setMinTtl(minTtl);
+        message.setMaxDeduplicationTime(maxDeduplicationTime);
 
         const object: LedgerConfiguration = {
-            maxTtl: {
+            maxDeduplicationTime: {
                 seconds: 20,
                 nanoseconds: 21
-            },
-            minTtl: {
-                seconds: 22,
-                nanoseconds: 23
             }
         };
 
@@ -1159,30 +1140,21 @@ describe('Codec', () => {
     });
 
     itShouldConvert('GetLedgerConfigurationResponse', () => {
-        const maxTtl = new PbDuration();
-        maxTtl.setSeconds(20);
-        maxTtl.setNanos(21);
-
-        const minTtl = new PbDuration();
-        minTtl.setSeconds(22);
-        minTtl.setNanos(23);
+        const maxDeduplicationTime = new PbDuration();
+        maxDeduplicationTime.setSeconds(20);
+        maxDeduplicationTime.setNanos(21);
 
         const ledgerConfiguration = new PbLedgerConfiguration();
-        ledgerConfiguration.setMaxTtl(maxTtl);
-        ledgerConfiguration.setMinTtl(minTtl);
+        ledgerConfiguration.setMaxDeduplicationTime(maxDeduplicationTime);
 
         const message = new PbGetLedgerConfigurationResponse();
         message.setLedgerConfiguration(ledgerConfiguration);
 
         const object: GetLedgerConfigurationResponse = {
             config: {
-                maxTtl: {
+                maxDeduplicationTime: {
                     seconds: 20,
                     nanoseconds: 21
-                },
-                minTtl: {
-                    seconds: 22,
-                    nanoseconds: 23
                 }
             }
         };
@@ -1604,7 +1576,6 @@ describe('Codec', () => {
         const message = new PbPackageDetails();
         message.setPackageId("12345");
         message.setPackageSize(4);
-        message.setKnownSince(undefined);
         message.setSourceDescription("Description");
         const object: PackageDetails = {
             packageId: "12345",
@@ -1618,7 +1589,6 @@ describe('Codec', () => {
         const packageDetails = new PbPackageDetails();
         packageDetails.setPackageId("12345");
         packageDetails.setPackageSize(4);
-        packageDetails.setKnownSince(undefined);
         packageDetails.setSourceDescription("Source Package");
         const packageDetailList:Array<PbPackageDetails> = new Array<PbPackageDetails>();
         packageDetailList.push(packageDetails);
@@ -1639,7 +1609,7 @@ describe('Codec', () => {
         message.setDarFile("abcdef");
         const object:UploadDarFileRequest = {
             darFile: "abcdef"
-        }
+        };
         twoWayCheck(UploadDarFileRequestCodec, message, object)
     });
 

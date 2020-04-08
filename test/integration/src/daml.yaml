@@ -1,4 +1,4 @@
-sdk-version: 0.13.55
+sdk-version: 0.13.56-snapshot.20200331.3729.0.b43b8d86
 name: IntegrationTests
 source: daml/IntegrationTests.daml
 parties:

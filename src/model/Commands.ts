@@ -1,7 +1,6 @@
 // Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {Timestamp} from "./Timestamp";
 import {Command} from "./Command";
 
 /**
@@ -15,14 +14,6 @@ import {Command} from "./Command";
  *     commandId: 'fa7c46eb-bbf9-4eb9-9302-1123b42ce244',
  *     party: 'Alice',
  *     workflowId: 'some-workflow-id',
- *     ledgerEffectiveTime: {
- *         seconds: 1554382900,
- *         nanoseconds: 0
- *     },
- *     maximumRecordTime: {
- *         seconds: 1554382900,
- *         nanoseconds: 500000000
- *     },
  *     list: [
  *         {
  *             commandType: 'create',
@@ -75,16 +66,6 @@ export interface Commands {
      * Identifier of the on-ledger workflow that this command is a part of.
      */
     workflowId?: string
-
-    /**
-     * MUST be an approximation of the wall clock time on the ledger server.
-     */
-    ledgerEffectiveTime: Timestamp
-
-    /**
-     * The deadline for observing this command in the completion stream before it can be considered to have timed out.
-     */
-    maximumRecordTime: Timestamp
 
     /**
      * Individual elements of this atomic command. Must be non-empty.

@@ -3,7 +3,6 @@
 
 import {expect} from 'chai';
 
-import {Timestamp as PbTimestamp} from 'google-protobuf/google/protobuf/timestamp_pb';
 import {
     Identifier as PbIdentifier,
     Record as PbRecord,
@@ -396,16 +395,6 @@ describe('Reference Codec (SubmitRequestValidation)', () => {
     const commands = new PbCommands();
     commands.setLedgerId('ledgerId');
 
-    const ledgerEffectiveTime = new PbTimestamp();
-    ledgerEffectiveTime.setSeconds(47);
-    ledgerEffectiveTime.setNanos(68);
-    commands.setLedgerEffectiveTime(ledgerEffectiveTime);
-
-    const maximumRecordTime = new PbTimestamp();
-    maximumRecordTime.setSeconds(94);
-    maximumRecordTime.setNanos(140);
-    commands.setMaximumRecordTime(maximumRecordTime);
-
     commands.setCommandId('command-commandId');
     commands.setWorkflowId('command-workflowId');
     commands.setParty('command-party');
@@ -416,8 +405,6 @@ describe('Reference Codec (SubmitRequestValidation)', () => {
 
     const object: SubmitRequest = {
         commands: {
-            ledgerEffectiveTime: {seconds: 47, nanoseconds: 68},
-            maximumRecordTime: {seconds: 94, nanoseconds: 140},
             commandId: 'command-commandId',
             workflowId: 'command-workflowId',
             party: 'command-party',
@@ -578,16 +565,6 @@ describe('Reference Codec (SubmitRequestValidation/Pvp)', () => {
     const commands = new PbCommands();
     commands.setLedgerId('ledgerId');
 
-    const ledgerEffectiveTime = new PbTimestamp();
-    ledgerEffectiveTime.setSeconds(0);
-    ledgerEffectiveTime.setNanos(0);
-    commands.setLedgerEffectiveTime(ledgerEffectiveTime);
-
-    const maximumRecordTime = new PbTimestamp();
-    maximumRecordTime.setSeconds(5);
-    maximumRecordTime.setNanos(0);
-    commands.setMaximumRecordTime(maximumRecordTime);
-
     commands.setCommandId('78676d87b86d86');
     commands.setWorkflowId('some-workflow-id');
     commands.setParty('some-sender');
@@ -598,8 +575,6 @@ describe('Reference Codec (SubmitRequestValidation/Pvp)', () => {
 
     const reference = {
         commands: {
-            ledgerEffectiveTime: {seconds: 0, nanoseconds: 0},
-            maximumRecordTime: {seconds: 5, nanoseconds: 0},
             commandId: '78676d87b86d86',
             workflowId: 'some-workflow-id',
             party: 'some-sender',

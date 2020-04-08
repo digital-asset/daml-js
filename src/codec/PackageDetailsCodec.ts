@@ -4,6 +4,7 @@
 import {Codec} from "./Codec";
 import {PackageDetails} from "../model/PackageDetails";
 import {PackageDetails as PbPackageDetails} from "../generated/com/digitalasset/ledger/api/v1/admin/package_management_service_pb";
+import {TimestampCodec} from "./TimestampCodec";
 
 export const PackageDetailsCodec: Codec<PbPackageDetails, PackageDetails> = {
     deserialize(message: PbPackageDetails): PackageDetails {
@@ -11,9 +12,9 @@ export const PackageDetailsCodec: Codec<PbPackageDetails, PackageDetails> = {
             packageId: message.getPackageId(),
             packageSize: message.getPackageSize(),
             sourceDescription: message.getSourceDescription()
-        }
+        };
         if (message.hasKnownSince()) {
-            object.knownSince = message.getKnownSince();
+            object.knownSince = TimestampCodec.deserialize(message.getKnownSince()!);
         }
         return object;
     },
@@ -21,10 +22,10 @@ export const PackageDetailsCodec: Codec<PbPackageDetails, PackageDetails> = {
         const message = new PbPackageDetails();
         message.setPackageId(object.packageId);
         message.setPackageSize(object.packageSize);
-        if (object.knownSince !== null ) {
-            message.setKnownSince(object.knownSince);
+        if (object.knownSince !== undefined) {
+            message.setKnownSince(TimestampCodec.serialize(object.knownSince));
         }
         message.setSourceDescription(object.sourceDescription);
         return message;
     }
-}
+};

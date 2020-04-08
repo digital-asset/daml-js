@@ -5,14 +5,8 @@ import * as jsc from 'jsverify';
 import {ArbitraryDuration} from './ArbitraryDuration';
 import {LedgerConfiguration} from "../../src/model/LedgerConfiguration";
 
-export const ArbitraryLedgerConfiguration: jsc.Arbitrary<LedgerConfiguration> = jsc.pair(ArbitraryDuration, ArbitraryDuration).smap<LedgerConfiguration>(
-    ([maxTtl, minTtl]) => {
-        return {
-            maxTtl: maxTtl,
-            minTtl: minTtl
-        };
-    },
-    ledgerConfiguration => {
-        return [ledgerConfiguration.maxTtl, ledgerConfiguration.minTtl];
-    }
-);
+export const ArbitraryLedgerConfiguration: jsc.Arbitrary<LedgerConfiguration> =
+    jsc.record<LedgerConfiguration>({
+        maxDeduplicationTime: ArbitraryDuration,
+    });
+

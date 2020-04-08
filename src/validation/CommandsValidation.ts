@@ -7,16 +7,13 @@ import {object} from "./Object";
 import {array} from "./Array";
 import {OptionalFieldsValidators, RequiredFieldsValidators} from "./Validation";
 import {Commands} from "../model/Commands";
-import {TimestampValidation} from "./TimestampValidation";
 import {CommandValidation} from "./CommandValidation";
 
 function required(): RequiredFieldsValidators<Commands> {
     return {
         applicationId: native('string'),
         commandId: native('string'),
-        ledgerEffectiveTime: TimestampValidation,
         list: array(CommandValidation),
-        maximumRecordTime: TimestampValidation,
         party: native('string')
     };
 }
