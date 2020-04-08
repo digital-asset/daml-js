@@ -377,7 +377,6 @@ describe('Template identifier retrieval', () => {
         const archive = lf.ArchivePayload.deserializeBinary(archivePayload as unknown as Uint8Array).getDamlLf1()!;
         for (const damlModule of archive.getModulesList()) {
             if (damlModule.hasNameDname()) {
-                expect(damlModule.hasNameDname()).to.be.true;
                 const moduleName = damlModule.getNameDname()!.getSegmentsList().join('.');
                 for (const template of damlModule.getTemplatesList()) {
                     expect(template.hasTyconDname()).to.be.true;
@@ -385,7 +384,6 @@ describe('Template identifier retrieval', () => {
                     templateNames.push(`${moduleName}:${templateName}`);
                 }
             } else if (damlModule.hasNameInternedDname()) {
-                expect(damlModule.hasNameInternedDname()).to.be.true;
                 const internedDottedNames = archive.getInternedDottedNamesList();
                 const internedStrings = archive.getInternedStringsList();
                 const i = damlModule.getNameInternedDname();
