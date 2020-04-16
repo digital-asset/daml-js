@@ -4,7 +4,7 @@
 import {assert, expect} from 'chai';
 import {ClientReadableObjectStream} from "../../src/call/ClientReadableObjectStream";
 import {IdentifierCodec} from "../../src/codec/IdentifierCodec";
-import {Identifier as PbIdentifier} from "../../src/generated/com/digitalasset/ledger/api/v1/value_pb";
+import {Identifier as PbIdentifier} from "../../src/generated/com/daml/ledger/api/v1/value_pb";
 import {DummyClientReadableStream} from "./DummyClientReadableStream";
 
 describe("ClientReadableObjectStream", () => {

@@ -4,7 +4,7 @@
 import {Codec} from './Codec';
 import {IdentifierCodec} from './IdentifierCodec';
 import {ArchivedEvent} from '../model/ArchivedEvent';
-import {ArchivedEvent as PbArchivedEvent} from '../generated/com/digitalasset/ledger/api/v1/event_pb';
+import {ArchivedEvent as PbArchivedEvent} from '../generated/com/daml/ledger/api/v1/event_pb';
 
 export const ArchivedEventCodec: Codec<PbArchivedEvent, ArchivedEvent> = {
     deserialize(message: PbArchivedEvent): ArchivedEvent {

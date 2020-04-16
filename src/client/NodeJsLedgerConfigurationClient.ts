@@ -1,8 +1,8 @@
 // Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {GetLedgerConfigurationRequest} from "../generated/com/digitalasset/ledger/api/v1/ledger_configuration_service_pb";
-import {ILedgerConfigurationServiceClient} from "../generated/com/digitalasset/ledger/api/v1/ledger_configuration_service_grpc_pb";
+import {GetLedgerConfigurationRequest} from "../generated/com/daml/ledger/api/v1/ledger_configuration_service_pb";
+import {ILedgerConfigurationServiceClient} from "../generated/com/daml/ledger/api/v1/ledger_configuration_service_grpc_pb";
 import {ClientReadableObjectStream} from "../call/ClientReadableObjectStream";
 import {GetLedgerConfigurationResponse} from "../model/GetLedgerConfigurationResponse";
 import {GetLedgerConfigurationResponseCodec} from "../codec/GetLedgerConfigurationResponseCodec";

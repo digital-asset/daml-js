@@ -7,7 +7,7 @@ import {ExercisedEvent} from "../model/ExercisedEvent";
 import {ValueCodec} from "./ValueCodec";
 import {IdentifierCodec} from "./IdentifierCodec";
 
-import {ExercisedEvent as PbExercisedEvent} from "../generated/com/digitalasset/ledger/api/v1/event_pb";
+import {ExercisedEvent as PbExercisedEvent} from "../generated/com/daml/ledger/api/v1/event_pb";
 
 export const ExercisedEventCodec: Codec<PbExercisedEvent, ExercisedEvent> = {
     deserialize(message: PbExercisedEvent): ExercisedEvent {

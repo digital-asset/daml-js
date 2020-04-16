@@ -10,8 +10,8 @@ import {
     ListKnownPartiesRequest,
     ListKnownPartiesResponse,
     PartyDetails
-} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb"
-import {IPartyManagementServiceClient} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/party_management_service_grpc_pb"
+} from "../../src/generated/com/daml/ledger/api/v1/admin/party_management_service_pb"
+import {IPartyManagementServiceClient} from "../../src/generated/com/daml/ledger/api/v1/admin/party_management_service_grpc_pb"
 import {DummyClientUnaryCall} from "../call/DummyClientUnaryCall";
 import * as sinon from "sinon";
 

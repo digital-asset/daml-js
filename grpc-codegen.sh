@@ -7,7 +7,7 @@ set -euxo pipefail
 cd "$(dirname "${0}")"
 
 GRPC_VERSION=1.18.0
-SDK_VERSION=100.13.56-snapshot.20200331.3729.0.b43b8d86
+SDK_VERSION=1.0.0
 
 PROTO_PATH="./proto"
 OUT_PATH="./src/generated"
@@ -22,8 +22,7 @@ trap clean ERR
 if [ ! -d "$PROTO_PATH" ]; then
     mkdir -p "$PROTO_PATH" && (
       cd "$PROTO_PATH"
-      curl -s https://repo1.maven.org/maven2/com/digitalasset/ledger-api-protos/$SDK_VERSION/ledger-api-protos-$SDK_VERSION.tar.gz | tar xz --strip-components 2
-      curl -s https://digitalassetsdk.bintray.com/DigitalAssetSDK/com/digitalasset/daml-lf-1.8-archive-proto/"$SDK_VERSION"/daml-lf-1.8-archive-proto-"$SDK_VERSION".tar.gz | tar xz
+      rm -rf protos-"$SDK_VERSION" && wget https://github.com/digital-asset/daml/releases/download/v"$SDK_VERSION"/protobufs-"$SDK_VERSION".zip -O temp.zip && unzip temp.zip && rm temp.zip && mv protos-"$SDK_VERSION"/com . && rmdir protos-"$SDK_VERSION"
       mkdir -p grpc/health/v1
       curl -s https://raw.githubusercontent.com/grpc/grpc/v"$GRPC_VERSION"/src/proto/grpc/health/v1/health.proto > grpc/health/v1/health.proto
       mkdir -p google/rpc
@@ -40,9 +39,9 @@ if [ ! -d "$OUT_PATH" ]; then
       --js_out="import_style=commonjs,binary:${OUT_PATH}" \
       --proto_path="${PROTO_PATH}" \
       --grpc_out="${OUT_PATH}" \
-      "${PROTO_PATH}"/com/digitalasset/ledger/api/v1/*.proto \
-      "${PROTO_PATH}"/com/digitalasset/ledger/api/v1/admin/*.proto \
-      "${PROTO_PATH}"/com/digitalasset/ledger/api/v1/testing/*.proto \
+      "${PROTO_PATH}"/com/daml/ledger/api/v1/*.proto \
+      "${PROTO_PATH}"/com/daml/ledger/api/v1/admin/*.proto \
+      "${PROTO_PATH}"/com/daml/ledger/api/v1/testing/*.proto \
       "${PROTO_PATH}"/google/rpc/*.proto \
       "${PROTO_PATH}"/grpc/health/v1/*.proto
     grpc_tools_node_protoc \
@@ -55,9 +54,9 @@ if [ ! -d "$OUT_PATH" ]; then
       --plugin=protoc-gen-ts=`which protoc-gen-ts` \
       --proto_path="${PROTO_PATH}" \
       --ts_out="${OUT_PATH}" \
-      "${PROTO_PATH}"/com/digitalasset/ledger/api/v1/*.proto \
-      "${PROTO_PATH}"/com/digitalasset/ledger/api/v1/admin/*.proto \
-      "${PROTO_PATH}"/com/digitalasset/ledger/api/v1/testing/*.proto \
+      "${PROTO_PATH}"/com/daml/ledger/api/v1/*.proto \
+      "${PROTO_PATH}"/com/daml/ledger/api/v1/admin/*.proto \
+      "${PROTO_PATH}"/com/daml/ledger/api/v1/testing/*.proto \
       "${PROTO_PATH}"/google/rpc/*.proto \
       "${PROTO_PATH}"/grpc/health/v1/*.proto
     grpc_tools_node_protoc \

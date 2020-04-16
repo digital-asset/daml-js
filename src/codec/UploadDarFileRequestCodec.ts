@@ -3,7 +3,7 @@
 
 import {Codec} from "./Codec";
 import {UploadDarFileRequest} from "../model/UploadDarFileRequest";
-import {UploadDarFileRequest as PbUploadDarFileRequest} from "../generated/com/digitalasset/ledger/api/v1/admin/package_management_service_pb"
+import {UploadDarFileRequest as PbUploadDarFileRequest} from "../generated/com/daml/ledger/api/v1/admin/package_management_service_pb"
 
 export const UploadDarFileRequestCodec: Codec<PbUploadDarFileRequest, UploadDarFileRequest> = {
     deserialize(message: PbUploadDarFileRequest): UploadDarFileRequest {

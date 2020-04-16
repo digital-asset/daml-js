@@ -6,7 +6,7 @@ import {CreatedEvent} from "../model/CreatedEvent";
 import {IdentifierCodec} from "./IdentifierCodec";
 import {RecordCodec} from "./RecordCodec";
 import {ValueCodec} from "./ValueCodec";
-import {CreatedEvent as PbCreatedEvent} from "../generated/com/digitalasset/ledger/api/v1/event_pb";
+import {CreatedEvent as PbCreatedEvent} from "../generated/com/daml/ledger/api/v1/event_pb";
 import {StringValue} from "google-protobuf/google/protobuf/wrappers_pb";
 
 export const CreatedEventCodec: Codec<PbCreatedEvent, CreatedEvent> = {

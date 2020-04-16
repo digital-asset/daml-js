@@ -7,7 +7,7 @@ import {Value} from "../model/Value";
 import {Record} from "../model/Record";
 import {ValueCodec} from "./ValueCodec";
 import {IdentifierCodec} from "./IdentifierCodec";
-import {Record as PbRecord, RecordField as PbRecordField} from "../generated/com/digitalasset/ledger/api/v1/value_pb";
+import {Record as PbRecord, RecordField as PbRecordField} from "../generated/com/daml/ledger/api/v1/value_pb";
 
 export const RecordCodec: Codec<PbRecord, Record> = {
     deserialize(record: PbRecord): Record {

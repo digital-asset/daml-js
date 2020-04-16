@@ -7,7 +7,7 @@ import {
     Transaction as PbTransaction,
     TransactionTree as PbTransactionTree,
     TreeEvent as PbTreeEvent
-} from "../../src/generated/com/digitalasset/ledger/api/v1/transaction_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/transaction_pb";
 
 import {Timestamp as PbTimestamp} from 'google-protobuf/google/protobuf/timestamp_pb';
 import {Empty as PbEmpty} from 'google-protobuf/google/protobuf/empty_pb';
@@ -21,19 +21,19 @@ import {
     RecordField as PbRecordField,
     Value as PbValue,
     Variant as PbVariant
-} from "../../src/generated/com/digitalasset/ledger/api/v1/value_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/value_pb";
 import {
     ArchivedEvent as PbArchivedEvent,
     CreatedEvent as PbCreatedEvent,
     Event as PbEvent,
     ExercisedEvent as PbExercisedEvent
-} from "../../src/generated/com/digitalasset/ledger/api/v1/event_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/event_pb";
 import {InclusiveFilters} from "../../src/model/InclusiveFilters";
 import {
     Filters as PbFilters,
     InclusiveFilters as PbInclusiveFilters,
     TransactionFilter as PbTransactionFilter
-} from "../../src/generated/com/digitalasset/ledger/api/v1/transaction_filter_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/transaction_filter_pb";
 import {Filters} from "../../src/model/Filters";
 import {TransactionFilter} from "../../src/model/TransactionFilter";
 import {Codec} from "../../src/codec/Codec";
@@ -42,7 +42,7 @@ import {SetTimeRequest} from "../../src/model/SetTimeRequest";
 import {
     GetTimeResponse as PbGetTimeResponse,
     SetTimeRequest as PbSetTimeRequest
-} from "../../src/generated/com/digitalasset/ledger/api/v1/testing/time_service_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/testing/time_service_pb";
 import {SetTimeRequestCodec} from "../../src/codec/SetTimeRequestCodec";
 import {GetTimeResponseCodec} from "../../src/codec/GetTimeResponseCodec";
 import {GetTimeResponse} from "../../src/model/GetTimeResponse";
@@ -56,7 +56,7 @@ import {
     GetTransactionsRequest as PbGetTransactionsRequest,
     GetTransactionsResponse as PbGetTransactionsResponse,
     GetTransactionTreesResponse as PbGetTransactionTreesResponse
-} from "../../src/generated/com/digitalasset/ledger/api/v1/transaction_service_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/transaction_service_pb";
 import {GetTransactionsResponseCodec} from "../../src/codec/GetTransactionsResponseCodec";
 import {GetTransactionsResponse} from "../../src/model/GetTransactionsResponse";
 import {TransactionCodec} from "../../src/codec/TransactionCodec";
@@ -68,7 +68,7 @@ import {
     CreateCommand as PbCreateCommand,
     ExerciseCommand as PbExerciseCommand,
     CreateAndExerciseCommand as  PbCreateAndExerciseCommand
-} from "../../src/generated/com/digitalasset/ledger/api/v1/commands_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/commands_pb";
 import {ExerciseCommand} from "../../src/model/ExerciseCommand";
 import {Commands} from "../../src/model/Commands";
 import {CreatedEvent} from "../../src/model/CreatedEvent";
@@ -77,7 +77,7 @@ import {InclusiveFiltersCodec} from "../../src/codec/InclusiveFiltersCodec";
 import {FiltersCodec} from "../../src/codec/FiltersCodec";
 import {TransactionFilterCodec} from "../../src/codec/TransactionFilterCodec";
 import {LedgerOffset, LedgerOffsetBoundaryValue} from "../../src/model/LedgerOffset";
-import {LedgerOffset as PbLedgerOffset} from "../../src/generated/com/digitalasset/ledger/api/v1/ledger_offset_pb";
+import {LedgerOffset as PbLedgerOffset} from "../../src/generated/com/daml/ledger/api/v1/ledger_offset_pb";
 import {LedgerOffsetCodec} from "../../src/codec/LedgerOffsetCodec";
 import {Timestamp} from "../../src/model/Timestamp";
 import {TimestampCodec} from "../../src/codec/TimestampCodec";
@@ -95,20 +95,20 @@ import {GetActiveContractsRequest} from "../../src/model/GetActiveContractsReque
 import {
     GetActiveContractsRequest as PbGetActiveContractsRequest,
     GetActiveContractsResponse as PbGetActiveContractsResponse
-} from "../../src/generated/com/digitalasset/ledger/api/v1/active_contracts_service_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/active_contracts_service_pb";
 import {GetActiveContractsRequestCodec} from "../../src/codec/GetActiveContractsRequestCodec";
 import {CreatedEventCodec} from "../../src/codec/CreatedEventCodec";
 import {GetActiveContractsResponseCodec} from "../../src/codec/GetActiveContractsResponseCodec";
 import {GetActiveContractsResponse} from "../../src/model/GetActiveContractsResponse";
 import {GetLedgerIdentityResponse} from "../../src/model/GetLedgerIdentityResponse";
-import {GetLedgerIdentityResponse as PbGetLedgerIdentityResponse} from "../../src/generated/com/digitalasset/ledger/api/v1/ledger_identity_service_pb";
+import {GetLedgerIdentityResponse as PbGetLedgerIdentityResponse} from "../../src/generated/com/daml/ledger/api/v1/ledger_identity_service_pb";
 import {GetLedgerIdentityResponseCodec} from "../../src/codec/GetLedgerIdentityResponseCodec";
 import {GetPackageResponse} from "../../src/model/GetPackageResponse";
 import {
     GetPackageResponse as PbGetPackageResponse,
     HashFunction as PbHashFunction,
     ListPackagesResponse as PbListPackagesResponse
-} from "../../src/generated/com/digitalasset/ledger/api/v1/package_service_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/package_service_pb";
 import {HashFunction} from "../../src/model/HashFunction";
 import {GetPackageResponseCodec} from "../../src/codec/GetPackageResponseCodec";
 import {ListPackagesResponse} from "../../src/model/ListPackagesResponse";
@@ -121,7 +121,7 @@ import {
     CompletionEndResponse as PbCompletionEndResponse,
     CompletionStreamRequest as PbCompletionStreamRequest,
     CompletionStreamResponse as PbCompletionStreamResponse
-} from "../../src/generated/com/digitalasset/ledger/api/v1/command_completion_service_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/command_completion_service_pb";
 import {CompletionStreamRequest} from "../../src/model/CompletionStreamRequest";
 import {Checkpoint} from "../../src/model/Checkpoint";
 import {CompletionStreamRequestCodec} from "../../src/codec/CompletionStreamRequestCodec";
@@ -134,7 +134,7 @@ import {Status} from "../../src/model/Status";
 import {Status as PbStatus} from "../../src/generated/google/rpc/status_pb";
 import {StatusCodec} from "../../src/codec/StatusCodec";
 import {Completion} from "../../src/model/Completion";
-import {Completion as PbCompletion} from "../../src/generated/com/digitalasset/ledger/api/v1/completion_pb";
+import {Completion as PbCompletion} from "../../src/generated/com/daml/ledger/api/v1/completion_pb";
 import {CompletionCodec} from "../../src/codec/CompletionCodec";
 import {CompletionStreamResponse} from "../../src/model/CompletionStreamResponse";
 import {CompletionStreamResponseCodec} from "../../src/codec/CompletionStreamResponseCodec";
@@ -145,7 +145,7 @@ import {LedgerConfiguration} from "../../src/model/LedgerConfiguration";
 import {
     GetLedgerConfigurationResponse as PbGetLedgerConfigurationResponse,
     LedgerConfiguration as PbLedgerConfiguration
-} from "../../src/generated/com/digitalasset/ledger/api/v1/ledger_configuration_service_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/ledger_configuration_service_pb";
 import {LedgerConfigurationCodec} from "../../src/codec/LedgerConfigurationCodec";
 import {GetLedgerConfigurationResponse} from "../../src/model/GetLedgerConfigurationResponse";
 import {GetLedgerConfigurationResponseCodec} from "../../src/codec/GetLedgerConfigurationResponseCodec";
@@ -165,15 +165,15 @@ import {TransactionTreeCodec} from "../../src/codec/TransactionTreeCodec";
 import {GetTransactionResponse} from "../../src/model/GetTransactionResponse";
 import {GetTransactionResponseCodec} from "../../src/codec/GetTransactionResponseCodec";
 import {SubmitRequest} from "../../src/model/SubmitRequest";
-import {SubmitRequest as PbSubmitRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/command_submission_service_pb";
+import {SubmitRequest as PbSubmitRequest} from "../../src/generated/com/daml/ledger/api/v1/command_submission_service_pb";
 import {SubmitAndWaitRequest} from "../../src/model/SubmitAndWaitRequest";
-import {SubmitAndWaitRequest as PbSubmitAndWaitRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/command_service_pb";
+import {SubmitAndWaitRequest as PbSubmitAndWaitRequest} from "../../src/generated/com/daml/ledger/api/v1/command_service_pb";
 import {SubmitAndWaitForTransactionResponse} from "../../src/model/SubmitAndWaitForTransactionResponse";
-import {SubmitAndWaitForTransactionResponse as PbSubmitAndWaitForTransactionResponse} from "../../src/generated/com/digitalasset/ledger/api/v1/command_service_pb";
+import {SubmitAndWaitForTransactionResponse as PbSubmitAndWaitForTransactionResponse} from "../../src/generated/com/daml/ledger/api/v1/command_service_pb";
 import {SubmitAndWaitForTransactionIdResponse} from "../../src/model/SubmitAndWaitForTransactionIdResponse";
-import {SubmitAndWaitForTransactionIdResponse as PbSubmitAndWaitForTransactionIdResponse} from "../../src/generated/com/digitalasset/ledger/api/v1/command_service_pb";
+import {SubmitAndWaitForTransactionIdResponse as PbSubmitAndWaitForTransactionIdResponse} from "../../src/generated/com/daml/ledger/api/v1/command_service_pb";
 import {SubmitAndWaitForTransactionTreeResponse} from "../../src/model/SubmitAndWaitForTransactionTreeResponse";
-import {SubmitAndWaitForTransactionTreeResponse as PbSubmitAndWaitForTransactionTreeResponse} from "../../src/generated/com/digitalasset/ledger/api/v1/command_service_pb";
+import {SubmitAndWaitForTransactionTreeResponse as PbSubmitAndWaitForTransactionTreeResponse} from "../../src/generated/com/daml/ledger/api/v1/command_service_pb";
 import {CreateAndExerciseCommandCodec} from "../../src/codec/CreateAndExerciseCommandCodec";
 import {CreateAndExerciseCommand} from "../../src/model/CreateAndExerciseCommand";
 import {SubmitAndWaitForTransactionResponseCodec} from "../../src/codec/SubmitAndWaitForTransactionResponseCodec";
@@ -182,7 +182,7 @@ import {SubmitAndWaitForTransactionTreeResponseCodec} from "../../src/codec/Subm
 import {GetParticipantIdResponse} from "../../src/model/GetParticipantIdResponse";
 import {GetParticipantIdResponseCodec} from "../../src/codec/GetParticipantIdResponseCodec";
 import {ListKnownPartiesResponse} from "../../src/model/ListKnownPartiesResponse";
-import {ListKnownPartiesResponse as PbListKnownPartiesResponse, PartyDetails as PbPartyDetails, AllocatePartyRequest as PbAllocatePartyRequest, AllocatePartyResponse as PbAllocatePartyResponse, GetParticipantIdResponse as PbGetParticipantIdResponse} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb";
+import {ListKnownPartiesResponse as PbListKnownPartiesResponse, PartyDetails as PbPartyDetails, AllocatePartyRequest as PbAllocatePartyRequest, AllocatePartyResponse as PbAllocatePartyResponse, GetParticipantIdResponse as PbGetParticipantIdResponse} from "../../src/generated/com/daml/ledger/api/v1/admin/party_management_service_pb";
 import {PartyDetails} from "../../src/model/PartyDetails";
 import {ListKnownPartiesResponseCodec} from "../../src/codec/ListKnownPartiesResponseCodec";
 import {PartyDetailsCodec} from '../../src/codec/PartyDetailsCodec';
@@ -199,7 +199,7 @@ import {UploadDarFileRequestCodec} from "../../src/codec/UploadDarFileRequestCod
 import {ListKnownPackagesResponse as PbListKnownPackagesResponse, 
         PackageDetails as PbPackageDetails,
         UploadDarFileRequest as PbUploadDarFileRequest
-    } from "../../src/generated/com/digitalasset/ledger/api/v1/admin/package_management_service_pb";
+    } from "../../src/generated/com/daml/ledger/api/v1/admin/package_management_service_pb";
 
 describe('Codec', () => {
     const packageId = 'packageId';

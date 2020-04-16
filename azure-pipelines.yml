@@ -20,9 +20,9 @@ pool:
   vmImage: 'ubuntu-16.04'
 strategy:
   matrix:
-    node_10_daml_0.13.56-snapshot.20200331.3729.0.b43b8d86:
+    node_10_daml_1.0.0:
       nodejs_version: 10.x
-      daml_sdk_version: 0.13.56-snapshot.20200331.3729.0.b43b8d86
+      daml_sdk_version: 1.0.0
 
 steps:
 - script: curl -sSL https://get.daml.com/ | sh -s $(daml_sdk_version)

@@ -8,8 +8,8 @@ import {
     UploadDarFileRequest,
     UploadDarFileResponse,
     PackageDetails,
-} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/package_management_service_pb";
-import {IPackageManagementServiceClient} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/package_management_service_grpc_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/admin/package_management_service_pb";
+import {IPackageManagementServiceClient} from "../../src/generated/com/daml/ledger/api/v1/admin/package_management_service_grpc_pb";
 import {DummyClientUnaryCall} from "../call/DummyClientUnaryCall";
 import * as sinon from "sinon";
 

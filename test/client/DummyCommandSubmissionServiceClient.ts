@@ -4,8 +4,8 @@
 import * as sinon from 'sinon';
 import {CallOptions, ClientUnaryCall, Metadata} from 'grpc';
 import {Empty} from 'google-protobuf/google/protobuf/empty_pb';
-import {ICommandSubmissionServiceClient} from "../../src/generated/com/digitalasset/ledger/api/v1/command_submission_service_grpc_pb";
-import {SubmitRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/command_submission_service_pb";
+import {ICommandSubmissionServiceClient} from "../../src/generated/com/daml/ledger/api/v1/command_submission_service_grpc_pb";
+import {SubmitRequest} from "../../src/generated/com/daml/ledger/api/v1/command_submission_service_pb";
 import {DummyClientUnaryCall} from "../call/DummyClientUnaryCall";
 
 export class DummyCommandSubmissionServiceClient

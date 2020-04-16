@@ -5,7 +5,7 @@
 import {Codec} from "./Codec";
 import {SubmitAndWaitRequest} from "../model/SubmitAndWaitRequest";
 import {CommandsCodec} from "./CommandsCodec";
-import {SubmitAndWaitRequest as PbSubmitAndWaitRequest} from "../generated/com/digitalasset/ledger/api/v1/command_service_pb";
+import {SubmitAndWaitRequest as PbSubmitAndWaitRequest} from "../generated/com/daml/ledger/api/v1/command_service_pb";
 
 export const SubmitAndWaitRequestCodec: Codec<PbSubmitAndWaitRequest, SubmitAndWaitRequest> = {
     deserialize(request: PbSubmitAndWaitRequest): SubmitAndWaitRequest {

@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `maxTtl` and `minTtl` have been dropped by ledger configuration [#107](https://github.com/digital-asset/daml-js/issues/107)
 
 ### Added
+- supports SDK 1.0.0 [#110](https://github.com/digital-asset/daml-js/issue/110)
 - `maxDeduplicationTime` has been added to the ledger configuration response [#107](https://github.com/digital-asset/daml-js/issues/107)
 
 ### Fixed

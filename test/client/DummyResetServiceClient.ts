@@ -6,8 +6,8 @@ import {CallOptions, ClientUnaryCall, Metadata} from 'grpc';
 import * as sinon from 'sinon';
 
 import {Empty} from 'google-protobuf/google/protobuf/empty_pb';
-import {IResetServiceClient} from "../../src/generated/com/digitalasset/ledger/api/v1/testing/reset_service_grpc_pb";
-import {ResetRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/testing/reset_service_pb";
+import {IResetServiceClient} from "../../src/generated/com/daml/ledger/api/v1/testing/reset_service_grpc_pb";
+import {ResetRequest} from "../../src/generated/com/daml/ledger/api/v1/testing/reset_service_pb";
 import {DummyClientUnaryCall} from "../call/DummyClientUnaryCall";
 
 export class DummyResetServiceClient implements IResetServiceClient {

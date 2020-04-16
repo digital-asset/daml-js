@@ -4,7 +4,7 @@
 
 import {ListPackagesResponse} from "../model/ListPackagesResponse";
 import {Codec} from "./Codec";
-import {ListPackagesResponse as PbListPackagesResponse} from "../generated/com/digitalasset/ledger/api/v1/package_service_pb";
+import {ListPackagesResponse as PbListPackagesResponse} from "../generated/com/daml/ledger/api/v1/package_service_pb";
 
 export const ListPackagesResponseCodec: Codec<PbListPackagesResponse, ListPackagesResponse> = {
     deserialize(response: PbListPackagesResponse): ListPackagesResponse {

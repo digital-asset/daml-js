@@ -8,7 +8,7 @@ import {
     GetPackageRequest as PbGetPackageRequest,
     GetPackageStatusRequest as PbGetPackageStatusRequest,
     ListPackagesRequest as PbListPackagesRequest
-} from "../../src/generated/com/digitalasset/ledger/api/v1/package_service_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/package_service_pb";
 import {DummyPackageServiceClient} from "./DummyPackageServiceClient";
 
 describe("NodeJsPackageClient", () => {

@@ -4,7 +4,7 @@
 import {Codec} from "./Codec";
 import {PartyDetailsCodec} from "./PartyDetailsCodec";
 import {AllocatePartyResponse} from "../model/AllocatePartyResponse";
-import {AllocatePartyResponse as PbAllocatePartyResponse} from "../generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb"
+import {AllocatePartyResponse as PbAllocatePartyResponse} from "../generated/com/daml/ledger/api/v1/admin/party_management_service_pb"
 
 export const AllocatePartyResponseCodec: Codec<PbAllocatePartyResponse, AllocatePartyResponse> = {
     deserialize(message: PbAllocatePartyResponse): AllocatePartyResponse {

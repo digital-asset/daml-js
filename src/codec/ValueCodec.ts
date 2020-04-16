@@ -7,7 +7,7 @@ import {
     Map as PbMap,
     Value as PbValue,
     Enum as PbEnum
-} from '../generated/com/digitalasset/ledger/api/v1/value_pb';
+} from '../generated/com/daml/ledger/api/v1/value_pb';
 import {Empty as PbEmpty} from 'google-protobuf/google/protobuf/empty_pb';
 
 import {Codec} from "./Codec";

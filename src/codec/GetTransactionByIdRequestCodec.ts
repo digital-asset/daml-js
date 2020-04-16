@@ -4,7 +4,7 @@
 
 import {Codec} from "./Codec";
 import {GetTransactionByIdRequest} from "../model/GetTransactionByIdRequest";
-import {GetTransactionByIdRequest as PbGetTransactionByIdRequest} from "../generated/com/digitalasset/ledger/api/v1/transaction_service_pb";
+import {GetTransactionByIdRequest as PbGetTransactionByIdRequest} from "../generated/com/daml/ledger/api/v1/transaction_service_pb";
 
 export const GetTransactionByIdRequestCodec: Codec<PbGetTransactionByIdRequest, GetTransactionByIdRequest> = {
     deserialize(message: PbGetTransactionByIdRequest): GetTransactionByIdRequest {

@@ -15,7 +15,7 @@ import {
     GetTransactionByEventIdRequest as PbGetTransactionByEventIdRequest,
     GetTransactionByIdRequest as PbGetTransactionByIdRequest,
     GetTransactionsRequest as PbGetTransactionsRequest
-} from "../../src/generated/com/digitalasset/ledger/api/v1/transaction_service_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/transaction_service_pb";
 import {DummyTransactionServiceClient} from "./DummyTransactionServiceClient";
 
 describe('NodeJsTransactionClient', () => {

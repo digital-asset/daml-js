@@ -3,11 +3,11 @@
 
 import {ClientReadableStream} from 'grpc';
 import {SinonSpy} from 'sinon';
-import {IActiveContractsServiceClient} from "../../src/generated/com/digitalasset/ledger/api/v1/active_contracts_service_grpc_pb";
+import {IActiveContractsServiceClient} from "../../src/generated/com/daml/ledger/api/v1/active_contracts_service_grpc_pb";
 import {
     GetActiveContractsRequest,
     GetActiveContractsResponse
-} from "../../src/generated/com/digitalasset/ledger/api/v1/active_contracts_service_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/active_contracts_service_pb";
 import {DummyClientReadableStream} from "../call/DummyClientReadableStream";
 
 export class DummyActiveContractsServiceClient

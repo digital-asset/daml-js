@@ -1,14 +1,14 @@
 // Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {IPartyManagementServiceClient} from "../generated/com/digitalasset/ledger/api/v1/admin/party_management_service_grpc_pb"
+import {IPartyManagementServiceClient} from "../generated/com/daml/ledger/api/v1/admin/party_management_service_grpc_pb"
 import {Callback, forward, promisify} from "../util/Callback";
 import {ClientCancellableCall} from "../call/ClientCancellableCall";
 import {PartyManagementClient} from "./PartyManagementClient";
 import {GetParticipantIdResponse} from "../model/GetParticipantIdResponse";
 import {GetParticipantIdResponseCodec} from "../codec/GetParticipantIdResponseCodec";
 import {ListKnownPartiesResponse} from "../model/ListKnownPartiesResponse";
-import {ListKnownPartiesRequest, GetParticipantIdRequest} from "../generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb";
+import {ListKnownPartiesRequest, GetParticipantIdRequest} from "../generated/com/daml/ledger/api/v1/admin/party_management_service_pb";
 import {ListKnownPartiesResponseCodec} from "../codec/ListKnownPartiesResponseCodec";
 import {isValid} from "../validation/Validation";
 import {AllocatePartyRequest} from "../model/AllocatePartyRequest";

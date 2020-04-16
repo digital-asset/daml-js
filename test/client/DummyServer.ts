@@ -9,13 +9,13 @@ import {SinonSpy} from 'sinon';
 import {
     GetLedgerIdentityRequest,
     GetLedgerIdentityResponse
-} from "../../src/generated/com/digitalasset/ledger/api/v1/ledger_identity_service_pb";
-import {LedgerOffset} from "../../src/generated/com/digitalasset/ledger/api/v1/ledger_offset_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/ledger_identity_service_pb";
+import {LedgerOffset} from "../../src/generated/com/daml/ledger/api/v1/ledger_offset_pb";
 import {
     CompletionEndRequest,
     CompletionEndResponse,
     CompletionStreamRequest
-} from "../../src/generated/com/digitalasset/ledger/api/v1/command_completion_service_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/command_completion_service_pb";
 import {
     GetPackageRequest,
     GetPackageResponse,
@@ -23,8 +23,8 @@ import {
     GetPackageStatusResponse,
     ListPackagesRequest,
     ListPackagesResponse
-} from "../../src/generated/com/digitalasset/ledger/api/v1/package_service_pb";
-import {TransactionTree} from "../../src/generated/com/digitalasset/ledger/api/v1/transaction_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/package_service_pb";
+import {TransactionTree} from "../../src/generated/com/daml/ledger/api/v1/transaction_pb";
 import {
     GetFlatTransactionResponse,
     GetLedgerEndRequest,
@@ -33,41 +33,41 @@ import {
     GetTransactionByIdRequest,
     GetTransactionResponse,
     GetTransactionsRequest
-} from "../../src/generated/com/digitalasset/ledger/api/v1/transaction_service_pb";
-import {GetActiveContractsRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/active_contracts_service_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/transaction_service_pb";
+import {GetActiveContractsRequest} from "../../src/generated/com/daml/ledger/api/v1/active_contracts_service_pb";
 import {
     SubmitAndWaitForTransactionIdResponse,
     SubmitAndWaitForTransactionResponse,
     SubmitAndWaitForTransactionTreeResponse,
     SubmitAndWaitRequest
-} from "../../src/generated/com/digitalasset/ledger/api/v1/command_service_pb";
-import {ActiveContractsServiceService} from "../../src/generated/com/digitalasset/ledger/api/v1/active_contracts_service_grpc_pb";
-import {CommandServiceService} from "../../src/generated/com/digitalasset/ledger/api/v1/command_service_grpc_pb";
-import {CommandCompletionServiceService} from "../../src/generated/com/digitalasset/ledger/api/v1/command_completion_service_grpc_pb";
-import {CommandSubmissionServiceService} from "../../src/generated/com/digitalasset/ledger/api/v1/command_submission_service_grpc_pb";
-import {SubmitRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/command_submission_service_pb";
-import {LedgerIdentityServiceService} from "../../src/generated/com/digitalasset/ledger/api/v1/ledger_identity_service_grpc_pb";
-import {PackageServiceService} from "../../src/generated/com/digitalasset/ledger/api/v1/package_service_grpc_pb";
-import {LedgerConfigurationServiceService} from "../../src/generated/com/digitalasset/ledger/api/v1/ledger_configuration_service_grpc_pb";
-import {GetLedgerConfigurationRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/ledger_configuration_service_pb";
-import {TimeServiceService} from "../../src/generated/com/digitalasset/ledger/api/v1/testing/time_service_grpc_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/command_service_pb";
+import {ActiveContractsServiceService} from "../../src/generated/com/daml/ledger/api/v1/active_contracts_service_grpc_pb";
+import {CommandServiceService} from "../../src/generated/com/daml/ledger/api/v1/command_service_grpc_pb";
+import {CommandCompletionServiceService} from "../../src/generated/com/daml/ledger/api/v1/command_completion_service_grpc_pb";
+import {CommandSubmissionServiceService} from "../../src/generated/com/daml/ledger/api/v1/command_submission_service_grpc_pb";
+import {SubmitRequest} from "../../src/generated/com/daml/ledger/api/v1/command_submission_service_pb";
+import {LedgerIdentityServiceService} from "../../src/generated/com/daml/ledger/api/v1/ledger_identity_service_grpc_pb";
+import {PackageServiceService} from "../../src/generated/com/daml/ledger/api/v1/package_service_grpc_pb";
+import {LedgerConfigurationServiceService} from "../../src/generated/com/daml/ledger/api/v1/ledger_configuration_service_grpc_pb";
+import {GetLedgerConfigurationRequest} from "../../src/generated/com/daml/ledger/api/v1/ledger_configuration_service_pb";
+import {TimeServiceService} from "../../src/generated/com/daml/ledger/api/v1/testing/time_service_grpc_pb";
 import {
     GetTimeRequest,
     SetTimeRequest
-} from "../../src/generated/com/digitalasset/ledger/api/v1/testing/time_service_pb";
-import {TransactionServiceService} from "../../src/generated/com/digitalasset/ledger/api/v1/transaction_service_grpc_pb";
-import {ResetServiceService} from "../../src/generated/com/digitalasset/ledger/api/v1/testing/reset_service_grpc_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/testing/time_service_pb";
+import {TransactionServiceService} from "../../src/generated/com/daml/ledger/api/v1/transaction_service_grpc_pb";
+import {ResetServiceService} from "../../src/generated/com/daml/ledger/api/v1/testing/reset_service_grpc_pb";
 import {
     ListKnownPartiesRequest,
     ListKnownPartiesResponse
-} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb";
-import {PartyManagementServiceService} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/party_management_service_grpc_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/admin/party_management_service_pb";
+import {PartyManagementServiceService} from "../../src/generated/com/daml/ledger/api/v1/admin/party_management_service_grpc_pb";
 import {
     ListKnownPackagesRequest,
     ListKnownPackagesResponse,
     UploadDarFileRequest
-} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/package_management_service_pb";
-import {PackageManagementServiceService} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/package_management_service_grpc_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/admin/package_management_service_pb";
+import {PackageManagementServiceService} from "../../src/generated/com/daml/ledger/api/v1/admin/package_management_service_grpc_pb";
 export class DummyServer extends Server {
     constructor(ledgerId: string, spy: SinonSpy) {
         super();

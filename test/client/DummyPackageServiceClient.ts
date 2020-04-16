@@ -4,12 +4,12 @@
 import {CallOptions, ClientUnaryCall, Metadata} from 'grpc';
 
 import * as sinon from 'sinon';
-import {IPackageServiceClient} from "../../src/generated/com/digitalasset/ledger/api/v1/package_service_grpc_pb";
+import {IPackageServiceClient} from "../../src/generated/com/daml/ledger/api/v1/package_service_grpc_pb";
 import {
     GetPackageRequest, GetPackageResponse, GetPackageStatusRequest, GetPackageStatusResponse,
     ListPackagesRequest,
     ListPackagesResponse
-} from "../../src/generated/com/digitalasset/ledger/api/v1/package_service_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/package_service_pb";
 import {DummyClientUnaryCall} from "../call/DummyClientUnaryCall";
 
 export class DummyPackageServiceClient implements IPackageServiceClient {

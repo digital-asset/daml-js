@@ -5,7 +5,7 @@ import {SubmitRequestValidation} from "../validation/SubmitRequestValidation";
 import {ClientCancellableCall} from "../call/ClientCancellableCall";
 import {Callback, forwardVoidResponse, promisify} from "../util/Callback";
 import {ValidationReporter} from "../reporting/ValidationReporter";
-import {ICommandSubmissionServiceClient} from "../generated/com/digitalasset/ledger/api/v1/command_submission_service_grpc_pb";
+import {ICommandSubmissionServiceClient} from "../generated/com/daml/ledger/api/v1/command_submission_service_grpc_pb";
 import {SubmitRequest} from "../model/SubmitRequest";
 import {isValid} from "../validation/Validation";
 import {SubmitRequestCodec} from "../codec/SubmitRequestCodec";

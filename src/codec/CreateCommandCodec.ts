@@ -7,7 +7,7 @@ import {CreateCommand} from "../model/CreateCommand";
 import {IdentifierCodec} from "./IdentifierCodec";
 import {RecordCodec} from "./RecordCodec";
 
-import {CreateCommand as PbCreateCommand} from "../generated/com/digitalasset/ledger/api/v1/commands_pb";
+import {CreateCommand as PbCreateCommand} from "../generated/com/daml/ledger/api/v1/commands_pb";
 
 export const CreateCommandCodec: Codec<PbCreateCommand, CreateCommand> = {
     deserialize(command: PbCreateCommand): CreateCommand {

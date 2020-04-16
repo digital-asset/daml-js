@@ -3,15 +3,15 @@
 
 import * as sinon from 'sinon';
 import {CallOptions, ClientReadableStream, ClientUnaryCall, Metadata} from 'grpc';
-import {ICommandCompletionServiceClient} from "../../src/generated/com/digitalasset/ledger/api/v1/command_completion_service_grpc_pb";
+import {ICommandCompletionServiceClient} from "../../src/generated/com/daml/ledger/api/v1/command_completion_service_grpc_pb";
 import {
     CompletionEndRequest,
     CompletionEndResponse, CompletionStreamRequest,
     CompletionStreamResponse
-} from "../../src/generated/com/digitalasset/ledger/api/v1/command_completion_service_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/command_completion_service_pb";
 import {DummyClientUnaryCall} from "../call/DummyClientUnaryCall";
 import {DummyClientReadableStream} from "../call/DummyClientReadableStream";
-import {LedgerOffset} from "../../src/generated/com/digitalasset/ledger/api/v1/ledger_offset_pb";
+import {LedgerOffset} from "../../src/generated/com/daml/ledger/api/v1/ledger_offset_pb";
 
 export class DummyCommandCompletionServiceClient
     implements ICommandCompletionServiceClient {

@@ -5,8 +5,8 @@ import {CallOptions, ClientUnaryCall, Metadata} from 'grpc';
 import {
     GetLedgerIdentityRequest,
     GetLedgerIdentityResponse
-} from "../../src/generated/com/digitalasset/ledger/api/v1/ledger_identity_service_pb";
-import {ILedgerIdentityServiceClient} from "../../src/generated/com/digitalasset/ledger/api/v1/ledger_identity_service_grpc_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/ledger_identity_service_pb";
+import {ILedgerIdentityServiceClient} from "../../src/generated/com/daml/ledger/api/v1/ledger_identity_service_grpc_pb";
 import {DummyClientUnaryCall} from "../call/DummyClientUnaryCall";
 import * as sinon from "sinon";
 

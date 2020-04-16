@@ -4,7 +4,7 @@
 import {assert, expect} from 'chai';
 import * as sinon from 'sinon';
 import {SubmitAndWaitRequest} from "../../src/model/SubmitAndWaitRequest";
-import {SubmitAndWaitRequest as PbSubmitAndWaitRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/command_service_pb";
+import {SubmitAndWaitRequest as PbSubmitAndWaitRequest} from "../../src/generated/com/daml/ledger/api/v1/command_service_pb";
 import {NodeJsCommandClient} from "../../src/client/NodeJsCommandClient";
 import {JSONReporter} from "../../src/reporting/JSONReporter";
 import {SubmitAndWaitRequestCodec} from "../../src/codec/SubmitAndWaitRequestCodec";

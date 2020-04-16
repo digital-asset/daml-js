@@ -10,7 +10,7 @@ import {JSONReporter} from "../../src/reporting/JSONReporter";
 import {
     GetTimeRequest as PbGetTimeRequest,
     SetTimeRequest as PbSetTimeRequest
-} from "../../src/generated/com/digitalasset/ledger/api/v1/testing/time_service_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/testing/time_service_pb";
 import {DummyTimeServiceClient} from "./DummyTimeServiceClient";
 
 describe('NodeJsTimeClient', () => {

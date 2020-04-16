@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import {Commands} from "../model/Commands";
-import {Commands as PbCommands} from "../generated/com/digitalasset/ledger/api/v1/commands_pb";
+import {Commands as PbCommands} from "../generated/com/daml/ledger/api/v1/commands_pb";
 import {Codec} from "./Codec";
 import {CommandCodec} from "./CommandCodec";
 

@@ -6,7 +6,7 @@ import {Codec} from "./Codec";
 import {GetTransactionsRequest} from "../model/GetTransactionsRequest";
 import {LedgerOffsetCodec} from "./LedgerOffsetCodec";
 import {TransactionFilterCodec} from "./TransactionFilterCodec";
-import {GetTransactionsRequest as PbGetTransactionsRequest} from "../generated/com/digitalasset/ledger/api/v1/transaction_service_pb";
+import {GetTransactionsRequest as PbGetTransactionsRequest} from "../generated/com/daml/ledger/api/v1/transaction_service_pb";
 
 export const GetTransactionsRequestCodec: Codec<PbGetTransactionsRequest, GetTransactionsRequest> = {
     deserialize(request: PbGetTransactionsRequest): GetTransactionsRequest {

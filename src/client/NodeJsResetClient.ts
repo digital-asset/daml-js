@@ -1,10 +1,10 @@
 // Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {ResetRequest} from "../generated/com/digitalasset/ledger/api/v1/testing/reset_service_pb";
+import {ResetRequest} from "../generated/com/daml/ledger/api/v1/testing/reset_service_pb";
 import {Callback, forwardVoidResponse, promisify} from "../util/Callback";
 import {ClientCancellableCall} from "../call/ClientCancellableCall";
-import {IResetServiceClient} from "../generated/com/digitalasset/ledger/api/v1/testing/reset_service_grpc_pb";
+import {IResetServiceClient} from "../generated/com/daml/ledger/api/v1/testing/reset_service_grpc_pb";
 
 export class NodeJsResetClient {
 

@@ -5,7 +5,7 @@ import {Codec} from './Codec';
 import {LedgerOffsetCodec} from './LedgerOffsetCodec';
 import {TimestampCodec} from './TimestampCodec'
 import {Checkpoint} from '../model/Checkpoint';
-import {Checkpoint as PbCheckpoint} from '../generated/com/digitalasset/ledger/api/v1/command_completion_service_pb';
+import {Checkpoint as PbCheckpoint} from '../generated/com/daml/ledger/api/v1/command_completion_service_pb';
 
 export const CheckpointCodec: Codec<PbCheckpoint, Checkpoint> = {
     deserialize(message: PbCheckpoint): Checkpoint {

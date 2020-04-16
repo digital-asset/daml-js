@@ -5,7 +5,7 @@ import {assert, expect} from 'chai';
 import {NodeJsLedgerIdentityClient} from "../../src/client/NodeJsLedgerIdentityClient";
 import {DummyLedgerIdentityServiceClient} from "./DummyLedgerIdentityServiceClient";
 import * as sinon from "sinon";
-import {GetLedgerIdentityRequest as PbGetLedgerIdentityRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/ledger_identity_service_pb";
+import {GetLedgerIdentityRequest as PbGetLedgerIdentityRequest} from "../../src/generated/com/daml/ledger/api/v1/ledger_identity_service_pb";
 
 describe("NodeJsLedgerIdentityClient", () => {
 

@@ -5,7 +5,7 @@ import {Codec} from "./Codec";
 import {Event} from "../model/Event"
 import {ArchivedEventCodec} from "./ArchivedEventCodec";
 import {CreatedEventCodec} from "./CreatedEventCodec";
-import {Event as PbEvent} from "../generated/com/digitalasset/ledger/api/v1/event_pb";
+import {Event as PbEvent} from "../generated/com/daml/ledger/api/v1/event_pb";
 import {ErrorMessages} from "../util/ErrorMessages";
 
 export const EventCodec: Codec<PbEvent, Event> = {

@@ -5,7 +5,7 @@ import {assert, expect} from 'chai';
 import * as sinon from 'sinon';
 import {
     GetActiveContractsRequest as PbGetActiveContractsRequest
-} from "../../src/generated/com/digitalasset/ledger/api/v1/active_contracts_service_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/active_contracts_service_pb";
 import {NodeJsActiveContractsClient} from "../../src/client/NodeJsActiveContractsClient";
 import {JSONReporter} from "../../src/reporting/JSONReporter";
 import {GetActiveContractsRequestCodec} from "../../src/codec/GetActiveContractsRequestCodec";

@@ -9,25 +9,25 @@ import {
     RecordField as PbRecordField,
     Value as PbValue,
     Variant as PbVariant
-} from "../../src/generated/com/digitalasset/ledger/api/v1/value_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/value_pb";
 import {
     Filters as PbFilters,
     InclusiveFilters as PbInclusiveFilters,
     TransactionFilter as PbTransactionFilter
-} from "../../src/generated/com/digitalasset/ledger/api/v1/transaction_filter_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/transaction_filter_pb";
 import {Record} from "../../src/model/Record";
 import {
     Command as PbCommand,
     Commands as PbCommands,
     CreateCommand as PbCreateCommand
-} from "../../src/generated/com/digitalasset/ledger/api/v1/commands_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/commands_pb";
 import {InclusiveFiltersCodec} from "../../src/codec/InclusiveFiltersCodec";
 import {FiltersCodec} from "../../src/codec/FiltersCodec";
 import {TransactionFilterCodec} from "../../src/codec/TransactionFilterCodec";
 import {RecordCodec} from "../../src/codec/RecordCodec";
 import {SubmitRequestCodec} from "../../src/codec/SubmitRequestCodec";
 import {SubmitRequest} from "../../src/model/SubmitRequest";
-import {SubmitRequest as PbSubmitRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/command_submission_service_pb";
+import {SubmitRequest as PbSubmitRequest} from "../../src/generated/com/daml/ledger/api/v1/command_submission_service_pb";
 
 describe('Reference Codec (InclusiveFiltersValidation)', () => {
     it('should not throw an error with a valid input', () => {

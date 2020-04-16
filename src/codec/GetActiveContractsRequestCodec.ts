@@ -6,7 +6,7 @@ import {Codec} from "./Codec";
 import {GetActiveContractsRequest} from "../model/GetActiveContractsRequest";
 import {TransactionFilterCodec} from "./TransactionFilterCodec";
 
-import {GetActiveContractsRequest as PbGetActiveContractsRequest} from "../generated/com/digitalasset/ledger/api/v1/active_contracts_service_pb";
+import {GetActiveContractsRequest as PbGetActiveContractsRequest} from "../generated/com/daml/ledger/api/v1/active_contracts_service_pb";
 
 export const GetActiveContractsRequestCodec: Codec<PbGetActiveContractsRequest, GetActiveContractsRequest> = {
     deserialize(message: PbGetActiveContractsRequest): GetActiveContractsRequest {
