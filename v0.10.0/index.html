@@ -1,0 +1,1014 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Node.js bindings for DAML</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">Node.js bindings for DAML</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> Node.js bindings for DAML</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#nodejs-bindings-for-daml" id="nodejs-bindings-for-daml" style="color: inherit; text-decoration: none;">
+					<h1>Node.js bindings for DAML</h1>
+				</a>
+				<p>The <a href="https://node.js.org/">Node.js</a> bindings for <a href="https://daml.com/">DAML</a> allow you to write applications on the Node.js platform that interact with a DAML application through the <a href="https://docs.daml.com/app-dev/ledger-api-introduction/index.html">Ledger API</a>.</p>
+				<a href="#table-of-contents" id="table-of-contents" style="color: inherit; text-decoration: none;">
+					<h2>Table of contents</h2>
+				</a>
+				<ul>
+					<li><a href="#read-the-documentation">Read the documentation</a></li>
+					<li><a href="#get-started">Get started</a></li>
+				</ul>
+				<a href="#read-the-documentation" id="read-the-documentation" style="color: inherit; text-decoration: none;">
+					<h2>Read the documentation</h2>
+				</a>
+				<p>This page offers some guidance on how to move the first steps to write your applications running on Node.js and interacting with a DAML.</p>
+				<p>Keep on reading for a few pointers on how to get started.</p>
+				<p>Navigate through the reference docs using the navigation items on the side of this page.</p>
+				<p><a href="#table-of-contents">Go back to the top</a></p>
+				<a href="#get-started" id="get-started" style="color: inherit; text-decoration: none;">
+					<h2>Get started</h2>
+				</a>
+				<p>You can add the bindings to an existing Node.js project running</p>
+				<pre><code><span class="hljs-selector-tag">npm</span> <span class="hljs-selector-tag">install</span> @<span class="hljs-keyword">digitalasset</span>/<span class="hljs-keyword">daml</span>-<span class="hljs-keyword">ledger</span></code></pre><p>If you need some guidance on how to move your first steps with the bindings you can try the <a href="https://github.com/digital-asset/ex-tutorial-nodejs">tutorial</a>.</p>
+				<p><a href="#table-of-contents">Go back to the top</a></p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/errormessages.html">Error<wbr>Messages</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-enum">
+						<a href="enums/hashfunction.html" class="tsd-kind-icon">Hash<wbr>Function</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/ledgeroffsetboundaryvalue.html" class="tsd-kind-icon">Ledger<wbr>Offset<wbr>Boundary<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/packagestatus.html" class="tsd-kind-icon">Package<wbr>Status</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/clientcancellablecall.html" class="tsd-kind-icon">Client<wbr>Cancellable<wbr>Call</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/clientreadableobjectstream.html" class="tsd-kind-icon">Client<wbr>Readable<wbr>Object<wbr>Stream</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/damlledgerclient.html" class="tsd-kind-icon">Daml<wbr>Ledger<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/deserializer.html" class="tsd-kind-icon">Deserializer</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/nodejsactivecontractsclient.html" class="tsd-kind-icon">Node<wbr>JsActive<wbr>Contracts<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/nodejscommandclient.html" class="tsd-kind-icon">Node<wbr>JsCommand<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/nodejscommandcompletionclient.html" class="tsd-kind-icon">Node<wbr>JsCommand<wbr>Completion<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/nodejscommandsubmissionclient.html" class="tsd-kind-icon">Node<wbr>JsCommand<wbr>Submission<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/nodejsledgerconfigurationclient.html" class="tsd-kind-icon">Node<wbr>JsLedger<wbr>Configuration<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/nodejsledgeridentityclient.html" class="tsd-kind-icon">Node<wbr>JsLedger<wbr>Identity<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/nodejspackageclient.html" class="tsd-kind-icon">Node<wbr>JsPackage<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/nodejspackagemanagementclient.html" class="tsd-kind-icon">Node<wbr>JsPackage<wbr>Management<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/nodejspartymanagementclient.html" class="tsd-kind-icon">Node<wbr>JsParty<wbr>Management<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/nodejsresetclient.html" class="tsd-kind-icon">Node<wbr>JsReset<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/nodejstimeclient.html" class="tsd-kind-icon">Node<wbr>JsTime<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/nodejstransactionclient.html" class="tsd-kind-icon">Node<wbr>JsTransaction<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/activecontractsclient.html" class="tsd-kind-icon">Active<wbr>Contracts<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/allocatepartyrequest.html" class="tsd-kind-icon">Allocate<wbr>Party<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/allocatepartyresponse.html" class="tsd-kind-icon">Allocate<wbr>Party<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/any.html" class="tsd-kind-icon">Any</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/archivedevent.html" class="tsd-kind-icon">Archived<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/boolvalue.html" class="tsd-kind-icon">Bool<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/checkpoint.html" class="tsd-kind-icon">Checkpoint</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/codec.html" class="tsd-kind-icon">Codec</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/commandclient.html" class="tsd-kind-icon">Command<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/commandcompletionclient.html" class="tsd-kind-icon">Command<wbr>Completion<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/commandsubmissionclient.html" class="tsd-kind-icon">Command<wbr>Submission<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/commands.html" class="tsd-kind-icon">Commands</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/completion.html" class="tsd-kind-icon">Completion</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/completionendresponse.html" class="tsd-kind-icon">Completion<wbr>End<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/completionstreamrequest.html" class="tsd-kind-icon">Completion<wbr>Stream<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/completionstreamresponse.html" class="tsd-kind-icon">Completion<wbr>Stream<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/contractidvalue.html" class="tsd-kind-icon">Contract<wbr>IdValue</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/createandexercisecommand.html" class="tsd-kind-icon">Create<wbr>And<wbr>Exercise<wbr>Command</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/createcommand.html" class="tsd-kind-icon">Create<wbr>Command</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/createdevent.html" class="tsd-kind-icon">Created<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/datevalue.html" class="tsd-kind-icon">Date<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/decimalvalue.html" class="tsd-kind-icon">Decimal<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/duration.html" class="tsd-kind-icon">Duration</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/enumvalue.html" class="tsd-kind-icon">Enum<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/exercisecommand.html" class="tsd-kind-icon">Exercise<wbr>Command</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/exercisedevent.html" class="tsd-kind-icon">Exercised<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/filters.html" class="tsd-kind-icon">Filters</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/getactivecontractsrequest.html" class="tsd-kind-icon">Get<wbr>Active<wbr>Contracts<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/getactivecontractsresponse.html" class="tsd-kind-icon">Get<wbr>Active<wbr>Contracts<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/getflattransactionresponse.html" class="tsd-kind-icon">Get<wbr>Flat<wbr>Transaction<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/getledgerconfigurationresponse.html" class="tsd-kind-icon">Get<wbr>Ledger<wbr>Configuration<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/getledgerendresponse.html" class="tsd-kind-icon">Get<wbr>Ledger<wbr>End<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/getledgeridentityresponse.html" class="tsd-kind-icon">Get<wbr>Ledger<wbr>Identity<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/getpackageresponse.html" class="tsd-kind-icon">Get<wbr>Package<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/getpackagestatusresponse.html" class="tsd-kind-icon">Get<wbr>Package<wbr>Status<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/getparticipantidresponse.html" class="tsd-kind-icon">Get<wbr>Participant<wbr>IdResponse</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/gettimeresponse.html" class="tsd-kind-icon">Get<wbr>Time<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/gettransactionbyeventidrequest.html" class="tsd-kind-icon">Get<wbr>Transaction<wbr>ByEvent<wbr>IdRequest</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/gettransactionbyidrequest.html" class="tsd-kind-icon">Get<wbr>Transaction<wbr>ById<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/gettransactionresponse.html" class="tsd-kind-icon">Get<wbr>Transaction<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/gettransactiontreesresponse.html" class="tsd-kind-icon">Get<wbr>Transaction<wbr>Trees<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/gettransactionsrequest.html" class="tsd-kind-icon">Get<wbr>Transactions<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/gettransactionsresponse.html" class="tsd-kind-icon">Get<wbr>Transactions<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/identifier.html" class="tsd-kind-icon">Identifier</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/inclusivefilters.html" class="tsd-kind-icon">Inclusive<wbr>Filters</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/int64value.html" class="tsd-kind-icon">Int64<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/invalidintegerstring.html" class="tsd-kind-icon">Invalid<wbr>Integer<wbr>String</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/ledgerclient.html" class="tsd-kind-icon">Ledger<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/ledgerclientoptions.html" class="tsd-kind-icon">Ledger<wbr>Client<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/ledgerconfiguration.html" class="tsd-kind-icon">Ledger<wbr>Configuration</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/ledgerconfigurationclient.html" class="tsd-kind-icon">Ledger<wbr>Configuration<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/ledgeridentityclient.html" class="tsd-kind-icon">Ledger<wbr>Identity<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/ledgeroffsetabsolute.html" class="tsd-kind-icon">Ledger<wbr>Offset<wbr>Absolute</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/ledgeroffsetboundary.html" class="tsd-kind-icon">Ledger<wbr>Offset<wbr>Boundary</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/listknownpackageresponse.html" class="tsd-kind-icon">List<wbr>Known<wbr>Package<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/listknownpartiesresponse.html" class="tsd-kind-icon">List<wbr>Known<wbr>Parties<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/listpackagesresponse.html" class="tsd-kind-icon">List<wbr>Packages<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/listvalue.html" class="tsd-kind-icon">List<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/mapvalue.html" class="tsd-kind-icon">Map<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/missingkey.html" class="tsd-kind-icon">Missing<wbr>Key</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/missingtypetag.html" class="tsd-kind-icon">Missing<wbr>Type<wbr>Tag</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/objectvalidation.html" class="tsd-kind-icon">Object<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/optionalvalue.html" class="tsd-kind-icon">Optional<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/packageclient.html" class="tsd-kind-icon">Package<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/packagedetails.html" class="tsd-kind-icon">Package<wbr>Details</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/packagemanagementclient.html" class="tsd-kind-icon">Package<wbr>Management<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/partydetails.html" class="tsd-kind-icon">Party<wbr>Details</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/partymanagementclient.html" class="tsd-kind-icon">Party<wbr>Management<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/partyvalue.html" class="tsd-kind-icon">Party<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/record.html" class="tsd-kind-icon">Record</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/recordvalue.html" class="tsd-kind-icon">Record<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/resetclient.html" class="tsd-kind-icon">Reset<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/settimerequest.html" class="tsd-kind-icon">Set<wbr>Time<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/status.html" class="tsd-kind-icon">Status</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/submitandwaitfortransactionidresponse.html" class="tsd-kind-icon">Submit<wbr>And<wbr>Wait<wbr>For<wbr>Transaction<wbr>IdResponse</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/submitandwaitfortransactionresponse.html" class="tsd-kind-icon">Submit<wbr>And<wbr>Wait<wbr>For<wbr>Transaction<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/submitandwaitfortransactiontreeresponse.html" class="tsd-kind-icon">Submit<wbr>And<wbr>Wait<wbr>For<wbr>Transaction<wbr>Tree<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/submitandwaitrequest.html" class="tsd-kind-icon">Submit<wbr>And<wbr>Wait<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/submitrequest.html" class="tsd-kind-icon">Submit<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/textvalue.html" class="tsd-kind-icon">Text<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/timeclient.html" class="tsd-kind-icon">Time<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/timestamp.html" class="tsd-kind-icon">Timestamp</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/timestampvalue.html" class="tsd-kind-icon">Timestamp<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/transaction.html" class="tsd-kind-icon">Transaction</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/transactionclient.html" class="tsd-kind-icon">Transaction<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/transactionfilter.html" class="tsd-kind-icon">Transaction<wbr>Filter</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/transactiontree.html" class="tsd-kind-icon">Transaction<wbr>Tree</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/typeerror.html" class="tsd-kind-icon">Type<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/unexpectedkey.html" class="tsd-kind-icon">Unexpected<wbr>Key</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/unexpectedtypetag.html" class="tsd-kind-icon">Unexpected<wbr>Type<wbr>Tag</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/unionvalidation.html" class="tsd-kind-icon">Union<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/unitvalue.html" class="tsd-kind-icon">Unit<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/uploaddarfilerequest.html" class="tsd-kind-icon">Upload<wbr>Dar<wbr>File<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/validation.html" class="tsd-kind-icon">Validation</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/validationreporter.html" class="tsd-kind-icon">Validation<wbr>Reporter</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/validationtree.html" class="tsd-kind-icon">Validation<wbr>Tree</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/variant.html" class="tsd-kind-icon">Variant</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/variantvalue.html" class="tsd-kind-icon">Variant<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="globals.html#callback" class="tsd-kind-icon">Callback</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#command" class="tsd-kind-icon">Command</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#event" class="tsd-kind-icon">Event</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#ledgeroffset" class="tsd-kind-icon">Ledger<wbr>Offset</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="globals.html#optionalfields" class="tsd-kind-icon">Optional<wbr>Fields</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="globals.html#optionalfieldsvalidators" class="tsd-kind-icon">Optional<wbr>Fields<wbr>Validators</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="globals.html#optionalkeys" class="tsd-kind-icon">Optional<wbr>Keys</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="globals.html#requiredfields" class="tsd-kind-icon">Required<wbr>Fields</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="globals.html#requiredfieldsvalidators" class="tsd-kind-icon">Required<wbr>Fields<wbr>Validators</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="globals.html#requiredkeys" class="tsd-kind-icon">Required<wbr>Keys</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#treeevent" class="tsd-kind-icon">Tree<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#validationerror" class="tsd-kind-icon">Validation<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#value" class="tsd-kind-icon">Value</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#allocatepartyrequestvalidation" class="tsd-kind-icon">Allocate<wbr>Party<wbr>Request<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#anyvalidation" class="tsd-kind-icon">Any<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#archivedeventvalidation" class="tsd-kind-icon">Archived<wbr>Event<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#boolvaluevalidation" class="tsd-kind-icon">Bool<wbr>Value<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#checkpointvalidation" class="tsd-kind-icon">Checkpoint<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#commandvalidation" class="tsd-kind-icon">Command<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#commandsvalidation" class="tsd-kind-icon">Commands<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#completionendresponsevalidation" class="tsd-kind-icon">Completion<wbr>End<wbr>Response<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#completionstreamrequestvalidation" class="tsd-kind-icon">Completion<wbr>Stream<wbr>Request<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#completionstreamresponsevalidation" class="tsd-kind-icon">Completion<wbr>Stream<wbr>Response<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#completionvalidation" class="tsd-kind-icon">Completion<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#contractidvaluevalidation" class="tsd-kind-icon">Contract<wbr>IdValue<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#createandexercisecommandvalidation" class="tsd-kind-icon">Create<wbr>And<wbr>Exercise<wbr>Command<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#createcommandvalidation" class="tsd-kind-icon">Create<wbr>Command<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#createdeventvalidation" class="tsd-kind-icon">Created<wbr>Event<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#datevaluevalidation" class="tsd-kind-icon">Date<wbr>Value<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#decimalvaluevalidation" class="tsd-kind-icon">Decimal<wbr>Value<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#durationvalidation" class="tsd-kind-icon">Duration<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#enumvaluevalidation" class="tsd-kind-icon">Enum<wbr>Value<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#eventvalidation" class="tsd-kind-icon">Event<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#exercisecommandvalidation" class="tsd-kind-icon">Exercise<wbr>Command<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#exercisedeventvalidation" class="tsd-kind-icon">Exercised<wbr>Event<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#filtersvalidation" class="tsd-kind-icon">Filters<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#getactivecontractsrequestvalidation" class="tsd-kind-icon">Get<wbr>Active<wbr>Contracts<wbr>Request<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#getactivecontractsresponsevalidation" class="tsd-kind-icon">Get<wbr>Active<wbr>Contracts<wbr>Response<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#getflattransactionresponsevalidation" class="tsd-kind-icon">Get<wbr>Flat<wbr>Transaction<wbr>Response<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#getledgerconfigurationresponsevalidation" class="tsd-kind-icon">Get<wbr>Ledger<wbr>Configuration<wbr>Response<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#getledgerendresponsevalidation" class="tsd-kind-icon">Get<wbr>Ledger<wbr>End<wbr>Response<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#getledgeridentityresponsevalidation" class="tsd-kind-icon">Get<wbr>Ledger<wbr>Identity<wbr>Response<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#getpackageresponsevalidation" class="tsd-kind-icon">Get<wbr>Package<wbr>Response<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#getpackagestatusresponsevalidation" class="tsd-kind-icon">Get<wbr>Package<wbr>Status<wbr>Response<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#gettimeresponsevalidation" class="tsd-kind-icon">Get<wbr>Time<wbr>Response<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#gettransactionbyeventidrequestvalidation" class="tsd-kind-icon">Get<wbr>Transaction<wbr>ByEvent<wbr>IdRequest<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#gettransactionbyidrequestvalidation" class="tsd-kind-icon">Get<wbr>Transaction<wbr>ById<wbr>Request<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#gettransactionresponsevalidation" class="tsd-kind-icon">Get<wbr>Transaction<wbr>Response<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#gettransactiontreesresponsevalidation" class="tsd-kind-icon">Get<wbr>Transaction<wbr>Trees<wbr>Response<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#gettransactionsrequestvalidation" class="tsd-kind-icon">Get<wbr>Transactions<wbr>Request<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#gettransactionsresponsevalidation" class="tsd-kind-icon">Get<wbr>Transactions<wbr>Response<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#hashfunctionvalidation" class="tsd-kind-icon">Hash<wbr>Function<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#identifiervalidation" class="tsd-kind-icon">Identifier<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#inclusivefiltersvalidation" class="tsd-kind-icon">Inclusive<wbr>Filters<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#int64valuevalidation" class="tsd-kind-icon">Int64<wbr>Value<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#ledgerconfigurationvalidation" class="tsd-kind-icon">Ledger<wbr>Configuration<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#ledgeroffsetvalidation" class="tsd-kind-icon">Ledger<wbr>Offset<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#listpackagesresponsevalidation" class="tsd-kind-icon">List<wbr>Packages<wbr>Response<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#listvaluevalidation" class="tsd-kind-icon">List<wbr>Value<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#mapvaluevalidation" class="tsd-kind-icon">Map<wbr>Value<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#optionalvaluevalidation" class="tsd-kind-icon">Optional<wbr>Value<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#packagestatusvalidation" class="tsd-kind-icon">Package<wbr>Status<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#partyvaluevalidation" class="tsd-kind-icon">Party<wbr>Value<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#recordvalidation" class="tsd-kind-icon">Record<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#recordvaluevalidation" class="tsd-kind-icon">Record<wbr>Value<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#settimerequestvalidation" class="tsd-kind-icon">Set<wbr>Time<wbr>Request<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#statusvalidation" class="tsd-kind-icon">Status<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#submitandwaitfortransactionidresponsevalidation" class="tsd-kind-icon">Submit<wbr>And<wbr>Wait<wbr>For<wbr>Transaction<wbr>IdResponse<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#submitandwaitfortransactionresponsevalidation" class="tsd-kind-icon">Submit<wbr>And<wbr>Wait<wbr>For<wbr>Transaction<wbr>Response<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#submitandwaitfortransactiontreeresponsevalidation" class="tsd-kind-icon">Submit<wbr>And<wbr>Wait<wbr>For<wbr>Transaction<wbr>Tree<wbr>Response<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#submitandwaitrequestvalidation" class="tsd-kind-icon">Submit<wbr>And<wbr>Wait<wbr>Request<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#submitrequestvalidation" class="tsd-kind-icon">Submit<wbr>Request<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#textvaluevalidation" class="tsd-kind-icon">Text<wbr>Value<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#timestampvalidation" class="tsd-kind-icon">Timestamp<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#timestampvaluevalidation" class="tsd-kind-icon">Timestamp<wbr>Value<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#transactionfiltervalidation" class="tsd-kind-icon">Transaction<wbr>Filter<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#transactiontreevalidation" class="tsd-kind-icon">Transaction<wbr>Tree<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#transactionvalidation" class="tsd-kind-icon">Transaction<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#treeeventvalidation" class="tsd-kind-icon">Tree<wbr>Event<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#unitvaluevalidation" class="tsd-kind-icon">Unit<wbr>Value<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#uploaddarfilerequestvalidation" class="tsd-kind-icon">Upload<wbr>Dar<wbr>File<wbr>Request<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#valuevalidation" class="tsd-kind-icon">Value<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#variantvalidation" class="tsd-kind-icon">Variant<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#variantvaluevalidation" class="tsd-kind-icon">Variant<wbr>Value<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#array" class="tsd-kind-icon">array</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#enumeration" class="tsd-kind-icon">enumeration</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#forward" class="tsd-kind-icon">forward</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#forwardvoidresponse" class="tsd-kind-icon">forward<wbr>Void<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#init" class="tsd-kind-icon">init</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#isvalid" class="tsd-kind-icon">is<wbr>Valid</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#native" class="tsd-kind-icon">native</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#nofields" class="tsd-kind-icon">no<wbr>Fields</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#object" class="tsd-kind-icon">object</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#promisify" class="tsd-kind-icon">promisify</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#record" class="tsd-kind-icon">record</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#string" class="tsd-kind-icon">string</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#typeof" class="tsd-kind-icon">type<wbr>Of</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#union" class="tsd-kind-icon">union</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#allocatepartyrequestcodec" class="tsd-kind-icon">Allocate<wbr>Party<wbr>Request<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#allocatepartyresponsecodec" class="tsd-kind-icon">Allocate<wbr>Party<wbr>Response<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#anycodec" class="tsd-kind-icon">Any<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#archivedeventcodec" class="tsd-kind-icon">Archived<wbr>Event<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#checkpointcodec" class="tsd-kind-icon">Checkpoint<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#commandcodec" class="tsd-kind-icon">Command<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#commandscodec" class="tsd-kind-icon">Commands<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#completioncodec" class="tsd-kind-icon">Completion<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#completionendresponsecodec" class="tsd-kind-icon">Completion<wbr>End<wbr>Response<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#completionstreamrequestcodec" class="tsd-kind-icon">Completion<wbr>Stream<wbr>Request<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#completionstreamresponsecodec" class="tsd-kind-icon">Completion<wbr>Stream<wbr>Response<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#createandexercisecommandcodec" class="tsd-kind-icon">Create<wbr>And<wbr>Exercise<wbr>Command<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#createcommandcodec" class="tsd-kind-icon">Create<wbr>Command<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#createdeventcodec" class="tsd-kind-icon">Created<wbr>Event<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#durationcodec" class="tsd-kind-icon">Duration<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#eventcodec" class="tsd-kind-icon">Event<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#exercisecommandcodec" class="tsd-kind-icon">Exercise<wbr>Command<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#exercisedeventcodec" class="tsd-kind-icon">Exercised<wbr>Event<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#filterscodec" class="tsd-kind-icon">Filters<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#getactivecontractsrequestcodec" class="tsd-kind-icon">Get<wbr>Active<wbr>Contracts<wbr>Request<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#getactivecontractsresponsecodec" class="tsd-kind-icon">Get<wbr>Active<wbr>Contracts<wbr>Response<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#getflattransactionresponsecodec" class="tsd-kind-icon">Get<wbr>Flat<wbr>Transaction<wbr>Response<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#getledgerconfigurationresponsecodec" class="tsd-kind-icon">Get<wbr>Ledger<wbr>Configuration<wbr>Response<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#getledgerendresponsecodec" class="tsd-kind-icon">Get<wbr>Ledger<wbr>End<wbr>Response<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#getledgeridentityresponsecodec" class="tsd-kind-icon">Get<wbr>Ledger<wbr>Identity<wbr>Response<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#getpackageresponsecodec" class="tsd-kind-icon">Get<wbr>Package<wbr>Response<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#getpackagestatusresponsecodec" class="tsd-kind-icon">Get<wbr>Package<wbr>Status<wbr>Response<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#getparticipantidresponsecodec" class="tsd-kind-icon">Get<wbr>Participant<wbr>IdResponse<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#gettimeresponsecodec" class="tsd-kind-icon">Get<wbr>Time<wbr>Response<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#gettransactionbyeventidrequestcodec" class="tsd-kind-icon">Get<wbr>Transaction<wbr>ByEvent<wbr>IdRequest<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#gettransactionbyidrequestcodec" class="tsd-kind-icon">Get<wbr>Transaction<wbr>ById<wbr>Request<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#gettransactionresponsecodec" class="tsd-kind-icon">Get<wbr>Transaction<wbr>Response<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#gettransactiontreesresponsecodec" class="tsd-kind-icon">Get<wbr>Transaction<wbr>Trees<wbr>Response<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#gettransactionsrequestcodec" class="tsd-kind-icon">Get<wbr>Transactions<wbr>Request<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#gettransactionsresponsecodec" class="tsd-kind-icon">Get<wbr>Transactions<wbr>Response<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#humanreadablereporter" class="tsd-kind-icon">Human<wbr>Readable<wbr>Reporter</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#identifiercodec" class="tsd-kind-icon">Identifier<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#inclusivefilterscodec" class="tsd-kind-icon">Inclusive<wbr>Filters<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#jsonreporter" class="tsd-kind-icon">JSONReporter</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#ledgerconfigurationcodec" class="tsd-kind-icon">Ledger<wbr>Configuration<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#ledgeroffsetcodec" class="tsd-kind-icon">Ledger<wbr>Offset<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#listknownpackageresponsecodec" class="tsd-kind-icon">List<wbr>Known<wbr>Package<wbr>Response<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#listknownpartiesresponsecodec" class="tsd-kind-icon">List<wbr>Known<wbr>Parties<wbr>Response<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#listpackagesresponsecodec" class="tsd-kind-icon">List<wbr>Packages<wbr>Response<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#packagedetailscodec" class="tsd-kind-icon">Package<wbr>Details<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#packagestatuscodec" class="tsd-kind-icon">Package<wbr>Status<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#partydetailscodec" class="tsd-kind-icon">Party<wbr>Details<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#recordcodec" class="tsd-kind-icon">Record<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#settimerequestcodec" class="tsd-kind-icon">Set<wbr>Time<wbr>Request<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#statuscodec" class="tsd-kind-icon">Status<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#submitandwaitfortransactionidresponsecodec" class="tsd-kind-icon">Submit<wbr>And<wbr>Wait<wbr>For<wbr>Transaction<wbr>IdResponse<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#submitandwaitfortransactionresponsecodec" class="tsd-kind-icon">Submit<wbr>And<wbr>Wait<wbr>For<wbr>Transaction<wbr>Response<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#submitandwaitfortransactiontreeresponsecodec" class="tsd-kind-icon">Submit<wbr>And<wbr>Wait<wbr>For<wbr>Transaction<wbr>Tree<wbr>Response<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#submitandwaitrequestcodec" class="tsd-kind-icon">Submit<wbr>And<wbr>Wait<wbr>Request<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#submitrequestcodec" class="tsd-kind-icon">Submit<wbr>Request<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#timestampcodec" class="tsd-kind-icon">Timestamp<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#transactioncodec" class="tsd-kind-icon">Transaction<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#transactionfiltercodec" class="tsd-kind-icon">Transaction<wbr>Filter<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#transactiontreecodec" class="tsd-kind-icon">Transaction<wbr>Tree<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#treeeventcodec" class="tsd-kind-icon">Tree<wbr>Event<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#uploaddarfilerequestcodec" class="tsd-kind-icon">Upload<wbr>Dar<wbr>File<wbr>Request<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#valuecodec" class="tsd-kind-icon">Value<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#valuehelpers" class="tsd-kind-icon">Value<wbr>Helpers</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#variantcodec" class="tsd-kind-icon">Variant<wbr>Codec</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#integerstring" class="tsd-kind-icon">integer<wbr>String</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
