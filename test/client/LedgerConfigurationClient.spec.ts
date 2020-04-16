@@ -4,7 +4,7 @@
 import {assert, expect} from 'chai';
 import * as sinon from 'sinon';
 import {NodeJsLedgerConfigurationClient} from "../../src/client/NodeJsLedgerConfigurationClient";
-import {GetLedgerConfigurationRequest as PbGetLedgerConfigurationRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/ledger_configuration_service_pb";
+import {GetLedgerConfigurationRequest as PbGetLedgerConfigurationRequest} from "../../src/generated/com/daml/ledger/api/v1/ledger_configuration_service_pb";
 import {DummyLedgerConfigurationServiceClient} from "./DummyLedgerConfigurationServiceClient";
 
 describe('NodeJsLedgerConfigurationClient', () => {

@@ -6,7 +6,7 @@ import {Codec} from "./Codec";
 import {GetActiveContractsResponse} from "../model/GetActiveContractsResponse";
 import {CreatedEventCodec} from "./CreatedEventCodec";
 
-import {GetActiveContractsResponse as PbGetActiveContractsResponse} from "../generated/com/digitalasset/ledger/api/v1/active_contracts_service_pb";
+import {GetActiveContractsResponse as PbGetActiveContractsResponse} from "../generated/com/daml/ledger/api/v1/active_contracts_service_pb";
 
 export const GetActiveContractsResponseCodec: Codec<PbGetActiveContractsResponse, GetActiveContractsResponse> = {
     deserialize(message: PbGetActiveContractsResponse): GetActiveContractsResponse {

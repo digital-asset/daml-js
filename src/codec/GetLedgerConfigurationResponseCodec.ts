@@ -5,7 +5,7 @@
 import {Codec} from "./Codec";
 import {GetLedgerConfigurationResponse} from "../model/GetLedgerConfigurationResponse";
 import {LedgerConfigurationCodec} from "./LedgerConfigurationCodec";
-import {GetLedgerConfigurationResponse as PbGetLedgerConfigurationResponse} from "../generated/com/digitalasset/ledger/api/v1/ledger_configuration_service_pb";
+import {GetLedgerConfigurationResponse as PbGetLedgerConfigurationResponse} from "../generated/com/daml/ledger/api/v1/ledger_configuration_service_pb";
 
 export const GetLedgerConfigurationResponseCodec: Codec<PbGetLedgerConfigurationResponse, GetLedgerConfigurationResponse> = {
     deserialize(message: PbGetLedgerConfigurationResponse): GetLedgerConfigurationResponse {

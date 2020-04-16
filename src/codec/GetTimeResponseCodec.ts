@@ -6,7 +6,7 @@ import {Codec} from "./Codec";
 import {GetTimeResponse} from "../model/GetTimeResponse";
 import {TimestampCodec} from "./TimestampCodec";
 
-import {GetTimeResponse as PbGetTimeResponse} from "../generated/com/digitalasset/ledger/api/v1/testing/time_service_pb";
+import {GetTimeResponse as PbGetTimeResponse} from "../generated/com/daml/ledger/api/v1/testing/time_service_pb";
 
 
 export const GetTimeResponseCodec: Codec<PbGetTimeResponse, GetTimeResponse> = {

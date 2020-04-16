@@ -5,7 +5,7 @@ import {assert, expect} from 'chai';
 import {NodeJsPartyManagementClient} from "../../src/client/NodeJsPartyManagementClient";
 import {DummyPartyManagementServiceClient} from "./DummyPartyManagementServiceClient";
 import * as sinon from "sinon";
-import {GetParticipantIdRequest as PbGetParticipantIdRequest, ListKnownPartiesRequest as PbListKnownPartiesRequest, AllocatePartyRequest as PbAllocatePartyRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb";
+import {GetParticipantIdRequest as PbGetParticipantIdRequest, ListKnownPartiesRequest as PbListKnownPartiesRequest, AllocatePartyRequest as PbAllocatePartyRequest} from "../../src/generated/com/daml/ledger/api/v1/admin/party_management_service_pb";
 import {JSONReporter} from "../../src/reporting/JSONReporter";
 import {AllocatePartyRequest} from "../../src/model/AllocatePartyRequest";
 import {ValidationTree} from "../../src/validation/Validation";

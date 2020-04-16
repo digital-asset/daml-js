@@ -5,7 +5,7 @@
 import {Codec} from "./Codec";
 import {GetPackageResponse} from "../model/GetPackageResponse";
 import {HashFunction} from "../model/HashFunction";
-import {GetPackageResponse as PbGetPackageResponse} from "../generated/com/digitalasset/ledger/api/v1/package_service_pb";
+import {GetPackageResponse as PbGetPackageResponse} from "../generated/com/daml/ledger/api/v1/package_service_pb";
 
 export const GetPackageResponseCodec: Codec<PbGetPackageResponse, GetPackageResponse> = {
     deserialize(response: PbGetPackageResponse): GetPackageResponse {

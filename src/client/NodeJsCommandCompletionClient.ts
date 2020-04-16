@@ -1,9 +1,9 @@
 // Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {ICommandCompletionServiceClient} from "../generated/com/digitalasset/ledger/api/v1/command_completion_service_grpc_pb";
+import {ICommandCompletionServiceClient} from "../generated/com/daml/ledger/api/v1/command_completion_service_grpc_pb";
 import {ValidationReporter} from "../reporting/ValidationReporter";
-import {CompletionEndRequest} from "../generated/com/digitalasset/ledger/api/v1/command_completion_service_pb";
+import {CompletionEndRequest} from "../generated/com/daml/ledger/api/v1/command_completion_service_pb";
 import {ClientReadableObjectStream} from "../call/ClientReadableObjectStream";
 import {CompletionStreamResponse} from "../model/CompletionStreamResponse";
 import {CompletionStreamRequestValidation} from "../validation/CompletionStreamRequestValidation";

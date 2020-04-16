@@ -4,7 +4,7 @@
 import {Codec} from "./Codec";
 import {PartyDetailsCodec} from "./PartyDetailsCodec";
 import {ListKnownPartiesResponse} from "../model/ListKnownPartiesResponse";
-import {ListKnownPartiesResponse as PbListKnownPartiesResponse, PartyDetails as PbPartyDetails} from "../generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb";
+import {ListKnownPartiesResponse as PbListKnownPartiesResponse, PartyDetails as PbPartyDetails} from "../generated/com/daml/ledger/api/v1/admin/party_management_service_pb";
 
 export const ListKnownPartiesResponseCodec: Codec<PbListKnownPartiesResponse, ListKnownPartiesResponse> = {
     deserialize(response: PbListKnownPartiesResponse): ListKnownPartiesResponse{

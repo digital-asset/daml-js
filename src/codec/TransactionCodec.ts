@@ -5,7 +5,7 @@ import {Codec} from "./Codec";
 import {Transaction} from "../model/Transaction";
 import {TimestampCodec} from "./TimestampCodec";
 import {EventCodec} from "./EventCodec";
-import {Transaction as PbTransaction} from "../generated/com/digitalasset/ledger/api/v1/transaction_pb";
+import {Transaction as PbTransaction} from "../generated/com/daml/ledger/api/v1/transaction_pb";
 
 export const TransactionCodec: Codec<PbTransaction, Transaction> = {
     deserialize(message: PbTransaction): Transaction {

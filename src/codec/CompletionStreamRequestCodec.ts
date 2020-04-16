@@ -6,7 +6,7 @@ import {Codec} from "./Codec";
 import {CompletionStreamRequest} from "../model/CompletionStreamRequest";
 import {LedgerOffsetCodec} from "./LedgerOffsetCodec";
 
-import {CompletionStreamRequest as PbCompletionStreamRequest} from "../generated/com/digitalasset/ledger/api/v1/command_completion_service_pb";
+import {CompletionStreamRequest as PbCompletionStreamRequest} from "../generated/com/daml/ledger/api/v1/command_completion_service_pb";
 
 export const CompletionStreamRequestCodec: Codec<PbCompletionStreamRequest, CompletionStreamRequest> = {
     deserialize(message: PbCompletionStreamRequest): CompletionStreamRequest {

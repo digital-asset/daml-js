@@ -7,7 +7,7 @@ import {CompletionStreamResponse} from "../model/CompletionStreamResponse";
 import {CompletionCodec} from "./CompletionCodec";
 import {CheckpointCodec} from "./CheckpointCodec";
 
-import {CompletionStreamResponse as PbCompletionStreamResponse} from "../generated/com/digitalasset/ledger/api/v1/command_completion_service_pb";
+import {CompletionStreamResponse as PbCompletionStreamResponse} from "../generated/com/daml/ledger/api/v1/command_completion_service_pb";
 
 export const CompletionStreamResponseCodec: Codec<PbCompletionStreamResponse, CompletionStreamResponse> = {
     deserialize(message: PbCompletionStreamResponse): CompletionStreamResponse {

@@ -1,7 +1,7 @@
 // Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {IActiveContractsServiceClient} from '../generated/com/digitalasset/ledger/api/v1/active_contracts_service_grpc_pb';
+import {IActiveContractsServiceClient} from '../generated/com/daml/ledger/api/v1/active_contracts_service_grpc_pb';
 import {GetActiveContractsRequest} from "../model/GetActiveContractsRequest";
 import {ClientReadableObjectStream} from "../call/ClientReadableObjectStream";
 import {GetActiveContractsResponse} from "../model/GetActiveContractsResponse";

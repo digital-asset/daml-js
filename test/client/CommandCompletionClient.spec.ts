@@ -7,7 +7,7 @@ import {JSONReporter} from "../../src/reporting/JSONReporter";
 import {
     CompletionEndRequest as PbCompletionEndRequest,
     CompletionStreamRequest as PbCompletionStreamRequest
-} from "../../src/generated/com/digitalasset/ledger/api/v1/command_completion_service_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/command_completion_service_pb";
 import {CompletionStreamRequestCodec} from "../../src/codec/CompletionStreamRequestCodec";
 import {ValidationTree} from "../../src/validation/Validation";
 import {CompletionStreamRequest} from "../../src/model/CompletionStreamRequest";

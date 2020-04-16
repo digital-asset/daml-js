@@ -3,7 +3,7 @@
 
 import {Codec} from "./Codec";
 import {SubmitAndWaitForTransactionIdResponse} from "../model/SubmitAndWaitForTransactionIdResponse";
-import {SubmitAndWaitForTransactionIdResponse as PbSubmitAndWaitForTransactionIdResponse} from "../generated/com/digitalasset/ledger/api/v1/command_service_pb";
+import {SubmitAndWaitForTransactionIdResponse as PbSubmitAndWaitForTransactionIdResponse} from "../generated/com/daml/ledger/api/v1/command_service_pb";
 
 export const SubmitAndWaitForTransactionIdResponseCodec: Codec<PbSubmitAndWaitForTransactionIdResponse, SubmitAndWaitForTransactionIdResponse> = {
     deserialize(message: PbSubmitAndWaitForTransactionIdResponse): SubmitAndWaitForTransactionIdResponse {

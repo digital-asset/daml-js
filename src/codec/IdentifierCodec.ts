@@ -4,7 +4,7 @@
 
 import {Identifier} from "../model/Identifier";
 import {Codec} from "./Codec";
-import {Identifier as PbIdentifier} from "../generated/com/digitalasset/ledger/api/v1/value_pb";
+import {Identifier as PbIdentifier} from "../generated/com/daml/ledger/api/v1/value_pb";
 
 export const IdentifierCodec: Codec<PbIdentifier, Identifier> = {
     deserialize(identifier: PbIdentifier): Identifier {

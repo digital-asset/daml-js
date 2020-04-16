@@ -5,7 +5,7 @@
 import {Codec} from "./Codec";
 import {SetTimeRequest} from "../model/SetTimeRequest";
 import {TimestampCodec} from "./TimestampCodec";
-import {SetTimeRequest as PbSetTimeRequest} from "../generated/com/digitalasset/ledger/api/v1/testing/time_service_pb";
+import {SetTimeRequest as PbSetTimeRequest} from "../generated/com/daml/ledger/api/v1/testing/time_service_pb";
 
 export const SetTimeRequestCodec: Codec<PbSetTimeRequest, SetTimeRequest> = {
     deserialize(message: PbSetTimeRequest): SetTimeRequest {

@@ -5,7 +5,7 @@
 import {Codec} from "./Codec";
 import {GetPackageStatusResponse} from "../model/GetPackageStatusResponse";
 import {PackageStatusCodec} from "./PackageStatusCodec";
-import {GetPackageStatusResponse as PbGetPackageStatusResponse} from "../generated/com/digitalasset/ledger/api/v1/package_service_pb";
+import {GetPackageStatusResponse as PbGetPackageStatusResponse} from "../generated/com/daml/ledger/api/v1/package_service_pb";
 
 export const GetPackageStatusResponseCodec: Codec<PbGetPackageStatusResponse, GetPackageStatusResponse> = {
     deserialize(response: PbGetPackageStatusResponse): GetPackageStatusResponse {

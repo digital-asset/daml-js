@@ -3,7 +3,7 @@
 
 import {Codec} from "./Codec";
 import {PartyDetails} from "../model/PartyDetails";
-import {PartyDetails as PbPartyDetails} from "../generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb"
+import {PartyDetails as PbPartyDetails} from "../generated/com/daml/ledger/api/v1/admin/party_management_service_pb"
 
 export const PartyDetailsCodec: Codec<PbPartyDetails, PartyDetails> = {
     deserialize(message: PbPartyDetails): PartyDetails {

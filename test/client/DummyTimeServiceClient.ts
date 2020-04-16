@@ -5,11 +5,11 @@ import {CallOptions, ClientReadableStream, ClientUnaryCall, Metadata} from 'grpc
 
 import * as sinon from 'sinon';
 import {Empty} from 'google-protobuf/google/protobuf/empty_pb';
-import {ITimeServiceClient} from "../../src/generated/com/digitalasset/ledger/api/v1/testing/time_service_grpc_pb";
+import {ITimeServiceClient} from "../../src/generated/com/daml/ledger/api/v1/testing/time_service_grpc_pb";
 import {
     GetTimeRequest,
     GetTimeResponse, SetTimeRequest
-} from "../../src/generated/com/digitalasset/ledger/api/v1/testing/time_service_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/testing/time_service_pb";
 import {DummyClientReadableStream} from "../call/DummyClientReadableStream";
 import {DummyClientUnaryCall} from "../call/DummyClientUnaryCall";
 

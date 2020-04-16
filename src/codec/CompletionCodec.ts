@@ -3,7 +3,7 @@
 
 import {Codec} from "./Codec";
 import {Completion} from "../model/Completion";
-import {Completion as PbCompletion} from "../generated/com/digitalasset/ledger/api/v1/completion_pb";
+import {Completion as PbCompletion} from "../generated/com/daml/ledger/api/v1/completion_pb";
 import {StatusCodec} from "./StatusCodec";
 
 export const CompletionCodec: Codec<PbCompletion, Completion> = {

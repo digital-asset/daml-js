@@ -5,7 +5,7 @@
 import {Codec} from "./Codec";
 import {InclusiveFilters} from "../model/InclusiveFilters";
 import {IdentifierCodec} from "./IdentifierCodec";
-import {InclusiveFilters as PbInclusiveFilters} from "../generated/com/digitalasset/ledger/api/v1/transaction_filter_pb";
+import {InclusiveFilters as PbInclusiveFilters} from "../generated/com/daml/ledger/api/v1/transaction_filter_pb";
 
 export const InclusiveFiltersCodec: Codec<PbInclusiveFilters, InclusiveFilters> = {
     deserialize(inclusiveFilters: PbInclusiveFilters): InclusiveFilters {

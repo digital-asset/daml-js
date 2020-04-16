@@ -4,15 +4,15 @@
 import {Empty} from 'google-protobuf/google/protobuf/empty_pb';
 import {CallOptions, ClientUnaryCall, Metadata} from 'grpc';
 import {SinonSpy} from 'sinon';
-import {ICommandServiceClient} from "../../src/generated/com/digitalasset/ledger/api/v1/command_service_grpc_pb";
+import {ICommandServiceClient} from "../../src/generated/com/daml/ledger/api/v1/command_service_grpc_pb";
 import {
     SubmitAndWaitForTransactionIdResponse,
     SubmitAndWaitForTransactionResponse, SubmitAndWaitForTransactionTreeResponse,
     SubmitAndWaitRequest
-} from "../../src/generated/com/digitalasset/ledger/api/v1/command_service_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/command_service_pb";
 import {DummyClientUnaryCall} from "../call/DummyClientUnaryCall";
 import {Timestamp} from "google-protobuf/google/protobuf/timestamp_pb";
-import {Transaction, TransactionTree} from "../../src/generated/com/digitalasset/ledger/api/v1/transaction_pb";
+import {Transaction, TransactionTree} from "../../src/generated/com/daml/ledger/api/v1/transaction_pb";
 
 export class DummyCommandServiceClient implements ICommandServiceClient {
 

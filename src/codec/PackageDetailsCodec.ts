@@ -3,7 +3,7 @@
 
 import {Codec} from "./Codec";
 import {PackageDetails} from "../model/PackageDetails";
-import {PackageDetails as PbPackageDetails} from "../generated/com/digitalasset/ledger/api/v1/admin/package_management_service_pb";
+import {PackageDetails as PbPackageDetails} from "../generated/com/daml/ledger/api/v1/admin/package_management_service_pb";
 import {TimestampCodec} from "./TimestampCodec";
 
 export const PackageDetailsCodec: Codec<PbPackageDetails, PackageDetails> = {

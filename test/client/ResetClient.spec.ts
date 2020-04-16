@@ -4,7 +4,7 @@
 import {assert, expect} from 'chai';
 import * as sinon from 'sinon';
 import {NodeJsResetClient} from "../../src/client/NodeJsResetClient";
-import {ResetRequest as PbResetRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/testing/reset_service_pb";
+import {ResetRequest as PbResetRequest} from "../../src/generated/com/daml/ledger/api/v1/testing/reset_service_pb";
 import {DummyResetServiceClient} from "./DummyResetServiceClient";
 
 describe("NodeJsResetClient", () => {

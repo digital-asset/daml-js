@@ -8,7 +8,7 @@ import {SubmitRequest} from "../../src/model/SubmitRequest";
 import {JSONReporter} from "../../src/reporting/JSONReporter";
 import {SubmitRequestCodec} from "../../src/codec/SubmitRequestCodec";
 import {ValidationTree} from "../../src/validation/Validation";
-import {SubmitRequest as PbSubmitRequest} from "../../src/generated/com/digitalasset/ledger/api/v1/command_submission_service_pb";
+import {SubmitRequest as PbSubmitRequest} from "../../src/generated/com/daml/ledger/api/v1/command_submission_service_pb";
 import {DummyCommandSubmissionServiceClient} from "./DummyCommandSubmissionServiceClient";
 
 describe('NodeJsCommandSubmissionClient', () => {

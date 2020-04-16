@@ -7,7 +7,7 @@ import {ExerciseCommand} from "../model/ExerciseCommand";
 import {IdentifierCodec} from "./IdentifierCodec";
 import {ValueCodec} from "./ValueCodec";
 
-import {ExerciseCommand as PbExerciseCommand} from "../generated/com/digitalasset/ledger/api/v1/commands_pb";
+import {ExerciseCommand as PbExerciseCommand} from "../generated/com/daml/ledger/api/v1/commands_pb";
 
 export const ExerciseCommandCodec: Codec<PbExerciseCommand, ExerciseCommand> = {
     deserialize(command: PbExerciseCommand): ExerciseCommand {

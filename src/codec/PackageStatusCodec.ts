@@ -4,7 +4,7 @@
 
 import {Codec} from "./Codec";
 import {PackageStatus} from "../model/PackageStatus";
-import {PackageStatus as PbPackageStatus} from "../generated/com/digitalasset/ledger/api/v1/package_service_pb";
+import {PackageStatus as PbPackageStatus} from "../generated/com/daml/ledger/api/v1/package_service_pb";
 
 export const PackageStatusCodec: Codec<PbPackageStatus, PackageStatus> = {
     deserialize(status: PbPackageStatus): PackageStatus {

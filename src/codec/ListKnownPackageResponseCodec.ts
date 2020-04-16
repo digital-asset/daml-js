@@ -4,7 +4,7 @@
 import {Codec} from "./Codec";
 import {PackageDetailsCodec} from "../codec/PackageDetailsCodec";
 import {ListKnownPackageResponse} from "../model/ListKnownPackageResponse";
-import {ListKnownPackagesResponse as PbListKnowPackageResponse, PackageDetails as PbPackageDetails} from "../generated/com/digitalasset/ledger/api/v1/admin/package_management_service_pb";
+import {ListKnownPackagesResponse as PbListKnowPackageResponse, PackageDetails as PbPackageDetails} from "../generated/com/daml/ledger/api/v1/admin/package_management_service_pb";
 
 export const ListKnownPackageResponseCodec: Codec<PbListKnowPackageResponse, ListKnownPackageResponse> = {
     deserialize(response: PbListKnowPackageResponse): ListKnownPackageResponse {

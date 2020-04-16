@@ -3,7 +3,7 @@
 
 import {Codec} from "./Codec";
 import {AllocatePartyRequest} from "../model/AllocatePartyRequest";
-import {AllocatePartyRequest as PbAllocatePartyRequest} from "../generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb"
+import {AllocatePartyRequest as PbAllocatePartyRequest} from "../generated/com/daml/ledger/api/v1/admin/party_management_service_pb"
 
 export const AllocatePartyRequestCodec: Codec<PbAllocatePartyRequest, AllocatePartyRequest> = {
     deserialize(message: PbAllocatePartyRequest): AllocatePartyRequest {

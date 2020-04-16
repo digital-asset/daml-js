@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import {LedgerOffset, LedgerOffsetBoundaryValue} from "../model/LedgerOffset";
-import {LedgerOffset as PbLedgerOffset} from "../generated/com/digitalasset/ledger/api/v1/ledger_offset_pb";
+import {LedgerOffset as PbLedgerOffset} from "../generated/com/daml/ledger/api/v1/ledger_offset_pb";
 import {Codec} from "./Codec";
 import {ErrorMessages} from "../util/ErrorMessages";
 

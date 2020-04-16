@@ -5,17 +5,17 @@ import * as sinon from 'sinon';
 
 import {CallOptions, ClientReadableStream, ClientUnaryCall, Metadata} from 'grpc';
 import {Timestamp} from 'google-protobuf/google/protobuf/timestamp_pb';
-import {ITransactionServiceClient} from "../../src/generated/com/digitalasset/ledger/api/v1/transaction_service_grpc_pb";
+import {ITransactionServiceClient} from "../../src/generated/com/daml/ledger/api/v1/transaction_service_grpc_pb";
 import {
     GetFlatTransactionResponse,
     GetLedgerEndRequest,
     GetLedgerEndResponse, GetTransactionByEventIdRequest, GetTransactionByIdRequest,
     GetTransactionResponse, GetTransactionsRequest, GetTransactionsResponse, GetTransactionTreesResponse
-} from "../../src/generated/com/digitalasset/ledger/api/v1/transaction_service_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/transaction_service_pb";
 import {DummyClientReadableStream} from "../call/DummyClientReadableStream";
 import {DummyClientUnaryCall} from "../call/DummyClientUnaryCall";
-import {LedgerOffset} from "../../src/generated/com/digitalasset/ledger/api/v1/ledger_offset_pb";
-import {Transaction, TransactionTree} from "../../src/generated/com/digitalasset/ledger/api/v1/transaction_pb";
+import {LedgerOffset} from "../../src/generated/com/daml/ledger/api/v1/ledger_offset_pb";
+import {Transaction, TransactionTree} from "../../src/generated/com/daml/ledger/api/v1/transaction_pb";
 
 export class DummyTransactionServiceClient implements ITransactionServiceClient {
     private readonly latestRequestSpy: sinon.SinonSpy;

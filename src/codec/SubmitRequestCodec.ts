@@ -5,7 +5,7 @@
 import {Codec} from "./Codec";
 import {SubmitRequest} from "../model/SubmitRequest";
 import {CommandsCodec} from "./CommandsCodec";
-import {SubmitRequest as PbSubmitRequest} from "../generated/com/digitalasset/ledger/api/v1/command_submission_service_pb";
+import {SubmitRequest as PbSubmitRequest} from "../generated/com/daml/ledger/api/v1/command_submission_service_pb";
 
 export const SubmitRequestCodec: Codec<PbSubmitRequest, SubmitRequest> = {
     deserialize(request: PbSubmitRequest): SubmitRequest {

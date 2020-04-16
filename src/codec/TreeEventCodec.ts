@@ -6,7 +6,7 @@ import {Codec} from "./Codec";
 import {TreeEvent} from "../model/TreeEvent";
 import {CreatedEventCodec} from "./CreatedEventCodec";
 import {ExercisedEventCodec} from "./ExercisedEventCodec";
-import {TreeEvent as PbTreeEvent} from "../generated/com/digitalasset/ledger/api/v1/transaction_pb";
+import {TreeEvent as PbTreeEvent} from "../generated/com/daml/ledger/api/v1/transaction_pb";
 import {ErrorMessages} from "../util/ErrorMessages";
 
 export const TreeEventCodec: Codec<PbTreeEvent, TreeEvent> = {

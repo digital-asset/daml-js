@@ -4,7 +4,7 @@
 import {Codec} from "./Codec";
 import {SubmitAndWaitForTransactionTreeResponse} from "../model/SubmitAndWaitForTransactionTreeResponse";
 import {TransactionTreeCodec} from "./TransactionTreeCodec";
-import {SubmitAndWaitForTransactionTreeResponse as PbSubmitAndWaitForTransactionTreeResponse} from "../generated/com/digitalasset/ledger/api/v1/command_service_pb";
+import {SubmitAndWaitForTransactionTreeResponse as PbSubmitAndWaitForTransactionTreeResponse} from "../generated/com/daml/ledger/api/v1/command_service_pb";
 
 export const SubmitAndWaitForTransactionTreeResponseCodec: Codec<PbSubmitAndWaitForTransactionTreeResponse, SubmitAndWaitForTransactionTreeResponse> = {
     deserialize(message: PbSubmitAndWaitForTransactionTreeResponse): SubmitAndWaitForTransactionTreeResponse {

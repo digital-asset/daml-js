@@ -10,8 +10,8 @@ import {GetTimeResponse} from "../model/GetTimeResponse";
 import {isValid} from "../validation/Validation";
 import {GetTimeResponseCodec} from "../codec/GetTimeResponseCodec";
 import {SetTimeRequestCodec} from "../codec/SetTimeRequestCodec";
-import {GetTimeRequest} from "../generated/com/digitalasset/ledger/api/v1/testing/time_service_pb";
-import {ITimeServiceClient} from "../generated/com/digitalasset/ledger/api/v1/testing/time_service_grpc_pb";
+import {GetTimeRequest} from "../generated/com/daml/ledger/api/v1/testing/time_service_pb";
+import {ITimeServiceClient} from "../generated/com/daml/ledger/api/v1/testing/time_service_grpc_pb";
 import {ValidationReporter} from "../reporting/ValidationReporter";
 
 export class NodeJsTimeClient {

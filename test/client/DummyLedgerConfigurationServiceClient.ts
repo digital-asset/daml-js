@@ -7,8 +7,8 @@ import {CallOptions, ClientReadableStream, Metadata} from 'grpc';
 import {
     GetLedgerConfigurationRequest,
     GetLedgerConfigurationResponse
-} from "../../src/generated/com/digitalasset/ledger/api/v1/ledger_configuration_service_pb";
-import {ILedgerConfigurationServiceClient} from "../../src/generated/com/digitalasset/ledger/api/v1/ledger_configuration_service_grpc_pb";
+} from "../../src/generated/com/daml/ledger/api/v1/ledger_configuration_service_pb";
+import {ILedgerConfigurationServiceClient} from "../../src/generated/com/daml/ledger/api/v1/ledger_configuration_service_grpc_pb";
 import {DummyClientReadableStream} from "../call/DummyClientReadableStream";
 
 export class DummyLedgerConfigurationServiceClient

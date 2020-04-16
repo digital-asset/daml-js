@@ -3,7 +3,7 @@
 
 import {Callback, forward, forwardVoidResponse, promisify} from "../util/Callback";
 import {ClientCancellableCall} from "../call/ClientCancellableCall";
-import {ICommandServiceClient} from "../generated/com/digitalasset/ledger/api/v1/command_service_grpc_pb";
+import {ICommandServiceClient} from "../generated/com/daml/ledger/api/v1/command_service_grpc_pb";
 import {ValidationReporter} from "../reporting/ValidationReporter";
 import {SubmitAndWaitRequest} from "../model/SubmitAndWaitRequest";
 import {SubmitAndWaitRequestValidation} from "../validation/SubmitAndWaitRequestValidation";

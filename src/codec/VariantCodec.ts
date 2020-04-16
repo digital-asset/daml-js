@@ -1,7 +1,7 @@
 // Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {Variant as PbVariant} from '../generated/com/digitalasset/ledger/api/v1/value_pb';
+import {Variant as PbVariant} from '../generated/com/daml/ledger/api/v1/value_pb';
 import {Codec} from "./Codec";
 import {Variant} from "../model/Variant";
 import {IdentifierCodec} from "./IdentifierCodec";

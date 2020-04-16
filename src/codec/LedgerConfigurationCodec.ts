@@ -4,7 +4,7 @@
 import {Codec} from "./Codec";
 import {LedgerConfiguration} from "../model/LedgerConfiguration";
 import {DurationCodec} from "./DurationCodec";
-import {LedgerConfiguration as PbLedgerConfiguration} from "../generated/com/digitalasset/ledger/api/v1/ledger_configuration_service_pb";
+import {LedgerConfiguration as PbLedgerConfiguration} from "../generated/com/daml/ledger/api/v1/ledger_configuration_service_pb";
 
 export const LedgerConfigurationCodec: Codec<PbLedgerConfiguration, LedgerConfiguration> = {
     deserialize(message: PbLedgerConfiguration): LedgerConfiguration {

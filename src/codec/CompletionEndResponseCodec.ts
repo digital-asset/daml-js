@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import {Codec} from "./Codec";
-import {CompletionEndResponse as PbCompletionEndResponse} from '../generated/com/digitalasset/ledger/api/v1/command_completion_service_pb';
+import {CompletionEndResponse as PbCompletionEndResponse} from '../generated/com/daml/ledger/api/v1/command_completion_service_pb';
 import {CompletionEndResponse} from "../model/CompletionEndResponse";
 import {LedgerOffsetCodec} from "./LedgerOffsetCodec";
 

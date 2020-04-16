@@ -7,7 +7,7 @@ import {TransactionTree} from "../model/TransactionTree";
 import {TreeEvent} from "../model/TreeEvent";
 import {TreeEventCodec} from "./TreeEventCodec";
 import {TimestampCodec} from "./TimestampCodec";
-import {TransactionTree as PbTransactionTree} from "../generated/com/digitalasset/ledger/api/v1/transaction_pb";
+import {TransactionTree as PbTransactionTree} from "../generated/com/daml/ledger/api/v1/transaction_pb";
 
 export const TransactionTreeCodec: Codec<PbTransactionTree, TransactionTree> = {
     deserialize(message: PbTransactionTree): TransactionTree {

@@ -3,7 +3,7 @@
 
 import {Codec} from "./Codec";
 import {Command} from "../model/Command";
-import {Command as PbCommand} from '../generated/com/digitalasset/ledger/api/v1/commands_pb';
+import {Command as PbCommand} from '../generated/com/daml/ledger/api/v1/commands_pb';
 import {CreateCommandCodec} from "./CreateCommandCodec";
 import {ExerciseCommandCodec} from "./ExerciseCommandCodec";
 import {CreateAndExerciseCommandCodec} from "./CreateAndExerciseCommandCodec";

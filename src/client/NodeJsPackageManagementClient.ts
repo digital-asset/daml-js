@@ -1,8 +1,8 @@
 // Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {IPackageManagementServiceClient} from "../generated/com/digitalasset/ledger/api/v1/admin/package_management_service_grpc_pb";
-import {ListKnownPackagesRequest} from "../generated/com/digitalasset/ledger/api/v1/admin/package_management_service_pb";
+import {IPackageManagementServiceClient} from "../generated/com/daml/ledger/api/v1/admin/package_management_service_grpc_pb";
+import {ListKnownPackagesRequest} from "../generated/com/daml/ledger/api/v1/admin/package_management_service_pb";
 import {ListKnownPackageResponse} from "../model/ListKnownPackageResponse";
 import {ListKnownPackageResponseCodec} from "../codec/ListKnownPackageResponseCodec";
 import {UploadDarFileRequest} from "../model/UploadDarFileRequest";

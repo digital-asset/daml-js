@@ -4,7 +4,7 @@
 import {Codec} from "./Codec";
 import {CreateAndExerciseCommand} from "../model/CreateAndExerciseCommand";
 
-import {CreateAndExerciseCommand as PbCreateAndExerciseCommand} from "../generated/com/digitalasset/ledger/api/v1/commands_pb";
+import {CreateAndExerciseCommand as PbCreateAndExerciseCommand} from "../generated/com/daml/ledger/api/v1/commands_pb";
 import {IdentifierCodec} from "./IdentifierCodec";
 import {RecordCodec} from "./RecordCodec";
 import {ValueCodec} from "./ValueCodec";

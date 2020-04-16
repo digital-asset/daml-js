@@ -4,7 +4,7 @@
 
 import {Codec} from "./Codec";
 import {GetLedgerIdentityResponse} from "../model/GetLedgerIdentityResponse";
-import {GetLedgerIdentityResponse as PbGetLedgerIdentityResponse} from "../generated/com/digitalasset/ledger/api/v1/ledger_identity_service_pb";
+import {GetLedgerIdentityResponse as PbGetLedgerIdentityResponse} from "../generated/com/daml/ledger/api/v1/ledger_identity_service_pb";
 
 export const GetLedgerIdentityResponseCodec: Codec<PbGetLedgerIdentityResponse, GetLedgerIdentityResponse> = {
     deserialize(response: PbGetLedgerIdentityResponse): GetLedgerIdentityResponse {

@@ -4,7 +4,7 @@
 
 import {Codec} from "./Codec";
 import {GetParticipantIdResponse} from "../model/GetParticipantIdResponse";
-import {GetParticipantIdResponse as PbGetParticipantIdResponse} from "../generated/com/digitalasset/ledger/api/v1/admin/party_management_service_pb";
+import {GetParticipantIdResponse as PbGetParticipantIdResponse} from "../generated/com/daml/ledger/api/v1/admin/party_management_service_pb";
 
 export const GetParticipantIdResponseCodec: Codec<PbGetParticipantIdResponse, GetParticipantIdResponse> = {
     deserialize(message: PbGetParticipantIdResponse): GetParticipantIdResponse {
