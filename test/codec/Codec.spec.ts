@@ -617,7 +617,7 @@ describe('Codec', () => {
     itShouldConvert('ValueValidation(RecordValidation)', () => {
         const recordValueMessage = new PbValue();
         recordValueMessage.setRecord(recordMessage);
-        const recordValueObject: Value = Object.assign({valueType: 'record'}, recordObject);
+        const recordValueObject: Value = {valueType: 'record', ...recordObject};
         twoWayCheck(ValueCodec, recordValueMessage, recordValueObject);
     });
 
@@ -656,7 +656,7 @@ describe('Codec', () => {
             valueType: 'variant',
             constructor: 'constructor',
             variantId: identifierObject,
-            value: Object.assign({valueType: 'record'}, recordObject)
+            value: {valueType: 'record', ...recordObject}
         };
         twoWayCheck(ValueCodec, variantMessage, variantObject);
     });

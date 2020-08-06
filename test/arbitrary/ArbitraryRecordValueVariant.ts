@@ -110,5 +110,5 @@ const { ArbitraryRecordValue, ArbitraryVariantValue, ArbitraryValue } =
 
 export { ArbitraryValue };
 
-export const ArbitraryRecord: jsc.Arbitrary<LedgerRecord> = (ArbitraryRecordValue as jsc.Arbitrary<RecordValue>).smap<LedgerRecord>(v => { return { recordId: v.recordId, fields: v.fields } }, v => { return Object.assign({ valueType: 'record'}, v); });
-export const ArbitraryVariant: jsc.Arbitrary<Variant> = (ArbitraryVariantValue as jsc.Arbitrary<VariantValue>).smap<Variant>(v => { return { variantId: v.variantId, constructor: v.constructor, value: v.value } }, v => { return Object.assign({ valueType: 'variant'}, v); });
+export const ArbitraryRecord: jsc.Arbitrary<LedgerRecord> = (ArbitraryRecordValue as jsc.Arbitrary<RecordValue>).smap<LedgerRecord>(v => { return { recordId: v.recordId, fields: v.fields } }, v => { return { valueType: 'record', ...v}; });
+export const ArbitraryVariant: jsc.Arbitrary<Variant> = (ArbitraryVariantValue as jsc.Arbitrary<VariantValue>).smap<Variant>(v => { return { variantId: v.variantId, constructor: v.constructor, value: v.value } }, v => { return { valueType: 'variant', ...v }; });

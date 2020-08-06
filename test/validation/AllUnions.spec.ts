@@ -37,16 +37,20 @@ function test<Tag extends string, A extends { [_ in Tag]: string } & { [_: strin
         });
         jsc.property('not validate objects with an extra key', arbitrary, value => {
             const extraKey = 'supercalifragilisticexpialidocious'; // reasonably no one will ever use this as a key
-            value[extraKey] = null;
-            return !isValid(validation.validate(value));
+            // upcast to any so we can produce an invalid value.
+            const genericValue: any = value;
+            genericValue[extraKey] = null;
+            return !isValid(validation.validate(genericValue));
         });
         jsc.property(
             'signal an unexpected key error on objects with an extra key',
             arbitrary,
             value => {
                 const extraKey = 'supercalifragilisticexpialidocious'; // reasonably no one will ever use this as a key
-                value[extraKey] = null;
-                return containsError(validation.validate(value).errors, {
+                // upcast to any so we can produce an invalid value.
+                const genericValue: any = value;
+                genericValue[extraKey] = null;
+                return containsError(validation.validate(genericValue).errors, {
                     errorType: 'unexpected-key',
                     key: extraKey
                 });
