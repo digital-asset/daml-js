@@ -165,8 +165,10 @@ function test<A extends { [_: string]: any }>(
                 arbitrary,
                 value => {
                     const key = pickFrom(keys);
-                    value[key] = null;
-                    return !isValid(validation.validate(value));
+                    // upcast to any so we can produce an invalid value.
+                    const genericValue: any = value;
+                    genericValue[key] = null;
+                    return !isValid(validation.validate(genericValue));
                 }
             );
             jsc.property(
@@ -174,7 +176,9 @@ function test<A extends { [_: string]: any }>(
                 arbitrary,
                 value => {
                     const key = pickFrom(keys);
-                    value[key] = null;
+                    // upcast to any so we can produce an invalid value.
+                    const genericValue: any = value;
+                    genericValue[key] = null;
                     const children = validation.validate(value).children;
                     return Object.keys(children).some(key =>
                         containsError(children[key].errors, {
@@ -188,16 +192,20 @@ function test<A extends { [_: string]: any }>(
         }
         jsc.property('not validate objects with an extra key', arbitrary, value => {
             const extraKey = 'supercalifragilisticexpialidocious'; // reasonably no one will ever use this as a key
-            value[extraKey] = null;
-            return !isValid(validation.validate(value));
+            // upcast to any so we can produce an invalid value.
+            const genericValue: any = value;
+            genericValue[extraKey] = null;
+            return !isValid(validation.validate(genericValue));
         });
         jsc.property(
             'signal an unexpected key error on objects with an extra key',
             arbitrary,
             value => {
                 const extraKey = 'supercalifragilisticexpialidocious'; // reasonably no one will ever use this as a key
-                value[extraKey] = null;
-                return containsError(validation.validate(value).errors, {
+                // upcast to any so we can produce an invalid value.
+                const genericValue: any = value;
+                genericValue[extraKey] = null;
+                return containsError(validation.validate(genericValue).errors, {
                     errorType: 'unexpected-key',
                     key: extraKey
                 });
