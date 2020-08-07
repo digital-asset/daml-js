@@ -1,50 +1,50 @@
 // Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {ChannelCredentials, credentials} from 'grpc';
+import { ChannelCredentials, credentials, makeClientConstructor } from '@grpc/grpc-js';
 
-import {Callback, forward} from '../util/Callback';
-import {LedgerClient, LedgerClientOptions} from "./LedgerClient";
-import {HumanReadableReporter} from "../reporting/HumanReadableReporter";
-import {ActiveContractsClient} from "./ActiveContractsClient";
-import {CommandClient} from "./CommandClient";
-import {ValidationReporter} from "../reporting/ValidationReporter";
-import {CommandCompletionClient} from "./CommandCompletionClient";
-import {NodeJsResetClient} from "./NodeJsResetClient";
-import {TransactionClient} from "./TransactionClient";
-import {TimeClient} from "./TimeClient";
-import {LedgerConfigurationClient} from "./LedgerConfigurationClient";
-import {NodeJsPackageClient} from "./NodeJsPackageClient";
-import {NodeJsLedgerIdentityClient} from "./NodeJsLedgerIdentityClient";
-import {NodeJsCommandSubmissionClient} from "./NodeJsCommandSubmissionClient";
-import {NodeJsPartyManagementClient} from "./NodeJsPartyManagementClient";
-import {NodeJsPackageManagementClient} from "./NodeJsPackageManagementClient";
-import {LedgerIdentityServiceClient} from "../generated/com/daml/ledger/api/v1/ledger_identity_service_grpc_pb";
-import {PartyManagementServiceClient} from "../generated/com/daml/ledger/api/v1/admin/party_management_service_grpc_pb";
-import {PackageManagementServiceClient} from "../generated/com/daml/ledger/api/v1/admin/package_management_service_grpc_pb";
-import {GetLedgerIdentityRequest} from "../generated/com/daml/ledger/api/v1/ledger_identity_service_pb";
-import {ActiveContractsServiceClient} from "../generated/com/daml/ledger/api/v1/active_contracts_service_grpc_pb";
-import {CommandServiceClient} from "../generated/com/daml/ledger/api/v1/command_service_grpc_pb";
-import {CommandCompletionServiceClient} from "../generated/com/daml/ledger/api/v1/command_completion_service_grpc_pb";
-import {CommandSubmissionServiceClient} from "../generated/com/daml/ledger/api/v1/command_submission_service_grpc_pb";
-import {PackageServiceClient} from "../generated/com/daml/ledger/api/v1/package_service_grpc_pb";
-import {LedgerConfigurationServiceClient} from "../generated/com/daml/ledger/api/v1/ledger_configuration_service_grpc_pb";
-import {TimeServiceClient} from "../generated/com/daml/ledger/api/v1/testing/time_service_grpc_pb";
-import {TransactionServiceClient} from "../generated/com/daml/ledger/api/v1/transaction_service_grpc_pb";
-import {ResetServiceClient} from "../generated/com/daml/ledger/api/v1/testing/reset_service_grpc_pb";
-import {NodeJsCommandClient} from "./NodeJsCommandClient";
-import {NodeJsActiveContractsClient} from "./NodeJsActiveContractsClient";
-import {NodeJsCommandCompletionClient} from "./NodeJsCommandCompletionClient";
-import {CommandSubmissionClient} from "./CommandSubmissionClient";
-import {NodeJsLedgerConfigurationClient} from "./NodeJsLedgerConfigurationClient";
-import {LedgerIdentityClient} from "./LedgerIdentityClient";
-import {PackageClient} from "./PackageClient";
-import {promisify} from "util";
-import {ResetClient} from "./ResetClient";
-import {NodeJsTimeClient} from "./NodeJsTimeClient";
-import {NodeJsTransactionClient} from "./NodeJsTransactionClient";
-import {PartyManagementClient} from './PartyManagementClient';
-import {PackageManagementClient} from './PackageManagementClient';
+import { Callback, forward } from '../util/Callback';
+import { LedgerClient, LedgerClientOptions } from "./LedgerClient";
+import { HumanReadableReporter } from "../reporting/HumanReadableReporter";
+import { ActiveContractsClient } from "./ActiveContractsClient";
+import { CommandClient } from "./CommandClient";
+import { ValidationReporter } from "../reporting/ValidationReporter";
+import { CommandCompletionClient } from "./CommandCompletionClient";
+import { NodeJsResetClient } from "./NodeJsResetClient";
+import { TransactionClient } from "./TransactionClient";
+import { TimeClient } from "./TimeClient";
+import { LedgerConfigurationClient } from "./LedgerConfigurationClient";
+import { NodeJsPackageClient } from "./NodeJsPackageClient";
+import { NodeJsLedgerIdentityClient } from "./NodeJsLedgerIdentityClient";
+import { NodeJsCommandSubmissionClient } from "./NodeJsCommandSubmissionClient";
+import { NodeJsPartyManagementClient } from "./NodeJsPartyManagementClient";
+import { NodeJsPackageManagementClient } from "./NodeJsPackageManagementClient";
+import * as ledgerIdentityService from "../generated/com/daml/ledger/api/v1/ledger_identity_service_grpc_pb";
+import * as partyManagementService from "../generated/com/daml/ledger/api/v1/admin/party_management_service_grpc_pb";
+import * as packageManagementService from "../generated/com/daml/ledger/api/v1/admin/package_management_service_grpc_pb";
+import { GetLedgerIdentityRequest } from "../generated/com/daml/ledger/api/v1/ledger_identity_service_pb";
+import * as activeContractsService from "../generated/com/daml/ledger/api/v1/active_contracts_service_grpc_pb";
+import * as commandService from "../generated/com/daml/ledger/api/v1/command_service_grpc_pb";
+import * as commandCompletionService from "../generated/com/daml/ledger/api/v1/command_completion_service_grpc_pb";
+import * as commandSubmissionService from "../generated/com/daml/ledger/api/v1/command_submission_service_grpc_pb";
+import * as packageService from "../generated/com/daml/ledger/api/v1/package_service_grpc_pb";
+import * as ledgerConfigurationService from "../generated/com/daml/ledger/api/v1/ledger_configuration_service_grpc_pb";
+import * as timeService from "../generated/com/daml/ledger/api/v1/testing/time_service_grpc_pb";
+import * as transactionService from "../generated/com/daml/ledger/api/v1/transaction_service_grpc_pb";
+import * as resetService from "../generated/com/daml/ledger/api/v1/testing/reset_service_grpc_pb";
+import { NodeJsCommandClient } from "./NodeJsCommandClient";
+import { NodeJsActiveContractsClient } from "./NodeJsActiveContractsClient";
+import { NodeJsCommandCompletionClient } from "./NodeJsCommandCompletionClient";
+import { CommandSubmissionClient } from "./CommandSubmissionClient";
+import { NodeJsLedgerConfigurationClient } from "./NodeJsLedgerConfigurationClient";
+import { LedgerIdentityClient } from "./LedgerIdentityClient";
+import { PackageClient } from "./PackageClient";
+import { promisify } from "util";
+import { ResetClient } from "./ResetClient";
+import { NodeJsTimeClient } from "./NodeJsTimeClient";
+import { NodeJsTransactionClient } from "./NodeJsTransactionClient";
+import { PartyManagementClient } from './PartyManagementClient';
+import { PackageManagementClient } from './PackageManagementClient';
 
 /**
  * A {@link LedgerClient} implementation that connects to an existing Ledger and provides clients to query it. To use the {@link DamlLedgerClient}
@@ -66,6 +66,33 @@ export class DamlLedgerClient implements LedgerClient {
     private readonly _partyManagementClient: PartyManagementClient;
     private readonly _packageManagementClient: PackageManagementClient;
 
+    private static readonly LedgerIdentityServiceClient =
+        makeClientConstructor((ledgerIdentityService as any)['com.daml.ledger.api.v1.LedgerIdentityService'], 'LedgerIdentityService');
+    private static readonly ActiveContractsServiceClient =
+        makeClientConstructor((activeContractsService as any)['com.daml.ledger.api.v1.ActiveContractsService'], 'ActiveContractsService');
+    private static readonly CommandServiceClient =
+        makeClientConstructor((commandService as any)['com.daml.ledger.api.v1.CommandService'], 'CommandService');
+    private static readonly CommandCompletionServiceClient =
+        makeClientConstructor((commandCompletionService as any)['com.daml.ledger.api.v1.CommandCompletionService'], 'CommandCompletionService');
+    private static readonly CommandSubmissionServiceClient =
+        makeClientConstructor((commandSubmissionService as any)['com.daml.ledger.api.v1.CommandSubmissionService'], 'CommandSubmissionService');
+    private static readonly PackageServiceClient =
+        makeClientConstructor((packageService as any)['com.daml.ledger.api.v1.PackageService'], 'PackageService');
+    private static readonly LedgerConfigurationServiceClient =
+        makeClientConstructor((ledgerConfigurationService as any)['com.daml.ledger.api.v1.LedgerConfigurationService'], 'LedgerConfigurationService');
+    private static readonly TimeServiceClient =
+        makeClientConstructor((timeService as any)['com.daml.ledger.api.v1.testing.TimeService'], 'TimeService');
+    private static readonly TransactionServiceClient =
+        makeClientConstructor((transactionService as any)['com.daml.ledger.api.v1.TransactionService'], 'TransactionService');
+    private static readonly ResetServiceClient =
+        makeClientConstructor((resetService as any)['com.daml.ledger.api.v1.testing.ResetService'], 'ResetService');
+    private static readonly PartyManagementServiceClient =
+        makeClientConstructor((partyManagementService as any)['com.daml.ledger.api.v1.admin.PartyManagementService'], 'PartyManagementService');
+    private static readonly PackageManagementServiceClient =
+        makeClientConstructor((packageManagementService as any)['com.daml.ledger.api.v1.admin.PackageManagementService'], 'PackageManagementService');
+
+
+
     private constructor(
         ledgerId: string,
         address: string,
@@ -76,56 +103,57 @@ export class DamlLedgerClient implements LedgerClient {
         this.ledgerId = ledgerId;
         this._activeContractsClient = new NodeJsActiveContractsClient(
             ledgerId,
-            new ActiveContractsServiceClient(address, credentials, grpcOptions),
+            new DamlLedgerClient.ActiveContractsServiceClient
+                (address, credentials, grpcOptions) as unknown as activeContractsService.ActiveContractsServiceClient,
             reporter
         );
         this._commandClient = new NodeJsCommandClient(
             ledgerId,
-            new CommandServiceClient(address, credentials, grpcOptions),
+            new DamlLedgerClient.CommandServiceClient(address, credentials, grpcOptions) as unknown as commandService.CommandServiceClient,
             reporter
         );
         this._commandCompletionClient = new NodeJsCommandCompletionClient(
             ledgerId,
-            new CommandCompletionServiceClient(address, credentials, grpcOptions),
+            new DamlLedgerClient.CommandCompletionServiceClient(address, credentials, grpcOptions) as unknown as commandCompletionService.CommandCompletionServiceClient,
             reporter
         );
         this._commandSubmissionClient = new NodeJsCommandSubmissionClient(
             ledgerId,
-            new CommandSubmissionServiceClient(address, credentials, grpcOptions),
+            new DamlLedgerClient.CommandSubmissionServiceClient(address, credentials, grpcOptions) as unknown as commandSubmissionService.CommandSubmissionServiceClient,
             reporter
         );
         this._ledgerIdentityClient = new NodeJsLedgerIdentityClient(
-            new LedgerIdentityServiceClient(address, credentials, grpcOptions)
+            new DamlLedgerClient.LedgerIdentityServiceClient(address, credentials, grpcOptions) as unknown as ledgerIdentityService.LedgerIdentityServiceClient
         );
         this._packageClient = new NodeJsPackageClient(
             ledgerId,
-            new PackageServiceClient(address, credentials, grpcOptions)
+            new DamlLedgerClient.PackageServiceClient(address, credentials, grpcOptions) as unknown as packageService.PackageServiceClient
         );
         this._ledgerConfigurationClient = new NodeJsLedgerConfigurationClient(
             ledgerId,
-            new LedgerConfigurationServiceClient(address, credentials, grpcOptions)
+            new DamlLedgerClient.LedgerConfigurationServiceClient(address, credentials, grpcOptions) as unknown as ledgerConfigurationService.LedgerConfigurationServiceClient
         );
         this._timeClient = new NodeJsTimeClient(
             ledgerId,
-            new TimeServiceClient(address, credentials, grpcOptions),
+            new DamlLedgerClient.TimeServiceClient(address, credentials, grpcOptions) as unknown as timeService.TimeServiceClient,
             reporter
         );
         this._transactionClient = new NodeJsTransactionClient(
             ledgerId,
-            new TransactionServiceClient(address, credentials, grpcOptions),
+            new DamlLedgerClient.TransactionServiceClient(address, credentials, grpcOptions) as unknown as transactionService.TransactionServiceClient,
             reporter
         );
         this._resetClient = new NodeJsResetClient(
             ledgerId,
-            new ResetServiceClient(address, credentials, grpcOptions)
+            new DamlLedgerClient.ResetServiceClient(address, credentials, grpcOptions) as unknown as resetService.ResetServiceClient,
         );
         this._partyManagementClient = new NodeJsPartyManagementClient(
-            new PartyManagementServiceClient(address, credentials, grpcOptions),
+            new DamlLedgerClient.PartyManagementServiceClient(address, credentials, grpcOptions) as unknown as partyManagementService.PartyManagementServiceClient,
             reporter
         );
 
         this._packageManagementClient = new NodeJsPackageManagementClient(
-            new PackageManagementServiceClient(address, credentials, grpcOptions),
+            new DamlLedgerClient.PackageManagementServiceClient(address, credentials, grpcOptions) as unknown as packageManagementService.PackageManagementServiceClient,
             reporter
         )
     }
@@ -170,11 +198,11 @@ export class DamlLedgerClient implements LedgerClient {
         return this._resetClient;
     }
 
-    get partyManagementClient(): PartyManagementClient{
+    get partyManagementClient(): PartyManagementClient {
         return this._partyManagementClient;
     }
 
-    get packageManagementClient(): PackageManagementClient{
+    get packageManagementClient(): PackageManagementClient {
         return this._packageManagementClient;
     }
 
@@ -204,7 +232,7 @@ export class DamlLedgerClient implements LedgerClient {
 
         const reporter = options.reporter || HumanReadableReporter;
         const address = `${options.host}:${options.port}`;
-        const client = new LedgerIdentityServiceClient(address, creds);
+        const client = new DamlLedgerClient.LedgerIdentityServiceClient(address, creds) as unknown as ledgerIdentityService.LedgerIdentityServiceClient;
 
         client.getLedgerIdentity(
             new GetLedgerIdentityRequest(),

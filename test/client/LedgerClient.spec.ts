@@ -3,7 +3,7 @@
 
 import {assert, expect} from 'chai';
 import * as sinon from 'sinon';
-import {ServerCredentials} from 'grpc';
+import {ServerCredentials} from '@grpc/grpc-js';
 import {DamlLedgerClient} from "../../src";
 import {DummyServer} from "./DummyServer";
 
@@ -13,7 +13,7 @@ describe("DamlLedgerClient", () => {
 
     const spy = sinon.spy();
     const server = new DummyServer(ledgerId, spy);
-    const port = server.bind('0.0.0.0:0', ServerCredentials.createInsecure());
+    let port: any = undefined;
 
     const emptyCommands = {
         commands: {
@@ -24,8 +24,15 @@ describe("DamlLedgerClient", () => {
         }
     };
 
-    before(() => {
-        server.start();
+    before((done) => {
+        server.bindAsync('0.0.0.0:0', ServerCredentials.createInsecure(), (err, actualPort) => {
+            if (err) {
+                return done(err);
+            }
+            port = actualPort;
+            server.start();
+            done();
+        });
     });
 
     after(() => {

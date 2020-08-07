@@ -3,7 +3,7 @@
 
 import * as sinon from 'sinon';
 
-import {CallOptions, ClientReadableStream, Metadata} from 'grpc';
+import {CallOptions, ClientReadableStream, Metadata} from '@grpc/grpc-js';
 import {
     GetLedgerConfigurationRequest,
     GetLedgerConfigurationResponse

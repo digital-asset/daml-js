@@ -1,7 +1,7 @@
 // Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {CallOptions, ClientReadableStream, ClientUnaryCall, Metadata} from 'grpc';
+import {CallOptions, ClientReadableStream, ClientUnaryCall, Metadata, ServiceError} from '@grpc/grpc-js';
 
 import * as sinon from 'sinon';
 import {Empty} from 'google-protobuf/google/protobuf/empty_pb';
@@ -44,18 +44,18 @@ export class DummyTimeServiceClient implements ITimeServiceClient {
 
     setTime(
         request: SetTimeRequest,
-        callback: (error: Error | null, response: Empty) => void
+        callback: (error: ServiceError | null, response: Empty) => void
     ): ClientUnaryCall;
     setTime(
         request: SetTimeRequest,
         metadata: Metadata,
-        callback: (error: Error | null, response: Empty) => void
+        callback: (error: ServiceError | null, response: Empty) => void
     ): ClientUnaryCall;
     setTime(
         request: SetTimeRequest,
         metadata: Metadata,
         options: Partial<CallOptions>,
-        callback: (error: Error | null, response: Empty) => void
+        callback: (error: ServiceError | null, response: Empty) => void
     ): ClientUnaryCall;
     setTime(
         request: SetTimeRequest,

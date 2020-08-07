@@ -1,7 +1,7 @@
 // Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {CallOptions, ClientUnaryCall, Metadata} from 'grpc';
+import {CallOptions, ClientUnaryCall, Metadata, ServiceError} from '@grpc/grpc-js';
 import {
     GetLedgerIdentityRequest,
     GetLedgerIdentityResponse
@@ -23,7 +23,7 @@ export class DummyLedgerIdentityServiceClient implements ILedgerIdentityServiceC
     getLedgerIdentity(
         request: GetLedgerIdentityRequest,
         callback: (
-            error: Error | null,
+            error: ServiceError | null,
             response: GetLedgerIdentityResponse
         ) => void
     ): ClientUnaryCall;
@@ -31,7 +31,7 @@ export class DummyLedgerIdentityServiceClient implements ILedgerIdentityServiceC
         request: GetLedgerIdentityRequest,
         metadata: Metadata,
         callback: (
-            error: Error | null,
+            error: ServiceError | null,
             response: GetLedgerIdentityResponse
         ) => void
     ): ClientUnaryCall;
@@ -40,7 +40,7 @@ export class DummyLedgerIdentityServiceClient implements ILedgerIdentityServiceC
         metadata: Metadata,
         options: Partial<CallOptions>,
         callback: (
-            error: Error | null,
+            error: ServiceError | null,
             response: GetLedgerIdentityResponse
         ) => void
     ): ClientUnaryCall;

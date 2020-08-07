@@ -1,7 +1,7 @@
 // Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {ClientReadableStream} from 'grpc';
+import {ClientReadableStream} from '@grpc/grpc-js';
 import {SinonSpy} from 'sinon';
 import {IActiveContractsServiceClient} from "../../src/generated/com/daml/ledger/api/v1/active_contracts_service_grpc_pb";
 import {

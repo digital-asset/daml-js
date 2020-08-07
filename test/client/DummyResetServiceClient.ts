@@ -1,7 +1,7 @@
 // Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {CallOptions, ClientUnaryCall, Metadata} from 'grpc';
+import {CallOptions, ClientUnaryCall, Metadata, ServiceError} from '@grpc/grpc-js';
 
 import * as sinon from 'sinon';
 
@@ -21,18 +21,18 @@ export class DummyResetServiceClient implements IResetServiceClient {
 
     reset(
         request: ResetRequest,
-        callback: (error: Error | null, response: Empty) => void
+        callback: (error: ServiceError | null, response: Empty) => void
     ): ClientUnaryCall;
     reset(
         request: ResetRequest,
         metadata: Metadata,
-        callback: (error: Error | null, response: Empty) => void
+        callback: (error: ServiceError | null, response: Empty) => void
     ): ClientUnaryCall;
     reset(
         request: ResetRequest,
         metadata: Metadata,
         options: Partial<CallOptions>,
-        callback: (error: Error | null, response: Empty) => void
+        callback: (error: ServiceError | null, response: Empty) => void
     ): ClientUnaryCall;
     reset(
         request: ResetRequest,
