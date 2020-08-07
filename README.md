@@ -11,7 +11,7 @@ SPDX-License-Identifier: Apache-2.0
 This repository hosts the implementation of the [DAML](https://daml.com/) Ledger API for the [Node.js](https://nodejs.org/) platform.
 
 ## Status
-
+ 
 **The Node.js bindings are currently experimental: expect breaking changes to the API througout the `0.x` major release series.**
 
 Refer to the [changelog](./CHANGELOG.md) to understand the latest changes.
