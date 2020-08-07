@@ -1,7 +1,7 @@
 // Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {ServerCredentials} from 'grpc';
+import {ServerCredentials} from '@grpc/grpc-js';
 import {expect} from 'chai';
 import * as sinon from 'sinon';
 import {DamlLedgerClient} from "../../src/client/DamlLedgerClient";
@@ -12,10 +12,17 @@ describe('End-to-end stream', () => {
     const ledgerId = 'cafebabe';
 
     const server = new DummyServer(ledgerId, sinon.spy());
-    const port = server.bind('0.0.0.0:0', ServerCredentials.createInsecure());
+    let port: any = undefined;
 
-    before(() => {
-        server.start();
+    before((done) => {
+        server.bindAsync('0.0.0.0:0', ServerCredentials.createInsecure(), (err, actualPort) => {
+            if (err) {
+                return done(err);
+            }
+            port = actualPort;
+            server.start();
+            done();
+        });
     });
 
     after(() => {

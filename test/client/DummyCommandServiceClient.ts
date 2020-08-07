@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import {Empty} from 'google-protobuf/google/protobuf/empty_pb';
-import {CallOptions, ClientUnaryCall, Metadata} from 'grpc';
+import {CallOptions, ClientUnaryCall, Metadata, ServiceError} from '@grpc/grpc-js';
 import {SinonSpy} from 'sinon';
 import {ICommandServiceClient} from "../../src/generated/com/daml/ledger/api/v1/command_service_grpc_pb";
 import {
@@ -29,18 +29,18 @@ export class DummyCommandServiceClient implements ICommandServiceClient {
 
     submitAndWait(
         request: SubmitAndWaitRequest,
-        callback: (error: Error | null, response: Empty) => void
+        callback: (error: ServiceError | null, response: Empty) => void
     ): ClientUnaryCall;
     submitAndWait(
         request: SubmitAndWaitRequest,
         metadata: Metadata,
-        callback: (error: Error | null, response: Empty) => void
+        callback: (error: ServiceError | null, response: Empty) => void
     ): ClientUnaryCall;
     submitAndWait(
         request: SubmitAndWaitRequest,
         metadata: Metadata,
         options: Partial<CallOptions>,
-        callback: (error: Error | null, response: Empty) => void
+        callback: (error: ServiceError | null, response: Empty) => void
     ): ClientUnaryCall;
     submitAndWait(
         request: SubmitAndWaitRequest,
@@ -61,18 +61,18 @@ export class DummyCommandServiceClient implements ICommandServiceClient {
 
     submitAndWaitForTransaction(
         request: SubmitAndWaitRequest,
-        callback: (error: Error | null, response: SubmitAndWaitForTransactionResponse) => void
+        callback: (error: ServiceError | null, response: SubmitAndWaitForTransactionResponse) => void
     ): ClientUnaryCall;
     submitAndWaitForTransaction(
         request: SubmitAndWaitRequest,
         metadata: Metadata,
-        callback: (error: Error | null, response: SubmitAndWaitForTransactionResponse) => void
+        callback: (error: ServiceError | null, response: SubmitAndWaitForTransactionResponse) => void
     ): ClientUnaryCall;
     submitAndWaitForTransaction(
         request: SubmitAndWaitRequest,
         metadata: Metadata,
         options: Partial<CallOptions>,
-        callback: (error: Error | null, response: SubmitAndWaitForTransactionResponse) => void
+        callback: (error: ServiceError | null, response: SubmitAndWaitForTransactionResponse) => void
     ): ClientUnaryCall;
     submitAndWaitForTransaction(
         request: SubmitAndWaitRequest,
@@ -93,18 +93,18 @@ export class DummyCommandServiceClient implements ICommandServiceClient {
 
     submitAndWaitForTransactionId(
         request: SubmitAndWaitRequest,
-        callback: (error: Error | null, response: SubmitAndWaitForTransactionIdResponse) => void
+        callback: (error: ServiceError | null, response: SubmitAndWaitForTransactionIdResponse) => void
     ): ClientUnaryCall;
     submitAndWaitForTransactionId(
         request: SubmitAndWaitRequest,
         metadata: Metadata,
-        callback: (error: Error | null, response: SubmitAndWaitForTransactionIdResponse) => void
+        callback: (error: ServiceError | null, response: SubmitAndWaitForTransactionIdResponse) => void
     ): ClientUnaryCall;
     submitAndWaitForTransactionId(
         request: SubmitAndWaitRequest,
         metadata: Metadata,
         options: Partial<CallOptions>,
-        callback: (error: Error | null, response: SubmitAndWaitForTransactionIdResponse) => void
+        callback: (error: ServiceError | null, response: SubmitAndWaitForTransactionIdResponse) => void
     ): ClientUnaryCall;
     submitAndWaitForTransactionId(
         request: SubmitAndWaitRequest,
@@ -125,18 +125,18 @@ export class DummyCommandServiceClient implements ICommandServiceClient {
 
     submitAndWaitForTransactionTree(
         request: SubmitAndWaitRequest,
-        callback: (error: Error | null, response: SubmitAndWaitForTransactionTreeResponse) => void
+        callback: (error: ServiceError | null, response: SubmitAndWaitForTransactionTreeResponse) => void
     ): ClientUnaryCall;
     submitAndWaitForTransactionTree(
         request: SubmitAndWaitRequest,
         metadata: Metadata,
-        callback: (error: Error | null, response: SubmitAndWaitForTransactionTreeResponse) => void
+        callback: (error: ServiceError | null, response: SubmitAndWaitForTransactionTreeResponse) => void
     ): ClientUnaryCall;
     submitAndWaitForTransactionTree(
         request: SubmitAndWaitRequest,
         metadata: Metadata,
         options: Partial<CallOptions>,
-        callback: (error: Error | null, response: SubmitAndWaitForTransactionTreeResponse) => void
+        callback: (error: ServiceError | null, response: SubmitAndWaitForTransactionTreeResponse) => void
     ): ClientUnaryCall;
     submitAndWaitForTransactionTree(
         request: SubmitAndWaitRequest,

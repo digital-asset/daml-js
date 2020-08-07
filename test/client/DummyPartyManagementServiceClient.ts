@@ -1,7 +1,7 @@
 // Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {ClientUnaryCall, Metadata} from 'grpc';
+import {CallOptions, ClientUnaryCall, Metadata, ServiceError} from '@grpc/grpc-js';
 import {
     AllocatePartyRequest,
     AllocatePartyResponse,
@@ -37,28 +37,37 @@ export class DummyPartyManagementServiceClient implements IPartyManagementServic
     }
 
     getParticipantId(
-        request: GetParticipantIdRequest, 
+        request: GetParticipantIdRequest,
         callback: (
-            error: Error | null, 
+            error: ServiceError | null,
             response: GetParticipantIdResponse
         ) => void
     ): ClientUnaryCall;
-    
+
     getParticipantId(
-        request: GetParticipantIdRequest, 
-        metadata: Metadata, 
+        request: GetParticipantIdRequest,
+        metadata: Metadata,
         callback: (
-            error: Error | null, 
+            error: ServiceError | null,
             response: GetParticipantIdResponse) => void
     ): ClientUnaryCall;
 
     getParticipantId(
         request: GetParticipantIdRequest,
-        metadata: any, 
-        options?: any, 
+        metadata: Metadata,
+        options: Partial<CallOptions>,
+        callback: (
+            error: ServiceError | null,
+            response: GetParticipantIdResponse) => void
+    ): ClientUnaryCall;
+
+    getParticipantId(
+        request: GetParticipantIdRequest,
+        metadata: any,
+        options?: any,
         callback?: any
     ){
-        const cb = 
+        const cb =
             callback === undefined
                ? options === undefined
                ? metadata
@@ -72,7 +81,7 @@ export class DummyPartyManagementServiceClient implements IPartyManagementServic
     getParties(
         request: GetPartiesRequest,
         callback: (
-            error: Error | null,
+            error: ServiceError | null,
             response: GetPartiesResponse
         ) => void
     ): ClientUnaryCall;
@@ -81,7 +90,16 @@ export class DummyPartyManagementServiceClient implements IPartyManagementServic
         request: GetPartiesRequest,
         metadata: Metadata,
         callback: (
-            error: Error | null,
+            error: ServiceError | null,
+            response: GetPartiesResponse) => void
+    ): ClientUnaryCall;
+
+    getParties(
+        request: GetPartiesRequest,
+        metadata: Metadata,
+        options: Partial<CallOptions>,
+        callback: (
+            error: ServiceError | null,
             response: GetPartiesResponse) => void
     ): ClientUnaryCall;
 
@@ -101,27 +119,36 @@ export class DummyPartyManagementServiceClient implements IPartyManagementServic
         cb(null, this.getPartiesResponse);
         return DummyClientUnaryCall.Instance;
     };
-    
+
     listKnownParties(
-        request: ListKnownPartiesRequest, 
+        request: ListKnownPartiesRequest,
         callback: (
-            error: Error | null, 
+            error: ServiceError | null,
             response: ListKnownPartiesResponse
         ) => void
     ): ClientUnaryCall;
 
     listKnownParties(
-        request: ListKnownPartiesRequest, 
-        metadata: Metadata, 
+        request: ListKnownPartiesRequest,
+        metadata: Metadata,
         callback: (
-            error: Error | null, 
+            error: ServiceError | null,
             response: ListKnownPartiesResponse) => void
     ): ClientUnaryCall;
 
     listKnownParties(
-        request: ListKnownPartiesRequest, 
-        metadata: any, 
-        options?: any, 
+        request: ListKnownPartiesRequest,
+        metadata: Metadata,
+        options: Partial<CallOptions>,
+        callback: (
+            error: ServiceError | null,
+            response: ListKnownPartiesResponse) => void
+    ): ClientUnaryCall;
+
+    listKnownParties(
+        request: ListKnownPartiesRequest,
+        metadata: any,
+        options?: any,
         callback?: any
     ) {
         const cb =
@@ -136,24 +163,33 @@ export class DummyPartyManagementServiceClient implements IPartyManagementServic
     };
 
     allocateParty(
-        request: AllocatePartyRequest, 
-        callback: (error: Error | null, 
+        request: AllocatePartyRequest,
+        callback: (error: ServiceError | null,
             response: AllocatePartyResponse
         ) => void
     ): ClientUnaryCall;
-    
+
     allocateParty(
-        request: AllocatePartyRequest, 
-        metadata: Metadata, 
+        request: AllocatePartyRequest,
+        metadata: Metadata,
         callback: (
-            error: Error | null, 
+            error: ServiceError | null,
             response: AllocatePartyResponse) => void
     ): ClientUnaryCall;
 
     allocateParty(
-        request: AllocatePartyRequest, 
-        metadata: any, 
-        options?: any, 
+        request: AllocatePartyRequest,
+        metadata: Metadata,
+        options: Partial<CallOptions>,
+        callback: (
+            error: ServiceError | null,
+            response: AllocatePartyResponse) => void
+    ): ClientUnaryCall;
+
+    allocateParty(
+        request: AllocatePartyRequest,
+        metadata: any,
+        options?: any,
         callback?: any
     ){
         const cb =

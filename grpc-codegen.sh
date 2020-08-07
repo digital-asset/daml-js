@@ -35,25 +35,23 @@ fi
 if [ ! -d "$OUT_PATH" ]; then
     mkdir -p "$OUT_PATH"
     grpc_tools_node_protoc \
-      --plugin="protoc-gen-grpc=`which grpc_tools_node_protoc_plugin`" \
       --js_out="import_style=commonjs,binary:${OUT_PATH}" \
       --proto_path="${PROTO_PATH}" \
-      --grpc_out="${OUT_PATH}" \
+      --grpc_out="generate_package_definition:${OUT_PATH}" \
       "${PROTO_PATH}"/com/daml/ledger/api/v1/*.proto \
       "${PROTO_PATH}"/com/daml/ledger/api/v1/admin/*.proto \
       "${PROTO_PATH}"/com/daml/ledger/api/v1/testing/*.proto \
       "${PROTO_PATH}"/google/rpc/*.proto \
       "${PROTO_PATH}"/grpc/health/v1/*.proto
     grpc_tools_node_protoc \
-      --plugin="protoc-gen-grpc=`which grpc_tools_node_protoc_plugin`" \
       --js_out="import_style=commonjs,binary:${OUT_PATH}" \
       --proto_path="${PROTO_PATH}" \
-      --grpc_out="${OUT_PATH}" \
+      --grpc_out="generate_package_definition:${OUT_PATH}" \
       "${PROTO_PATH}"/com/digitalasset/daml_lf_1_8/*.proto
     grpc_tools_node_protoc \
       --plugin=protoc-gen-ts=`which protoc-gen-ts` \
       --proto_path="${PROTO_PATH}" \
-      --ts_out="${OUT_PATH}" \
+      --ts_out="generate_package_definition:${OUT_PATH}" \
       "${PROTO_PATH}"/com/daml/ledger/api/v1/*.proto \
       "${PROTO_PATH}"/com/daml/ledger/api/v1/admin/*.proto \
       "${PROTO_PATH}"/com/daml/ledger/api/v1/testing/*.proto \
@@ -62,21 +60,20 @@ if [ ! -d "$OUT_PATH" ]; then
     grpc_tools_node_protoc \
       --plugin=protoc-gen-ts=`which protoc-gen-ts` \
       --proto_path="${PROTO_PATH}" \
-      --ts_out="${OUT_PATH}" \
+      --ts_out="generate_package_definition:${OUT_PATH}" \
       "${PROTO_PATH}"/com/digitalasset/daml_lf_1_8/*.proto
 fi
 
 if [ ! -d "$TEST_OUT_PATH" ]; then
     mkdir -p "$TEST_OUT_PATH"
     grpc_tools_node_protoc \
-      --plugin="protoc-gen-grpc=`which grpc_tools_node_protoc_plugin`" \
       --js_out="import_style=commonjs,binary:${TEST_OUT_PATH}" \
       --proto_path="${PROTO_PATH}" \
-      --grpc_out="${TEST_OUT_PATH}" \
+      --grpc_out="generate_package_definition:${TEST_OUT_PATH}" \
       "${PROTO_PATH}"/grpc/reflection/v1alpha/reflection.proto
     grpc_tools_node_protoc \
-      --plugin=protoc-gen-ts=`which protoc-gen-ts` \
+      --plugin=protoc-gen-tsd=`which protoc-gen-ts` \
       --proto_path="${PROTO_PATH}" \
-      --ts_out="${TEST_OUT_PATH}" \
+      --ts_out="generate_package_definition:${TEST_OUT_PATH}" \
       "${PROTO_PATH}"/grpc/reflection/v1alpha/reflection.proto
 fi

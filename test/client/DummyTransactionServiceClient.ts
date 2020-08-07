@@ -3,7 +3,7 @@
 
 import * as sinon from 'sinon';
 
-import {CallOptions, ClientReadableStream, ClientUnaryCall, Metadata} from 'grpc';
+import {CallOptions, ClientReadableStream, ClientUnaryCall, Metadata, ServiceError} from '@grpc/grpc-js';
 import {Timestamp} from 'google-protobuf/google/protobuf/timestamp_pb';
 import {ITransactionServiceClient} from "../../src/generated/com/daml/ledger/api/v1/transaction_service_grpc_pb";
 import {
@@ -74,7 +74,7 @@ export class DummyTransactionServiceClient implements ITransactionServiceClient 
     getTransactionByEventId(
         request: GetTransactionByEventIdRequest,
         callback: (
-            error: Error | null,
+            error: ServiceError | null,
             response: GetTransactionResponse
         ) => void
     ): ClientUnaryCall;
@@ -83,7 +83,7 @@ export class DummyTransactionServiceClient implements ITransactionServiceClient 
         request: GetTransactionByEventIdRequest,
         metadata: Metadata,
         callback: (
-            error: Error | null,
+            error: ServiceError | null,
             response: GetTransactionResponse
         ) => void
     ): ClientUnaryCall;
@@ -93,7 +93,7 @@ export class DummyTransactionServiceClient implements ITransactionServiceClient 
         metadata: Metadata,
         options: Partial<CallOptions>,
         callback: (
-            error: Error | null,
+            error: ServiceError | null,
             response: GetTransactionResponse
         ) => void
     ): ClientUnaryCall;
@@ -118,7 +118,7 @@ export class DummyTransactionServiceClient implements ITransactionServiceClient 
     getFlatTransactionByEventId(
         request: GetTransactionByEventIdRequest,
         callback: (
-            error: Error | null,
+            error: ServiceError | null,
             response: GetFlatTransactionResponse
         ) => void
     ): ClientUnaryCall;
@@ -127,7 +127,7 @@ export class DummyTransactionServiceClient implements ITransactionServiceClient 
         request: GetTransactionByEventIdRequest,
         metadata: Metadata,
         callback: (
-            error: Error | null,
+            error: ServiceError | null,
             response: GetFlatTransactionResponse
         ) => void
     ): ClientUnaryCall;
@@ -137,7 +137,7 @@ export class DummyTransactionServiceClient implements ITransactionServiceClient 
         metadata: Metadata,
         options: Partial<CallOptions>,
         callback: (
-            error: Error | null,
+            error: ServiceError | null,
             response: GetFlatTransactionResponse
         ) => void
     ): ClientUnaryCall;
@@ -162,7 +162,7 @@ export class DummyTransactionServiceClient implements ITransactionServiceClient 
     getFlatTransactionById(
         request: GetTransactionByIdRequest,
         callback: (
-            error: Error | null,
+            error: ServiceError | null,
             response: GetFlatTransactionResponse
         ) => void
     ): ClientUnaryCall;
@@ -171,7 +171,7 @@ export class DummyTransactionServiceClient implements ITransactionServiceClient 
         request: GetTransactionByIdRequest,
         metadata: Metadata,
         callback: (
-            error: Error | null,
+            error: ServiceError | null,
             response: GetFlatTransactionResponse
         ) => void
     ): ClientUnaryCall;
@@ -181,7 +181,7 @@ export class DummyTransactionServiceClient implements ITransactionServiceClient 
         metadata: Metadata,
         options: Partial<CallOptions>,
         callback: (
-            error: Error | null,
+            error: ServiceError | null,
             response: GetFlatTransactionResponse
         ) => void
     ): ClientUnaryCall;
@@ -206,7 +206,7 @@ export class DummyTransactionServiceClient implements ITransactionServiceClient 
     getTransactionById(
         request: GetTransactionByIdRequest,
         callback: (
-            error: Error | null,
+            error: ServiceError | null,
             response: GetTransactionResponse
         ) => void
     ): ClientUnaryCall;
@@ -215,7 +215,7 @@ export class DummyTransactionServiceClient implements ITransactionServiceClient 
         request: GetTransactionByIdRequest,
         metadata: Metadata,
         callback: (
-            error: Error | null,
+            error: ServiceError | null,
             response: GetTransactionResponse
         ) => void
     ): ClientUnaryCall;
@@ -225,7 +225,7 @@ export class DummyTransactionServiceClient implements ITransactionServiceClient 
         metadata: Metadata,
         options: Partial<CallOptions>,
         callback: (
-            error: Error | null,
+            error: ServiceError | null,
             response: GetTransactionResponse
         ) => void
     ): ClientUnaryCall;
@@ -249,20 +249,20 @@ export class DummyTransactionServiceClient implements ITransactionServiceClient 
 
     getLedgerEnd(
         request: GetLedgerEndRequest,
-        callback: (error: Error | null, response: GetLedgerEndResponse) => void
+        callback: (error: ServiceError | null, response: GetLedgerEndResponse) => void
     ): ClientUnaryCall;
 
     getLedgerEnd(
         request: GetLedgerEndRequest,
         metadata: Metadata,
-        callback: (error: Error | null, response: GetLedgerEndResponse) => void
+        callback: (error: ServiceError | null, response: GetLedgerEndResponse) => void
     ): ClientUnaryCall;
 
     getLedgerEnd(
         request: GetLedgerEndRequest,
         metadata: Metadata,
         options: Partial<CallOptions>,
-        callback: (error: Error | null, response: GetLedgerEndResponse) => void
+        callback: (error: ServiceError | null, response: GetLedgerEndResponse) => void
     ): ClientUnaryCall;
 
     getLedgerEnd(
