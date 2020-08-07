@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as sinon from 'sinon';
-import {CallOptions, ClientReadableStream, ClientUnaryCall, Metadata} from 'grpc';
+import {CallOptions, ClientReadableStream, ClientUnaryCall, Metadata, ServiceError} from '@grpc/grpc-js';
 import {ICommandCompletionServiceClient} from "../../src/generated/com/daml/ledger/api/v1/command_completion_service_grpc_pb";
 import {
     CompletionEndRequest,
@@ -31,7 +31,7 @@ export class DummyCommandCompletionServiceClient
     completionEnd(
         request: CompletionEndRequest,
         callback: (
-            error: Error | null,
+            error: ServiceError | null,
             response: CompletionEndResponse
         ) => void
     ): ClientUnaryCall;
@@ -39,7 +39,7 @@ export class DummyCommandCompletionServiceClient
         request: CompletionEndRequest,
         metadata: Metadata,
         callback: (
-            error: Error | null,
+            error: ServiceError | null,
             response: CompletionEndResponse
         ) => void
     ): ClientUnaryCall;
@@ -48,7 +48,7 @@ export class DummyCommandCompletionServiceClient
         metadata: Metadata,
         options: Partial<CallOptions>,
         callback: (
-            error: Error | null,
+            error: ServiceError | null,
             response: CompletionEndResponse
         ) => void
     ): ClientUnaryCall;

@@ -1,7 +1,7 @@
 // Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {ClientUnaryCall, Metadata, ServiceError, CallOptions} from 'grpc';
+import {ClientUnaryCall, Metadata, ServiceError, CallOptions} from '@grpc/grpc-js';
 import {
     ListKnownPackagesRequest,
     ListKnownPackagesResponse,
@@ -14,7 +14,7 @@ import {DummyClientUnaryCall} from "../call/DummyClientUnaryCall";
 import * as sinon from "sinon";
 
 export class DummyPackageManagementServiceClient implements IPackageManagementServiceClient {
-  
+
     private readonly latestRequestSpy: sinon.SinonSpy;
     private readonly listKnownPackagesResponse: ListKnownPackagesResponse;
     private readonly uploadDarFileResponse: UploadDarFileResponse;
@@ -34,26 +34,35 @@ export class DummyPackageManagementServiceClient implements IPackageManagementSe
     }
 
     listKnownPackages(
-        request: ListKnownPackagesRequest, 
-        callback: (error: ServiceError, 
+        request: ListKnownPackagesRequest,
+        callback: (error: ServiceError,
                    response: ListKnownPackagesResponse) => void
     ): ClientUnaryCall;
 
     listKnownPackages(
-        request: ListKnownPackagesRequest, 
-        metadata: Metadata, 
+        request: ListKnownPackagesRequest,
+        metadata: Metadata,
         callback: (
-            error: ServiceError, 
+            error: ServiceError,
             response: ListKnownPackagesResponse) => void
     ): ClientUnaryCall;
 
     listKnownPackages(
-        request: ListKnownPackagesRequest, 
-        metadata: any, 
-        options?: any, 
+        request: ListKnownPackagesRequest,
+        metadata: Metadata,
+        options: Partial<CallOptions>,
+        callback: (
+            error: ServiceError,
+            response: ListKnownPackagesResponse) => void
+    ): ClientUnaryCall;
+
+    listKnownPackages(
+        request: ListKnownPackagesRequest,
+        metadata: any,
+        options?: any,
         callback?: any
     ) {
-        const cb = 
+        const cb =
             callback === undefined
                 ? options === undefined
                 ? metadata
@@ -65,30 +74,30 @@ export class DummyPackageManagementServiceClient implements IPackageManagementSe
     }
 
     uploadDarFile(
-        request: UploadDarFileRequest, 
-        callback: (error: ServiceError, 
+        request: UploadDarFileRequest,
+        callback: (error: ServiceError,
                    response: UploadDarFileResponse) => void
     ): ClientUnaryCall;
 
     uploadDarFile(
-        request: UploadDarFileRequest, 
-        metadata: Metadata, 
-        callback: (error: ServiceError, 
+        request: UploadDarFileRequest,
+        metadata: Metadata,
+        callback: (error: ServiceError,
                    response: UploadDarFileResponse) => void
     ): ClientUnaryCall;
 
     uploadDarFile(
-        request: UploadDarFileRequest, 
-        metadata: Metadata, 
-        options: Partial<CallOptions>, 
-        callback: (error: ServiceError, 
+        request: UploadDarFileRequest,
+        metadata: Metadata,
+        options: Partial<CallOptions>,
+        callback: (error: ServiceError,
                    response: UploadDarFileResponse) => void
     ): ClientUnaryCall;
 
     uploadDarFile(
-        request: any, 
-        metadata: any, 
-        options?: any, 
+        request: any,
+        metadata: any,
+        options?: any,
         callback?: any
     ) {
        this.latestRequestSpy(request);

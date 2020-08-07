@@ -1,7 +1,7 @@
 // Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import * as grpc from 'grpc';
+import * as grpc from '@grpc/grpc-js';
 
 export class DummyClientUnaryCall {
     public static Instance: grpc.ClientUnaryCall = new DummyClientUnaryCall() as grpc.ClientUnaryCall;

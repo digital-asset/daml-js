@@ -1,7 +1,7 @@
 // Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import * as grpc from 'grpc';
+import * as grpc from '@grpc/grpc-js';
 import {Readable} from 'stream';
 
 export class DummyClientReadableStream<T> extends Readable {
@@ -12,7 +12,7 @@ export class DummyClientReadableStream<T> extends Readable {
         this.iterator = items[Symbol.iterator]();
     }
 
-    public static empty(): grpc.ClientReadableStream<never> {
+    public static empty(): DummyClientReadableStream<any> {
         return new DummyClientReadableStream([]);
     }
 
@@ -47,5 +47,9 @@ export class DummyClientReadableStream<T> extends Readable {
      */
     getPeer(): string {
         throw new Error('MOCK!');
+    }
+
+    deserialize(_: Buffer): never {
+        throw new Error('Mock!');
     }
 }

@@ -1,7 +1,7 @@
 // Copyright (c) 2020 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {CallOptions, ClientUnaryCall, Metadata} from 'grpc';
+import {CallOptions, ClientUnaryCall, Metadata, ServiceError} from '@grpc/grpc-js';
 
 import * as sinon from 'sinon';
 import {IPackageServiceClient} from "../../src/generated/com/daml/ledger/api/v1/package_service_grpc_pb";
@@ -30,18 +30,18 @@ export class DummyPackageServiceClient implements IPackageServiceClient {
 
     listPackages(
         request: ListPackagesRequest,
-        callback: (error: Error | null, response: ListPackagesResponse) => void
+        callback: (error: ServiceError | null, response: ListPackagesResponse) => void
     ): ClientUnaryCall;
     listPackages(
         request: ListPackagesRequest,
         metadata: Metadata,
-        callback: (error: Error | null, response: ListPackagesResponse) => void
+        callback: (error: ServiceError | null, response: ListPackagesResponse) => void
     ): ClientUnaryCall;
     listPackages(
         request: ListPackagesRequest,
         metadata: Metadata,
         options: Partial<CallOptions>,
-        callback: (error: Error | null, response: ListPackagesResponse) => void
+        callback: (error: ServiceError | null, response: ListPackagesResponse) => void
     ): ClientUnaryCall;
     listPackages(
         request: ListPackagesRequest,
@@ -62,18 +62,18 @@ export class DummyPackageServiceClient implements IPackageServiceClient {
 
     getPackage(
         request: GetPackageRequest,
-        callback: (error: Error | null, response: GetPackageResponse) => void
+        callback: (error: ServiceError | null, response: GetPackageResponse) => void
     ): ClientUnaryCall;
     getPackage(
         request: GetPackageRequest,
         metadata: Metadata,
-        callback: (error: Error | null, response: GetPackageResponse) => void
+        callback: (error: ServiceError | null, response: GetPackageResponse) => void
     ): ClientUnaryCall;
     getPackage(
         request: GetPackageRequest,
         metadata: Metadata,
         options: Partial<CallOptions>,
-        callback: (error: Error | null, response: GetPackageResponse) => void
+        callback: (error: ServiceError | null, response: GetPackageResponse) => void
     ): ClientUnaryCall;
     getPackage(
         request: GetPackageRequest,
@@ -95,7 +95,7 @@ export class DummyPackageServiceClient implements IPackageServiceClient {
     getPackageStatus(
         request: GetPackageStatusRequest,
         callback: (
-            error: Error | null,
+            error: ServiceError | null,
             response: GetPackageStatusResponse
         ) => void
     ): ClientUnaryCall;
@@ -103,7 +103,7 @@ export class DummyPackageServiceClient implements IPackageServiceClient {
         request: GetPackageStatusRequest,
         metadata: Metadata,
         callback: (
-            error: Error | null,
+            error: ServiceError | null,
             response: GetPackageStatusResponse
         ) => void
     ): ClientUnaryCall;
@@ -112,7 +112,7 @@ export class DummyPackageServiceClient implements IPackageServiceClient {
         metadata: Metadata,
         options: Partial<CallOptions>,
         callback: (
-            error: Error | null,
+            error: ServiceError | null,
             response: GetPackageStatusResponse
         ) => void
     ): ClientUnaryCall;
