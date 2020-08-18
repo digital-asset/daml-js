@@ -3,7 +3,7 @@
 
 import {expect} from 'chai';
 import * as sinon from 'sinon';
-import {ServerCredentials} from 'grpc';
+import {ServerCredentials} from '@grpc/grpc-js';
 import {ClientCertChain, ClientPrivateKey, RootCertChain, ServerCertChain, ServerPrivateKey} from '../ssl'
 import {DamlLedgerClient} from "../../src";
 import {DummyServer} from "../client/DummyServer";
@@ -18,10 +18,18 @@ describe("End-to-end SSL support", () => {
     }], true);
 
     const server = new DummyServer(ledgerId, sinon.spy());
-    const port = server.bind('localhost:0', serverCredentials);
+    let port: any = undefined;
 
-    before(() => {
-        server.start();
+
+    before((done) => {
+        server.bindAsync('localhost:0', serverCredentials, (err, actualPort) => {
+            if (err) {
+                return done(err);
+            }
+            port = actualPort;
+            server.start();
+            done();
+        });
     });
 
     after(() => {

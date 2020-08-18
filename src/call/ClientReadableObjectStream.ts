@@ -3,7 +3,7 @@
 
 import {Readable, ReadableOptions} from 'stream';
 import {Codec} from '../codec/Codec';
-import {ClientReadableStream} from 'grpc';
+import {ClientReadableStream} from '@grpc/grpc-js';
 import {Deserializer} from "./Deserializer";
 
 /**
