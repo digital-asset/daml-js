@@ -3,6 +3,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.11.0]
+
+### Changed
+
+- Switch from the deprecated `grpc` library to `@grpc/grpc-js`. This
+  does not affect the user-facing API.
+- Support NodeJS 12. NodeJS 10 is still supported but you are
+  encouraged to upgrade as NodeJS 10 will be out of support in April
+  2021.
+- The source code of this library is now distributed as ES6 rather
+  than ES5. This was required by the switch to `@grpc/grpc-js` which
+  is also only distributed as ES6. If you use typescript, change the
+  target in your own `tsconfig.json` to `es6`.
+- All NPM dependencies have been updated to their latest version.
+
 ## [0.10.0]
 ### Removed
 - `ledgerEffectiveTime` and `maximumRecordTime` have been dropped by commands [#107](https://github.com/digital-asset/daml-js/issues/107)
