@@ -2,6 +2,16 @@
 
 The [Node.js](https://node.js.org/) bindings for [DAML](https://daml.com/) allow you to write applications on the Node.js platform that interact with a DAML application through the [Ledger API](https://docs.daml.com/app-dev/ledger-api-introduction/index.html).
 
+## Status
+
+**The Node.js bindings are deprecated as of 2020-10-14.**
+
+Either switch to the [JavaScript client
+libraries](https://docs.daml.com/app-dev/bindings-ts/index.html)
+running over the HTTP JSON API or to the [Java
+bindings](https://docs.daml.com/app-dev/bindings-java/index.html)
+which are based on the gRPC ledger API.
+
 ## Table of contents
 
 - [Read the documentation](#read-the-documentation)
