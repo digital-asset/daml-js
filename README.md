@@ -12,7 +12,13 @@ This repository hosts the implementation of the [DAML](https://daml.com/) Ledger
 
 ## Status
 
-**The Node.js bindings are currently experimental: expect breaking changes to the API througout the `0.x` major release series.**
+**The Node.js bindings are deprecated as of 2020-10-14.**
+
+Either switch to the [JavaScript client
+libraries](https://docs.daml.com/app-dev/bindings-ts/index.html)
+running over the HTTP JSON API or to the [Java
+bindings](https://docs.daml.com/app-dev/bindings-java/index.html)
+which are based on the gRPC ledger API.
 
 Refer to the [changelog](./CHANGELOG.md) to understand the latest changes.
 
