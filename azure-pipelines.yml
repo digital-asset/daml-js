@@ -26,6 +26,9 @@ strategy:
     node_12_daml_1.0.0:
       nodejs_version: 12.x
       daml_sdk_version: 1.0.0
+    node_14_daml_1.0.0:
+      nodejs_version: 14.x
+      daml_sdk_version: 1.0.0
 
 steps:
 - script: curl -sSL https://get.daml.com/ | sh -s $(daml_sdk_version)
