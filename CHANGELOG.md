@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.11.1]
+
+### Changed
+
+- Extend the supported engines to node <= 15
+
 ## [0.11.0]
 
 ### Changed
